@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JDFLibJ"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/activation-1.0.2.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/commons-io-2.0.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/junit.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/serializer.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/JDFLibJ/lib/xml-apis.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
