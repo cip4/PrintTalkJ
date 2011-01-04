@@ -153,4 +153,60 @@ public abstract class AbstractPrintTalk
 		return theElement == null ? null : theElement.getAttribute(AttributeName.DESCRIPTIVENAME, null, null);
 	}
 
+	/**
+	 * 
+	 * get an attribute from this
+	 * 
+	 * @param strLocalName
+	 * @return
+	 */
+	public String getAttribute(String strLocalName)
+	{
+		return theElement.getAttribute(strLocalName, null, null);
+	}
+
+	/**
+	 * 
+	 * set an attribute in this
+	 * @param key
+	 * @param value
+	 */
+	public void setAttribute(String key, String value)
+	{
+		theElement.setAttribute(key, value);
+	}
+
+	/**
+	 * 
+	 * append an element
+	 * @param elementName
+	 * @return
+	 */
+	public KElement appendElement(String elementName)
+	{
+		return theElement.appendElement(elementName);
+	}
+
+	/**
+	 * 
+	 * get an element, create it if it does not yet exist
+	 * @param nodeName
+	 * @return
+	 */
+	public KElement getCreateElement(String nodeName)
+	{
+		return theElement.getCreateElement(nodeName);
+	}
+
+	/**
+	 * 
+	 * get an element, create it if it does not yet exist
+	 * @param nodeName
+	 * @return
+	 */
+	public KElement getElement(String nodeName)
+	{
+		return theElement.getElement(nodeName);
+	}
+
 }

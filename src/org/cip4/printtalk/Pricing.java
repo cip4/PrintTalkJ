@@ -106,7 +106,7 @@ public class Pricing extends AbstractPrintTalk
 		Price price = new Price(theElement.appendElement("Price"));
 		price.setDescriptiveName(description);
 		if (totalprice >= 0)
-			price.setAmount(totalprice);
+			price.setPrice(totalprice);
 		return price;
 	}
 }

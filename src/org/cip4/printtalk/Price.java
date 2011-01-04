@@ -68,7 +68,11 @@
  */
 package org.cip4.printtalk;
 
+import java.util.Currency;
+import java.util.Locale;
+
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.util.NumberFormatter;
 
 /**
  * 
@@ -77,6 +81,28 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Price extends AbstractPrintTalk
 {
+	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
+
+	/**
+	 * 
+	 * get the precision for currency
+	 * @return
+	 */
+	public static int getCurrencyPrecision()
+	{
+		return currencyPrecision;
+	}
+
+	/**
+	 * 
+	 * set the precision for currency
+	 * @param currencyPrecision typically 0 or 2 , default=2
+	 */
+	public static void setCurrencyPrecision(int currencyPrecision)
+	{
+		Price.currencyPrecision = currencyPrecision;
+	}
+
 	/**
 	 * 
 	 */
@@ -98,9 +124,48 @@ public class Price extends AbstractPrintTalk
 	 * set the price
 	 * @param price
 	 */
+	public void setPrice(double price)
+	{
+		String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
+		setAttribute("Price", amount);
+	}
+
+	/**
+	 * get the price
+	 * @return price
+	 */
+	public double getPrice()
+	{
+		return theElement.getRealAttribute("Price", null, 0.0);
+	}
+
+	/**
+	 * set the price per unit
+	 * @param price
+	 */
+	public void setUnitPrice(double price)
+	{
+		String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
+		setAttribute("UnitPrice", amount);
+	}
+
+	/**
+	 * get the price per unit
+	 * @return price
+	 */
+	public double getUnitPrice()
+	{
+		return theElement.getRealAttribute("UnitPrice", null, 0.0);
+	}
+
+	/**
+	 * set the price
+	 * @param price
+	 */
 	public void setAmount(double price)
 	{
-		theElement.setAttribute("Price", price, null);
+		String amount = new NumberFormatter().formatDouble(price);
+		setAttribute("Amount", amount);
 	}
 
 	/**
@@ -109,7 +174,7 @@ public class Price extends AbstractPrintTalk
 	 */
 	public double getAmount()
 	{
-		return theElement.getRealAttribute("Price", null, 0.0);
+		return theElement.getRealAttribute("Amount", null, 0.0);
 	}
 
 }
