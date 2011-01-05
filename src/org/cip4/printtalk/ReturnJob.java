@@ -77,13 +77,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class ReturnJob extends BusinessObject
 {
-	/**
-	 * 
-	 */
-	public ReturnJob()
-	{
-		super();
-	}
 
 	/**
 	 * 

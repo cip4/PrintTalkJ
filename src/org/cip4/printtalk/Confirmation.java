@@ -79,14 +79,6 @@ public class Confirmation extends BusinessObject
 {
 	/**
 	 * 
-	 */
-	public Confirmation()
-	{
-		super();
-	}
-
-	/**
-	 * 
 	 * @param theElement
 	 */
 	public Confirmation(KElement theElement)

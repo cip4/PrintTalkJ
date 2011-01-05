@@ -81,14 +81,6 @@ public abstract class BusinessObject extends AbstractPrintTalk
 
 	/**
 	 * 
-	 */
-	public BusinessObject()
-	{
-		super();
-	}
-
-	/**
-	 * 
 	 * @param theElement
 	 */
 	public BusinessObject(KElement theElement)

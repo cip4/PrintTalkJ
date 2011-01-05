@@ -77,13 +77,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Invoice extends BusinessObject
 {
-	/**
-	 * 
-	 */
-	public Invoice()
-	{
-		super();
-	}
 
 	/**
 	 * 

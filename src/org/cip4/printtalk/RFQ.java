@@ -77,13 +77,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class RFQ extends BusinessObject
 {
-	/**
-	 * 
-	 */
-	public RFQ()
-	{
-		super();
-	}
 
 	/**
 	 * 

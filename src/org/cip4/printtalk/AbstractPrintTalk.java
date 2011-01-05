@@ -99,17 +99,7 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
-	 * 
-	 * TODO Please insert comment!
-	 * @return
-	 */
-	public KElement getRoot()
-	{
-		return theElement;
-	}
-
-	/**
-	 * TODO Please insert comment!
+	 *  
 	 * @param root
 	 */
 	protected void setRoot(KElement root)
@@ -141,7 +131,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public void setDescriptiveName(String description)
 	{
-		theElement.setAttribute(AttributeName.DESCRIPTIVENAME, description);
+		setAttribute(AttributeName.DESCRIPTIVENAME, description);
 	}
 
 	/**
@@ -150,7 +140,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getDescriptiveName()
 	{
-		return theElement == null ? null : theElement.getAttribute(AttributeName.DESCRIPTIVENAME, null, null);
+		return getAttribute(AttributeName.DESCRIPTIVENAME);
 	}
 
 	/**
@@ -207,6 +197,31 @@ public abstract class AbstractPrintTalk
 	public KElement getElement(String nodeName)
 	{
 		return theElement.getElement(nodeName);
+	}
+
+	public void setXPathValue(String path, String value)
+	{
+		theElement.setXPathValue(path, value);
+	}
+
+	public void setXPathAttribute(String path, String value)
+	{
+		theElement.setXPathAttribute(path, value);
+	}
+
+	public String getXPathAttribute(String path, String def)
+	{
+		return theElement.getXPathAttribute(path, def);
+	}
+
+	public KElement getXPathElement(String path)
+	{
+		return theElement.getXPathElement(path);
+	}
+
+	public KElement getCreateXPathElement(String path)
+	{
+		return theElement.getCreateXPathElement(path);
 	}
 
 }

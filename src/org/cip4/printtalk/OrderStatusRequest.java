@@ -77,13 +77,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class OrderStatusRequest extends BusinessObject
 {
-	/**
-	 * 
-	 */
-	public OrderStatusRequest()
-	{
-		super();
-	}
 
 	/**
 	 * 

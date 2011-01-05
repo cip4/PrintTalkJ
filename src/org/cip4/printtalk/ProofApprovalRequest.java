@@ -79,14 +79,6 @@ public class ProofApprovalRequest extends BusinessObject
 {
 	/**
 	 * 
-	 */
-	public ProofApprovalRequest()
-	{
-		super();
-	}
-
-	/**
-	 * 
 	 * @param theElement
 	 */
 	public ProofApprovalRequest(KElement theElement)

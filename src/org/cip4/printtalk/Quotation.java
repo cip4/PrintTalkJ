@@ -77,13 +77,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Quotation extends BusinessObject
 {
-	/**
-	 * 
-	 */
-	public Quotation()
-	{
-		super();
-	}
 
 	/**
 	 * 

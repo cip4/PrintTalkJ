@@ -68,145 +68,26 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.JDFAudit;
-import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.core.XMLDoc;
+import org.cip4.jdflib.JDFTestCaseBase;
 import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 
 /**
  * TODO Please insert comment!
- * @author rainerprosi
- * @date Jan 3, 2011
+ * @author rainer prosi
+ * @date Jan 5, 2011
  */
-public class PrintTalk extends AbstractPrintTalk
+public class PurchaseOrderTest extends JDFTestCaseBase
 {
 	/**
 	 * 
-	 * types of printtalk header
-	 * @author rainer prosi
-	 * @date Jan 3, 2011
-	 */
-	public static enum Header
-	{
-		From, To, Sender
-	}
-
-	/**
-	 * 
-	 * business object types
-	 * @author rainer prosi
-	 * @date Jan 3, 2011
-	 */
-	public static enum EnumBusinessObject
-	{
-		RFQ, Quotation, PurchaseOrder, Confirmation, Cancellation, Refusal, OrderStatusRequest, OrderStatusResponse, ProofApprovalRequest, ProofApprovalResponse, Invoice, ReturnJob
-	}
-
-	private int version = 3;
-
-	/**
-	 * create a printtalk helper
-	 * @param theElement
-	 */
-	public PrintTalk(KElement theElement)
-	{
-		super(theElement);
-	}
-
-	/**
-	 * create a new printtalk helper
 	 *  
 	 */
-	public PrintTalk()
+	public void testSetExpires()
 	{
-		super(null);
-		setRoot(new XMLDoc("PrintTalk", "http://www.printtalk.org/schema_1" + getVersion()).getRoot());
-		init();
-	}
-
-	/**
-	 * initialize a new printtalk
-	 *  
-	 */
-	@Override
-	public void init()
-	{
-		super.init();
-		theElement.setAttribute("version", getVersionString());
-		String dateTimeISO = new JDFDate().getDateTimeISO();
-		theElement.setAttribute("Timestamp", dateTimeISO);
-		theElement.setAttribute("payloadID", JDFAudit.software() + dateTimeISO);
-	}
-
-	/**
-	 * TODO Please insert comment!
-	 * @return
-	 */
-	private String getVersionString()
-	{
-		return (getVersion() < 10) ? ("1." + getVersion()) : ("2." + (getVersion() - 20));
-	}
-
-	/**
-	 * 
-	 * set a new header value
-	 * @param header type of header
-	 * @param name domain name
-	 * @param value Identity value
-	 */
-	public void setHeader(Header header, String name, String value)
-	{
-		String type = header.name();
-		getCreateXPathElement("Header/" + type + "/Credential[@domain=\"" + name + "\"]").getCreateElement("Identity").setText(value);
-	}
-
-	/**
-	 * Setter for version attribute.
-	 * @param version the version to set
-	 */
-	public void setVersion(int version)
-	{
-		this.version = version;
-	}
-
-	/**
-	 * Getter for version attribute.
-	 * @return the version
-	 */
-	public int getVersion()
-	{
-		return version;
-	}
-
-	/**
-	 * 
-	 *appends a request with an initialized Business Object
-	 * @param bo the business object type
-	 * @param ref the printtalk object that this references  
-	 * @return the newly created BusinessObject, null if unsuccessful
-	 * @throws IllegalArgumentException if bo already exists
-	 */
-	public BusinessObject appendRequest(EnumBusinessObject bo, PrintTalk ref) throws IllegalArgumentException
-	{
-		BusinessObject oldBO = getRequest();
-		if (oldBO != null)
-			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
-
-		String boName = bo.name();
-		KElement e = theElement.getCreateElement("Request").appendElement(boName);
-		final BusinessObject businessObject = BusinessObject.getBusinessObject(e);
-		businessObject.setRef(ref);
-		return businessObject;
-	}
-
-	/**
-	 * get the business object from a request
-	 * @return
-	 */
-	public BusinessObject getRequest()
-	{
-		KElement request = getElement("Request");
-		KElement oldBO = request == null ? null : request.getElement(null);
-		return oldBO == null ? null : BusinessObject.getBusinessObject(oldBO);
+		PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		JDFDate expires = new JDFDate();
+		po.setExpires(expires);
+		assertEquals(po.getExpires(), expires);
 	}
 }

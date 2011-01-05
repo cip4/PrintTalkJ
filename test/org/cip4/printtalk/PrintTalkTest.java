@@ -74,7 +74,7 @@ import org.cip4.printtalk.PrintTalk.Header;
 
 /**
  * TODO Please insert comment!
- * @author rainerprosi
+ * @author rainer prosi
  * @date Jan 3, 2011
  */
 public class PrintTalkTest extends JDFTestCaseBase
@@ -87,9 +87,9 @@ public class PrintTalkTest extends JDFTestCaseBase
 	{
 		PrintTalk pt = new PrintTalk();
 		pt.setHeader(Header.From, "ID", "Its me");
-		assertEquals(pt.getRoot().getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
+		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
 		pt.setHeader(Header.From, "ID", "Its you");
-		assertEquals(pt.getRoot().getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
+		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class PrintTalkTest extends JDFTestCaseBase
 	{
 		PrintTalk pt = new PrintTalk();
 		pt.setHeader(Header.From, "ID", "Its me");
-		assertEquals(pt.getRoot().getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
+		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
 		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
 		assertTrue(bo instanceof RFQ);
 	}

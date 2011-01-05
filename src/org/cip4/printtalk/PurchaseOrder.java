@@ -68,7 +68,10 @@
  */
 package org.cip4.printtalk;
 
+import java.util.zip.DataFormatException;
+
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.util.JDFDate;
 
 /**
  * 
@@ -77,13 +80,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class PurchaseOrder extends BusinessObject
 {
-	/**
-	 * 
-	 */
-	public PurchaseOrder()
-	{
-		super();
-	}
 
 	/**
 	 * 
@@ -101,7 +97,64 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public Pricing getCreatePricing()
 	{
-		return new Pricing(theElement.getCreateElement("Pricing"));
+		return new Pricing(getCreateElement("Pricing"));
 	}
 
+	/**
+	 * 
+	 * get the pricing element
+	 * @return
+	 */
+	public Pricing getPricing()
+	{
+		return new Pricing(getElement("Pricing"));
+	}
+
+	/**
+	 * 
+	 * get the currency value
+	 * @return
+	 */
+	public String getCurrency()
+	{
+		return getAttribute("Currency");
+	}
+
+	/**
+	 * 
+	 * set the currency value
+	 * @param currency
+	 */
+	public void setCurrency(String currency)
+	{
+		setAttribute("Currency", currency);
+	}
+
+	/**
+	 * 
+	 * get the expires value
+	 * @return
+	 */
+	public JDFDate getExpires()
+	{
+		String s = getAttribute("Currency");
+		try
+		{
+			return (s == null) ? null : new JDFDate(s);
+		}
+		catch (DataFormatException e)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * set the expires value
+	 * @param expires
+	 */
+	public void setExpires(JDFDate expires)
+	{
+		setAttribute("Currency", expires == null ? null : expires.getDateTimeISO());
+	}
 }
