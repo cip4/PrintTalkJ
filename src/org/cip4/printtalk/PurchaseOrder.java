@@ -80,6 +80,9 @@ import org.cip4.jdflib.util.JDFDate;
  */
 public class PurchaseOrder extends BusinessObject
 {
+	public static String ELEMENT_PRICING = "Pricing";
+	public static String ATTR_CURRENCY = "Currency";
+	public static String ATTR_EXPIRES = "Expires";
 
 	/**
 	 * 
@@ -97,7 +100,7 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public Pricing getCreatePricing()
 	{
-		return new Pricing(getCreateElement("Pricing"));
+		return new Pricing(getCreateElement(ELEMENT_PRICING));
 	}
 
 	/**
@@ -107,7 +110,7 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public Pricing getPricing()
 	{
-		return new Pricing(getElement("Pricing"));
+		return new Pricing(getElement(ELEMENT_PRICING));
 	}
 
 	/**
@@ -117,7 +120,7 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public String getCurrency()
 	{
-		return getAttribute("Currency");
+		return getAttribute(ATTR_CURRENCY);
 	}
 
 	/**
@@ -127,7 +130,7 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public void setCurrency(String currency)
 	{
-		setAttribute("Currency", currency);
+		setAttribute(ATTR_CURRENCY, currency);
 	}
 
 	/**
@@ -137,7 +140,7 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public JDFDate getExpires()
 	{
-		String s = getAttribute("Currency");
+		String s = getAttribute(ATTR_EXPIRES);
 		try
 		{
 			return (s == null) ? null : new JDFDate(s);
@@ -155,6 +158,6 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public void setExpires(JDFDate expires)
 	{
-		setAttribute("Currency", expires == null ? null : expires.getDateTimeISO());
+		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
 	}
 }
