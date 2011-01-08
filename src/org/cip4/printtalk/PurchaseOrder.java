@@ -74,6 +74,7 @@ import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.util.JDFDate;
 
 /**
+ * Class represented PurchaseOrder business object.
  * 
  * @author rainer prosi
  * @date Jan 3, 2011

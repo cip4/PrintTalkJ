@@ -74,7 +74,7 @@ import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.util.JDFDate;
 
 /**
- * Class represented Quotation.
+ * Class represented Quotation business object.
  * 
  * @author rainer prosi
  * @date Jan 3, 2011
@@ -87,6 +87,7 @@ public class Quotation extends BusinessObject
 	public static String ATTR_EXPIRES = "Expires";
 	public static String ATTR_REORDERID = "ReorderID";
 	public static String ATTR_REPLACEID = "ReplaceID";
+	public static String ELEMENT_QUOTE = "Quote";
 
 	/**
 	 * 

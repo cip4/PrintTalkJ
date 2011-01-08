@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,8 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Pricing extends AbstractPrintTalk
 {
+	public static String ELEMENT_PAYMENT = "Payment";
+	public static String ELEMENT_PRICE = "Price";
 
 	/**
 	 * 
@@ -88,15 +90,15 @@ public class Pricing extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
-	 *add a price element
+	 * add a price element
+	 *
 	 * @param description
 	 * @param totalprice
 	 * @return
 	 */
 	public Price addPrice(String description, double totalprice)
 	{
-		Price price = new Price(theElement.appendElement("Price"));
+		Price price = new Price(theElement.appendElement(ELEMENT_PRICE));
 		price.setDescriptiveName(description);
 		if (totalprice >= 0)
 			price.setPrice(totalprice);

@@ -74,7 +74,7 @@ import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.util.JDFDate;
 
 /**
- * Class represented RFQ.
+ * Class represented RFQ business object.
  * 
  * @author rainerprosi
  * @date Jan 3, 2011

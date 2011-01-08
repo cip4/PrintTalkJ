@@ -68,109 +68,17 @@
  */
 package org.cip4.printtalk;
 
-import java.util.Currency;
-import java.util.Locale;
-
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.util.NumberFormatter;
 
 /**
+ * Class represented Quote element.
  * 
- * @author rainer prosi
- * @date Jan 3, 2011
+ * @since PrintTalk 1.3
  */
-public class Price extends AbstractPrintTalk
+public class Quote extends AbstractPrintTalk
 {
-	public static String ATTR_PRICE = "Price";
-	public static String ATTR_UNITPRICE = "UnitPrice";
-	public static String ATTR_AMOUNT = "Amount";
-	
-	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
-
-	/**
-	 * 
-	 * get the precision for currency
-	 * @return
-	 */
-	public static int getCurrencyPrecision()
-	{
-		return currencyPrecision;
-	}
-
-	/**
-	 * 
-	 * set the precision for currency
-	 * @param currencyPrecision typically 0 or 2 , default=2
-	 */
-	public static void setCurrencyPrecision(int currencyPrecision)
-	{
-		Price.currencyPrecision = currencyPrecision;
-	}
-
-	/**
-	 * 
-	 * @param theElement
-	 */
-	public Price(KElement theElement)
+	public Quote(KElement theElement)
 	{
 		super(theElement);
 	}
-
-	/**
-	 * set the price
-	 * @param price
-	 */
-	public void setPrice(double price)
-	{
-		String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
-		setAttribute(ATTR_PRICE, amount);
-	}
-
-	/**
-	 * get the price
-	 * @return price
-	 */
-	public double getPrice()
-	{
-		return theElement.getRealAttribute(ATTR_PRICE, null, 0.0);
-	}
-
-	/**
-	 * set the price per unit
-	 * @param price
-	 */
-	public void setUnitPrice(double price)
-	{
-		String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
-		setAttribute(ATTR_UNITPRICE, amount);
-	}
-
-	/**
-	 * get the price per unit
-	 * @return price
-	 */
-	public double getUnitPrice()
-	{
-		return theElement.getRealAttribute(ATTR_UNITPRICE, null, 0.0);
-	}
-
-	/**
-	 * set amount
-	 * @param price
-	 */
-	public void setAmount(double price)
-	{
-		String amount = new NumberFormatter().formatDouble(price);
-		setAttribute(ATTR_AMOUNT, amount);
-	}
-
-	/**
-	 * get amount
-	 * @return price
-	 */
-	public double getAmount()
-	{
-		return theElement.getRealAttribute(ATTR_AMOUNT, null, 0.0);
-	}
-
 }

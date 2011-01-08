@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -68,15 +68,24 @@
  */
 package org.cip4.printtalk;
 
+import java.util.zip.DataFormatException;
+
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.util.JDFDate;
 
 /**
+ * Class represented Invoice business object.
  * 
  * @author rainer prosi
  * @date Jan 3, 2011
+ * @since PrintTalk 1.3
  */
 public class Invoice extends BusinessObject
 {
+	public static String ATTR_CURRENCY = "Currency";
+	public static String ATTR_EXPIRES = "Expires";
+	
+	public static String ELEMENT_PRICING = "Pricing";
 
 	/**
 	 * 
@@ -85,6 +94,68 @@ public class Invoice extends BusinessObject
 	public Invoice(KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 * get currency value
+	 * @return
+	 */
+	public String getCurrency()
+	{
+		return getAttribute(ATTR_CURRENCY);
+	}
+
+	/**
+	 * set currency value
+	 * @param currency
+	 */
+	public void setCurrency(String currency)
+	{
+		setAttribute(ATTR_CURRENCY, currency);
+	}
+
+	/**
+	 * get expires value
+	 * @return
+	 */
+	public JDFDate getExpires()
+	{
+		String s = getAttribute(ATTR_EXPIRES);
+		try
+		{
+			return (s == null) ? null : new JDFDate(s);
+		}
+		catch (DataFormatException e)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * set expires value
+	 * @param expires
+	 */
+	public void setExpires(JDFDate expires)
+	{
+		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
+	}
+
+	/**
+	 * create pricing element
+	 * @return
+	 */
+	public Pricing getCreatePricing()
+	{
+		return new Pricing(getCreateElement(ELEMENT_PRICING));
+	}
+
+	/**
+	 * get pricing element
+	 * @return
+	 */
+	public Pricing getPricing()
+	{
+		return new Pricing(getElement(ELEMENT_PRICING));
 	}
 
 }
