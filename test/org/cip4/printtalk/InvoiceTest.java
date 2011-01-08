@@ -85,7 +85,7 @@ public class InvoiceTest extends JDFTestCaseBase
 		Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
 		JDFDate expires = new JDFDate();
 		invoice.setExpires(expires);
-		assertEquals(invoice.getExpires(), expires);
+		assertEquals(expires, invoice.getExpires());
 	}
 
 	public void testGetCreatePricing()

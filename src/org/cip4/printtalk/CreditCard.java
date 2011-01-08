@@ -68,9 +68,13 @@
  */
 package org.cip4.printtalk;
 
+import java.util.zip.DataFormatException;
+
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.util.JDFDate;
 
 /**
+ * Class represented CreditCard element.
  * 
  * @since PrintTalk 1.3
  */
@@ -78,7 +82,7 @@ public class CreditCard extends AbstractPrintTalk
 {
 	public static String ATTR_AUTHORIZATION = "Authorization";
 	public static String ATTR_AUTHORIZATIONEXPIRES = "AuthorizationExpires";
-	public static String ATTR_EXPIRES = "Expires";
+	public static String ATTR_EXPIRES = "Expires"; // example: 04/12
 	public static String ATTR_NUMBER = "Number";
 	public static String ATTR_TYPE = "Type";
 	
@@ -90,6 +94,107 @@ public class CreditCard extends AbstractPrintTalk
 	public CreditCard(KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 * get authorization value
+	 * @return
+	 */
+	public String getAuthorization()
+	{
+		return getAttribute(ATTR_AUTHORIZATION);
+	}
+
+	/**
+	 * set authorization value
+	 * @param s
+	 */
+	public void setAuthorization(String s)
+	{
+		setAttribute(ATTR_AUTHORIZATION, s);
+	}
+
+//	TODO: finish after issue with "Expires" attribute resolved
+//	/**
+//	 * get authorization expires value
+//	 * @return
+//	 */
+//	public String getAuthorizationExpires()
+//	{
+//		return getAttribute(ATTR_AUTHORIZATIONEXPIRES);
+//	}
+//
+//	/**
+//	 * set authorization expires value
+//	 * @param s
+//	 */
+//	public void setAuthorizationExpires(String s)
+//	{
+//		setAttribute(ATTR_AUTHORIZATIONEXPIRES, s);
+//	}
+
+	/**
+	 * get expires value
+	 * @return
+	 */
+	public String/*JDFDate*/ getExpires()
+	{
+		String s = getAttribute(ATTR_EXPIRES);
+		return s;
+		/*System.out.println("s: " + s);
+		try
+		{
+			return (s == null) ? null : new JDFDate(s);
+		}
+		catch (DataFormatException e)
+		{
+			return null;
+		}*/
+	}
+
+	/**
+	 * set expires value
+	 * @param expires
+	 */
+	public void setExpires(JDFDate expires)
+	{
+		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getFormattedDateTime("MM/yy")); // TODO: need to check this
+	}
+
+	/**
+	 * get number value
+	 * @return
+	 */
+	public String getNumber()
+	{
+		return getAttribute(ATTR_NUMBER);
+	}
+
+	/**
+	 * set number value
+	 * @param s
+	 */
+	public void setNumber(String s)
+	{
+		setAttribute(ATTR_NUMBER, s);
+	}
+
+	/**
+	 * get type value
+	 * @return
+	 */
+	public String getType()
+	{
+		return getAttribute(ATTR_TYPE);
+	}
+
+	/**
+	 * set type value
+	 * @param s
+	 */
+	public void setType(String s)
+	{
+		setAttribute(ATTR_TYPE, s);
 	}
 
 }

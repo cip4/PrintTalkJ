@@ -88,6 +88,6 @@ public class PurchaseOrderTest extends JDFTestCaseBase
 		PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
 		JDFDate expires = new JDFDate();
 		po.setExpires(expires);
-		assertEquals(po.getExpires(), expires);
+		assertEquals(expires, po.getExpires());
 	}
 }

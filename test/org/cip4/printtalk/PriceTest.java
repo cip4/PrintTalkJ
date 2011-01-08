@@ -83,6 +83,6 @@ public class PriceTest extends JDFTestCaseBase
 	 */
 	public void testCurrency()
 	{
-		assertEquals("will fail in japan", Price.getCurrencyPrecision(), 2);
+		assertEquals("will fail in japan", 2, Price.getCurrencyPrecision());
 	}
 }

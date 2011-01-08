@@ -71,6 +71,7 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.core.KElement;
 
 /**
+ * Class represented Payment element.
  * 
  * @since PrintTalk 1.3
  */

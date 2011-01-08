@@ -71,6 +71,7 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.core.KElement;
 
 /**
+ * Class represented Pricing element.
  * 
  * @author rainer prosi
  * @date Jan 3, 2011
@@ -87,6 +88,15 @@ public class Pricing extends AbstractPrintTalk
 	public Pricing(KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 * create payment element
+	 * @return
+	 */
+	public Payment getCreatePayment()
+	{
+		return new Payment(getCreateElement(ELEMENT_PAYMENT));
 	}
 
 	/**
