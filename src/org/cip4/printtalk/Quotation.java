@@ -87,7 +87,9 @@ public class Quotation extends BusinessObject
 	public static String ATTR_EXPIRES = "Expires";
 	public static String ATTR_REORDERID = "ReorderID";
 	public static String ATTR_REPLACEID = "ReplaceID";
+
 	public static String ELEMENT_QUOTE = "Quote";
+
 
 	/**
 	 * 
@@ -194,6 +196,24 @@ public class Quotation extends BusinessObject
 	public void setReplaceID(String s)
 	{
 		setAttribute(ATTR_REPLACEID, s);
+	}
+
+	/**
+	 * create quote element
+	 * @return
+	 */
+	public Quote getCreateQuote()
+	{
+		return new Quote(getCreateElement(ELEMENT_QUOTE));
+	}
+
+	/**
+	 * get quote element
+	 * @return
+	 */
+	public Quote getQuote()
+	{
+		return new Quote(getElement(ELEMENT_QUOTE));
 	}
 
 }

@@ -85,8 +85,8 @@ public class CreditCard extends AbstractPrintTalk
 	public static String ATTR_EXPIRES = "Expires"; // example: 04/12
 	public static String ATTR_NUMBER = "Number";
 	public static String ATTR_TYPE = "Type";
-	
-	
+
+
 	/**
 	 * 
 	 * @param theElement
@@ -114,7 +114,7 @@ public class CreditCard extends AbstractPrintTalk
 		setAttribute(ATTR_AUTHORIZATION, s);
 	}
 
-//	TODO: finish after issue with "Expires" attribute resolved
+//	TODO: finish as soon as issue with "Expires" attribute resolved
 //	/**
 //	 * get authorization expires value
 //	 * @return

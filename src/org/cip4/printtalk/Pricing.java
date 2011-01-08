@@ -81,6 +81,7 @@ public class Pricing extends AbstractPrintTalk
 	public static String ELEMENT_PAYMENT = "Payment";
 	public static String ELEMENT_PRICE = "Price";
 
+
 	/**
 	 * 
 	 * @param theElement

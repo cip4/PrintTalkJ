@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,8 +77,126 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Quote extends AbstractPrintTalk
 {
+	public static String ATTR_CURRENCY = "Currency";
+	public static String ATTR_ESTIMATE = "Estimate";
+	public static String ATTR_QUOTEID = "QuoteID";
+	public static String ATTR_REPLACEID = "ReplaceID";
+	public static String ATTR_RETURNJDF = "ReturnJDF";
+
+	public static String ELEMENT_PRICING = "Pricing";
+
+
 	public Quote(KElement theElement)
 	{
 		super(theElement);
 	}
+
+	/**
+	 * get currency value
+	 * @return
+	 */
+	public String getCurrency()
+	{
+		return getAttribute(ATTR_CURRENCY);
+	}
+
+	/**
+	 * set currency value
+	 * @param currency
+	 */
+	public void setCurrency(String currency)
+	{
+		setAttribute(ATTR_CURRENCY, currency);
+	}
+
+	/**
+	 * get estimate value
+	 * @return
+	 */
+	public boolean getEstimate()
+	{
+		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
+	}
+
+	/**
+	 * set estimate value
+	 * @param b
+	 */
+	public void setEstimate(boolean b)
+	{
+		setAttribute(ATTR_ESTIMATE, b ? "true" : "false");
+	}
+
+	/**
+	 * get quote id value
+	 * @return
+	 */
+	public String getQuoteID()
+	{
+		return getAttribute(ATTR_QUOTEID);
+	}
+
+	/**
+	 * set quote id value
+	 * @param s
+	 */
+	public void setQuoteID(String s)
+	{
+		setAttribute(ATTR_QUOTEID, s);
+	}
+
+	/**
+	 * get replace id value
+	 * @return
+	 */
+	public String getReplaceID()
+	{
+		return getAttribute(ATTR_REPLACEID);
+	}
+
+	/**
+	 * set replace id value
+	 * @param s
+	 */
+	public void setReplaceID(String s)
+	{
+		setAttribute(ATTR_REPLACEID, s);
+	}
+
+	/**
+	 * get return jdf value
+	 * @return
+	 */
+	public boolean getReturnJDF()
+	{
+		return getAttribute(ATTR_RETURNJDF).equalsIgnoreCase("true") ? true : false;
+	}
+
+	/**
+	 * set return jdf value
+	 * @param b
+	 */
+	public void setReturnJDF(boolean b)
+	{
+		setAttribute(ATTR_RETURNJDF, b ? "true" : "false");
+	}
+
+	/**
+	 * create pricing element
+	 * @return
+	 */
+	public Pricing getCreatePricing()
+	{
+		return new Pricing(getCreateElement(ELEMENT_PRICING));
+	}
+
+	/**
+	 * get pricing element
+	 * @return
+	 */
+	public Pricing getPricing()
+	{
+		return new Pricing(getElement(ELEMENT_PRICING));
+	}
+
 }

@@ -81,9 +81,15 @@ import org.cip4.jdflib.util.JDFDate;
  */
 public class PurchaseOrder extends BusinessObject
 {
-	public static String ELEMENT_PRICING = "Pricing";
 	public static String ATTR_CURRENCY = "Currency";
 	public static String ATTR_EXPIRES = "Expires";
+	public static String ATTR_QUOTEID = "QuoteID";
+	public static String ATTR_REORDERID = "ReorderID";
+	public static String ATTR_REPLACEID = "ReplaceID";
+	public static String ATTR_RETURNJDF = "ReturnJDF";
+
+	public static String ELEMENT_PRICING = "Pricing";
+
 
 	/**
 	 * 
@@ -92,26 +98,6 @@ public class PurchaseOrder extends BusinessObject
 	public PurchaseOrder(KElement theElement)
 	{
 		super(theElement);
-	}
-
-	/**
-	 * 
-	 * get the pricing element
-	 * @return
-	 */
-	public Pricing getCreatePricing()
-	{
-		return new Pricing(getCreateElement(ELEMENT_PRICING));
-	}
-
-	/**
-	 * 
-	 * get the pricing element
-	 * @return
-	 */
-	public Pricing getPricing()
-	{
-		return new Pricing(getElement(ELEMENT_PRICING));
 	}
 
 	/**
@@ -161,4 +147,95 @@ public class PurchaseOrder extends BusinessObject
 	{
 		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
 	}
+
+	/**
+	 * get quote id value
+	 * @return
+	 */
+	public String getQuoteID()
+	{
+		return getAttribute(ATTR_QUOTEID);
+	}
+
+	/**
+	 * set quote id value
+	 * @param s
+	 */
+	public void setQuoteID(String s)
+	{
+		setAttribute(ATTR_QUOTEID, s);
+	}
+
+	/**
+	 * get reorder id value
+	 * @return
+	 */
+	public String getReorderID()
+	{
+		return getAttribute(ATTR_REORDERID);
+	}
+
+	/**
+	 * set reorder id value
+	 * @param s
+	 */
+	public void setReorderID(String s)
+	{
+		setAttribute(ATTR_REORDERID, s);
+	}
+
+	/**
+	 * get replace id value
+	 * @return
+	 */
+	public String getReplaceID()
+	{
+		return getAttribute(ATTR_REPLACEID);
+	}
+
+	/**
+	 * set replace id value
+	 * @param s
+	 */
+	public void setReplaceID(String s)
+	{
+		setAttribute(ATTR_REPLACEID, s);
+	}
+
+	/**
+	 * get return jdf value
+	 * @return
+	 */
+	public boolean getReturnJDF()
+	{
+		return getAttribute(ATTR_RETURNJDF).equalsIgnoreCase("true") ? true : false;
+	}
+
+	/**
+	 * set return jdf value
+	 * @param b
+	 */
+	public void setReturnJDF(boolean b)
+	{
+		setAttribute(ATTR_RETURNJDF, b ? "true" : "false");
+	}
+
+	/**
+	 * get the pricing element
+	 * @return
+	 */
+	public Pricing getCreatePricing()
+	{
+		return new Pricing(getCreateElement(ELEMENT_PRICING));
+	}
+
+	/**
+	 * get the pricing element
+	 * @return
+	 */
+	public Pricing getPricing()
+	{
+		return new Pricing(getElement(ELEMENT_PRICING));
+	}
+
 }
