@@ -68,132 +68,40 @@
  */
 package org.cip4.printtalk;
 
-import java.util.zip.DataFormatException;
+import java.util.List;
 
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.util.JDFDate;
 
 /**
- * Class represented RFQ business object.
- * 
- * @author rainerprosi
- * @date Jan 3, 2011
- * @since PrintTalk 1.3
+ * Class represented ProofResponse element.
+ *
  */
-public class RFQ extends BusinessObject
+public class ProofResponse extends AbstractPrintTalk
 {
-	public static String ATTR_CURRENCY = "Currency";
-	public static String ATTR_ESTIMATE = "Estimate";
-	public static String ATTR_EXPIRES = "Expires";
-	public static String ATTR_REORDERID = "ReorderID";
-	public static String ATTR_REPLACEID = "ReplaceID";
+	public static String ATTR_PAGEINDEX = "PageIndex";
 
 
-	/**
-	 * 
-	 * @param theElement
-	 */
-	public RFQ(KElement theElement)
+	public ProofResponse(KElement theElement)
 	{
 		super(theElement);
 	}
-	
-	/**
-	 * get currency value
-	 * @return
-	 */
-	public String getCurrency()
-	{
-		return getAttribute(ATTR_CURRENCY);
-	}
 
-	/**
-	 * set currency value
-	 * @param currency
-	 */
-	public void setCurrency(String currency)
-	{
-		setAttribute(ATTR_CURRENCY, currency);
-	}
-
-	/**
-	 * get estimate value
-	 * @return
-	 */
-	public boolean getEstimate()
-	{
-		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set estimate value
-	 * @param b
-	 */
-	public void setEstimate(boolean b)
-	{
-		setAttribute(ATTR_ESTIMATE, b ? "true" : "false");
-	}
-
-	/**
-	 * get expires value
-	 * @return
-	 */
-	public JDFDate getExpires()
-	{
-		String s = getAttribute(ATTR_EXPIRES);
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (DataFormatException e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * set expires value
-	 * @param expires
-	 */
-	public void setExpires(JDFDate expires)
-	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
-	}
-
-	/**
-	 * get ReorderID value
-	 * @return
-	 */
-	public String getReorderID()
-	{
-		return getAttribute(ATTR_REORDERID);
-	}
-
-	/**
-	 * set ReorderID value
-	 * @param s
-	 */
-	public void setReorderID(String s)
-	{
-		setAttribute(ATTR_REORDERID, s);
-	}
-
-	/**
-	 * get ReplaceID value
-	 * @return
-	 */
-	public String getReplaceID()
-	{
-		return getAttribute(ATTR_REPLACEID);
-	}
-
-	/**
-	 * set ReplaceID value
-	 * @param s
-	 */
-	public void setReplaceID(String s)
-	{
-		setAttribute(ATTR_REPLACEID, s);
-	}
+//	/**
+//	 * get page index value
+//	 * @return
+//	 */
+//	public List<Integer> getPageIndex()
+//	{
+//		return getAttribute(ATTR_PAGEINDEX);
+//	}
+//
+//	/**
+//	 * set page index value
+//	 * @param s
+//	 */
+//	public void setPageIndex(List<Integer> s)
+//	{
+//		setAttribute(ATTR_PAGEINDEX, s);
+//	}
 
 }

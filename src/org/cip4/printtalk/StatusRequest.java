@@ -68,132 +68,63 @@
  */
 package org.cip4.printtalk;
 
-import java.util.zip.DataFormatException;
-
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.util.JDFDate;
 
 /**
- * Class represented RFQ business object.
- * 
- * @author rainerprosi
- * @date Jan 3, 2011
- * @since PrintTalk 1.3
+ * Class represented StatusRequest element.
+ *
  */
-public class RFQ extends BusinessObject
+public class StatusRequest extends AbstractPrintTalk
 {
-	public static String ATTR_CURRENCY = "Currency";
-	public static String ATTR_ESTIMATE = "Estimate";
-	public static String ATTR_EXPIRES = "Expires";
-	public static String ATTR_REORDERID = "ReorderID";
-	public static String ATTR_REPLACEID = "ReplaceID";
+	public static enum EnumResponseDetails
+	{
+		Brief, CompletedMilestones, Full
+	}
+	
+	public static String ATTR_JOBIDREF = "JobIDRef";
+	public static String ATTR_JOBPARTIDREF = "JobPartIDRef";
+//	TODO: finish with ResponseDetails attribute
 
 
-	/**
-	 * 
-	 * @param theElement
-	 */
-	public RFQ(KElement theElement)
+	public StatusRequest(KElement theElement)
 	{
 		super(theElement);
 	}
-	
+
 	/**
-	 * get currency value
+	 * get job id ref value
 	 * @return
 	 */
-	public String getCurrency()
+	public String getJobIDRef()
 	{
-		return getAttribute(ATTR_CURRENCY);
+		return getAttribute(ATTR_JOBIDREF);
 	}
 
 	/**
-	 * set currency value
-	 * @param currency
-	 */
-	public void setCurrency(String currency)
-	{
-		setAttribute(ATTR_CURRENCY, currency);
-	}
-
-	/**
-	 * get estimate value
-	 * @return
-	 */
-	public boolean getEstimate()
-	{
-		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set estimate value
-	 * @param b
-	 */
-	public void setEstimate(boolean b)
-	{
-		setAttribute(ATTR_ESTIMATE, b ? "true" : "false");
-	}
-
-	/**
-	 * get expires value
-	 * @return
-	 */
-	public JDFDate getExpires()
-	{
-		String s = getAttribute(ATTR_EXPIRES);
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (DataFormatException e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * set expires value
-	 * @param expires
-	 */
-	public void setExpires(JDFDate expires)
-	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
-	}
-
-	/**
-	 * get ReorderID value
-	 * @return
-	 */
-	public String getReorderID()
-	{
-		return getAttribute(ATTR_REORDERID);
-	}
-
-	/**
-	 * set ReorderID value
+	 * set job id ref value
 	 * @param s
 	 */
-	public void setReorderID(String s)
+	public void setJobIDRef(String s)
 	{
-		setAttribute(ATTR_REORDERID, s);
+		setAttribute(ATTR_JOBIDREF, s);
 	}
 
 	/**
-	 * get ReplaceID value
+	 * get job part id ref value
 	 * @return
 	 */
-	public String getReplaceID()
+	public String getJobPartIDRef()
 	{
-		return getAttribute(ATTR_REPLACEID);
+		return getAttribute(ATTR_JOBPARTIDREF);
 	}
 
 	/**
-	 * set ReplaceID value
+	 * set job part id ref value
 	 * @param s
 	 */
-	public void setReplaceID(String s)
+	public void setJobPartIDRef(String s)
 	{
-		setAttribute(ATTR_REPLACEID, s);
+		setAttribute(ATTR_JOBPARTIDREF, s);
 	}
 
 }

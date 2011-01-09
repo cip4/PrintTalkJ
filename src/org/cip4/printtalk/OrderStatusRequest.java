@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -71,12 +71,15 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.core.KElement;
 
 /**
+ * Class represented OrderStatusRequest business object.
  * 
  * @author rainer prosi
  * @date Jan 3, 2011
  */
 public class OrderStatusRequest extends BusinessObject
 {
+	public static String ELEMENT_STATUSREQUEST = "StatusRequest";
+
 
 	/**
 	 * 
@@ -85,6 +88,24 @@ public class OrderStatusRequest extends BusinessObject
 	public OrderStatusRequest(KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 * create status request element
+	 * @return
+	 */
+	public StatusRequest getCreateStatusRequest()
+	{
+		return new StatusRequest(getCreateElement(ELEMENT_STATUSREQUEST));
+	}
+
+	/**
+	 * get status request element
+	 * @return
+	 */
+	public StatusRequest getStatusRequest()
+	{
+		return new StatusRequest(getElement(ELEMENT_STATUSREQUEST));
 	}
 
 }

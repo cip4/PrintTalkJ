@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -71,12 +71,16 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.core.KElement;
 
 /**
+ * Class represented ProofApprovalRequest business object.
  * 
  * @author rainer prosi
  * @date Jan 3, 2011
  */
 public class ProofApprovalRequest extends BusinessObject
 {
+	public static String ELEMENT_PROOFREQUEST = "ProofRequest";
+
+
 	/**
 	 * 
 	 * @param theElement
@@ -84,6 +88,24 @@ public class ProofApprovalRequest extends BusinessObject
 	public ProofApprovalRequest(KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 * create proof request element
+	 * @return
+	 */
+	public ProofRequest getCreateProofRequest()
+	{
+		return new ProofRequest(getCreateElement(ELEMENT_PROOFREQUEST));
+	}
+
+	/**
+	 * get proof request element
+	 * @return
+	 */
+	public StatusRequest getProofRequest()
+	{
+		return new StatusRequest(getElement(ELEMENT_PROOFREQUEST));
 	}
 
 }
