@@ -68,9 +68,10 @@
  */
 package org.cip4.printtalk;
 
-import java.util.List;
+import java.util.zip.DataFormatException;
 
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.datatypes.JDFIntegerRangeList;
 
 /**
  * Class represented ProofResponse element.
@@ -80,28 +81,28 @@ public class ProofResponse extends AbstractPrintTalk
 {
 	public static String ATTR_PAGEINDEX = "PageIndex";
 
-
 	public ProofResponse(KElement theElement)
 	{
 		super(theElement);
 	}
 
-//	/**
-//	 * get page index value
-//	 * @return
-//	 */
-//	public List<Integer> getPageIndex()
-//	{
-//		return getAttribute(ATTR_PAGEINDEX);
-//	}
-//
-//	/**
-//	 * set page index value
-//	 * @param s
-//	 */
-//	public void setPageIndex(List<Integer> s)
-//	{
-//		setAttribute(ATTR_PAGEINDEX, s);
-//	}
+	/**
+	 * get page index value
+	 * @return
+	 * @throws DataFormatException 
+	 */
+	public JDFIntegerRangeList getPageIndex() throws DataFormatException
+	{
+		return new JDFIntegerRangeList(getAttribute(ATTR_PAGEINDEX));
+	}
+
+	/**
+	 * set page index value
+	 * @param l
+	 */
+	public void setPageIndex(JDFIntegerRangeList l)
+	{
+		theElement.setAttribute(ATTR_PAGEINDEX, l == null ? null : l.toString(), null);
+	}
 
 }

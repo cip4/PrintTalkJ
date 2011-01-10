@@ -77,10 +77,10 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Payment extends AbstractPrintTalk
 {
-	public static String ATTR_PAYTERM = "PayTerm";
-	
+	public static String ELEMENT_PAYTERM = "PayTerm";
+
 	public static String ELEMENT_CREDITCARD = "CreditCard";
-	
+
 	/**
 	 * 
 	 * @param theElement
@@ -96,7 +96,7 @@ public class Payment extends AbstractPrintTalk
 	 */
 	public String getPayTerm()
 	{
-		return getAttribute(ATTR_PAYTERM);
+		return getTElem(ELEMENT_PAYTERM);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class Payment extends AbstractPrintTalk
 	 */
 	public void setPayTerm(String s)
 	{
-		setAttribute(ATTR_PAYTERM, s);
+		setTElem(ELEMENT_PAYTERM, s);
 	}
 
 	/**

@@ -70,6 +70,7 @@ package org.cip4.printtalk;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.util.StringUtil;
 
 /**
  * TODO Please insert comment!
@@ -222,6 +223,22 @@ public abstract class AbstractPrintTalk
 	public KElement getCreateXPathElement(String path)
 	{
 		return theElement.getCreateXPathElement(path);
+	}
+
+	protected String getTElem(String elemName)
+	{
+		KElement payTerm = getElement(elemName);
+		return payTerm == null ? null : StringUtil.getNonEmpty(payTerm.getText());
+	}
+
+	/**
+	 * set pay term value
+	 * @param elemName 
+	 * @param s
+	 */
+	public void setTElem(String elemName, String s)
+	{
+		getCreateElement(elemName).setText(s);
 	}
 
 }
