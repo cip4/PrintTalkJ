@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -225,14 +225,14 @@ public abstract class AbstractPrintTalk
 		return theElement.getCreateXPathElement(path);
 	}
 
-	protected String getTElem(String elemName)
+	public String getTElem(String elemName)
 	{
 		KElement payTerm = getElement(elemName);
 		return payTerm == null ? null : StringUtil.getNonEmpty(payTerm.getText());
 	}
 
 	/**
-	 * set pay term value
+	 * Create text element and set its value
 	 * @param elemName 
 	 * @param s
 	 */

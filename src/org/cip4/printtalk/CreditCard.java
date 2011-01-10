@@ -82,9 +82,11 @@ public class CreditCard extends AbstractPrintTalk
 {
 	public static String ATTR_AUTHORIZATION = "Authorization";
 	public static String ATTR_AUTHORIZATIONEXPIRES = "AuthorizationExpires";
-	public static String ATTR_EXPIRES = "Expires"; // example: 04/12
+	public static String ATTR_EXPIRES = "Expires";
 	public static String ATTR_NUMBER = "Number";
 	public static String ATTR_TYPE = "Type";
+	
+	public static String FORMAT_YEARMONTH = "yyyy-MM";
 
 	/**
 	 * 
@@ -113,24 +115,32 @@ public class CreditCard extends AbstractPrintTalk
 		setAttribute(ATTR_AUTHORIZATION, s);
 	}
 
-	//	TODO: finish as soon as issue with "Expires" attribute resolved
-	//	/**
-	//	 * get authorization expires value
-	//	 * @return
-	//	 */
-	//	public String getAuthorizationExpires()
-	//	{
-	//		return getAttribute(ATTR_AUTHORIZATIONEXPIRES);
-	//	}
-	//
-	//	/**
-	//	 * set authorization expires value
-	//	 * @param s
-	//	 */
-	//	public void setAuthorizationExpires(String s)
-	//	{
-	//		setAttribute(ATTR_AUTHORIZATIONEXPIRES, s);
-	//	}
+	/**
+	 * get authorization expires value
+	 * @return
+	 */
+	public JDFDate getAuthorizationExpires()
+	{
+		String s = getAttribute(ATTR_AUTHORIZATIONEXPIRES);
+
+		try
+		{
+			return (s == null) ? null : new JDFDate(s);
+		}
+		catch (DataFormatException e)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * set authorization expires value
+	 * @param expires
+	 */
+	public void setAuthorizationExpires(JDFDate expires)
+	{
+		setAttribute(ATTR_AUTHORIZATIONEXPIRES, expires == null ? null : expires.getFormattedDateTime(FORMAT_YEARMONTH));
+	}
 
 	/**
 	 * get expires value
@@ -156,7 +166,7 @@ public class CreditCard extends AbstractPrintTalk
 	 */
 	public void setExpires(JDFDate expires)
 	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getFormattedDateTime("yyyy-MM"));
+		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getFormattedDateTime(FORMAT_YEARMONTH));
 	}
 
 	/**
