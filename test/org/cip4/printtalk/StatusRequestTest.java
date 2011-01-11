@@ -68,81 +68,26 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.JDFTestCaseBase;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.printtalk.StatusRequest.EnumResponseDetails;
 
 /**
- * Class represented StatusRequest element.
- *
+ * 
+ * @author rainer prosi
+ * @date Jan 11, 2011
  */
-public class StatusRequest extends AbstractPrintTalk
+public class StatusRequestTest extends JDFTestCaseBase
 {
-	public static enum EnumResponseDetails
-	{
-		Brief, CompletedMilestones, Full
-	}
-
-	public static String ATTR_JOBIDREF = "JobIDRef";
-	public static String ATTR_JOBPARTIDREF = "JobPartIDRef";
-	public static String ATTR_RESPONSEDETAILS = "ResponseDetails";
-
-	public StatusRequest(KElement theElement)
-	{
-		super(theElement);
-	}
-
 	/**
-	 * get job id ref value
-	 * @return
+	 * 
+	 * TODO Please insert comment!
 	 */
-	public String getJobIDRef()
+	public void testResponseDetails()
 	{
-		return getAttribute(ATTR_JOBIDREF);
+		StatusRequest r = ((OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null)).getCreateStatusRequest();
+		assertNull(r.getResponseDetails());
+		r.setResponseDetails(EnumResponseDetails.Brief);
+		assertEquals(r.getResponseDetails(), EnumResponseDetails.Brief);
 	}
-
-	/**
-	 * set job id ref value
-	 * @param s
-	 */
-	public void setJobIDRef(String s)
-	{
-		setAttribute(ATTR_JOBIDREF, s);
-	}
-
-	/**
-	 * get job part id ref value
-	 * @return
-	 */
-	public String getJobPartIDRef()
-	{
-		return getAttribute(ATTR_JOBPARTIDREF);
-	}
-
-	/**
-	 * set job part id ref value
-	 * @param s
-	 */
-	public void setJobPartIDRef(String s)
-	{
-		setAttribute(ATTR_JOBPARTIDREF, s);
-	}
-
-	/**
-	 * get ResponseDetails value
-	 * @return
-	 */
-	public EnumResponseDetails getResponseDetails()
-	{
-		String s = getAttribute(ATTR_RESPONSEDETAILS);
-		return s == null ? null : EnumResponseDetails.valueOf(s);
-	}
-
-	/**
-	 * set ResponseDetails value
-	 * @param rd
-	 */
-	public void setResponseDetails(EnumResponseDetails rd)
-	{
-		setAttribute(ATTR_RESPONSEDETAILS, rd == null ? null : rd.name());
-	}
-
 }
