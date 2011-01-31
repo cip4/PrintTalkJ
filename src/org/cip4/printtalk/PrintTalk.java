@@ -74,12 +74,18 @@ import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.jdflib.util.JDFDate;
 
 /**
- * TODO Please insert comment!
- * @author rainerprosi
+ * Class to wrap the PrintTalk Root element
+ * 
+ * @author rainer prosi
  * @date Jan 3, 2011
  */
 public class PrintTalk extends AbstractPrintTalk
 {
+	/**
+	 * 
+	 */
+	public static final String PRINT_TALK = "PrintTalk";
+
 	/**
 	 * 
 	 * types of printtalk header
@@ -120,7 +126,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk()
 	{
 		super(null);
-		setRoot(new XMLDoc("PrintTalk", "http://www.printtalk.org/schema_1" + getVersion()).getRoot());
+		setRoot(new XMLDoc(PRINT_TALK, "http://www.printtalk.org/schema_1" + getVersion()).getRoot());
 		init();
 	}
 
