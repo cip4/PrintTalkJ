@@ -81,7 +81,6 @@ public class Pricing extends AbstractPrintTalk
 	public static String ELEMENT_PAYMENT = "Payment";
 	public static String ELEMENT_PRICE = "Price";
 
-
 	/**
 	 * 
 	 * @param theElement
@@ -111,6 +110,7 @@ public class Pricing extends AbstractPrintTalk
 	{
 		Price price = new Price(theElement.appendElement(ELEMENT_PRICE));
 		price.setDescriptiveName(description);
+		price.setLineID("L_" + theElement.numChildElements(ELEMENT_PRICE, null));
 		if (totalprice >= 0)
 			price.setPrice(totalprice);
 		return price;

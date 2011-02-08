@@ -72,7 +72,9 @@ import java.util.Currency;
 import java.util.Locale;
 
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.util.NumberFormatter;
+import org.cip4.jdflib.util.StringUtil;
 
 /**
  * 
@@ -84,7 +86,9 @@ public class Price extends AbstractPrintTalk
 	public static String ATTR_PRICE = "Price";
 	public static String ATTR_UNITPRICE = "UnitPrice";
 	public static String ATTR_AMOUNT = "Amount";
-	
+	public static String ATTR_LINEID = "LineID";
+	public static String ATTR_LINEIDREFS = "LineIDRefs";
+
 	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
 
 	/**
@@ -171,6 +175,56 @@ public class Price extends AbstractPrintTalk
 	public double getAmount()
 	{
 		return theElement.getRealAttribute(ATTR_AMOUNT, null, 0.0);
+	}
+
+	/**
+	 *  
+	 * @param lineID
+	 */
+	public void setLineID(String lineID)
+	{
+		theElement.setAttribute(ATTR_LINEID, lineID);
+	}
+
+	/**
+	 *  
+	 * @param lineIDRefs
+	 */
+	public void setLineIDRefs(VString lineIDRefs)
+	{
+		theElement.setAttribute(ATTR_LINEID, lineIDRefs, null);
+	}
+
+	/**
+	 *  add the LineID of subPrice to LineIDRefs of this, ignoring duplicates
+	 * @param subPrice
+	 */
+	public void refPrice(Price subPrice)
+	{
+		if (subPrice == null)
+			return;
+		VString v = getLineIDRefs();
+		v.appendUnique(subPrice.getLineID());
+		theElement.setAttribute(ATTR_LINEIDREFS, v, null);
+	}
+
+	/**
+	 * get the list of LineIDRefs
+	 * @return
+	 */
+	public VString getLineIDRefs()
+	{
+		String s = theElement.getAttribute(ATTR_LINEIDREFS, null, null);
+		return StringUtil.tokenize(s, null, false);
+	}
+
+	/**
+	 *  
+	 * @return lineID
+	 */
+	public String getLineID()
+	{
+		return theElement.getAttribute(ATTR_LINEID, null, null);
 	}
 
 }

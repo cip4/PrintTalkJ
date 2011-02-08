@@ -69,6 +69,7 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.JDFTestCaseBase;
+import org.cip4.jdflib.core.XMLDoc;
 
 /**
  *  
@@ -84,5 +85,19 @@ public class PriceTest extends JDFTestCaseBase
 	public void testCurrency()
 	{
 		assertEquals("will fail in japan", 2, Price.getCurrencyPrecision());
+	}
+
+	/**
+	 * 
+	 * 
+	 */
+	public void testRefPrice()
+	{
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		Price p2 = p.addPrice("p2", 22);
+		p2.refPrice(p1);
+		assertTrue(p2.getLineIDRefs().contains(p1.getLineID()));
+		assertFalse(p2.getLineIDRefs().contains(p2.getLineID()));
 	}
 }
