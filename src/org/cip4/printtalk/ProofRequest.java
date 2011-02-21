@@ -77,6 +77,10 @@ import org.cip4.jdflib.core.KElement;
 public class ProofRequest extends AbstractPrintTalk
 {
 
+	/**
+	 * 
+	 * @param theElement
+	 */
 	public ProofRequest(KElement theElement)
 	{
 		super(theElement);
