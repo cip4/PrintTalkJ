@@ -126,8 +126,18 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk()
 	{
 		super(null);
-		setRoot(new XMLDoc(PRINT_TALK, "http://www.printtalk.org/schema_1" + getVersion()).getRoot());
+		setRoot(new XMLDoc(PRINT_TALK, getNamespaceURI()).getRoot());
 		init();
+	}
+
+	/**
+	 * 
+	 * get the correct namespace uri string
+	 * @return
+	 */
+	public String getNamespaceURI()
+	{
+		return "http://www.printtalk.org/schema_" + getVersion();
 	}
 
 	/**
