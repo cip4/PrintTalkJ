@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -111,6 +111,19 @@ public class PrintTalk extends AbstractPrintTalk
 	private int version = 3;
 
 	/**
+	 * 
+	 * return the PrintTalk element for theElement id TheElement is a printtalk element
+	 * @param theElement
+	 * @return
+	 */
+	public static PrintTalk getPrintTalk(KElement theElement)
+	{
+		if (theElement == null || !PRINT_TALK.equalsIgnoreCase(theElement.getLocalName()))
+			return null;
+		return new PrintTalk(theElement);
+	}
+
+	/**
 	 * create a printtalk helper
 	 * @param theElement
 	 */
@@ -137,7 +150,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public String getNamespaceURI()
 	{
-		return "http://www.printtalk.org/schema_" + getVersion();
+		return "http://www.printtalk.org/schema_" + getVersionString("");
 	}
 
 	/**
@@ -148,19 +161,20 @@ public class PrintTalk extends AbstractPrintTalk
 	public void init()
 	{
 		super.init();
-		theElement.setAttribute("version", getVersionString());
+		theElement.setAttribute("version", getVersionString("."));
 		String dateTimeISO = new JDFDate().getDateTimeISO();
 		theElement.setAttribute("Timestamp", dateTimeISO);
 		theElement.setAttribute("payloadID", JDFAudit.software() + dateTimeISO);
 	}
 
 	/**
-	 * TODO Please insert comment!
+	 *  
+	 * @param sep 
 	 * @return
 	 */
-	private String getVersionString()
+	private String getVersionString(String sep)
 	{
-		return (getVersion() < 10) ? ("1." + getVersion()) : ("2." + (getVersion() - 20));
+		return (getVersion() < 10) ? ("1" + sep + getVersion()) : ("2" + sep + (getVersion() - 20));
 	}
 
 	/**
@@ -211,6 +225,7 @@ public class PrintTalk extends AbstractPrintTalk
 		String boName = bo.name();
 		KElement e = theElement.getCreateElement("Request").appendElement(boName);
 		final BusinessObject businessObject = BusinessObject.getBusinessObject(e);
+		businessObject.init();
 		businessObject.setRef(ref);
 		return businessObject;
 	}

@@ -12,9 +12,9 @@
 
 		<property name="ant.build.javac.target" value="1.5" />
 
-		<property file="version.properties"/>
-		<property name="base.filename" value="PrintTalkJ-${major.version}.${minor.version}" />		
-		<property name="major.filename" value="PrintTalkJ-${major.version}" />		
+		<property file="version.properties" />
+		<property name="base.filename" value="PrintTalkJ-${major.version}.${minor.version}" />
+		<property name="major.filename" value="PrintTalkJ-${major.version}" />
 		<property name="jdflib.src.dir" value="./src" />
 		<property name="test.src.dir" value="./test" />
 		<property name="test.tmp.dir" value="${test.src.dir}/data/temp" />
@@ -36,12 +36,30 @@
 		<!-- Creates directories -->
 		<mkdir dir="${dist.dir}" />
 		<mkdir dir="${bin.dir}" />
-		<mkdir dir="${doc.dir}" />
 
+	</target>
+	<target name="prepare" depends="-init">
+		<!-- Creates directories -->
+		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${doc.dir}" />
 		<!-- delete tmp directory -->
 		<delete includeEmptyDirs="true">
-				<fileset dir="${test.tmp.dir}" includes="**/*" />
+			<fileset dir="${test.tmp.dir}" includes="**/*" />
 		</delete>
+		<copy overwrite="true" file="../JDFLibJ/version.properties" todir="." />
+
+		<copy overwrite="true" todir="${lib.dir}" flatten="true">
+			<fileset dir="../JDFLibJ/dist">
+				<include name="JDFLibJ-2.1.4a.jar" />
+			</fileset>
+			<fileset dir="../JDFLibJ/lib">
+				<include name="xml-apis.jar" />
+				<include name="xercesImpl.jar" />
+				<include name="commons-*.jar" />
+				<include name="activation*.jar" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="buildnumber">
@@ -66,7 +84,7 @@
 			<include name="**/*.java" />
 		</javac>
 	</target>
-	
+
 	<target name="clean" depends="-init" description="Cleans the build.">
 		<echo>Cleaning...</echo>
 		<delete dir="${dist.dir}" />
@@ -86,29 +104,29 @@
 			</manifest>
 		</jar>
 	</target>
-	
+
 	<target name="major_jar" depends="jar" description="Builds a JAR archive containing the JDFLibJ binaries.">
-		<copy file="${dist.dir}/${base.filename}.jar" tofile="${dist.dir}/${major.filename}.jar"/>
+		<copy file="${dist.dir}/${base.filename}.jar" tofile="${dist.dir}/${major.filename}.jar" />
 	</target>
-	
+
 	<target name="dist_all" depends="-init" description="builds lots of jars and wars and good things for distribution">
-		<ant antfile="build.xml" dir="." target="clean"/>
-		<ant antfile="build.xml" dir="." target="spam"/>
-		<ant antfile="build.xml" dir="." target="all"/>
-		<ant antfile="../alces/build.xml" dir="../alces" target="clean" inheritAll="false"/>
-		<ant antfile="../alces/build.xml" dir="../alces" target="dist" inheritAll="false"/>
-		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="clean" inheritAll="false"/>
-		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="dist" inheritAll="false"/>
-		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="dist" inheritAll="false"/>
-		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="dmgappledist" inheritAll="false"/>
-		<ant antfile="../DropFolder/build.xml" dir="../DropFolder" target="clean" inheritAll="false"/>
-		<ant antfile="../DropFolder/build.xml" dir="../DropFolder" target="dist" inheritAll="false"/>
-		<ant antfile="../Bambi/build-core.xml" dir="../Bambi" target="clean" inheritAll="false"/>
-		<ant antfile="../Bambi/build-simworker.xml" dir="../Bambi" target="war" inheritAll="false"/>
-		<ant antfile="../Bambi/build-proxy.xml" dir="../Bambi" target="war" inheritAll="false"/>
-		<ant antfile="../Bambi/build-console.xml" dir="../Bambi" target="war" inheritAll="false"/>
-		<ant antfile="../jdfutility/build.xml" dir="../jdfutility" target="war" inheritAll="false"/>
-		<ant antfile="../jdfutility/build.xml" dir="../jdfutility" target="clean" inheritAll="false"/>			
+		<ant antfile="build.xml" dir="." target="clean" />
+		<ant antfile="build.xml" dir="." target="spam" />
+		<ant antfile="build.xml" dir="." target="all" />
+		<ant antfile="../alces/build.xml" dir="../alces" target="clean" inheritAll="false" />
+		<ant antfile="../alces/build.xml" dir="../alces" target="dist" inheritAll="false" />
+		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="clean" inheritAll="false" />
+		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="dist" inheritAll="false" />
+		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="dist" inheritAll="false" />
+		<ant antfile="../JDFEditor/build.xml" dir="../JDFEditor" target="dmgappledist" inheritAll="false" />
+		<ant antfile="../DropFolder/build.xml" dir="../DropFolder" target="clean" inheritAll="false" />
+		<ant antfile="../DropFolder/build.xml" dir="../DropFolder" target="dist" inheritAll="false" />
+		<ant antfile="../Bambi/build-core.xml" dir="../Bambi" target="clean" inheritAll="false" />
+		<ant antfile="../Bambi/build-simworker.xml" dir="../Bambi" target="war" inheritAll="false" />
+		<ant antfile="../Bambi/build-proxy.xml" dir="../Bambi" target="war" inheritAll="false" />
+		<ant antfile="../Bambi/build-console.xml" dir="../Bambi" target="war" inheritAll="false" />
+		<ant antfile="../jdfutility/build.xml" dir="../jdfutility" target="war" inheritAll="false" />
+		<ant antfile="../jdfutility/build.xml" dir="../jdfutility" target="clean" inheritAll="false" />
 	</target>
 
 	<!--  ==================================================================================  -->
@@ -165,7 +183,7 @@
 	<!--  Builds and packages sources and binary distributions                 -->
 	<!--  ===================================================================  -->
 	<target name="all" depends="pack-bin,pack-src" />
-	
+
 	<target name="test" description="Runs JUnit tests." depends="compile">
 		<property name="test.bin.dir" value="${bin.dir}/test" />
 		<mkdir dir="${test.bin.dir}" />
@@ -209,9 +227,9 @@
 			</fileset>
 		</delete>
 		<echo>Tests reports can be found in: ${test.reports.dir}</echo>
-		</target>
-		<target name="recode" depends="-init">
-			<!--
+	</target>
+	<target name="recode" depends="-init">
+		<!--
 			<mkdir dir="${jdflib.src.dir}/recode" />
 			<mkdir dir="${jdflib.src.dir}/recode2" />
 			<native2ascii encoding="Cp1252" reverse="false" src="${jdflib.src.dir}" 
@@ -219,12 +237,10 @@
 			<native2ascii encoding="UTF-8" reverse="true" src="${jdflib.src.dir}/recode" 
 				includes="**/*.java" dest="${jdflib.src.dir}/recode2"/>
 			-->
-			<mkdir dir="${test.src.dir}/recode" />
-			<mkdir dir="${test.src.dir}/recode2" />
-			<native2ascii encoding="Cp1252" reverse="false" src="${test.src.dir}" 
-				includes="**/*.java" dest="${test.src.dir}/recode"/>
-			<native2ascii encoding="UTF-8" reverse="true" src="${test.src.dir}/recode" 
-				includes="**/*.java" dest="${test.src.dir}/recode2"/>
+		<mkdir dir="${test.src.dir}/recode" />
+		<mkdir dir="${test.src.dir}/recode2" />
+		<native2ascii encoding="Cp1252" reverse="false" src="${test.src.dir}" includes="**/*.java" dest="${test.src.dir}/recode" />
+		<native2ascii encoding="UTF-8" reverse="true" src="${test.src.dir}/recode" includes="**/*.java" dest="${test.src.dir}/recode2" />
 	</target>
 
 </project>

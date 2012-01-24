@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -109,6 +109,16 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
+	 *  
+	 * get the root element 
+	 * @return
+	 */
+	public KElement getRoot()
+	{
+		return theElement;
+	}
+
+	/**
 	 *  initialize
 	 */
 	public void init()
@@ -200,31 +210,62 @@ public abstract class AbstractPrintTalk
 		return theElement.getElement(nodeName);
 	}
 
+	/**
+	 * 
+	 * @param path
+	 * @param value
+	 */
 	public void setXPathValue(String path, String value)
 	{
 		theElement.setXPathValue(path, value);
 	}
 
+	/**
+	 * 
+	 * @param path
+	 * @param value
+	 */
 	public void setXPathAttribute(String path, String value)
 	{
 		theElement.setXPathAttribute(path, value);
 	}
 
+	/**
+	 * 
+	 * @param path
+	 * @param def
+	 * @return
+	 */
 	public String getXPathAttribute(String path, String def)
 	{
 		return theElement.getXPathAttribute(path, def);
 	}
 
+	/**
+	 *  
+	 * @param path
+	 * @return
+	 */
 	public KElement getXPathElement(String path)
 	{
 		return theElement.getXPathElement(path);
 	}
 
+	/**
+	 *  
+	 * @param path
+	 * @return
+	 */
 	public KElement getCreateXPathElement(String path)
 	{
 		return theElement.getCreateXPathElement(path);
 	}
 
+	/**
+	 *get the contents of a comment
+	 * @param elemName
+	 * @return
+	 */
 	public String getTElem(String elemName)
 	{
 		KElement payTerm = getElement(elemName);
