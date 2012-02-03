@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,15 +76,31 @@ import org.cip4.jdflib.core.KElement;
  */
 public class StatusRequest extends AbstractPrintTalk
 {
+	/** **/
+	public static String ELEMENT_STATUSREQUEST = "StatusRequest";
+
+	/** **/
 	public static enum EnumResponseDetails
 	{
-		Brief, CompletedMilestones, Full
+		/** **/
+		Brief,
+		/** **/
+		CompletedMilestones,
+		/** **/
+		Full
 	}
 
+	/** **/
 	public static String ATTR_JOBIDREF = "JobIDRef";
+	/** **/
 	public static String ATTR_JOBPARTIDREF = "JobPartIDRef";
+	/** **/
 	public static String ATTR_RESPONSEDETAILS = "ResponseDetails";
 
+	/**
+	 * 
+	 * @param theElement
+	 */
 	public StatusRequest(KElement theElement)
 	{
 		super(theElement);

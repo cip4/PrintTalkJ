@@ -78,9 +78,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class ProofApprovalRequest extends BusinessObject
 {
-	public static String ELEMENT_PROOFREQUEST = "ProofRequest";
-
-
 	/**
 	 * 
 	 * @param theElement
@@ -96,7 +93,7 @@ public class ProofApprovalRequest extends BusinessObject
 	 */
 	public ProofRequest getCreateProofRequest()
 	{
-		return new ProofRequest(getCreateElement(ELEMENT_PROOFREQUEST));
+		return new ProofRequest(getCreateElement(ProofRequest.ELEMENT_PROOFREQUEST));
 	}
 
 	/**
@@ -105,7 +102,7 @@ public class ProofApprovalRequest extends BusinessObject
 	 */
 	public StatusRequest getProofRequest()
 	{
-		return new StatusRequest(getElement(ELEMENT_PROOFREQUEST));
+		return new StatusRequest(getElement(ProofRequest.ELEMENT_PROOFREQUEST));
 	}
 
 }

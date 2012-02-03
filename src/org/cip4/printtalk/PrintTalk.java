@@ -94,7 +94,12 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public static enum Header
 	{
-		From, To, Sender
+		/** */
+		From,
+		/** */
+		To,
+		/** */
+		Sender
 	}
 
 	/**
@@ -105,7 +110,30 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public static enum EnumBusinessObject
 	{
-		RFQ, Quotation, PurchaseOrder, Confirmation, Cancellation, Refusal, OrderStatusRequest, OrderStatusResponse, ProofApprovalRequest, ProofApprovalResponse, Invoice, ReturnJob
+		/** */
+		RFQ,
+		/** */
+		Quotation,
+		/** */
+		PurchaseOrder,
+		/** */
+		Confirmation,
+		/** */
+		Cancellation,
+		/** */
+		Refusal,
+		/** */
+		OrderStatusRequest,
+		/** */
+		OrderStatusResponse,
+		/** */
+		ProofApprovalRequest,
+		/** */
+		ProofApprovalResponse,
+		/** */
+		Invoice,
+		/** */
+		ReturnJob
 	}
 
 	private int version = 3;

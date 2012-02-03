@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -78,9 +78,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class OrderStatusRequest extends BusinessObject
 {
-	public static String ELEMENT_STATUSREQUEST = "StatusRequest";
-
-
 	/**
 	 * 
 	 * @param theElement
@@ -96,7 +93,7 @@ public class OrderStatusRequest extends BusinessObject
 	 */
 	public StatusRequest getCreateStatusRequest()
 	{
-		return new StatusRequest(getCreateElement(ELEMENT_STATUSREQUEST));
+		return new StatusRequest(getCreateElement(StatusRequest.ELEMENT_STATUSREQUEST));
 	}
 
 	/**
@@ -105,7 +102,7 @@ public class OrderStatusRequest extends BusinessObject
 	 */
 	public StatusRequest getStatusRequest()
 	{
-		return new StatusRequest(getElement(ELEMENT_STATUSREQUEST));
+		return new StatusRequest(getElement(StatusRequest.ELEMENT_STATUSREQUEST));
 	}
 
 }

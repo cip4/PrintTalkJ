@@ -69,143 +69,62 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.util.NumberFormatter;
 
 /**
- * Class represented Quote element.
  * 
- * @since PrintTalk 1.3
+ * @author rainer prosi
+ * @date Jan 3, 2011
  */
-public class Quote extends AbstractPrintTalk
+public class Additional extends AbstractPrintTalk
 {
 	/** */
-	public static String ELEMENT_QUOTE = "Quote";
-
-	/** */
-	public static String ATTR_CURRENCY = "Currency";
-	/** */
-	public static String ATTR_ESTIMATE = "Estimate";
-	/** */
-	public static String ATTR_QUOTEID = "QuoteID";
-	/** */
-	public static String ATTR_REPLACEID = "ReplaceID";
-	/** */
-	public static String ATTR_RETURNJDF = "ReturnJDF";
+	public static String ELEMENT_Additional = "Additional";
 
 	/**
 	 * 
 	 * @param theElement
 	 */
-	public Quote(KElement theElement)
+	public Additional(KElement theElement)
 	{
 		super(theElement);
 	}
 
 	/**
-	 * get currency value
-	 * @return
+	 * set the price
+	 * @param price
 	 */
-	public String getCurrency()
+	public void setPrice(double price)
 	{
-		return getAttribute(ATTR_CURRENCY);
+		String amount = new NumberFormatter().formatDouble(price, Price.getCurrencyPrecision());
+		setAttribute(Price.ATTR_PRICE, amount);
 	}
 
 	/**
-	 * set currency value
-	 * @param currency
+	 * get the price
+	 * @return price
 	 */
-	public void setCurrency(String currency)
+	public double getPrice()
 	{
-		setAttribute(ATTR_CURRENCY, currency);
+		return theElement.getRealAttribute(Price.ATTR_PRICE, null, 0.0);
 	}
 
 	/**
-	 * get estimate value
-	 * @return
+	 * set amount
+	 * @param price
 	 */
-	public boolean getEstimate()
+	public void setAmount(double price)
 	{
-		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
+		String amount = new NumberFormatter().formatDouble(price);
+		setAttribute(Price.ATTR_AMOUNT, amount);
 	}
 
 	/**
-	 * set estimate value
-	 * @param b
+	 * get amount
+	 * @return price
 	 */
-	public void setEstimate(boolean b)
+	public double getAmount()
 	{
-		setAttribute(ATTR_ESTIMATE, b ? "true" : "false");
+		return theElement.getRealAttribute(Price.ATTR_AMOUNT, null, 0.0);
 	}
-
-	/**
-	 * get quote id value
-	 * @return
-	 */
-	public String getQuoteID()
-	{
-		return getAttribute(ATTR_QUOTEID);
-	}
-
-	/**
-	 * set quote id value
-	 * @param s
-	 */
-	public void setQuoteID(String s)
-	{
-		setAttribute(ATTR_QUOTEID, s);
-	}
-
-	/**
-	 * get replace id value
-	 * @return
-	 */
-	public String getReplaceID()
-	{
-		return getAttribute(ATTR_REPLACEID);
-	}
-
-	/**
-	 * set replace id value
-	 * @param s
-	 */
-	public void setReplaceID(String s)
-	{
-		setAttribute(ATTR_REPLACEID, s);
-	}
-
-	/**
-	 * get return jdf value
-	 * @return
-	 */
-	public boolean getReturnJDF()
-	{
-		return getAttribute(ATTR_RETURNJDF).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set return jdf value
-	 * @param b
-	 */
-	public void setReturnJDF(boolean b)
-	{
-		setAttribute(ATTR_RETURNJDF, b ? "true" : "false");
-	}
-
-	/**
-	 * create pricing element
-	 * @return
-	 */
-	public Pricing getCreatePricing()
-	{
-		return new Pricing(getCreateElement(Pricing.ELEMENT_PRICING));
-	}
-
-	/**
-	 * get pricing element
-	 * @return
-	 */
-	public Pricing getPricing()
-	{
-		return new Pricing(getElement(Pricing.ELEMENT_PRICING));
-	}
-
 }

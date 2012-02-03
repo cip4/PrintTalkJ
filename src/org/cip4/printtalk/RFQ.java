@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,12 +82,16 @@ import org.cip4.jdflib.util.JDFDate;
  */
 public class RFQ extends BusinessObject
 {
+	/** */
 	public static String ATTR_CURRENCY = "Currency";
+	/** */
 	public static String ATTR_ESTIMATE = "Estimate";
+	/** */
 	public static String ATTR_EXPIRES = "Expires";
+	/** */
 	public static String ATTR_REORDERID = "ReorderID";
+	/** */
 	public static String ATTR_REPLACEID = "ReplaceID";
-
 
 	/**
 	 * 
@@ -97,7 +101,7 @@ public class RFQ extends BusinessObject
 	{
 		super(theElement);
 	}
-	
+
 	/**
 	 * get currency value
 	 * @return

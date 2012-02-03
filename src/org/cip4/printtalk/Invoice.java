@@ -82,9 +82,11 @@ import org.cip4.jdflib.util.JDFDate;
  */
 public class Invoice extends BusinessObject
 {
+	/** */
 	public static String ATTR_CURRENCY = "Currency";
+	/** */
 	public static String ATTR_EXPIRES = "Expires";
-	
+	/** */
 	public static String ELEMENT_PRICING = "Pricing";
 
 	/**

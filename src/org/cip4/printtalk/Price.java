@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,10 +83,17 @@ import org.cip4.jdflib.util.StringUtil;
  */
 public class Price extends AbstractPrintTalk
 {
+	/** */
+	public static String ELEMENT_PRICE = "Price";
+	/** */
 	public static String ATTR_PRICE = "Price";
+	/** */
 	public static String ATTR_UNITPRICE = "UnitPrice";
+	/** */
 	public static String ATTR_AMOUNT = "Amount";
+	/** */
 	public static String ATTR_LINEID = "LineID";
+	/** */
 	public static String ATTR_LINEIDREFS = "LineIDRefs";
 
 	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
@@ -225,6 +232,34 @@ public class Price extends AbstractPrintTalk
 	public String getLineID()
 	{
 		return theElement.getAttribute(ATTR_LINEID, null, null);
+	}
+
+	/**
+	 * add a price element
+	 *
+	 * @param amount
+	 * @param price
+	 * @return
+	 */
+	public Additional addAdditional(double amount, double price)
+	{
+		Additional a = new Additional(theElement.appendElement(Additional.ELEMENT_Additional));
+		a.setAmount(amount);
+		a.setPrice(price);
+		return a;
+	}
+
+	/**
+	 * get a price element by LineID
+	 *
+	 * @param i index
+	 * 
+	 * @return the price, null if it doesn't exist
+	 */
+	public Additional getAdditional(int i)
+	{
+		KElement a = theElement.getElement(Additional.ELEMENT_Additional, null, i);
+		return a == null ? null : new Additional(a);
 	}
 
 }

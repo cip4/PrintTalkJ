@@ -76,6 +76,8 @@ import org.cip4.jdflib.core.KElement;
  */
 public class ProofRequest extends AbstractPrintTalk
 {
+	/** */
+	public static String ELEMENT_PROOFREQUEST = "ProofRequest";
 
 	/**
 	 * 

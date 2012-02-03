@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,9 +77,11 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Payment extends AbstractPrintTalk
 {
-	public static String ELEMENT_PAYTERM = "PayTerm";
+	/** */
+	public static String ELEMENT_PAYMENT = "Payment";
 
-	public static String ELEMENT_CREDITCARD = "CreditCard";
+	/** */
+	public static String ELEMENT_PAYTERM = "PayTerm";
 
 	/**
 	 * 
@@ -114,7 +116,7 @@ public class Payment extends AbstractPrintTalk
 	 */
 	public CreditCard getCreateCreditCard()
 	{
-		return new CreditCard(getCreateElement(ELEMENT_CREDITCARD));
+		return new CreditCard(getCreateElement(CreditCard.ELEMENT_CREDITCARD));
 	}
 
 	/**
@@ -123,7 +125,7 @@ public class Payment extends AbstractPrintTalk
 	 */
 	public CreditCard getCreditCard()
 	{
-		return new CreditCard(getElement(ELEMENT_CREDITCARD));
+		return new CreditCard(getElement(CreditCard.ELEMENT_CREDITCARD));
 	}
 
 }

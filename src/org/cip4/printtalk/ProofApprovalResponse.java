@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -78,9 +78,6 @@ import org.cip4.jdflib.core.KElement;
  */
 public class ProofApprovalResponse extends BusinessObject
 {
-	public static String ELEMENT_PROOFRESPONSE = "ProofResponse";
-
-
 	/**
 	 * 
 	 * @param theElement
@@ -96,7 +93,7 @@ public class ProofApprovalResponse extends BusinessObject
 	 */
 	public ProofResponse getCreateProofResponse()
 	{
-		return new ProofResponse(getCreateElement(ELEMENT_PROOFRESPONSE));
+		return new ProofResponse(getCreateElement(ProofResponse.ELEMENT_PROOFRESPONSE));
 	}
 
 	/**
@@ -105,7 +102,7 @@ public class ProofApprovalResponse extends BusinessObject
 	 */
 	public ProofResponse getProofResponse()
 	{
-		return new ProofResponse(getElement(ELEMENT_PROOFRESPONSE));
+		return new ProofResponse(getElement(ProofResponse.ELEMENT_PROOFRESPONSE));
 	}
 
 }

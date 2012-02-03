@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -68,6 +68,7 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 
 /**
@@ -78,8 +79,8 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Pricing extends AbstractPrintTalk
 {
-	public static String ELEMENT_PAYMENT = "Payment";
-	public static String ELEMENT_PRICE = "Price";
+	/** */
+	public static String ELEMENT_PRICING = "Pricing";
 
 	/**
 	 * 
@@ -96,7 +97,7 @@ public class Pricing extends AbstractPrintTalk
 	 */
 	public Payment getCreatePayment()
 	{
-		return new Payment(getCreateElement(ELEMENT_PAYMENT));
+		return new Payment(getCreateElement(Payment.ELEMENT_PAYMENT));
 	}
 
 	/**
@@ -108,11 +109,38 @@ public class Pricing extends AbstractPrintTalk
 	 */
 	public Price addPrice(String description, double totalprice)
 	{
-		Price price = new Price(theElement.appendElement(ELEMENT_PRICE));
+		Price price = new Price(theElement.appendElement(Price.ELEMENT_PRICE));
 		price.setDescriptiveName(description);
-		price.setLineID("L_" + theElement.numChildElements(ELEMENT_PRICE, null));
+		price.setLineID("L_" + theElement.numChildElements(Price.ELEMENT_PRICE, null));
 		if (totalprice >= 0)
 			price.setPrice(totalprice);
 		return price;
 	}
+
+	/**
+	 * get a price element by LineID
+	 *
+	 * @param lineID
+	 * 
+	 * @return the price, null if it doesn't exist
+	 */
+	public Price getPrice(String lineID)
+	{
+		KElement price = theElement.getChildWithAttribute(Price.ELEMENT_PRICE, Price.ATTR_LINEID, null, lineID, 0, true);
+		return price == null ? null : new Price(price);
+	}
+
+	/**
+	 * get a price element by DescriptiveName
+	 *
+	 * @param desc
+	 * 
+	 * @return the price, null if it doesn't exist
+	 */
+	public Price getPriceByDescription(String desc)
+	{
+		KElement price = theElement.getChildWithAttribute(Price.ELEMENT_PRICE, AttributeName.DESCRIPTIVENAME, null, desc, 0, true);
+		return price == null ? null : new Price(price);
+	}
+
 }
