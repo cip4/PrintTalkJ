@@ -199,7 +199,16 @@ public class Price extends AbstractPrintTalk
 	 */
 	public void setLineIDRefs(VString lineIDRefs)
 	{
-		theElement.setAttribute(ATTR_LINEID, lineIDRefs, null);
+		theElement.setAttribute(ATTR_LINEIDREFS, lineIDRefs, null);
+	}
+
+	/**
+	 *  
+	 * @param lineIDRef
+	 */
+	public void addLineIDRef(String lineIDRef)
+	{
+		theElement.appendAttribute(ATTR_LINEIDREFS, lineIDRef, null, " ", true);
 	}
 
 	/**

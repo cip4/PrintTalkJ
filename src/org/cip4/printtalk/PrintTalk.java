@@ -68,7 +68,9 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.DocumentJDFImpl;
 import org.cip4.jdflib.core.JDFAudit;
+import org.cip4.jdflib.core.JDFDoc;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.jdflib.util.JDFDate;
@@ -167,7 +169,10 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk()
 	{
 		super(null);
-		setRoot(new XMLDoc(PRINT_TALK, getNamespaceURI()).getRoot());
+		XMLDoc doc = new XMLDoc(PRINT_TALK, getNamespaceURI());
+		doc = new JDFDoc(doc);
+		((DocumentJDFImpl) doc.getMemberDocument()).bInitOnCreate = true;
+		setRoot(doc.getRoot());
 		init();
 	}
 

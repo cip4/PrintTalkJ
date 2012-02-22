@@ -5,6 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JDFLibJ"/>
 	<classpathentry kind="lib" path="/JDFLibJ/lib/activation-1.0.2.jar"/>
+	<classpathentry kind="lib" path="/JDFLibJ/lib/commons-logging.jar"/>
 	<classpathentry kind="lib" path="/JDFLibJ/lib/commons-io-2.0.jar"/>
 	<classpathentry kind="lib" path="/JDFLibJ/lib/commons-lang-2.5.jar"/>
 	<classpathentry kind="lib" path="/JDFLibJ/lib/junit.jar"/>

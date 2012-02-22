@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -69,11 +69,12 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.JDFTestCaseBase;
+import org.cip4.jdflib.node.JDFNode;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 
 /**
- * TODO Please insert comment!
+ *  
  * @author rainer prosi
  * @date Jan 5, 2011
  */
@@ -89,5 +90,33 @@ public class PurchaseOrderTest extends JDFTestCaseBase
 		JDFDate expires = new JDFDate();
 		po.setExpires(expires);
 		assertEquals(expires, po.getExpires());
+	}
+
+	/**
+	 * 
+	 *  
+	 */
+	public void testMultiJDF()
+	{
+		PrintTalk printTalk = new PrintTalk();
+		PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		Pricing pricing = po.getCreatePricing();
+		Price tp = pricing.addPrice("total", 42);
+		tp.setLineID("Total");
+
+		int total = 0;
+		for (int i = 1; i < 4; i++)
+		{
+			JDFNode n = (JDFNode) po.getCreateJDFRoot("JDF", i - 1);
+			n.appendGeneralID("LineID", "Line" + i);
+			pricing.addPrice("Price for JDF # " + i, i * 100).setLineID("Line" + i);
+			total += i * 100;
+			tp.addLineIDRef("Line" + i);
+		}
+		pricing.addPrice("shipping", 42).setLineID("Shipping");
+		total += 42;
+		tp.addLineIDRef("shipping");
+		tp.setPrice(total);
+		printTalk.getRoot().getOwnerDocument_KElement().write2File(sm_dirTestDataTemp + "multiJDF.pt", 2, true);
 	}
 }

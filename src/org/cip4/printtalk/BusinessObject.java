@@ -68,7 +68,9 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.extensions.XJDF20;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 
 /**
@@ -78,6 +80,23 @@ import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
  */
 public abstract class BusinessObject extends AbstractPrintTalk
 {
+
+	/**
+	 * note that it is not necessarily always legal to add a JDF to an arbitrary bo
+	 *  
+	 * @param rootName
+	 * @param iSkip
+	 * @return
+	 */
+	public KElement getCreateJDFRoot(String rootName, int iSkip)
+	{
+		String schemaURL = JDFElement.getSchemaURL();
+		if (XJDF20.rootName.equals(rootName))
+			schemaURL = XJDF20.getSchemaURL();
+		KElement element = theElement.getCreateElement(rootName, schemaURL, iSkip);
+		element.init();
+		return element;
+	}
 
 	/**
 	 * 

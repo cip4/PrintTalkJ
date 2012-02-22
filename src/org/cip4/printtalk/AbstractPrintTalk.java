@@ -68,19 +68,22 @@
  */
 package org.cip4.printtalk;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.util.StringUtil;
 
 /**
- * TODO Please insert comment!
- * @author rainerprosi
+ * 
+ * @author rainer prosi
  * @date Jan 3, 2011
  */
 public abstract class AbstractPrintTalk
 {
 
 	protected KElement theElement;
+	protected final Log log;
 
 	/**
 	 * @param theElement
@@ -88,6 +91,7 @@ public abstract class AbstractPrintTalk
 	public AbstractPrintTalk(KElement theElement)
 	{
 		super();
+		log = LogFactory.getLog(getClass());
 		this.theElement = theElement;
 	}
 
@@ -97,6 +101,7 @@ public abstract class AbstractPrintTalk
 	public AbstractPrintTalk()
 	{
 		super();
+		log = LogFactory.getLog(getClass());
 	}
 
 	/**
@@ -238,7 +243,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getXPathAttribute(String path, String def)
 	{
-		return theElement.getXPathAttribute(path, def);
+		return theElement == null ? null : theElement.getXPathAttribute(path, def);
 	}
 
 	/**
@@ -248,7 +253,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public KElement getXPathElement(String path)
 	{
-		return theElement.getXPathElement(path);
+		return theElement == null ? null : theElement.getXPathElement(path);
 	}
 
 	/**

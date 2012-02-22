@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -99,5 +99,20 @@ public class PriceTest extends JDFTestCaseBase
 		p2.refPrice(p1);
 		assertTrue(p2.getLineIDRefs().contains(p1.getLineID()));
 		assertFalse(p2.getLineIDRefs().contains(p2.getLineID()));
+	}
+
+	/**
+	 * 
+	 * 
+	 */
+	public void testAddRef()
+	{
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		p.addPrice("p1", 20).setLineID("L1");
+		p.addPrice("p2", 22).setLineID("L2");
+		Price p3 = p.addPrice("p3", 42);
+		p3.addLineIDRef("L1");
+		p3.addLineIDRef("L2");
+		assertTrue(p3.getLineIDRefs().contains("L1"));
 	}
 }
