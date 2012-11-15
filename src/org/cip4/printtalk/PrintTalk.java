@@ -87,6 +87,10 @@ public class PrintTalk extends AbstractPrintTalk
 	 * 
 	 */
 	public static final String PRINT_TALK = "PrintTalk";
+	/**
+	 * 
+	 */
+	public static final String MIME_PRINT_TALK = "application/vnd.cip4-ptk+xml";
 
 	/**
 	 * 
