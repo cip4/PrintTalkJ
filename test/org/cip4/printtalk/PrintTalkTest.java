@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -69,6 +69,7 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.JDFTestCaseBase;
+import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalk.Header;
 
@@ -118,6 +119,15 @@ public class PrintTalkTest extends JDFTestCaseBase
 		BusinessObject bo2 = pt2.appendRequest(EnumBusinessObject.Quotation, pt);
 		assertTrue(bo2 instanceof Quotation);
 		assertEquals(bo2.getBusinessRefID(), bo.getBusinessID());
+	}
 
+	/**
+	 * 
+	 * duh...
+	 */
+	public void testGetTimestamp()
+	{
+		PrintTalk pt = new PrintTalk();
+		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 100);
 	}
 }

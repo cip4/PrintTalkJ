@@ -246,6 +246,15 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
+	 * Getter for Timestamp attribute.
+	 * @return the version
+	 */
+	public JDFDate getTimestamp()
+	{
+		return theElement == null ? null : JDFDate.createDate(theElement.getAttribute("Timestamp", null, null));
+	}
+
+	/**
 	 * 
 	 *appends a request with an initialized Business Object
 	 * @param bo the business object type
