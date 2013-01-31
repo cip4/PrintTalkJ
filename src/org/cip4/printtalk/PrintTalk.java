@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -183,11 +183,26 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 * 
 	 * get the correct namespace uri string
+	 * @param version 10=1.0 etc
+	 * @return
+	 */
+	public static String getNamespaceURI(int version)
+	{
+		if (version == 0)
+			version = 13;
+		else if (version <= 2)
+			version *= 10;
+		return "http://www.printtalk.org/schema_" + version;
+	}
+
+	/**
+	 * 
+	 * get the correct namespace uri string
 	 * @return
 	 */
 	public String getNamespaceURI()
 	{
-		return "http://www.printtalk.org/schema_" + getVersionString("");
+		return getNamespaceURI(version);
 	}
 
 	/**
@@ -285,5 +300,14 @@ public class PrintTalk extends AbstractPrintTalk
 		KElement request = getElement("Request");
 		KElement oldBO = request == null ? null : request.getElement(null);
 		return oldBO == null ? null : BusinessObject.getBusinessObject(oldBO);
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#getPrintTalk()
+	 */
+	@Override
+	public PrintTalk getPrintTalk()
+	{
+		return this;
 	}
 }

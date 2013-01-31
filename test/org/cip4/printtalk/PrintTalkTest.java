@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -97,6 +97,15 @@ public class PrintTalkTest extends JDFTestCaseBase
 	 * 
 	 * duh...
 	 */
+	public void testGetNSUri()
+	{
+		assertEquals(PrintTalk.getNamespaceURI(20), "http://www.printtalk.org/schema_20");
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
 	public void testAppendRequest()
 	{
 		PrintTalk pt = new PrintTalk();
@@ -129,5 +138,28 @@ public class PrintTalkTest extends JDFTestCaseBase
 	{
 		PrintTalk pt = new PrintTalk();
 		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 100);
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	public void testGetPrintTalk()
+	{
+		PrintTalk pt = new PrintTalk();
+		assertEquals(pt.getPrintTalk(), pt);
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	public void testEquals()
+	{
+		PrintTalk pt = new PrintTalk();
+		assertEquals(pt.getPrintTalk(), pt);
+		assertEquals(pt.getPrintTalk().hashCode(), pt.hashCode());
+		assertNotSame(pt, new PrintTalk(pt.getRoot().clone()));
+		assertNotSame("there is a on in 4 billion chance that this may fail ;-)", pt.hashCode(), new PrintTalk(pt.getRoot().clone()).hashCode());
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -74,7 +74,7 @@ import org.cip4.jdflib.extensions.XJDF20;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 
 /**
- * TODO Please insert comment!
+ *  
  * @author rainer prosi
  * @date Jan 3, 2011
  */

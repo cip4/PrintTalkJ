@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -72,6 +72,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.util.ContainerUtil;
 import org.cip4.jdflib.util.StringUtil;
 
 /**
@@ -115,12 +116,23 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 *  
-	 * get the root element 
+	 * get the root element that represints myself
 	 * @return
 	 */
 	public KElement getRoot()
 	{
 		return theElement;
+	}
+
+	/**
+	 *  
+	 * get the root element 
+	 * @return
+	 */
+	public PrintTalk getPrintTalk()
+	{
+		KElement pt = theElement == null ? null : theElement.getDeepParent(PrintTalk.PRINT_TALK, 0);
+		return PrintTalk.getPrintTalk(pt);
 	}
 
 	/**
@@ -267,7 +279,7 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
-	 *get the contents of a comment
+	 *get the contents of a text element
 	 * @param elemName
 	 * @return
 	 */
@@ -285,6 +297,28 @@ public abstract class AbstractPrintTalk
 	public void setTElem(String elemName, String s)
 	{
 		getCreateElement(elemName).setText(s);
+	}
+
+	/**
+	 * we are equal if the underlying element is equal
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object arg0)
+	{
+		if (!(arg0 instanceof PrintTalk))
+			return false;
+		return ContainerUtil.equals(getRoot(), ((PrintTalk) arg0).getRoot());
+	}
+
+	/**
+	 * we are equal if the underlying element is equal
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return theElement == null ? 0 : theElement.hashCode();
 	}
 
 }
