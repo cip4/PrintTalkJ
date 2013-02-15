@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -68,8 +68,11 @@
  */
 package org.cip4.printtalk;
 
+import java.util.Vector;
+
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.VElement;
 
 /**
  * Class represented Pricing element.
@@ -141,6 +144,22 @@ public class Pricing extends AbstractPrintTalk
 	{
 		KElement price = theElement.getChildWithAttribute(Price.ELEMENT_PRICE, AttributeName.DESCRIPTIVENAME, null, desc, 0, true);
 		return price == null ? null : new Price(price);
+	}
+
+	/**
+	 * 
+	 * get a vector of all child Price elements
+	 * @return
+	 */
+	public Vector<Price> getPriceVector()
+	{
+		Vector<Price> v = new Vector<Price>();
+		VElement prices = theElement.getChildElementVector(Price.ELEMENT_PRICE, null);
+		for (KElement price : prices)
+		{
+			v.add(new Price(price));
+		}
+		return v;
 	}
 
 }

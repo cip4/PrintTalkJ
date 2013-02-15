@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -70,6 +70,7 @@ package org.cip4.printtalk;
 
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Vector;
 
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VString;
@@ -125,6 +126,16 @@ public class Price extends AbstractPrintTalk
 	public Price(KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 * 
+	 * get the parent Pricing
+	 * @return
+	 */
+	public Pricing getParentPricing()
+	{
+		return theElement.getParentNode_KElement() == null ? null : new Pricing(theElement.getParentNode_KElement());
 	}
 
 	/**
@@ -191,6 +202,45 @@ public class Price extends AbstractPrintTalk
 	public void setLineID(String lineID)
 	{
 		theElement.setAttribute(ATTR_LINEID, lineID);
+	}
+
+	/**
+	 * if true this price is referenced e.g. from a total and need not be included
+	 * 
+	 *  
+	 * 
+	 * @return the price, null if it doesn't exist
+	 */
+	public boolean isReferenced()
+	{
+		String lineID = getLineID();
+		if (lineID == null)
+		{
+			return false;
+		}
+		Pricing parent = getParentPricing();
+		if (parent == null)
+		{
+			return false;
+		}
+		Vector<Price> v = parent.getPriceVector();
+		if (v == null)
+		{
+			log.error("whazzup - my parent ain't got me...");
+			return false;
+		}
+		for (Price p : v)
+		{
+			if (equals(p))
+			{
+				continue;
+			}
+			if (p.getLineIDRefs().contains(lineID))
+			{
+				return true; // one is enough
+			}
+		}
+		return false;
 	}
 
 	/**
