@@ -74,7 +74,7 @@ import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalk.Header;
 
 /**
- * TODO Please insert comment!
+ *  
  * @author rainer prosi
  * @date Jan 3, 2011
  */

@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JDFLibJ"/>
 	<classpathentry kind="lib" path="/SVN_Root/Work/PrintTalkJ/lib/commons-io-2.0.jar"/>
-	<classpathentry kind="lib" path="/SVN_Root/Work/PrintTalkJ/lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="/SVN_Root/Work/PrintTalkJ/lib/commons-lang-2.5.jar" sourcepath="/Users/rainerprosi/.m2/repository/commons-lang/commons-lang/2.5/commons-lang-2.5-sources.jar"/>
 	<classpathentry kind="lib" path="/SVN_Root/Work/PrintTalkJ/lib/commons-logging.jar"/>
 	<classpathentry kind="lib" path="/SVN_Root/Work/PrintTalkJ/lib/JDFLibJ-2.1.4a.jar"/>
 	<classpathentry kind="lib" path="/SVN_Root/Work/PrintTalkJ/lib/junit.jar"/>

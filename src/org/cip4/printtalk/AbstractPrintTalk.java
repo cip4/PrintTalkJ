@@ -72,6 +72,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.VElement;
 import org.cip4.jdflib.util.ContainerUtil;
 import org.cip4.jdflib.util.StringUtil;
 
@@ -173,7 +174,7 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 * 
-	 * get an attribute from this
+	 * get an attribute from this, null if not there
 	 * 
 	 * @param strLocalName
 	 * @return
@@ -181,6 +182,19 @@ public abstract class AbstractPrintTalk
 	public String getAttribute(String strLocalName)
 	{
 		return theElement.getAttribute(strLocalName, null, null);
+	}
+
+	/**
+	 * 
+	 * get an attribute from this, def if not there
+	 * 
+	 * @param strLocalName
+	 * @param def 
+	 * @return
+	 */
+	public String getAttribute(String strLocalName, String def)
+	{
+		return theElement.getAttribute(strLocalName, null, def);
 	}
 
 	/**
@@ -225,6 +239,32 @@ public abstract class AbstractPrintTalk
 	public KElement getElement(String nodeName)
 	{
 		return theElement.getElement(nodeName);
+	}
+
+	/**
+	 * 
+	 * get an element, create it if it does not yet exist
+	 * @param nodeName
+	 * @param nSkip 
+	 * @return
+	 */
+	public KElement getElement(String nodeName, int nSkip)
+	{
+		return theElement.getElement(nodeName, null, nSkip);
+	}
+
+	/**
+	 * 
+	 * get all elements,
+	 * @param nodeName
+	 * @return
+	 */
+	public VElement getElements(String nodeName)
+	{
+		VElement v = theElement.getChildElementVector(nodeName, null);
+		if (v == null || v.size() == 0)
+			return null;
+		return v;
 	}
 
 	/**

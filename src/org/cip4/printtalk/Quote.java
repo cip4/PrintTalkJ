@@ -79,9 +79,6 @@ public class Quote extends AbstractPrintTalk
 {
 	/** */
 	public static String ELEMENT_QUOTE = "Quote";
-
-	/** */
-	public static String ATTR_CURRENCY = "Currency";
 	/** */
 	public static String ATTR_ESTIMATE = "Estimate";
 	/** */
@@ -106,7 +103,7 @@ public class Quote extends AbstractPrintTalk
 	 */
 	public String getCurrency()
 	{
-		return getAttribute(ATTR_CURRENCY);
+		return getAttribute(BusinessObject.ATTR_CURRENCY);
 	}
 
 	/**
@@ -115,7 +112,7 @@ public class Quote extends AbstractPrintTalk
 	 */
 	public void setCurrency(String currency)
 	{
-		setAttribute(ATTR_CURRENCY, currency);
+		setAttribute(BusinessObject.ATTR_CURRENCY, currency);
 	}
 
 	/**

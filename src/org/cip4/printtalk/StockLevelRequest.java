@@ -68,40 +68,63 @@
  */
 package org.cip4.printtalk;
 
-import java.util.zip.DataFormatException;
-
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.util.JDFDate;
+import org.cip4.jdflib.util.StringUtil;
 
 /**
- * Class represented PurchaseOrder business object.
+ * Class represented OrderStatusRequest business object.
  * 
  * @author rainer prosi
- * @date Jan 3, 2011
+ *  
  */
-public class PurchaseOrder extends BusinessObject
+public class StockLevelRequest extends BusinessObject
 {
+	/** **/
+	public static enum EnumAvailability
+	{
+		/** **/
+		Any,
+		/** **/
+		Available,
+		/** **/
+		Deliverable
+	}
+
 	/** */
-	public static String ATTR_QUOTEID = "QuoteID";
+	public static String ATTR_AVAILABILITY = "Availability";
 	/** */
-	public static String ATTR_REORDERID = "ReorderID";
-	/** */
-	public static String ATTR_REPLACEID = "ReplaceID";
-	/** */
-	public static String ATTR_RETURNJDF = "ReturnJDF";
+	public static String ATTR_DISPLAYPRICE = "DisplayPrice";
 
 	/**
 	 * 
 	 * @param theElement
 	 */
-	public PurchaseOrder(KElement theElement)
+	public StockLevelRequest(KElement theElement)
 	{
 		super(theElement);
 	}
 
 	/**
-	 * 
-	 * get the currency value
+	 *
+	 * @return
+	 */
+	public String getProductID()
+	{
+		return getAttribute(AttributeName.PRODUCTID);
+	}
+
+	/**
+	 *
+	 * @param productID 
+	 */
+	public void setProductID(String productID)
+	{
+		setAttribute(AttributeName.PRODUCTID, productID);
+	}
+
+	/**
+	 * get currency value
 	 * @return
 	 */
 	public String getCurrency()
@@ -110,8 +133,7 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
-	 * 
-	 * set the currency value
+	 * set currency value
 	 * @param currency
 	 */
 	public void setCurrency(String currency)
@@ -120,121 +142,39 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
-	 * 
-	 * get the expires value
+	 * get displayPrice value
 	 * @return
 	 */
-	public JDFDate getExpires()
+	public boolean getDisplayPrice()
 	{
-		String s = getAttribute(ATTR_EXPIRES);
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (DataFormatException e)
-		{
-			return null;
-		}
+		return StringUtil.parseBoolean(getAttribute(ATTR_DISPLAYPRICE), true);
 	}
 
 	/**
-	 * 
-	 * set the expires value
-	 * @param expires
+	 * set currency value
+	 * @param displayPrice
 	 */
-	public void setExpires(JDFDate expires)
+	public void setDisplayPrice(boolean displayPrice)
 	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
+		setAttribute(ATTR_DISPLAYPRICE, Boolean.toString(displayPrice));
 	}
 
 	/**
-	 * get quote id value
+	 * get displayPrice value
 	 * @return
 	 */
-	public String getQuoteID()
+	public EnumAvailability getAvailability()
 	{
-		return getAttribute(ATTR_QUOTEID);
+		return EnumAvailability.valueOf(getAttribute(ATTR_AVAILABILITY, EnumAvailability.Any.name()));
 	}
 
 	/**
-	 * set quote id value
-	 * @param s
+	 * set currency value
+	 * @param availability
 	 */
-	public void setQuoteID(String s)
+	public void setEnumAvailability(EnumAvailability availability)
 	{
-		setAttribute(ATTR_QUOTEID, s);
-	}
-
-	/**
-	 * get reorder id value
-	 * @return
-	 */
-	public String getReorderID()
-	{
-		return getAttribute(ATTR_REORDERID);
-	}
-
-	/**
-	 * set reorder id value
-	 * @param s
-	 */
-	public void setReorderID(String s)
-	{
-		setAttribute(ATTR_REORDERID, s);
-	}
-
-	/**
-	 * get replace id value
-	 * @return
-	 */
-	public String getReplaceID()
-	{
-		return getAttribute(ATTR_REPLACEID);
-	}
-
-	/**
-	 * set replace id value
-	 * @param s
-	 */
-	public void setReplaceID(String s)
-	{
-		setAttribute(ATTR_REPLACEID, s);
-	}
-
-	/**
-	 * get return jdf value
-	 * @return
-	 */
-	public boolean getReturnJDF()
-	{
-		return getAttribute(ATTR_RETURNJDF).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set return jdf value
-	 * @param b
-	 */
-	public void setReturnJDF(boolean b)
-	{
-		setAttribute(ATTR_RETURNJDF, b ? "true" : "false");
-	}
-
-	/**
-	 * get the pricing element
-	 * @return
-	 */
-	public Pricing getCreatePricing()
-	{
-		return new Pricing(getCreateElement(Pricing.ELEMENT_PRICING));
-	}
-
-	/**
-	 * get the pricing element
-	 * @return
-	 */
-	public Pricing getPricing()
-	{
-		return new Pricing(getElement(Pricing.ELEMENT_PRICING));
+		setAttribute(ATTR_AVAILABILITY, availability == null ? null : availability.name());
 	}
 
 }

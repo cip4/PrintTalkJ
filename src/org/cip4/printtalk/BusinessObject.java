@@ -80,6 +80,18 @@ import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
  */
 public abstract class BusinessObject extends AbstractPrintTalk
 {
+	/**
+	 * 
+	 */
+	public static final String ATTR_BUSINESSREFID = "BusinessRefID";
+	/**
+	 * 
+	 */
+	public static final String ATTR_BUSINESSID = "BusinessID";
+	/** */
+	public static String ATTR_CURRENCY = "Currency";
+	/** */
+	public static String ATTR_EXPIRES = "Expires";
 
 	/**
 	 * note that it is not necessarily always legal to add a JDF to an arbitrary bo
@@ -124,7 +136,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public String getBusinessID()
 	{
-		return theElement.getAttribute("BusinessID", null, null);
+		return getAttribute(ATTR_BUSINESSID);
 	}
 
 	/**
@@ -133,7 +145,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public void setBusinessID(String id)
 	{
-		theElement.setAttribute("BusinessID", id);
+		setAttribute(ATTR_BUSINESSID, id);
 	}
 
 	/**
@@ -142,7 +154,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public String getBusinessRefID()
 	{
-		return theElement.getAttribute("BusinessRefID", null, null);
+		return getAttribute(ATTR_BUSINESSREFID, null);
 	}
 
 	/**
@@ -151,7 +163,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public void setBusinessRefID(String id)
 	{
-		theElement.setAttribute("BusinessRefID", id);
+		theElement.setAttribute(ATTR_BUSINESSREFID, id);
 	}
 
 	/**
@@ -167,7 +179,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 * factory method for printtalk business objects
 	 *  
 	 * @param e
 	 * @return
@@ -223,6 +235,14 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		else if (EnumBusinessObject.ReturnJob.name().equals(boName))
 		{
 			businessObject = new ReturnJob(e);
+		}
+		else if (EnumBusinessObject.StockLevelRequest.name().equals(boName))
+		{
+			businessObject = new StockLevelRequest(e);
+		}
+		else if (EnumBusinessObject.StockLevelResponse.name().equals(boName))
+		{
+			businessObject = new StockLevelResponse(e);
 		}
 		else
 		{

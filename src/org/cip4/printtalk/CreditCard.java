@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -87,8 +87,6 @@ public class CreditCard extends AbstractPrintTalk
 	/** */
 	public static String ATTR_AUTHORIZATIONEXPIRES = "AuthorizationExpires";
 	/** */
-	public static String ATTR_EXPIRES = "Expires";
-	/** */
 	public static String ATTR_NUMBER = "Number";
 	/** */
 	public static String ATTR_TYPE = "Type";
@@ -155,7 +153,7 @@ public class CreditCard extends AbstractPrintTalk
 	 */
 	public JDFDate getExpires()
 	{
-		String s = getAttribute(ATTR_EXPIRES);
+		String s = getAttribute(BusinessObject.ATTR_EXPIRES);
 
 		try
 		{
@@ -173,7 +171,7 @@ public class CreditCard extends AbstractPrintTalk
 	 */
 	public void setExpires(JDFDate expires)
 	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getFormattedDateTime(FORMAT_YEARMONTH));
+		setAttribute(BusinessObject.ATTR_EXPIRES, expires == null ? null : expires.getFormattedDateTime(FORMAT_YEARMONTH));
 	}
 
 	/**

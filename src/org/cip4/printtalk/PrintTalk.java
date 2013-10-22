@@ -139,7 +139,11 @@ public class PrintTalk extends AbstractPrintTalk
 		/** */
 		Invoice,
 		/** */
-		ReturnJob
+		ReturnJob,
+		/** */
+		StockLevelRequest,
+		/** */
+		StockLevelResponse
 	}
 
 	private int version = 3;

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -68,7 +68,10 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.resource.JDFNotification;
 
 /**
  * 
@@ -85,6 +88,32 @@ public class OrderStatusResponse extends BusinessObject
 	public OrderStatusResponse(KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 * 
+	 * 
+	 * set a milestone
+	 * @param jobID
+	 * @param milestone
+	 */
+	public void setMilestone(String jobID, String milestone)
+	{
+		JDFNotification notification = (JDFNotification) getRoot().appendElement(ElementName.NOTIFICATION);
+		notification.setJobID(jobID);
+		notification.appendMilestone().setMilestoneType(milestone);
+	}
+
+	/**
+	 * 
+	 * 
+	 * set a milestone
+	 * @param nSkip
+	 * @return the matching milestone notification parent element - null if it does not exist
+	 */
+	public JDFNotification getMilestoneNotification(int nSkip)
+	{
+		return (JDFNotification) getRoot().getChildWithAttribute(ElementName.NOTIFICATION, AttributeName.TYPE, null, ElementName.MILESTONE, nSkip, true);
 	}
 
 }
