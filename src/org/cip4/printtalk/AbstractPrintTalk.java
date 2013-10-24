@@ -184,7 +184,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getAttribute(String strLocalName)
 	{
-		return theElement.getAttribute(strLocalName, null, null);
+		return getAttribute(strLocalName, null);
 	}
 
 	/**
@@ -197,7 +197,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getAttribute(String strLocalName, String def)
 	{
-		return theElement.getAttribute(strLocalName, null, def);
+		return theElement == null ? def : theElement.getAttribute(strLocalName, null, def);
 	}
 
 	/**
@@ -253,7 +253,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public KElement getElement(String nodeName, int nSkip)
 	{
-		return theElement.getElement(nodeName, null, nSkip);
+		return theElement == null ? null : theElement.getElement(nodeName, null, nSkip);
 	}
 
 	/**
@@ -264,7 +264,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public VElement getElements(String nodeName)
 	{
-		VElement v = theElement.getChildElementVector(nodeName, null);
+		VElement v = theElement == null ? null : theElement.getChildElementVector(nodeName, null);
 		if (v == null || v.size() == 0)
 			return null;
 		return v;
@@ -298,7 +298,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getXPathAttribute(String path, String def)
 	{
-		return theElement == null ? null : theElement.getXPathAttribute(path, def);
+		return theElement == null ? def : theElement.getXPathAttribute(path, def);
 	}
 
 	/**
