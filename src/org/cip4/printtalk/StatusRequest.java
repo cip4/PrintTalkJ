@@ -91,8 +91,6 @@ public class StatusRequest extends AbstractPrintTalk
 	}
 
 	/** **/
-	public static String ATTR_JOBIDREF = "JobIDRef";
-	/** **/
 	public static String ATTR_JOBPARTIDREF = "JobPartIDRef";
 	/** **/
 	public static String ATTR_RESPONSEDETAILS = "ResponseDetails";

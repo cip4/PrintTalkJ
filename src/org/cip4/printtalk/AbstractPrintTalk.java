@@ -87,6 +87,9 @@ public abstract class AbstractPrintTalk
 	protected KElement theElement;
 	protected final Log log;
 
+	/** **/
+	public static String ATTR_JOBIDREF = "JobIDRef";
+
 	/**
 	 * @param theElement
 	 */
