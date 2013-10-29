@@ -68,147 +68,86 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.ifaces.IMatches;
-import org.cip4.jdflib.util.JDFDuration;
-import org.cip4.jdflib.util.StringUtil;
 
 /**
- * Class represented StockLevel element.
- *
+ *  base class for From To and Sender
+ * @author rainer prosi
+ * @date Jan 3, 2011
  */
-public class StockLevel extends AbstractPrintTalk implements IMatches
+public class HeaderBase extends AbstractPrintTalk
 {
-	/** **/
-	public static String ELEMENT_STOCKLEVEL = "StockLevel";
-	/** **/
-	public static String ATTR_PRODUCTIONDURATION = "ProductionDuration";
-	/** **/
-	public static String ATTR_LOT = "Lot";
-
 	/**
-	 * 
-	 * @param theElement
+	 * @param header
 	 */
-	public StockLevel(KElement theElement)
+	public HeaderBase(KElement header)
 	{
-		super(theElement);
-	}
-
-	/**
-	 * @see org.cip4.jdflib.ifaces.IMatches#matches(java.lang.Object)
-	 */
-	@Override
-	public boolean matches(Object stockLevelRequest)
-	{
-		if (stockLevelRequest == null)
-			return true;
-		if (stockLevelRequest instanceof String)
-			return StringUtil.matchesSimple(getProductID(), (String) stockLevelRequest);
-
-		if (!(stockLevelRequest instanceof StockLevelRequest))
-			return false;
-		StockLevel stockLevelReq = (StockLevel) stockLevelRequest;
-		String productFilter = stockLevelReq.getProductID();
-		if (!StringUtil.matchesSimple(getProductID(), productFilter))
-			return false;
-		//TODO more filters
-		return true;
-	}
-
-	/**
-	 *
-	 * @param productID 
-	 */
-	public void setProductID(String productID)
-	{
-		setAttribute(AttributeName.PRODUCTID, productID);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public String getProductID()
-	{
-		return getAttribute(AttributeName.PRODUCTID);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public String getLot()
-	{
-		return getAttribute(ATTR_LOT);
-	}
-
-	/**
-	 *
-	 * @param lot 
-	 */
-	public void setLot(String lot)
-	{
-		setAttribute(ATTR_LOT, lot);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public int getAmount()
-	{
-		return StringUtil.parseInt(getAttribute(AttributeName.AMOUNT), -1);
-	}
-
-	/**
-	 *
-	 * @param lot 
-	 */
-	public void setAmount(int amount)
-	{
-		setAttribute(AttributeName.AMOUNT, "" + amount);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public JDFDuration getProductionDuration()
-	{
-		return JDFDuration.createDuration(getAttribute(ATTR_PRODUCTIONDURATION));
-	}
-
-	/**
-	 *
-	 * @param dur 
-	 */
-	public void setProductionDuration(JDFDuration dur)
-	{
-		setAttribute(ATTR_PRODUCTIONDURATION, dur == null ? null : dur.getDurationISO());
+		super(header);
 	}
 
 	/**
 	 * 
-	 * 
+	 * @param iskip
 	 * @return
 	 */
-	public Price getPrice()
+	public Credential getCredential(int iskip)
 	{
-		KElement element = getElement(Price.ELEMENT_PRICE);
-		return element == null ? null : new Price(element);
+		KElement e = getElement(Credential.ELEMENT_CREDENTIAL, iskip);
+		return e == null ? null : new Credential(e);
+	}
+
+	/**
+	 * @param domain 
+	 * @param value 
+	 * 
+	 *  
+	 */
+	public void setCredential(String domain, String value)
+	{
+		Credential c = getCreateCredential(domain);
+		if (c != null)
+			c.setIdentity(value);
 	}
 
 	/**
 	 * 
-	 * 
+	 * @param domain
 	 * @return
 	 */
-	public Price getCreatePrice()
+	public Credential getCredential(String domain)
 	{
-		KElement element = getCreateElement(Price.ELEMENT_PRICE);
-		return element == null ? null : new Price(element);
+		KElement e = theElement == null ? null : theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, domain, null, domain, 0, true);
+		return e == null ? null : new Credential(e);
 	}
 
+	/**
+	 * 
+	 * @param domain
+	 * @return
+	 */
+	public Credential getCreateCredential(String domain)
+	{
+		if (theElement == null)
+			return null;
+
+		KElement e = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, domain, null, domain, 0, true);
+		if (e == null)
+			theElement.appendElement(Credential.ELEMENT_CREDENTIAL).setAttribute("domain", domain);
+		return getCredential(domain);
+	}
+
+	/**
+	 * 
+	 * @author rainer prosi
+	 * @date Oct 28, 2013
+	 */
+	public enum EnumHeaderType
+	{
+		/** */
+		From,
+		/** */
+		To,
+		/** */
+		Sender
+	};
 }

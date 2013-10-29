@@ -74,6 +74,7 @@ import org.cip4.jdflib.core.JDFDoc;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 
 /**
  * Class to wrap the PrintTalk Root element
@@ -283,7 +284,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public BusinessObject appendRequest(EnumBusinessObject bo, PrintTalk ref) throws IllegalArgumentException
 	{
-		BusinessObject oldBO = getRequest();
+		BusinessObject oldBO = getBusinessObject();
 		if (oldBO != null)
 			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
 
@@ -301,9 +302,30 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public BusinessObject getRequest()
 	{
+		return getBusinessObject();
+	}
+
+	/**
+	 * get the business object from a request
+	 * @return
+	 */
+	public BusinessObject getBusinessObject()
+	{
 		KElement request = getElement("Request");
 		KElement oldBO = request == null ? null : request.getElement(null);
 		return oldBO == null ? null : BusinessObject.getBusinessObject(oldBO);
+	}
+
+	/**
+	 * get the business object from a request
+	 * @param headerType 
+	 * @return
+	 */
+	public HeaderBase getHeader(EnumHeaderType headerType)
+	{
+		KElement request = headerType == null ? null : getElement("Header");
+		KElement header = request == null ? null : request.getElement(headerType.name());
+		return header == null ? null : new HeaderBase(header);
 	}
 
 	/**

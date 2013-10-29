@@ -68,147 +68,41 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.ifaces.IMatches;
-import org.cip4.jdflib.util.JDFDuration;
-import org.cip4.jdflib.util.StringUtil;
 
 /**
- * Class represented StockLevel element.
- *
+ * 
+ * @author rainer prosi
+ * @date Jan 3, 2011
  */
-public class StockLevel extends AbstractPrintTalk implements IMatches
+public class Credential extends AbstractPrintTalk
 {
-	/** **/
-	public static String ELEMENT_STOCKLEVEL = "StockLevel";
-	/** **/
-	public static String ATTR_PRODUCTIONDURATION = "ProductionDuration";
-	/** **/
-	public static String ATTR_LOT = "Lot";
+	/** */
+	public static String ELEMENT_CREDENTIAL = "Credential";
 
 	/**
-	 * 
-	 * @param theElement
+	 * @param header
 	 */
-	public StockLevel(KElement theElement)
+	public Credential(KElement header)
 	{
-		super(theElement);
-	}
-
-	/**
-	 * @see org.cip4.jdflib.ifaces.IMatches#matches(java.lang.Object)
-	 */
-	@Override
-	public boolean matches(Object stockLevelRequest)
-	{
-		if (stockLevelRequest == null)
-			return true;
-		if (stockLevelRequest instanceof String)
-			return StringUtil.matchesSimple(getProductID(), (String) stockLevelRequest);
-
-		if (!(stockLevelRequest instanceof StockLevelRequest))
-			return false;
-		StockLevel stockLevelReq = (StockLevel) stockLevelRequest;
-		String productFilter = stockLevelReq.getProductID();
-		if (!StringUtil.matchesSimple(getProductID(), productFilter))
-			return false;
-		//TODO more filters
-		return true;
-	}
-
-	/**
-	 *
-	 * @param productID 
-	 */
-	public void setProductID(String productID)
-	{
-		setAttribute(AttributeName.PRODUCTID, productID);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public String getProductID()
-	{
-		return getAttribute(AttributeName.PRODUCTID);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public String getLot()
-	{
-		return getAttribute(ATTR_LOT);
-	}
-
-	/**
-	 *
-	 * @param lot 
-	 */
-	public void setLot(String lot)
-	{
-		setAttribute(ATTR_LOT, lot);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public int getAmount()
-	{
-		return StringUtil.parseInt(getAttribute(AttributeName.AMOUNT), -1);
-	}
-
-	/**
-	 *
-	 * @param lot 
-	 */
-	public void setAmount(int amount)
-	{
-		setAttribute(AttributeName.AMOUNT, "" + amount);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public JDFDuration getProductionDuration()
-	{
-		return JDFDuration.createDuration(getAttribute(ATTR_PRODUCTIONDURATION));
-	}
-
-	/**
-	 *
-	 * @param dur 
-	 */
-	public void setProductionDuration(JDFDuration dur)
-	{
-		setAttribute(ATTR_PRODUCTIONDURATION, dur == null ? null : dur.getDurationISO());
+		super(header);
 	}
 
 	/**
 	 * 
-	 * 
 	 * @return
 	 */
-	public Price getPrice()
+	public String getIdentity()
 	{
-		KElement element = getElement(Price.ELEMENT_PRICE);
-		return element == null ? null : new Price(element);
+		return getXPathAttribute("Identity", null);
 	}
 
 	/**
-	 * 
-	 * 
-	 * @return
+	 *  
+	 * @param value
 	 */
-	public Price getCreatePrice()
+	public void setIdentity(String value)
 	{
-		KElement element = getCreateElement(Price.ELEMENT_PRICE);
-		return element == null ? null : new Price(element);
+		setXPathValue("Identity", value);
 	}
-
 }

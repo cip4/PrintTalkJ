@@ -172,7 +172,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public void setRef(PrintTalk ref)
 	{
-		BusinessObject boRef = ref == null ? null : ref.getRequest();
+		BusinessObject boRef = ref == null ? null : ref.getBusinessObject();
 		if (ref != null)
 			setBusinessRefID(boRef.getBusinessID());
 
