@@ -68,26 +68,26 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.JDFTestCaseBase;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * 
  * @author rainer prosi
  * @date Oct 22, 2013
  */
-public class StockLevelRequestTest extends JDFTestCaseBase
-{
+public class StockLevelRequestTest {
 	/**
 	 * 
 	 *  
 	 */
-	public void testCurrency()
-	{
+	@Test
+	public void testCurrency() {
 		StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
-		assertNull(req.getCurrency());
+		Assert.assertNull(req.getCurrency());
 		req.setCurrency("JPY");
-		assertNotNull(req.getCurrency());
+		Assert.assertNotNull(req.getCurrency());
 
 	}
 

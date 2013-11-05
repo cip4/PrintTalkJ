@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.cip4.lib.ptk</groupId>
+	<artifactId>PrintTalkJ</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>PrintTalkJ</name>
+	<url>http://www.cip4.org</url>
+	
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	<properties>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+	</properties>
+	<scm>
+		<url>http://svn.cip4.org/svnroot/trunk/PrintTalkJ</url>
+		<developerConnection>scm:svn:http://svn.cip4.org/svnroot/trunk/PrintTalkJ</developerConnection>
+		<connection>scm:svn:http://svn.cip4.org/svnroot/trunk/PrintTalkJ</connection>
+	</scm>
+	<developers>
+		<developer>
+			<id>r.prosi</id>
+			<name>Dr. Rainer Prosi</name>
+			<organization>Heidelberger Druckmaschinen AG</organization>
+			<organizationUrl>http://www.heidelberg.com</organizationUrl>
+			<email>rainer.prosi@heidelberg.com</email>
+		</developer>
+		<developer>
+			<id>s.meissner</id>
+			<name>Stefan Meissner</name>
+			<organization>flyeralarm GmbH</organization>
+			<organizationUrl>http://www.flyeralarm.com</organizationUrl>
+			<email>s.meissner@flyeralarm.de</email>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.cip4.lib.jdf</groupId>
+			<artifactId>JDFLibJ</artifactId>
+			<version>2.1.4a.75-SNAPSHOT</version>
+		</dependency>
+	
+		<!-- Test Environment -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

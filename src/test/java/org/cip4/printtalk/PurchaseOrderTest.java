@@ -68,98 +68,65 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.JDFTestCaseBase;
+import org.cip4.jdflib.node.JDFNode;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.cip4.printtalk.PrintTalk.Header;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- *  
+ * 
  * @author rainer prosi
- * @date Jan 3, 2011
+ * @date Jan 5, 2011
  */
-public class PrintTalkTest extends JDFTestCaseBase
-{
+public class PurchaseOrderTest {
 	/**
 	 * 
-	 * duh...
+	 *  
 	 */
-	public void testSetHeader()
-	{
-		PrintTalk pt = new PrintTalk();
-		pt.setHeader(Header.From, "ID", "Its me");
-		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
-		pt.setHeader(Header.From, "ID", "Its you");
-		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
+	@Test
+	public void testSetExpires() {
+		PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		JDFDate expires = new JDFDate();
+		po.setExpires(expires);
+		Assert.assertEquals(expires, po.getExpires());
 	}
 
 	/**
 	 * 
-	 * duh...
+	 *  
 	 */
-	public void testGetNSUri()
-	{
-		assertEquals(PrintTalk.getNamespaceURI(20), "http://www.printtalk.org/schema_20");
+	@Test
+	public void testgetPrintTalk() {
+		PrintTalk printTalk = new PrintTalk();
+		PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		Assert.assertEquals(printTalk, po.getPrintTalk());
 	}
 
 	/**
 	 * 
-	 * duh...
+	 *  
 	 */
-	public void testAppendRequest()
-	{
-		PrintTalk pt = new PrintTalk();
-		pt.setHeader(Header.From, "ID", "Its me");
-		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
-		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
-		assertTrue(bo instanceof RFQ);
-	}
+	@Test
+	public void testMultiJDF() {
+		PrintTalk printTalk = new PrintTalk();
+		PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		Pricing pricing = po.getCreatePricing();
+		Price tp = pricing.addPrice("total", 42);
+		tp.setLineID("Total");
 
-	/**
-	 * 
-	 * duh...
-	 */
-	public void testAppendRequestRef()
-	{
-		PrintTalk pt = new PrintTalk();
-		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
-		assertTrue(bo instanceof RFQ);
-		PrintTalk pt2 = new PrintTalk();
-		BusinessObject bo2 = pt2.appendRequest(EnumBusinessObject.Quotation, pt);
-		assertTrue(bo2 instanceof Quotation);
-		assertEquals(bo2.getBusinessRefID(), bo.getBusinessID());
-	}
-
-	/**
-	 * 
-	 * duh...
-	 */
-	public void testGetTimestamp()
-	{
-		PrintTalk pt = new PrintTalk();
-		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 100);
-	}
-
-	/**
-	 * 
-	 * duh...
-	 */
-	public void testGetPrintTalk()
-	{
-		PrintTalk pt = new PrintTalk();
-		assertEquals(pt.getPrintTalk(), pt);
-	}
-
-	/**
-	 * 
-	 * duh...
-	 */
-	public void testEquals()
-	{
-		PrintTalk pt = new PrintTalk();
-		assertEquals(pt.getPrintTalk(), pt);
-		assertEquals(pt.getPrintTalk().hashCode(), pt.hashCode());
-		assertNotSame(pt, new PrintTalk(pt.getRoot().clone()));
-		assertNotSame("there is a on in 4 billion chance that this may fail ;-)", pt.hashCode(), new PrintTalk(pt.getRoot().clone()).hashCode());
+		int total = 0;
+		for (int i = 1; i < 4; i++) {
+			JDFNode n = (JDFNode) po.getCreateJDFRoot("JDF", i - 1);
+			n.appendGeneralID("LineID", "Line" + i);
+			pricing.addPrice("Price for JDF # " + i, i * 100).setLineID("Line" + i);
+			total += i * 100;
+			tp.addLineIDRef("Line" + i);
+		}
+		pricing.addPrice("shipping", 42).setLineID("Shipping");
+		total += 42;
+		tp.addLineIDRef("shipping");
+		tp.setPrice(total);
+		// printTalk.getRoot().getOwnerDocument_KElement().write2File(sm_dirTestDataTemp + "multiJDF.pt", 2, true);
 	}
 }

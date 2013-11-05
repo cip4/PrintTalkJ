@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -68,66 +68,37 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.JDFTestCaseBase;
-import org.cip4.jdflib.node.JDFNode;
+import java.util.zip.DataFormatException;
+
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- *  
+ * 
+ * 
  * @author rainer prosi
- * @date Jan 5, 2011
+ * @date Jan 24, 2012
  */
-public class PurchaseOrderTest extends JDFTestCaseBase
-{
-	/**
-	 * 
-	 *  
-	 */
-	public void testSetExpires()
-	{
-		PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		JDFDate expires = new JDFDate();
-		po.setExpires(expires);
-		assertEquals(expires, po.getExpires());
-	}
+public class CreditCardTest {
 
 	/**
+	 * @throws DataFormatException
 	 * 
-	 *  
 	 */
-	public void testgetPrintTalk()
-	{
-		PrintTalk printTalk = new PrintTalk();
-		PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		assertEquals(printTalk, po.getPrintTalk());
+	@Test
+	public void testSetExpires() throws DataFormatException {
+		Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
+		JDFDate expires = new JDFDate("2011-09");
+		CreditCard cc = invoice.getCreatePricing().getCreatePayment().getCreateCreditCard();
+		cc.setExpires(expires);
+
+		System.out.println("cc.getExpires: " + cc.getExpires());
+		Assert.assertEquals(expires.getMonth(), cc.getExpires().getMonth());
+		Assert.assertEquals(9, cc.getExpires().getMonth());
+		Assert.assertEquals(expires.getYear(), cc.getExpires().getYear());
+		Assert.assertEquals(2011, cc.getExpires().getYear());
 	}
 
-	/**
-	 * 
-	 *  
-	 */
-	public void testMultiJDF()
-	{
-		PrintTalk printTalk = new PrintTalk();
-		PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		Pricing pricing = po.getCreatePricing();
-		Price tp = pricing.addPrice("total", 42);
-		tp.setLineID("Total");
-
-		int total = 0;
-		for (int i = 1; i < 4; i++)
-		{
-			JDFNode n = (JDFNode) po.getCreateJDFRoot("JDF", i - 1);
-			n.appendGeneralID("LineID", "Line" + i);
-			pricing.addPrice("Price for JDF # " + i, i * 100).setLineID("Line" + i);
-			total += i * 100;
-			tp.addLineIDRef("Line" + i);
-		}
-		pricing.addPrice("shipping", 42).setLineID("Shipping");
-		total += 42;
-		tp.addLineIDRef("shipping");
-		tp.setPrice(total);
-		printTalk.getRoot().getOwnerDocument_KElement().write2File(sm_dirTestDataTemp + "multiJDF.pt", 2, true);
-	}
 }

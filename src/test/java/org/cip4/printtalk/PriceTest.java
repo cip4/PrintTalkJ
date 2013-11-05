@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -68,35 +68,69 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.JDFTestCaseBase;
-import org.cip4.jdflib.util.JDFDate;
-import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.jdflib.core.XMLDoc;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * 
+ * @author rainer prosi
+ * @date Jan 4, 2011
  */
-public class InvoiceTest extends JDFTestCaseBase
-{
-	/**
-	 * 
-	 */
-	public void testSetExpires()
-	{
-		Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
-		JDFDate expires = new JDFDate();
-		invoice.setExpires(expires);
-		assertEquals(expires, invoice.getExpires());
-	}
-
+public class PriceTest {
 	/**
 	 * 
 	 *  
 	 */
-	public void testGetCreatePricing()
-	{
-		Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
-		Pricing p = invoice.getCreatePricing();
-		p.addPrice("Our best price", 100);
-		System.out.println("invoice: " + invoice);
+	@Test
+	public void testCurrency() {
+		Assert.assertEquals("will fail in japan", 2, Price.getCurrencyPrecision());
+	}
+
+	/**
+	 * 
+	 * 
+	 */
+	@Test
+	public void testRefPrice() {
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		Price p2 = p.addPrice("p2", 22);
+		p2.refPrice(p1);
+		Assert.assertTrue(p2.getLineIDRefs().contains(p1.getLineID()));
+		Assert.assertFalse(p2.getLineIDRefs().contains(p2.getLineID()));
+	}
+
+	/**
+	 * 
+	 * 
+	 */
+	@Test
+	public void testIsReferenced() {
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		Price p2 = p.addPrice("p2", 22);
+		Price p3 = p.addPrice("p3", 33);
+		Price p4 = p.addPrice(null, 33);
+		p2.refPrice(p1);
+		Assert.assertTrue(p1.isReferenced());
+		Assert.assertFalse(p2.isReferenced());
+		Assert.assertFalse(p3.isReferenced());
+		Assert.assertFalse(p4.isReferenced());
+	}
+
+	/**
+	 * 
+	 * 
+	 */
+	@Test
+	public void testAddRef() {
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		p.addPrice("p1", 20).setLineID("L1");
+		p.addPrice("p2", 22).setLineID("L2");
+		Price p3 = p.addPrice("p3", 42);
+		p3.addLineIDRef("L1");
+		p3.addLineIDRef("L2");
+		Assert.assertTrue(p3.getLineIDRefs().contains("L1"));
 	}
 }

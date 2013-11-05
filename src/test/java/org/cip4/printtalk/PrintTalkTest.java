@@ -68,26 +68,98 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.JDFTestCaseBase;
+import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.cip4.printtalk.StatusRequest.EnumResponseDetails;
+import org.cip4.printtalk.PrintTalk.Header;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * 
  * @author rainer prosi
- * @date Jan 11, 2011
+ * @date Jan 3, 2011
  */
-public class StatusRequestTest extends JDFTestCaseBase
-{
+public class PrintTalkTest {
 	/**
 	 * 
-	 *  
+	 * duh...
 	 */
-	public void testResponseDetails()
-	{
-		StatusRequest r = ((OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null)).getCreateStatusRequest();
-		assertNull(r.getResponseDetails());
-		r.setResponseDetails(EnumResponseDetails.Brief);
-		assertEquals(r.getResponseDetails(), EnumResponseDetails.Brief);
+	@Test
+	public void testSetHeader() {
+		PrintTalk pt = new PrintTalk();
+		pt.setHeader(Header.From, "ID", "Its me");
+		Assert.assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
+		pt.setHeader(Header.From, "ID", "Its you");
+		Assert.assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testGetNSUri() {
+		Assert.assertEquals(PrintTalk.getNamespaceURI(20), "http://www.printtalk.org/schema_20");
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testAppendRequest() {
+		PrintTalk pt = new PrintTalk();
+		pt.setHeader(Header.From, "ID", "Its me");
+		Assert.assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
+		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
+		Assert.assertTrue(bo instanceof RFQ);
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testAppendRequestRef() {
+		PrintTalk pt = new PrintTalk();
+		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
+		Assert.assertTrue(bo instanceof RFQ);
+		PrintTalk pt2 = new PrintTalk();
+		BusinessObject bo2 = pt2.appendRequest(EnumBusinessObject.Quotation, pt);
+		Assert.assertTrue(bo2 instanceof Quotation);
+		Assert.assertEquals(bo2.getBusinessRefID(), bo.getBusinessID());
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testGetTimestamp() {
+		PrintTalk pt = new PrintTalk();
+		Assert.assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 100);
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testGetPrintTalk() {
+		PrintTalk pt = new PrintTalk();
+		Assert.assertEquals(pt.getPrintTalk(), pt);
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testEquals() {
+		PrintTalk pt = new PrintTalk();
+		Assert.assertEquals(pt.getPrintTalk(), pt);
+		Assert.assertEquals(pt.getPrintTalk().hashCode(), pt.hashCode());
+		Assert.assertNotSame(pt, new PrintTalk(pt.getRoot().clone()));
+		Assert.assertNotSame("there is a on in 4 billion chance that this may fail ;-)", pt.hashCode(), new PrintTalk(pt.getRoot().clone()).hashCode());
 	}
 }

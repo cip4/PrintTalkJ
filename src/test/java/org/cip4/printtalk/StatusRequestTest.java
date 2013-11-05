@@ -68,27 +68,26 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.JDFTestCaseBase;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.printtalk.StatusRequest.EnumResponseDetails;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- *   
+ * 
  * @author rainer prosi
- * @date Oct 19, 2013
+ * @date Jan 11, 2011
  */
-public class OrderStatusResponseTest extends JDFTestCaseBase
-{
-
+public class StatusRequestTest {
 	/**
 	 * 
-	 * 
+	 *  
 	 */
-	public void testSetMilestone()
-	{
-		PrintTalk pt = new PrintTalk();
-		OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
-		osResp.setMilestone("JiD", "PrepressAvailable");
-		assertNotNull(osResp.getMilestoneNotification(0));
-		assertNull(osResp.getMilestoneNotification(1));
+	@Test
+	public void testResponseDetails() {
+		StatusRequest r = ((OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null)).getCreateStatusRequest();
+		Assert.assertNull(r.getResponseDetails());
+		r.setResponseDetails(EnumResponseDetails.Brief);
+		Assert.assertEquals(r.getResponseDetails(), EnumResponseDetails.Brief);
 	}
 }
