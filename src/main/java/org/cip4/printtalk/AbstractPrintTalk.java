@@ -349,9 +349,9 @@ public abstract class AbstractPrintTalk
 	@Override
 	public boolean equals(Object arg0)
 	{
-		if (!(arg0 instanceof PrintTalk))
+		if (!(arg0 instanceof AbstractPrintTalk))
 			return false;
-		return ContainerUtil.equals(getRoot(), ((PrintTalk) arg0).getRoot());
+		return ContainerUtil.equals(getRoot(), ((AbstractPrintTalk) arg0).getRoot());
 	}
 
 	/**

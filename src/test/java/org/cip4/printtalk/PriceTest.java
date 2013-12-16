@@ -77,14 +77,29 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Jan 4, 2011
  */
-public class PriceTest {
+public class PriceTest
+{
 	/**
 	 * 
 	 *  
 	 */
 	@Test
-	public void testCurrency() {
+	public void testCurrency()
+	{
 		Assert.assertEquals("will fail in japan", 2, Price.getCurrencyPrecision());
+	}
+
+	/**
+	 * 
+	 *  
+	 */
+	@Test
+	public void testEquals()
+	{
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		Assert.assertEquals(p1, new Price(p1.getRoot()));
+		Assert.assertEquals(p, new Price(p.getRoot()));
 	}
 
 	/**
@@ -92,7 +107,8 @@ public class PriceTest {
 	 * 
 	 */
 	@Test
-	public void testRefPrice() {
+	public void testRefPrice()
+	{
 		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
 		Price p1 = p.addPrice("p1", 20);
 		Price p2 = p.addPrice("p2", 22);
@@ -106,7 +122,8 @@ public class PriceTest {
 	 * 
 	 */
 	@Test
-	public void testIsReferenced() {
+	public void testIsReferenced()
+	{
 		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
 		Price p1 = p.addPrice("p1", 20);
 		Price p2 = p.addPrice("p2", 22);
@@ -124,7 +141,8 @@ public class PriceTest {
 	 * 
 	 */
 	@Test
-	public void testAddRef() {
+	public void testAddRef()
+	{
 		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
 		p.addPrice("p1", 20).setLineID("L1");
 		p.addPrice("p2", 22).setLineID("L2");
