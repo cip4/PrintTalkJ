@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>org.cip4.lib.jdf</groupId>
 			<artifactId>JDFLibJ</artifactId>
-			<version>2.1.4a.76-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 	
 		<!-- Test Environment -->
