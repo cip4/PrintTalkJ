@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ public class Pricing extends AbstractPrintTalk
 	 */
 	public Price getPrice(String lineID)
 	{
-		KElement price = theElement.getChildWithAttribute(Price.ELEMENT_PRICE, Price.ATTR_LINEID, null, lineID, 0, true);
+		KElement price = theElement == null ? null : theElement.getChildWithAttribute(Price.ELEMENT_PRICE, Price.ATTR_LINEID, null, lineID, 0, true);
 		return price == null ? null : new Price(price);
 	}
 
@@ -142,7 +142,7 @@ public class Pricing extends AbstractPrintTalk
 	 */
 	public Price getPriceByDescription(String desc)
 	{
-		KElement price = theElement.getChildWithAttribute(Price.ELEMENT_PRICE, AttributeName.DESCRIPTIVENAME, null, desc, 0, true);
+		KElement price = theElement == null ? null : theElement.getChildWithAttribute(Price.ELEMENT_PRICE, AttributeName.DESCRIPTIVENAME, null, desc, 0, true);
 		return price == null ? null : new Price(price);
 	}
 
@@ -153,6 +153,9 @@ public class Pricing extends AbstractPrintTalk
 	 */
 	public Vector<Price> getPriceVector()
 	{
+		if (theElement == null)
+			return null;
+
 		Vector<Price> v = new Vector<Price>();
 		VElement prices = theElement.getChildElementVector(Price.ELEMENT_PRICE, null);
 		for (KElement price : prices)
