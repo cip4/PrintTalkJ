@@ -96,8 +96,50 @@ public class Price extends AbstractPrintTalk
 	public static String ATTR_LINEID = "LineID";
 	/** */
 	public static String ATTR_LINEIDREFS = "LineIDRefs";
+	/** */
+	public static String ATTR_PRICETYPE = "PriceType";
 
 	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
+
+	/**
+	 *  PrintTalk 1.5 priceType enum
+	 *  
+	 * @author rainer prosi
+	 * @date Apr 1, 2014
+	 */
+	public enum EnumPriceType
+	{
+		Discount, Markup, Product, Subtotal, Tax, TotalGross, TotalNet, TotalTax
+	};
+
+	/**
+	 * 
+	 *  
+	 * @return
+	 */
+	public EnumPriceType getPriceType()
+	{
+		String s = theElement.getAttribute(ATTR_PRICETYPE, null, null);
+		try
+		{
+			return s == null ? null : EnumPriceType.valueOf(s);
+		}
+		catch (Exception x)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 *  
+	 * @param priceType 
+	 * 
+	 */
+	public void setPriceType(EnumPriceType priceType)
+	{
+		theElement.setAttribute(ATTR_PRICETYPE, priceType == null ? null : priceType.name(), null);
+	}
 
 	/**
 	 * 
