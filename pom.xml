@@ -3,7 +3,7 @@
 
 	<groupId>org.cip4.lib.ptk</groupId>
 	<artifactId>PrintTalkJ</artifactId>
-	<version>2.1.5.79</version>
+	<version>2.1.5.80-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>PrintTalkJ</name>
@@ -20,9 +20,9 @@
 		<buildDirectory>${project.basedir}/target</buildDirectory>
 	</properties>
 	<scm>
-		<url>http://svn.cip4.org/svnroot/tags/PrintTalkJ-2.1.5.79</url>
-		<developerConnection>scm:svn:http://svn.cip4.org/svnroot/tags/PrintTalkJ-2.1.5.79</developerConnection>
-		<connection>scm:svn:http://svn.cip4.org/svnroot/tags/PrintTalkJ-2.1.5.79</connection>
+		<url>http://svn.cip4.org/svnroot/trunk/PrintTalkJ</url>
+		<developerConnection>scm:svn:http://svn.cip4.org/svnroot/trunk/PrintTalkJ</developerConnection>
+		<connection>scm:svn:http://svn.cip4.org/svnroot/trunk/PrintTalkJ</connection>
 	</scm>
 	<developers>
 		<developer>
