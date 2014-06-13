@@ -74,6 +74,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.io.FilenameUtils;
 import org.cip4.jdflib.core.JDFElement.EnumVersion;
+import org.junit.Test;
 
 /**
  * testcase base class
@@ -105,6 +106,7 @@ public class PrintTalkTestCase extends TestCase
 	 * 
 	 *  
 	 */
+	@Test
 	public void testDummy()
 	{
 
