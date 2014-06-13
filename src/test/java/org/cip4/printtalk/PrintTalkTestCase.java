@@ -101,4 +101,13 @@ public class PrintTalkTestCase extends TestCase
 
 	}
 
+	/**
+	 * 
+	 *  
+	 */
+	public void testDummy()
+	{
+
+	}
+
 }
