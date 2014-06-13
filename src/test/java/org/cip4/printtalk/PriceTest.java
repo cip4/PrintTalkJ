@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -69,7 +69,6 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.core.XMLDoc;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -77,7 +76,7 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Jan 4, 2011
  */
-public class PriceTest
+public class PriceTest extends PrintTalkTestCase
 {
 	/**
 	 * 
@@ -86,7 +85,7 @@ public class PriceTest
 	@Test
 	public void testCurrency()
 	{
-		Assert.assertEquals("will fail in japan", 2, Price.getCurrencyPrecision());
+		assertEquals("will fail in japan", 2, Price.getCurrencyPrecision());
 	}
 
 	/**
@@ -98,8 +97,8 @@ public class PriceTest
 	{
 		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
 		Price p1 = p.addPrice("p1", 20);
-		Assert.assertEquals(p1, new Price(p1.getRoot()));
-		Assert.assertEquals(p, new Price(p.getRoot()));
+		assertEquals(p1, new Price(p1.getRoot()));
+		assertEquals(p, new Price(p.getRoot()));
 	}
 
 	/**
@@ -113,8 +112,8 @@ public class PriceTest
 		Price p1 = p.addPrice("p1", 20);
 		Price p2 = p.addPrice("p2", 22);
 		p2.refPrice(p1);
-		Assert.assertTrue(p2.getLineIDRefs().contains(p1.getLineID()));
-		Assert.assertFalse(p2.getLineIDRefs().contains(p2.getLineID()));
+		assertTrue(p2.getLineIDRefs().contains(p1.getLineID()));
+		assertFalse(p2.getLineIDRefs().contains(p2.getLineID()));
 	}
 
 	/**
@@ -130,10 +129,10 @@ public class PriceTest
 		Price p3 = p.addPrice("p3", 33);
 		Price p4 = p.addPrice(null, 33);
 		p2.refPrice(p1);
-		Assert.assertTrue(p1.isReferenced());
-		Assert.assertFalse(p2.isReferenced());
-		Assert.assertFalse(p3.isReferenced());
-		Assert.assertFalse(p4.isReferenced());
+		assertTrue(p1.isReferenced());
+		assertFalse(p2.isReferenced());
+		assertFalse(p3.isReferenced());
+		assertFalse(p4.isReferenced());
 	}
 
 	/**
@@ -149,6 +148,6 @@ public class PriceTest
 		Price p3 = p.addPrice("p3", 42);
 		p3.addLineIDRef("L1");
 		p3.addLineIDRef("L2");
-		Assert.assertTrue(p3.getLineIDRefs().contains("L1"));
+		assertTrue(p3.getLineIDRefs().contains("L1"));
 	}
 }

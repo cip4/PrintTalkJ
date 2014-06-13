@@ -68,27 +68,36 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Test;
+import java.io.File;
+
+import junit.framework.TestCase;
+
+import org.apache.commons.io.FilenameUtils;
+import org.cip4.jdflib.core.JDFElement.EnumVersion;
 
 /**
+ * testcase base class
  * 
  * @author rainer prosi
- * @date Oct 22, 2013
+ * @date Jun 13, 2014
  */
-public class StockLevelRequestTest extends PrintTalkTestCase
+public class PrintTalkTestCase extends TestCase
 {
-	/**
-	 * 
-	 *  
-	 */
-	@Test
-	public void testCurrency()
+	static protected final EnumVersion defaultVersion = EnumVersion.Version_1_5;
+	static protected final String sm_dirTestData = getTestDataDir();
+	static protected final String sm_dirTestSchema = sm_dirTestData + "schema" + File.separator + defaultVersion + File.separator;
+	static protected final String sm_dirTestDataTemp = sm_dirTestData + "temp" + File.separator;
+
+	private static String getTestDataDir()
 	{
-		StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
-		assertNull(req.getCurrency());
-		req.setCurrency("JPY");
-		assertNotNull(req.getCurrency());
+
+		String path = "test" + File.separator + "data";
+		File dataFile = new File(path);
+		if (!dataFile.isDirectory()) // legacy - pre maven file structure support
+			path = PrintTalkTestCase.class.getResource("/data").getPath();
+		path = FilenameUtils.normalize(path) + File.separator;
+
+		return path;
 
 	}
 

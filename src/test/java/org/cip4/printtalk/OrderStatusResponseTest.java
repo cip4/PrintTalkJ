@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -69,7 +69,6 @@
 package org.cip4.printtalk;
 
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -77,18 +76,20 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Oct 19, 2013
  */
-public class OrderStatusResponseTest {
+public class OrderStatusResponseTest extends PrintTalkTestCase
+{
 
 	/**
 	 * 
 	 * 
 	 */
 	@Test
-	public void testSetMilestone() {
+	public void testSetMilestone()
+	{
 		PrintTalk pt = new PrintTalk();
 		OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
 		osResp.setMilestone("JiD", "PrepressAvailable");
-		Assert.assertNotNull(osResp.getMilestoneNotification(0));
-		Assert.assertNull(osResp.getMilestoneNotification(1));
+		assertNotNull(osResp.getMilestoneNotification(0));
+		assertNull(osResp.getMilestoneNotification(1));
 	}
 }

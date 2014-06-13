@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -71,7 +71,6 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalk.Header;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -79,18 +78,20 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Jan 3, 2011
  */
-public class PrintTalkTest {
+public class PrintTalkTest extends PrintTalkTestCase
+{
 	/**
 	 * 
 	 * duh...
 	 */
 	@Test
-	public void testSetHeader() {
+	public void testSetHeader()
+	{
 		PrintTalk pt = new PrintTalk();
-		pt.setHeader(Header.From, "ID", "Its me");
-		Assert.assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
-		pt.setHeader(Header.From, "ID", "Its you");
-		Assert.assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
+		pt.setCredential(Header.From, "ID", "Its me");
+		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
+		pt.setCredential(Header.From, "ID", "Its you");
+		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
 	}
 
 	/**
@@ -98,8 +99,9 @@ public class PrintTalkTest {
 	 * duh...
 	 */
 	@Test
-	public void testGetNSUri() {
-		Assert.assertEquals(PrintTalk.getNamespaceURI(20), "http://www.printtalk.org/schema_20");
+	public void testGetNSUri()
+	{
+		assertEquals(PrintTalk.getNamespaceURI(20), "http://www.printtalk.org/schema_20");
 	}
 
 	/**
@@ -107,12 +109,13 @@ public class PrintTalkTest {
 	 * duh...
 	 */
 	@Test
-	public void testAppendRequest() {
+	public void testAppendRequest()
+	{
 		PrintTalk pt = new PrintTalk();
-		pt.setHeader(Header.From, "ID", "Its me");
-		Assert.assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
+		pt.setCredential(Header.From, "ID", "Its me");
+		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
 		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
-		Assert.assertTrue(bo instanceof RFQ);
+		assertTrue(bo instanceof RFQ);
 	}
 
 	/**
@@ -120,14 +123,15 @@ public class PrintTalkTest {
 	 * duh...
 	 */
 	@Test
-	public void testAppendRequestRef() {
+	public void testAppendRequestRef()
+	{
 		PrintTalk pt = new PrintTalk();
 		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
-		Assert.assertTrue(bo instanceof RFQ);
+		assertTrue(bo instanceof RFQ);
 		PrintTalk pt2 = new PrintTalk();
 		BusinessObject bo2 = pt2.appendRequest(EnumBusinessObject.Quotation, pt);
-		Assert.assertTrue(bo2 instanceof Quotation);
-		Assert.assertEquals(bo2.getBusinessRefID(), bo.getBusinessID());
+		assertTrue(bo2 instanceof Quotation);
+		assertEquals(bo2.getBusinessRefID(), bo.getBusinessID());
 	}
 
 	/**
@@ -135,9 +139,10 @@ public class PrintTalkTest {
 	 * duh...
 	 */
 	@Test
-	public void testGetTimestamp() {
+	public void testGetTimestamp()
+	{
 		PrintTalk pt = new PrintTalk();
-		Assert.assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 100);
+		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 100);
 	}
 
 	/**
@@ -145,9 +150,10 @@ public class PrintTalkTest {
 	 * duh...
 	 */
 	@Test
-	public void testGetPrintTalk() {
+	public void testGetPrintTalk()
+	{
 		PrintTalk pt = new PrintTalk();
-		Assert.assertEquals(pt.getPrintTalk(), pt);
+		assertEquals(pt.getPrintTalk(), pt);
 	}
 
 	/**
@@ -155,11 +161,12 @@ public class PrintTalkTest {
 	 * duh...
 	 */
 	@Test
-	public void testEquals() {
+	public void testEquals()
+	{
 		PrintTalk pt = new PrintTalk();
-		Assert.assertEquals(pt.getPrintTalk(), pt);
-		Assert.assertEquals(pt.getPrintTalk().hashCode(), pt.hashCode());
-		Assert.assertNotSame(pt, new PrintTalk(pt.getRoot().clone()));
-		Assert.assertNotSame("there is a on in 4 billion chance that this may fail ;-)", pt.hashCode(), new PrintTalk(pt.getRoot().clone()).hashCode());
+		assertEquals(pt.getPrintTalk(), pt);
+		assertEquals(pt.getPrintTalk().hashCode(), pt.hashCode());
+		assertNotSame(pt, new PrintTalk(pt.getRoot().clone()));
+		assertNotSame("there is a on in 4 billion chance that this may fail ;-)", pt.hashCode(), new PrintTalk(pt.getRoot().clone()).hashCode());
 	}
 }

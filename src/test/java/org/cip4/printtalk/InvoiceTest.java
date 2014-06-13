@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -70,23 +70,24 @@ package org.cip4.printtalk;
 
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * 
  */
-public class InvoiceTest {
+public class InvoiceTest extends PrintTalkTestCase
+{
 	/**
 	 * 
 	 */
 
 	@Test
-	public void testSetExpires() {
+	public void testSetExpires()
+	{
 		Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
 		JDFDate expires = new JDFDate();
 		invoice.setExpires(expires);
-		Assert.assertEquals(expires, invoice.getExpires());
+		assertEquals(expires, invoice.getExpires());
 	}
 
 	/**
@@ -94,7 +95,8 @@ public class InvoiceTest {
 	 *  
 	 */
 	@Test
-	public void testGetCreatePricing() {
+	public void testGetCreatePricing()
+	{
 		Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
 		Pricing p = invoice.getCreatePricing();
 		p.addPrice("Our best price", 100);

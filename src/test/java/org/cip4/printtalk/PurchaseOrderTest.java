@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -71,7 +71,6 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.node.JDFNode;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -79,17 +78,19 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Jan 5, 2011
  */
-public class PurchaseOrderTest {
+public class PurchaseOrderTest extends PrintTalkTestCase
+{
 	/**
 	 * 
 	 *  
 	 */
 	@Test
-	public void testSetExpires() {
+	public void testSetExpires()
+	{
 		PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
 		JDFDate expires = new JDFDate();
 		po.setExpires(expires);
-		Assert.assertEquals(expires, po.getExpires());
+		assertEquals(expires, po.getExpires());
 	}
 
 	/**
@@ -97,10 +98,11 @@ public class PurchaseOrderTest {
 	 *  
 	 */
 	@Test
-	public void testgetPrintTalk() {
+	public void testgetPrintTalk()
+	{
 		PrintTalk printTalk = new PrintTalk();
 		PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		Assert.assertEquals(printTalk, po.getPrintTalk());
+		assertEquals(printTalk, po.getPrintTalk());
 	}
 
 	/**
@@ -108,7 +110,8 @@ public class PurchaseOrderTest {
 	 *  
 	 */
 	@Test
-	public void testMultiJDF() {
+	public void testMultiJDF()
+	{
 		PrintTalk printTalk = new PrintTalk();
 		PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
 		Pricing pricing = po.getCreatePricing();
@@ -116,7 +119,8 @@ public class PurchaseOrderTest {
 		tp.setLineID("Total");
 
 		int total = 0;
-		for (int i = 1; i < 4; i++) {
+		for (int i = 1; i < 4; i++)
+		{
 			JDFNode n = (JDFNode) po.getCreateJDFRoot("JDF", i - 1);
 			n.appendGeneralID("LineID", "Line" + i);
 			pricing.addPrice("Price for JDF # " + i, i * 100).setLineID("Line" + i);

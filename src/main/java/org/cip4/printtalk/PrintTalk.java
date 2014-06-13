@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -236,15 +236,15 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * 
-	 * set a new header value
+	 * set a new credential value
 	 * @param header type of header
-	 * @param name domain name
-	 * @param value Identity value
+	 * @param domain domain name
+	 * @param identity Identity value
 	 */
-	public void setHeader(Header header, String name, String value)
+	public void setCredential(Header header, String domain, String identity)
 	{
 		String type = header.name();
-		getCreateXPathElement("Header/" + type + "/Credential[@domain=\"" + name + "\"]").getCreateElement("Identity").setText(value);
+		getCreateXPathElement("Header/" + type + "/Credential[@domain=\"" + domain + "\"]").getCreateElement("Identity").setText(identity);
 	}
 
 	/**
@@ -312,13 +312,13 @@ public class PrintTalk extends AbstractPrintTalk
 	public BusinessObject getBusinessObject()
 	{
 		KElement request = getElement("Request");
-		KElement oldBO = request == null ? null : request.getElement(null);
-		return oldBO == null ? null : BusinessObject.getBusinessObject(oldBO);
+		KElement oldBO = request == null ? null : request.getFirstChildElement();
+		return BusinessObject.getBusinessObject(oldBO);
 	}
 
 	/**
-	 * get the business object from a request
-	 * @param headerType 
+	 * get the header from a request
+	 * @param headerType the type (From / to / Sender)
 	 * @return
 	 */
 	public HeaderBase getHeader(EnumHeaderType headerType)

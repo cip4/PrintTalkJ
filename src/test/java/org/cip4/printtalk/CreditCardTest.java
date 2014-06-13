@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -72,7 +72,6 @@ import java.util.zip.DataFormatException;
 
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -81,24 +80,26 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Jan 24, 2012
  */
-public class CreditCardTest {
+public class CreditCardTest extends PrintTalkTestCase
+{
 
 	/**
 	 * @throws DataFormatException
 	 * 
 	 */
 	@Test
-	public void testSetExpires() throws DataFormatException {
+	public void testSetExpires() throws DataFormatException
+	{
 		Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
 		JDFDate expires = new JDFDate("2011-09");
 		CreditCard cc = invoice.getCreatePricing().getCreatePayment().getCreateCreditCard();
 		cc.setExpires(expires);
 
 		System.out.println("cc.getExpires: " + cc.getExpires());
-		Assert.assertEquals(expires.getMonth(), cc.getExpires().getMonth());
-		Assert.assertEquals(9, cc.getExpires().getMonth());
-		Assert.assertEquals(expires.getYear(), cc.getExpires().getYear());
-		Assert.assertEquals(2011, cc.getExpires().getYear());
+		assertEquals(expires.getMonth(), cc.getExpires().getMonth());
+		assertEquals(9, cc.getExpires().getMonth());
+		assertEquals(expires.getYear(), cc.getExpires().getYear());
+		assertEquals(2011, cc.getExpires().getYear());
 	}
 
 }

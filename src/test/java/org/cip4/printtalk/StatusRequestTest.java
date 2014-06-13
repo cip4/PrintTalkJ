@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -70,7 +70,6 @@ package org.cip4.printtalk;
 
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.StatusRequest.EnumResponseDetails;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -78,16 +77,18 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Jan 11, 2011
  */
-public class StatusRequestTest {
+public class StatusRequestTest extends PrintTalkTestCase
+{
 	/**
 	 * 
 	 *  
 	 */
 	@Test
-	public void testResponseDetails() {
+	public void testResponseDetails()
+	{
 		StatusRequest r = ((OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null)).getCreateStatusRequest();
-		Assert.assertNull(r.getResponseDetails());
+		assertNull(r.getResponseDetails());
 		r.setResponseDetails(EnumResponseDetails.Brief);
-		Assert.assertEquals(r.getResponseDetails(), EnumResponseDetails.Brief);
+		assertEquals(r.getResponseDetails(), EnumResponseDetails.Brief);
 	}
 }
