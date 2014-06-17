@@ -69,8 +69,8 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.cip4.printtalk.PrintTalk.Header;
 import org.junit.Test;
 
 /**
@@ -88,9 +88,9 @@ public class PrintTalkTest extends PrintTalkTestCase
 	public void testSetHeader()
 	{
 		PrintTalk pt = new PrintTalk();
-		pt.setCredential(Header.From, "ID", "Its me");
+		pt.setCredential(EnumHeaderType.From, "ID", "Its me");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
-		pt.setCredential(Header.From, "ID", "Its you");
+		pt.setCredential(EnumHeaderType.From, "ID", "Its you");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
 	}
 
@@ -112,7 +112,7 @@ public class PrintTalkTest extends PrintTalkTestCase
 	public void testAppendRequest()
 	{
 		PrintTalk pt = new PrintTalk();
-		pt.setCredential(Header.From, "ID", "Its me");
+		pt.setCredential(EnumHeaderType.From, "ID", "Its me");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
 		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
 		assertTrue(bo instanceof RFQ);

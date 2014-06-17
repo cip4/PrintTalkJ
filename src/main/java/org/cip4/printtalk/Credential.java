@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -79,6 +79,10 @@ public class Credential extends AbstractPrintTalk
 {
 	/** */
 	public static String ELEMENT_CREDENTIAL = "Credential";
+	/** */
+	public static String DOMAIN_CUSTOMERID = "jdf:CustomerID";
+	/** */
+	public static String DOMAIN_AGENTID = "jdf:AgentID";
 
 	/**
 	 * @param header
@@ -104,5 +108,23 @@ public class Credential extends AbstractPrintTalk
 	public void setIdentity(String value)
 	{
 		setXPathValue("Identity", value);
+	}
+
+	/**
+	 * set the domain to domain
+	 * @param domain
+	 */
+	public void setDomain(String domain)
+	{
+		setAttribute("domain", domain);
+	}
+
+	/**
+	 * set the domain to domain
+	 * @return domain
+	 */
+	public String getDomain()
+	{
+		return getAttribute("domain");
 	}
 }

@@ -95,22 +95,6 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * 
-	 * types of printtalk header
-	 * @author rainer prosi
-	 * @date Jan 3, 2011
-	 */
-	public static enum Header
-	{
-		/** */
-		From,
-		/** */
-		To,
-		/** */
-		Sender
-	}
-
-	/**
-	 * 
 	 * business object types
 	 * @author rainer prosi
 	 * @date Jan 3, 2011
@@ -241,7 +225,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 * @param domain domain name
 	 * @param identity Identity value
 	 */
-	public void setCredential(Header header, String domain, String identity)
+	public void setCredential(EnumHeaderType header, String domain, String identity)
 	{
 		String type = header.name();
 		getCreateXPathElement("Header/" + type + "/Credential[@domain=\"" + domain + "\"]").getCreateElement("Identity").setText(identity);

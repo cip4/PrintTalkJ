@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -106,7 +106,9 @@ public class HeaderBase extends AbstractPrintTalk
 	{
 		Credential c = getCreateCredential(domain);
 		if (c != null)
+		{
 			c.setIdentity(value);
+		}
 	}
 
 	/**
@@ -130,9 +132,12 @@ public class HeaderBase extends AbstractPrintTalk
 		if (theElement == null)
 			return null;
 
-		KElement e = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, domain, null, domain, 0, true);
+		KElement e = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
 		if (e == null)
-			theElement.appendElement(Credential.ELEMENT_CREDENTIAL).setAttribute("domain", domain);
+		{
+			Credential c = new Credential(theElement.appendElement(Credential.ELEMENT_CREDENTIAL));
+			c.setDomain(domain);
+		}
 		return getCredential(domain);
 	}
 
