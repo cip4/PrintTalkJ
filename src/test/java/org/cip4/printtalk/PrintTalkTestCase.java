@@ -112,4 +112,14 @@ public class PrintTalkTestCase extends TestCase
 
 	}
 
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	@Override
+	protected void tearDown() throws Exception
+	{
+		PrintTalk.setDefaultVersion(15);
+		super.tearDown();
+	}
+
 }

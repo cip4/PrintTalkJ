@@ -172,7 +172,7 @@ public class StockLevelRequest extends BusinessObject
 	 * set currency value
 	 * @param availability
 	 */
-	public void setEnumAvailability(EnumAvailability availability)
+	public void setAvailability(EnumAvailability availability)
 	{
 		setAttribute(ATTR_AVAILABILITY, availability == null ? null : availability.name());
 	}

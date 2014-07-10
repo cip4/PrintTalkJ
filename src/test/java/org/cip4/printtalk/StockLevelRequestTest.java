@@ -69,6 +69,7 @@
 package org.cip4.printtalk;
 
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.printtalk.StockLevelRequest.EnumAvailability;
 import org.junit.Test;
 
 /**
@@ -88,8 +89,22 @@ public class StockLevelRequestTest extends PrintTalkTestCase
 		StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
 		assertNull(req.getCurrency());
 		req.setCurrency("JPY");
-		assertNotNull(req.getCurrency());
+		assertEquals(req.getCurrency(), "JPY");
+	}
 
+	/**
+	 * 
+	 *  
+	 */
+	@Test
+	public void testAvailability()
+	{
+		StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
+		assertNull(req.getCurrency());
+		req.setAvailability(EnumAvailability.Deliverable);
+		assertEquals(req.getAvailability(), EnumAvailability.Deliverable);
+		req.setAvailability(null);
+		assertEquals(req.getAvailability(), EnumAvailability.Any);
 	}
 
 }

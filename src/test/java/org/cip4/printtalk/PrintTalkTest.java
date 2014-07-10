@@ -90,6 +90,7 @@ public class PrintTalkTest extends PrintTalkTestCase
 		PrintTalk pt = new PrintTalk();
 		pt.setCredential(EnumHeaderType.From, "ID", "Its me");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
+		assertEquals(pt.getCredentialIdentity(EnumHeaderType.From, "ID"), "Its me");
 		pt.setCredential(EnumHeaderType.From, "ID", "Its you");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
 	}
@@ -143,6 +144,41 @@ public class PrintTalkTest extends PrintTalkTestCase
 	{
 		PrintTalk pt = new PrintTalk();
 		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 100);
+	}
+
+	/**
+	 * 
+	 *  
+	 */
+	@Test
+	public void testVersion()
+	{
+		PrintTalk pt = new PrintTalk();
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_15");
+		pt.setVersion(13);
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_13");
+		pt.setVersion(15);
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_15");
+		pt.setVersion(20);
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_20");
+		pt.setVersion(22);
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_22");
+	}
+
+	/**
+	 * 
+	 *  
+	 */
+	@Test
+	public void testdefaultVersion()
+	{
+		PrintTalk.setDefaultVersion(20);
+		PrintTalk pt = new PrintTalk();
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_20");
+		PrintTalk.setDefaultVersion(13);
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_13");
+		PrintTalk.setDefaultVersion(22);
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_22");
 	}
 
 	/**

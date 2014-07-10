@@ -131,7 +131,27 @@ public class PrintTalk extends AbstractPrintTalk
 		StockLevelResponse
 	}
 
-	private int version = 3;
+	private static int defaultVersion = 15;
+
+	/**
+	 * Getter for defaultVersion attribute.
+	 * @return the defaultVersion
+	 */
+	public static int getDefaultVersion()
+	{
+		return defaultVersion;
+	}
+
+	/**
+	 * Setter for defaultVersion attribute.
+	 * @param defaultVersion the defaultVersion to set
+	 */
+	public static void setDefaultVersion(int defaultVersion)
+	{
+		PrintTalk.defaultVersion = defaultVersion;
+	}
+
+	private int version;
 
 	/**
 	 * 
@@ -153,6 +173,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk(KElement theElement)
 	{
 		super(theElement);
+		version = 0;
 	}
 
 	/**
@@ -162,6 +183,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk()
 	{
 		super(null);
+		version = 0;
 		XMLDoc doc = new XMLDoc(PRINT_TALK, getNamespaceURI());
 		doc = new JDFDoc(doc);
 		((DocumentJDFImpl) doc.getMemberDocument()).bInitOnCreate = true;
@@ -178,9 +200,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public static String getNamespaceURI(int version)
 	{
 		if (version == 0)
-			version = 13;
-		else if (version <= 2)
-			version *= 10;
+			version = defaultVersion;
 		return "http://www.printtalk.org/schema_" + version;
 	}
 
@@ -220,15 +240,43 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * 
-	 * set a new credential value
-	 * @param header type of header
+	 * set a new credential identity value
+	 * @param headerType type of header
 	 * @param domain domain name
 	 * @param identity Identity value
 	 */
-	public void setCredential(EnumHeaderType header, String domain, String identity)
+	public void setCredential(EnumHeaderType headerType, String domain, String identity)
 	{
-		String type = header.name();
-		getCreateXPathElement("Header/" + type + "/Credential[@domain=\"" + domain + "\"]").getCreateElement("Identity").setText(identity);
+		HeaderBase header = getCreateHeader(headerType);
+		header.setCredential(domain, identity);
+	}
+
+	/**
+	 * 
+	 * set a new credential value
+	 * @param headerType type of header
+	 * @param domain domain name
+	 * @return identity Identity value
+	 */
+	public String getCredentialIdentity(EnumHeaderType headerType, String domain)
+	{
+		HeaderBase header = getHeader(headerType);
+		return header == null ? null : header.getCredentialIdentity(domain);
+	}
+
+	/**
+	 * get the one and only header of type headerType
+	 * @param headerType
+	 * @return
+	 */
+	public HeaderBase getCreateHeader(EnumHeaderType headerType)
+	{
+		HeaderBase header = getHeader(headerType);
+		if (header == null && headerType != null)
+		{
+			header = new HeaderBase(getCreateXPathElement("Header/" + headerType.name()));
+		}
+		return header;
 	}
 
 	/**

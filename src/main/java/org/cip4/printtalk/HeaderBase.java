@@ -97,17 +97,20 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 * @param domain 
-	 * @param value 
+	 * 
+	 * set the Identity value of a credential 
+	 * 
+	 * @param domain of the credential
+	 * @param identity 
 	 * 
 	 *  
 	 */
-	public void setCredential(String domain, String value)
+	public void setCredential(String domain, String identity)
 	{
 		Credential c = getCreateCredential(domain);
 		if (c != null)
 		{
-			c.setIdentity(value);
+			c.setIdentity(identity);
 		}
 	}
 
@@ -118,7 +121,7 @@ public class HeaderBase extends AbstractPrintTalk
 	 */
 	public Credential getCredential(String domain)
 	{
-		KElement e = theElement == null ? null : theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, domain, null, domain, 0, true);
+		KElement e = theElement == null ? null : theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
 		return e == null ? null : new Credential(e);
 	}
 
@@ -154,5 +157,15 @@ public class HeaderBase extends AbstractPrintTalk
 		To,
 		/** */
 		Sender
+	}
+
+	/**TODO Please insert comment!
+	 * @param domain
+	 * @return
+	 */
+	public String getCredentialIdentity(String domain)
+	{
+		Credential c = getCredential(domain);
+		return c == null ? null : c.getIdentity();
 	};
 }

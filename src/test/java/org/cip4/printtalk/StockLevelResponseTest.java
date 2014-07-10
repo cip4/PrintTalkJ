@@ -70,114 +70,48 @@ package org.cip4.printtalk;
 
 import java.util.Vector;
 
-import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.core.VElement;
-import org.cip4.jdflib.util.StringUtil;
+import org.cip4.jdflib.util.JDFDuration;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.printtalk.StockLevelRequest.EnumAvailability;
+import org.junit.Test;
 
 /**
- * Class represented OrderStatusRequest business object.
- * 
- * @author rainer prosi
  *  
+ * @author rainer prosi
+ * @date Jun 21, 2014
  */
-public class StockLevelResponse extends BusinessObject
+public class StockLevelResponseTest extends PrintTalkTestCase
 {
+
 	/**
 	 * 
-	 * @param theElement
+	 *  
 	 */
-	public StockLevelResponse(KElement theElement)
+	@Test
+	public void testMatchesAvailability()
 	{
-		super(theElement);
-	}
-
-	/**
-	 * get or create stocklevel element
-	 * @param nSkip 
-	 * @return
-	 */
-	public StockLevel getStockLevel(int nSkip)
-	{
-		return new StockLevel(getElement(StockLevel.ELEMENT_STOCKLEVEL, nSkip));
-	}
-
-	/**
-	 * create stocklevel element
-	 * @return
-	 */
-	public StockLevel appendStockLevel()
-	{
-		return new StockLevel(appendElement(StockLevel.ELEMENT_STOCKLEVEL));
-	}
-
-	/**
-	 * get vector of stocklevel elements
-	 * @return
-	 */
-	public Vector<StockLevel> getStockLevels()
-	{
-		return getStockLevelsImpl(null);
-	}
-
-	/**
-	 * get vector of stocklevel elements
-	 * @param productID regexp that StockLevel/@ProductID should match
-	 * @return the matching list, null if none match
-	 */
-	private Vector<StockLevel> getStockLevelsImpl(Object match)
-	{
-		VElement v = getElements(StockLevel.ELEMENT_STOCKLEVEL);
-		if (v == null)
-			return null;
-		Vector<StockLevel> vs = new Vector<StockLevel>();
-		for (KElement e : v)
+		StockLevelResponse resp = ((StockLevelResponse) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelResponse, null));
+		for (int i = 0; i < 7; i++)
 		{
-			StockLevel stockLevel = new StockLevel(e);
-			if (stockLevel.matches(match))
-			{
-				vs.add(stockLevel);
-			}
+			StockLevel sl = resp.appendStockLevel();
+			sl.setAmount(i * 10);
+			JDFDuration d = new JDFDuration(24 * 3600 * (i / 3));
+			if (i >= 5)
+				d.setDuration(Long.MAX_VALUE);
+			sl.setProductionDuration(d);
+			if (i >= 6)
+				sl.setAmount(0);
 		}
-		return vs.size() == 0 ? null : vs;
-	}
-
-	/**
-	 * get vector of stocklevel elements
-	 * @param productID regexp that StockLevel/@ProductID should match
-	 * @return the matching list, null if none match
-	 */
-	public Vector<StockLevel> getStockLevels(String productID)
-	{
-		productID = StringUtil.getNonEmpty(productID);
-		return getStockLevelsImpl(productID);
-	}
-
-	/**
-	 * get vector of stocklevel elements
-	 * @param req stockLevelRequest that StockLevel/@ProductID should match
-	 * @return the matching list, null if none match
-	 */
-	public Vector<StockLevel> getStockLevels(StockLevelRequest req)
-	{
-		return getStockLevelsImpl(req);
-	}
-
-	/**
-	 * get currency value
-	 * @return
-	 */
-	public String getCurrency()
-	{
-		return getAttribute(ATTR_CURRENCY);
-	}
-
-	/**
-	 * set currency value
-	 * @param currency
-	 */
-	public void setCurrency(String currency)
-	{
-		setAttribute(ATTR_CURRENCY, currency);
+		StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
+		req.setAvailability(EnumAvailability.Any);
+		Vector<StockLevel> stockLevels = resp.getStockLevels(req);
+		assertEquals(stockLevels.size(), 7);
+		req.setAvailability(EnumAvailability.Deliverable);
+		Vector<StockLevel> stockLevelsDel = resp.getStockLevels(req);
+		assertEquals(stockLevelsDel.size(), 6);
+		req.setAvailability(EnumAvailability.Available);
+		stockLevelsDel = resp.getStockLevels(req);
+		assertEquals(stockLevelsDel.size(), 2);
 	}
 
 }

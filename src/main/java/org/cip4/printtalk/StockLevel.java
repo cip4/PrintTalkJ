@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -69,16 +69,20 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.ifaces.IMatches;
+import org.cip4.jdflib.resource.JDFLocation;
 import org.cip4.jdflib.util.JDFDuration;
 import org.cip4.jdflib.util.StringUtil;
+import org.cip4.printtalk.StockLevelRequest.EnumAvailability;
 
 /**
  * Class represented StockLevel element.
  * 
  */
-public class StockLevel extends AbstractPrintTalk implements IMatches {
+public class StockLevel extends AbstractPrintTalk implements IMatches
+{
 	/** **/
 	public static String ELEMENT_STOCKLEVEL = "StockLevel";
 	/** **/
@@ -90,24 +94,49 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @param theElement
 	 */
-	public StockLevel(KElement theElement) {
+	public StockLevel(KElement theElement)
+	{
 		super(theElement);
 	}
 
 	/**
 	 * @see org.cip4.jdflib.ifaces.IMatches#matches(java.lang.Object)
 	 */
-	public boolean matches(Object stockLevelRequest) {
+	@Override
+	public boolean matches(Object stockLevelRequest)
+	{
 		if (stockLevelRequest == null)
 			return true;
 		if (stockLevelRequest instanceof String)
+		{
 			return StringUtil.matchesSimple(getProductID(), (String) stockLevelRequest);
+		}
+		else if (stockLevelRequest instanceof EnumAvailability)
+		{
+			EnumAvailability avail = (EnumAvailability) stockLevelRequest;
+			if (EnumAvailability.Any.equals(avail))
+			{
+				return true;
+			}
+			else if (EnumAvailability.Available.equals(avail))
+			{
+				return getAmount() > 0 && (getProductionDuration() == null || getProductionDuration().getDuration() == 0);
+			}
+			else if (EnumAvailability.Deliverable.equals(avail))
+			{
+				return getAmount() > 0 || (getProductionDuration() == null || getProductionDuration().getDuration() != Long.MAX_VALUE);
+			}
+		}
 
 		if (!(stockLevelRequest instanceof StockLevelRequest))
 			return false;
-		StockLevel stockLevelReq = (StockLevel) stockLevelRequest;
+
+		StockLevelRequest stockLevelReq = (StockLevelRequest) stockLevelRequest;
 		String productFilter = stockLevelReq.getProductID();
-		if (!StringUtil.matchesSimple(getProductID(), productFilter))
+		if (!matches(productFilter))
+			return false;
+		EnumAvailability avail = stockLevelReq.getAvailability();
+		if (!matches(avail))
 			return false;
 		// TODO more filters
 		return true;
@@ -117,7 +146,8 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @param productID
 	 */
-	public void setProductID(String productID) {
+	public void setProductID(String productID)
+	{
 		setAttribute(AttributeName.PRODUCTID, productID);
 	}
 
@@ -125,7 +155,8 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @return
 	 */
-	public String getProductID() {
+	public String getProductID()
+	{
 		return getAttribute(AttributeName.PRODUCTID);
 	}
 
@@ -133,7 +164,8 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @return
 	 */
-	public String getLot() {
+	public String getLot()
+	{
 		return getAttribute(ATTR_LOT);
 	}
 
@@ -141,7 +173,8 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @param lot
 	 */
-	public void setLot(String lot) {
+	public void setLot(String lot)
+	{
 		setAttribute(ATTR_LOT, lot);
 	}
 
@@ -149,15 +182,17 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @return
 	 */
-	public int getAmount() {
+	public int getAmount()
+	{
 		return StringUtil.parseInt(getAttribute(AttributeName.AMOUNT), -1);
 	}
 
 	/**
 	 * 
-	 * @param lot
+	 * @param amount
 	 */
-	public void setAmount(int amount) {
+	public void setAmount(int amount)
+	{
 		setAttribute(AttributeName.AMOUNT, "" + amount);
 	}
 
@@ -165,7 +200,8 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @return
 	 */
-	public JDFDuration getProductionDuration() {
+	public JDFDuration getProductionDuration()
+	{
 		return JDFDuration.createDuration(getAttribute(ATTR_PRODUCTIONDURATION));
 	}
 
@@ -173,7 +209,8 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @param dur
 	 */
-	public void setProductionDuration(JDFDuration dur) {
+	public void setProductionDuration(JDFDuration dur)
+	{
 		setAttribute(ATTR_PRODUCTIONDURATION, dur == null ? null : dur.getDurationISO());
 	}
 
@@ -182,7 +219,8 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @return
 	 */
-	public Price getPrice() {
+	public Price getPrice()
+	{
 		KElement element = getElement(Price.ELEMENT_PRICE);
 		return element == null ? null : new Price(element);
 	}
@@ -192,7 +230,28 @@ public class StockLevel extends AbstractPrintTalk implements IMatches {
 	 * 
 	 * @return
 	 */
-	public Price getCreatePrice() {
+	public JDFLocation getLocation()
+	{
+		return (JDFLocation) getElement(ElementName.LOCATION);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public JDFLocation appendLocation()
+	{
+		return (JDFLocation) appendElement(ElementName.LOCATION);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public Price getCreatePrice()
+	{
 		KElement element = getCreateElement(Price.ELEMENT_PRICE);
 		return element == null ? null : new Price(element);
 	}
