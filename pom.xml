@@ -1,29 +1,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>org.cip4.lib.ptk</groupId>
 	<artifactId>PrintTalkJ</artifactId>
 	<version>2.1.5.80-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
 	<name>PrintTalkJ</name>
 	<url>http://www.cip4.org</url>
-	
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
+    <description>CIP4 PrintTalk Library for PrintTalk 1.x</description>
 	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-		<buildDirectory>${project.basedir}/target</buildDirectory>
 	</properties>
-	<scm>
-		<url>http://svn.cip4.org/svnroot/trunk/PrintTalkJ</url>
-		<developerConnection>scm:svn:http://svn.cip4.org/svnroot/trunk/PrintTalkJ</developerConnection>
-		<connection>scm:svn:http://svn.cip4.org/svnroot/trunk/PrintTalkJ</connection>
-	</scm>
+    <scm>
+        <url>https://stash.cip4.org/scm/lib/printtalkj.git</url>
+        <developerConnection>scm:git:https://stash.cip4.org/scm/lib/printtalkj.git</developerConnection>
+        <connection>scm:svn:https://stash.cip4.org/scm/lib/printtalkj.git</connection>
+    </scm>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>https://jira.cip4.org/browse/PTKJ</url>
+    </issueManagement>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 	<developers>
 		<developer>
 			<id>r.prosi</id>
@@ -40,24 +47,7 @@
 			<email>s.meissner@flyeralarm.de</email>
 		</developer>
 	</developers>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<includeDependencySources>true</includeDependencySources>
-
-					<dependencySourceIncludes>
-						<dependencySourceInclude>org.cip4.lib.jdf:JDFLibJ</dependencySourceInclude>
-					</dependencySourceIncludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 	<build>
-		<directory>${buildDirectory}</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -82,6 +72,23 @@
 		          </execution>
 		        </executions>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.4</version>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
