@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -73,6 +73,7 @@ import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
+import org.cip4.jdflib.datatypes.JDFAttributeMap;
 import org.cip4.jdflib.util.ContainerUtil;
 import org.cip4.jdflib.util.StringUtil;
 
@@ -197,7 +198,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getAttribute(String strLocalName, String def)
 	{
-		return theElement == null ? def : theElement.getAttribute(strLocalName, null, def);
+		return theElement == null ? def : StringUtil.getNonEmpty(theElement.getAttribute(strLocalName, null, def));
 	}
 
 	/**
@@ -362,6 +363,67 @@ public abstract class AbstractPrintTalk
 	public int hashCode()
 	{
 		return theElement == null ? 0 : theElement.hashCode();
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void setAttribute(String key, int value)
+	{
+		theElement.setAttribute(key, value, null);
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void setAttribute(String key, double value)
+	{
+		theElement.setAttribute(key, value, null);
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @param b
+	 */
+	public void setAttribute(String key, boolean b)
+	{
+		theElement.setAttribute(key, b, null);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public JDFAttributeMap getAttributeMap()
+	{
+		return theElement == null ? null : theElement.getAttributeMap();
+	}
+
+	/**
+	 * 
+	 * @param attrib
+	 * @param def
+	 * @return
+	 */
+	public boolean getBoolAttribute(String attrib, boolean def)
+	{
+		return theElement == null ? def : theElement.getBoolAttribute(attrib, null, def);
+	}
+
+	/**
+	 * 
+	 * @param attrib
+	 * @param def
+	 * @return
+	 */
+	public double getRealAttribute(String attrib, double def)
+	{
+		return theElement == null ? def : theElement.getRealAttribute(attrib, null, def);
 	}
 
 }

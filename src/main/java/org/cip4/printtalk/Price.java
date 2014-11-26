@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -98,18 +98,27 @@ public class Price extends AbstractPrintTalk
 	public static String ATTR_LINEIDREFS = "LineIDRefs";
 	/** */
 	public static String ATTR_PRICETYPE = "PriceType";
+	/** */
+	public static String ATTR_TAXTYPE = "TaxType";
 
 	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
 
 	/**
 	 *  PrintTalk 1.5 priceType enum
 	 *  
-	 * @author rainer prosi
-	 * @date Apr 1, 2014
 	 */
 	public enum EnumPriceType
 	{
-		Discount, Markup, Product, Subtotal, Tax, TotalGross, TotalNet, TotalTax
+		Discount, Markup, Product, Subtotal, Total
+	};
+
+	/**
+	 *  PrintTalk 1.5 priceType enum
+	 *  
+	 */
+	public enum EnumTaxType
+	{
+		Gross, Net, Tax
 	};
 
 	/**
@@ -117,9 +126,9 @@ public class Price extends AbstractPrintTalk
 	 *  
 	 * @return
 	 */
-	public EnumPriceType getPriceType()
+	public EnumPriceType getPriceTypeEnum()
 	{
-		String s = theElement.getAttribute(ATTR_PRICETYPE, null, null);
+		String s = getAttribute(ATTR_PRICETYPE, null);
 		try
 		{
 			return s == null ? null : EnumPriceType.valueOf(s);
@@ -128,6 +137,44 @@ public class Price extends AbstractPrintTalk
 		{
 			return null;
 		}
+	}
+
+	/**
+	 * 
+	 *  
+	 * @return
+	 */
+	public EnumTaxType getTaxType()
+	{
+		String s = getAttribute(ATTR_TAXTYPE, null);
+		try
+		{
+			return s == null ? null : EnumTaxType.valueOf(s);
+		}
+		catch (Exception x)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * @param taxType 
+	 * 
+	 */
+	public void setTaxType(EnumTaxType taxType)
+	{
+		theElement.setAttribute(ATTR_TAXTYPE, taxType == null ? null : taxType.name(), null);
+	}
+
+	/**
+	 * 
+	 *  
+	 * @return
+	 */
+	public String getPriceTypeString()
+	{
+		return getAttribute(ATTR_PRICETYPE, null);
 	}
 
 	/**
@@ -143,6 +190,17 @@ public class Price extends AbstractPrintTalk
 
 	/**
 	 * 
+	 *  
+	 * @param priceType 
+	 * 
+	 */
+	public void setPriceType(String priceType)
+	{
+		theElement.setAttribute(ATTR_PRICETYPE, priceType, null);
+	}
+
+	/**
+	 * 
 	 * get the precision for currency
 	 * @return
 	 */
@@ -154,7 +212,7 @@ public class Price extends AbstractPrintTalk
 	/**
 	 * 
 	 * set the precision for currency
-	 * @param currencyPrecision typically 0 or 2 , default=2
+	 * @param currencyPrecision typically 0 e.g. for yen or 2 e.g. for $, default=2
 	 */
 	public static void setCurrencyPrecision(int currencyPrecision)
 	{
@@ -196,7 +254,7 @@ public class Price extends AbstractPrintTalk
 	 */
 	public double getPrice()
 	{
-		return theElement.getRealAttribute(ATTR_PRICE, null, 0.0);
+		return getRealAttribute(ATTR_PRICE, 0.0);
 	}
 
 	/**

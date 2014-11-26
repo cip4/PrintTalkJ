@@ -69,6 +69,8 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.core.XMLDoc;
+import org.cip4.printtalk.Price.EnumPriceType;
+import org.cip4.printtalk.Price.EnumTaxType;
 import org.junit.Test;
 
 /**
@@ -99,6 +101,33 @@ public class PriceTest extends PrintTalkTestCase
 		Price p1 = p.addPrice("p1", 20);
 		assertEquals(p1, new Price(p1.getRoot()));
 		assertEquals(p, new Price(p.getRoot()));
+	}
+
+	/**
+	 * 
+	 *  
+	 */
+	@Test
+	public void testPriceType()
+	{
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		p1.setPriceType(EnumPriceType.Total);
+		assertEquals(p1.getPriceTypeEnum(), EnumPriceType.Total);
+		assertEquals(p1.getPriceTypeString(), EnumPriceType.Total.name());
+	}
+
+	/**
+	 * 
+	 *  
+	 */
+	@Test
+	public void testTax()
+	{
+		Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		p1.setTaxType(EnumTaxType.Net);
+		assertEquals(p1.getTaxType(), EnumTaxType.Net);
 	}
 
 	/**
