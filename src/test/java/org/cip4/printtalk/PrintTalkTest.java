@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2015 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -117,6 +117,48 @@ public class PrintTalkTest extends PrintTalkTestCase
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
 		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
 		assertTrue(bo instanceof RFQ);
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testAppendResponse()
+	{
+		PrintTalk pt = new PrintTalk();
+		BusinessObject bo = pt.appendResponse(EnumBusinessObject.RFQ, null);
+		assertTrue(bo instanceof RFQ);
+	}
+
+	/**
+	 * 
+	 * duh...
+	 */
+	@Test
+	public void testAppendRequestResponse()
+	{
+		PrintTalk pt = new PrintTalk();
+		BusinessObject bo = pt.appendResponse(EnumBusinessObject.RFQ, null);
+		assertTrue(bo instanceof RFQ);
+		try
+		{
+			pt.appendResponse(EnumBusinessObject.RFQ, null);
+			fail("no two");
+		}
+		catch (IllegalArgumentException x)
+		{
+			//
+		}
+		try
+		{
+			pt.appendRequest(EnumBusinessObject.RFQ, null);
+			fail("no two");
+		}
+		catch (IllegalArgumentException x)
+		{
+			//
+		}
 	}
 
 	/**

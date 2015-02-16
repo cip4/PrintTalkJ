@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2015 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -87,7 +87,19 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 * 
 	 */
+	public static final String REQUEST = "Request";
+	/**
+	 * 
+	 */
+	public static final String RESPONSE = "Response";
+	/**
+	 * 
+	 */
 	public static final String PRINT_TALK = "PrintTalk";
+	/**
+	 * 
+	 */
+	public static final String AGENT_ID = "jdf:AgentID";
 	/**
 	 * 
 	 */
@@ -308,7 +320,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * 
-	 *appends a request with an initialized Business Object
+	 * appends a request with an initialized Business Object
 	 * @param bo the business object type
 	 * @param ref the printtalk object that this references  
 	 * @return the newly created BusinessObject, null if unsuccessful
@@ -317,11 +329,37 @@ public class PrintTalk extends AbstractPrintTalk
 	public BusinessObject appendRequest(EnumBusinessObject bo, PrintTalk ref) throws IllegalArgumentException
 	{
 		BusinessObject oldBO = getBusinessObject();
-		if (oldBO != null)
+		if (oldBO != null || getElement(RESPONSE) != null)
 			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
 
 		String boName = bo.name();
-		KElement e = theElement.getCreateElement("Request").appendElement(boName);
+		KElement e = theElement.getCreateElement(REQUEST).appendElement(boName);
+		final BusinessObject businessObject = initBO(ref, e);
+		return businessObject;
+	}
+
+	/**
+	 * 
+	 * appends a synchronous response with an initialized Business Object
+	 * @param bo the business object type
+	 * @param ref the printtalk object that this references  
+	 * @return the newly created BusinessObject, null if unsuccessful
+	 * @throws IllegalArgumentException if bo already exists
+	 */
+	public BusinessObject appendResponse(EnumBusinessObject bo, PrintTalk ref) throws IllegalArgumentException
+	{
+		BusinessObject oldBO = getBusinessObject();
+		if (oldBO != null || getElement(REQUEST) != null)
+			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
+
+		String boName = bo.name();
+		KElement e = theElement.getCreateElement(RESPONSE).appendElement(boName);
+		final BusinessObject businessObject = initBO(ref, e);
+		return businessObject;
+	}
+
+	private BusinessObject initBO(PrintTalk ref, KElement e)
+	{
 		final BusinessObject businessObject = BusinessObject.getBusinessObject(e);
 		businessObject.init();
 		businessObject.setRef(ref);
@@ -329,21 +367,14 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * get the business object from a request
-	 * @return
-	 */
-	public BusinessObject getRequest()
-	{
-		return getBusinessObject();
-	}
-
-	/**
-	 * get the business object from a request
+	 * get the business object from a request or response
 	 * @return
 	 */
 	public BusinessObject getBusinessObject()
 	{
-		KElement request = getElement("Request");
+		KElement request = getElement(REQUEST);
+		if (request == null)
+			request = getElement(RESPONSE);
 		KElement oldBO = request == null ? null : request.getFirstChildElement();
 		return BusinessObject.getBusinessObject(oldBO);
 	}
