@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2015 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -238,6 +238,18 @@ public abstract class AbstractPrintTalk
 	 * 
 	 * get an element, create it if it does not yet exist
 	 * @param nodeName
+	 * @param n index of the element
+	 * @return
+	 */
+	public KElement getCreateElement(String nodeName, int n)
+	{
+		return theElement.getCreateElement(nodeName, null, n);
+	}
+
+	/**
+	 * 
+	 * get an element, create it if it does not yet exist
+	 * @param nodeName
 	 * @return
 	 */
 	public KElement getElement(String nodeName)
@@ -269,6 +281,17 @@ public abstract class AbstractPrintTalk
 		if (v == null || v.size() == 0)
 			return null;
 		return v;
+	}
+
+	/**
+	 * 
+	 * get number of  all elements,
+	 * @param nodeName
+	 * @return
+	 */
+	public int numElements(String nodeName)
+	{
+		return theElement == null ? 0 : theElement.numChildElements(nodeName, null);
 	}
 
 	/**

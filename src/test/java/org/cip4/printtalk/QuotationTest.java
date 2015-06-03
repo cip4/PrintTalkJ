@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2015 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -68,169 +68,50 @@
  */
 package org.cip4.printtalk;
 
-import java.util.zip.DataFormatException;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.junit.Test;
 
-import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.util.JDFDate;
-
-/**
- * Class represented Quotation business object.
- * 
- * @author rainer prosi
- * @date Jan 3, 2011
- * @since PrintTalk 1.3
- */
-public class Quotation extends BusinessObject
+public class QuotationTest extends PrintTalkTestCase
 {
-	/** */
-	public static String ATTR_ESTIMATE = "Estimate";
-	/** */
-	public static String ATTR_REORDERID = "ReorderID";
-	/** */
-	public static String ATTR_REPLACEID = "ReplaceID";
+	/**
+	 * 
+	 *  
+	 */
+	@Test
+	public void testCurrency()
+	{
+		Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
+		assertNull(req.getCurrency());
+		req.setCurrency("JPY");
+		assertEquals(req.getCurrency(), "JPY");
+	}
 
 	/**
 	 * 
-	 * @param theElement
+	 *  
 	 */
-	public Quotation(KElement theElement)
+	@Test
+	public void testgetCreateQuote()
 	{
-		super(theElement);
+		Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
+		assertNull(req.getCurrency());
+		for (int i = 0; i < 99; i++)
+			req.getCreateQuote(2);
+		assertEquals(req.numElements(Quote.ELEMENT_QUOTE), 3);
 	}
 
 	/**
-	 * get currency value
-	 * @return
+	 * 
+	 *  
 	 */
-	public String getCurrency()
+	@Test
+	public void testappendQuote()
 	{
-		return getAttribute(ATTR_CURRENCY);
-	}
-
-	/**
-	 * set currency value
-	 * @param currency
-	 */
-	public void setCurrency(String currency)
-	{
-		setAttribute(ATTR_CURRENCY, currency);
-	}
-
-	/**
-	 * get estimate value
-	 * @return
-	 */
-	public boolean getEstimate()
-	{
-		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set estimate value
-	 * @param b
-	 */
-	public void setEstimate(boolean b)
-	{
-		setAttribute(ATTR_ESTIMATE, b ? "true" : "false");
-	}
-
-	/**
-	 * get expires value
-	 * @return
-	 */
-	public JDFDate getExpires()
-	{
-		String s = getAttribute(ATTR_EXPIRES);
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (DataFormatException e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * set expires value
-	 * @param expires
-	 */
-	public void setExpires(JDFDate expires)
-	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
-	}
-
-	/**
-	 * get ReorderID value
-	 * @return
-	 */
-	public String getReorderID()
-	{
-		return getAttribute(ATTR_REORDERID);
-	}
-
-	/**
-	 * set ReorderID value
-	 * @param s
-	 */
-	public void setReorderID(String s)
-	{
-		setAttribute(ATTR_REORDERID, s);
-	}
-
-	/**
-	 * get ReplaceID value
-	 * @return
-	 */
-	public String getReplaceID()
-	{
-		return getAttribute(ATTR_REPLACEID);
-	}
-
-	/**
-	 * set ReplaceID value
-	 * @param s
-	 */
-	public void setReplaceID(String s)
-	{
-		setAttribute(ATTR_REPLACEID, s);
-	}
-
-	/**
-	 * create quote element
-	 * @return
-	 */
-	public Quote appendQuote()
-	{
-		return new Quote(appendElement(Quote.ELEMENT_QUOTE));
-	}
-
-	/**
-	 * get or create quote element
-	 * @param n index of the quote
-	 * @return
-	 */
-	public Quote getCreateQuote(int n)
-	{
-		return new Quote(getCreateElement(Quote.ELEMENT_QUOTE, n));
-	}
-
-	/**
-	 * get quote element
-	 * @return
-	 */
-	public Quote getQuote()
-	{
-		return new Quote(getElement(Quote.ELEMENT_QUOTE));
-	}
-
-	/**
-	 * get quote element
-	 * @return
-	 */
-	public Quote getQuote(int n)
-	{
-		return new Quote(getElement(Quote.ELEMENT_QUOTE, n));
+		Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
+		assertNull(req.getCurrency());
+		for (int i = 0; i < 99; i++)
+			req.appendQuote();
+		assertEquals(req.numElements(Quote.ELEMENT_QUOTE), 99);
 	}
 
 }
