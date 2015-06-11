@@ -71,6 +71,7 @@ package org.cip4.printtalk;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
 import org.cip4.jdflib.datatypes.JDFAttributeMap;
@@ -174,6 +175,26 @@ public abstract class AbstractPrintTalk
 	public String getDescriptiveName()
 	{
 		return getAttribute(AttributeName.DESCRIPTIVENAME);
+	}
+
+	/**
+	 *  
+	 * @return comment
+	 */
+	public String getComment()
+	{
+		KElement comment = getElement(ElementName.COMMENT);
+		return comment == null ? null : StringUtil.getNonEmpty(comment.getText());
+	}
+
+	/**
+	 *  
+	 * @param comment
+	 */
+	public void setComment(String comment)
+	{
+		KElement c = getCreateElement(ElementName.COMMENT);
+		c.setText(comment);
 	}
 
 	/**
