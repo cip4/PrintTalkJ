@@ -183,8 +183,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getComment()
 	{
-		KElement comment = getElement(ElementName.COMMENT);
-		return comment == null ? null : StringUtil.getNonEmpty(comment.getText());
+		return getTElem(ElementName.COMMENT);
 	}
 
 	/**
