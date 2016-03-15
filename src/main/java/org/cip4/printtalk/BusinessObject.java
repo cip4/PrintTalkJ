@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2016 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -71,7 +71,7 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDF20;
-import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 
 /**
@@ -90,9 +90,9 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public static final String ATTR_BUSINESSID = "BusinessID";
 	/** */
-	public static String ATTR_CURRENCY = "Currency";
+	public static final String ATTR_CURRENCY = "Currency";
 	/** */
-	public static String ATTR_EXPIRES = "Expires";
+	public static final String ATTR_EXPIRES = "Expires";
 
 	/**
 	 * note that it is not necessarily always legal to add a JDF to an arbitrary bo
@@ -104,7 +104,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	public KElement getCreateJDFRoot(String rootName, int iSkip)
 	{
 		String schemaURL = JDFElement.getSchemaURL();
-		if (XJDFHelper.XJDF.equals(rootName))
+		if (XJDFConstants.XJDF.equals(rootName))
 			schemaURL = XJDF20.getSchemaURL();
 		KElement element = theElement.getCreateElement(rootName, schemaURL, iSkip);
 		element.init();
