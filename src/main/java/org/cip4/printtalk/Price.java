@@ -1,8 +1,8 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
+ * Copyright (c) 2001-2017 The International Cooperation for the Integration of
+ * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -10,7 +10,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -18,17 +18,17 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:  
+ *    if any, must include the following acknowledgment:
  *       "This product includes software developed by the
- *        The International Cooperation for the Integration of 
+ *        The International Cooperation for the Integration of
  *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
  *    Alternately, this acknowledgment may appear in the software itself,
  *    if and wherever such third-party acknowledgments normally appear.
  *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of 
+ * 4. The names "CIP4" and "The International Cooperation for the Integration of
  *    Processes in  Prepress, Press and Postpress" must
  *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written 
+ *    software without prior written permission. For written
  *    permission, please contact info@cip4.org.
  *
  * 5. Products derived from this software may not be called "CIP4",
@@ -54,17 +54,17 @@
  * ====================================================================
  *
  * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration 
+ * individuals on behalf of the The International Cooperation for the Integration
  * of Processes in Prepress, Press and Postpress and was
- * originally based on software 
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG 
- * copyright (c) 1999-2001, Agfa-Gevaert N.V. 
- *  
- * For more information on The International Cooperation for the 
+ * originally based on software
+ * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
+ * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ *
+ * For more information on The International Cooperation for the
  * Integration of Processes in  Prepress, Press and Postpress , please see
  * <http://www.cip4.org/>.
- *  
- * 
+ *
+ *
  */
 package org.cip4.printtalk;
 
@@ -78,34 +78,34 @@ import org.cip4.jdflib.util.NumberFormatter;
 import org.cip4.jdflib.util.StringUtil;
 
 /**
- * 
+ *
  * @author rainer prosi
  * @date Jan 3, 2011
  */
 public class Price extends AbstractPrintTalk
 {
 	/** */
-	public static String ELEMENT_PRICE = "Price";
+	public static final String ELEMENT_PRICE = "Price";
 	/** */
-	public static String ATTR_PRICE = "Price";
+	public static final String ATTR_PRICE = "Price";
 	/** */
-	public static String ATTR_UNITPRICE = "UnitPrice";
+	public static final String ATTR_UNITPRICE = "UnitPrice";
 	/** */
-	public static String ATTR_AMOUNT = "Amount";
+	public static final String ATTR_AMOUNT = "Amount";
 	/** */
-	public static String ATTR_LINEID = "LineID";
+	public static final String ATTR_LINEID = "LineID";
 	/** */
-	public static String ATTR_LINEIDREFS = "LineIDRefs";
+	public static final String ATTR_LINEIDREFS = "LineIDRefs";
 	/** */
-	public static String ATTR_PRICETYPE = "PriceType";
+	public static final String ATTR_PRICETYPE = "PriceType";
 	/** */
-	public static String ATTR_TAXTYPE = "TaxType";
+	public static final String ATTR_TAXTYPE = "TaxType";
 
 	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
 
 	/**
 	 *  PrintTalk 1.5 priceType enum
-	 *  
+	 *
 	 */
 	public enum EnumPriceType
 	{
@@ -114,7 +114,7 @@ public class Price extends AbstractPrintTalk
 
 	/**
 	 *  PrintTalk 1.5 priceType enum
-	 *  
+	 *
 	 */
 	public enum EnumTaxType
 	{
@@ -122,8 +122,8 @@ public class Price extends AbstractPrintTalk
 	};
 
 	/**
-	 * 
-	 *  
+	 *
+	 *
 	 * @return
 	 */
 	public EnumPriceType getPriceTypeEnum()
@@ -140,8 +140,8 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
-	 *  
+	 *
+	 *
 	 * @return
 	 */
 	public EnumTaxType getTaxType()
@@ -158,9 +158,9 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
-	 * @param taxType 
-	 * 
+	 *
+	 * @param taxType
+	 *
 	 */
 	public void setTaxType(EnumTaxType taxType)
 	{
@@ -168,8 +168,8 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
-	 *  
+	 *
+	 *
 	 * @return
 	 */
 	public String getPriceTypeString()
@@ -178,10 +178,10 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
-	 *  
-	 * @param priceType 
-	 * 
+	 *
+	 *
+	 * @param priceType
+	 *
 	 */
 	public void setPriceType(EnumPriceType priceType)
 	{
@@ -189,10 +189,10 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
-	 *  
-	 * @param priceType 
-	 * 
+	 *
+	 *
+	 * @param priceType
+	 *
 	 */
 	public void setPriceType(String priceType)
 	{
@@ -200,7 +200,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * get the precision for currency
 	 * @return
 	 */
@@ -210,7 +210,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * set the precision for currency
 	 * @param currencyPrecision typically 0 e.g. for yen or 2 e.g. for $, default=2
 	 */
@@ -220,7 +220,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * @param theElement
 	 */
 	public Price(KElement theElement)
@@ -229,7 +229,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * get the parent Pricing
 	 * @return
 	 */
@@ -296,7 +296,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 *  
+	 *
 	 * @param lineID
 	 */
 	public void setLineID(String lineID)
@@ -306,9 +306,9 @@ public class Price extends AbstractPrintTalk
 
 	/**
 	 * if true this price is referenced e.g. from a total and need not be included
-	 * 
-	 *  
-	 * 
+	 *
+	 *
+	 *
 	 * @return the price, null if it doesn't exist
 	 */
 	public boolean isReferenced()
@@ -344,7 +344,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 *  
+	 *
 	 * @param lineIDRefs
 	 */
 	public void setLineIDRefs(VString lineIDRefs)
@@ -353,7 +353,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 *  
+	 *
 	 * @param lineIDRef
 	 */
 	public void addLineIDRef(String lineIDRef)
@@ -385,7 +385,7 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 *  
+	 *
 	 * @return lineID
 	 */
 	public String getLineID()
@@ -412,7 +412,7 @@ public class Price extends AbstractPrintTalk
 	 * get a price element by LineID
 	 *
 	 * @param i index
-	 * 
+	 *
 	 * @return the price, null if it doesn't exist
 	 */
 	public Additional getAdditional(int i)
