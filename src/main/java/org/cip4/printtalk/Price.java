@@ -109,7 +109,7 @@ public class Price extends AbstractPrintTalk
 	 */
 	public enum EnumPriceType
 	{
-		Discount, Markup, Product, Subtotal, Total
+		Discount, Handling, Markup, Other, Product, Shipping, Subtotal, Total
 	};
 
 	/**
