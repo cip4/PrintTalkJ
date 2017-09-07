@@ -96,12 +96,82 @@ public class PricingTest extends PrintTalkTestCase
 		p2.setTaxType(EnumTaxType.Tax);
 		p2.setPriceType(EnumPriceType.Handling);
 
-		assertEquals(p1, p.getPriceByType("Handling", EnumTaxType.Net, 0));
-		assertEquals(p1, p.getPriceByType("Handling", null, 0));
-		assertEquals(p2, p.getPriceByType("Handling", null, -1));
-		assertEquals(p2, p.getPriceByType(null, null, -1));
-		assertNull(p.getPriceByType("Handling", EnumTaxType.Gross, 0));
-		assertNull(p.getPriceByType("Foo", null, 0));
+		assertEquals(p1, p.getPriceByType("Handling", EnumTaxType.Net, null, 0));
+		assertEquals(p1, p.getPriceByType("Handling", null, null, 0));
+		assertEquals(p2, p.getPriceByType("Handling", null, null, -1));
+		assertEquals(p2, p.getPriceByType(null, null, null, -1));
+		assertNull(p.getPriceByType("Handling", EnumTaxType.Gross, null, 0));
+		assertNull(p.getPriceByType("Foo", null, null, 0));
+
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testPriceByTypeDrop()
+	{
+		Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		p1.setTaxType(EnumTaxType.Net);
+		p1.setPriceType(EnumPriceType.Handling);
+		p1.setDropID("d1");
+
+		Price p2 = p.addPrice("p2", 20);
+		p2.setTaxType(EnumTaxType.Tax);
+		p2.setPriceType(EnumPriceType.Handling);
+		p2.setDropID("d1");
+
+		Price p21 = p.addPrice("p1", 20);
+		p21.setTaxType(EnumTaxType.Net);
+		p21.setPriceType(EnumPriceType.Handling);
+		p21.setDropID("d2");
+
+		Price p22 = p.addPrice("p2", 20);
+		p22.setTaxType(EnumTaxType.Tax);
+		p22.setPriceType(EnumPriceType.Handling);
+		p22.setDropID("d2");
+
+		assertEquals(p1, p.getPriceByType("Handling", EnumTaxType.Net, "d1", 0));
+		assertEquals(p21, p.getPriceByType("Handling", EnumTaxType.Net, "d2", 0));
+		assertEquals(p1, p.getPriceByType("Handling", null, "d1", 0));
+		assertEquals(p21, p.getPriceByType("Handling", null, "d2", 0));
+		assertNull(p.getPriceByType("Handling", null, "d3", 0));
+
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testPricesForDrop()
+	{
+		Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		Price p1 = p.addPrice("p1", 20);
+		p1.setTaxType(EnumTaxType.Net);
+		p1.setPriceType(EnumPriceType.Handling);
+		p1.setDropID("d1");
+
+		Price p2 = p.addPrice("p2", 20);
+		p2.setTaxType(EnumTaxType.Tax);
+		p2.setPriceType(EnumPriceType.Handling);
+		p2.setDropID("d1");
+
+		Price p21 = p.addPrice("p1", 20);
+		p21.setTaxType(EnumTaxType.Net);
+		p21.setPriceType(EnumPriceType.Handling);
+		p21.setDropID("d2");
+
+		Price p22 = p.addPrice("p2", 20);
+		p22.setTaxType(EnumTaxType.Tax);
+		p22.setPriceType(EnumPriceType.Handling);
+		p22.setDropID("d2");
+
+		assertEquals(2, p.getPricesForDrop("d1").size());
+		assertEquals(2, p.getPricesForDrop("d2").size());
+		assertEquals(0, p.getPricesForDrop("d3").size());
 
 	}
 }

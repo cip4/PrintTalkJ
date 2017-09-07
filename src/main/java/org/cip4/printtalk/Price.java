@@ -72,6 +72,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Vector;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.util.NumberFormatter;
@@ -305,6 +306,15 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
+	 *
+	 * @param dropID
+	 */
+	public void setDropID(String dropID)
+	{
+		theElement.setAttribute(AttributeName.DROPID, dropID);
+	}
+
+	/**
 	 * if true this price is referenced e.g. from a total and need not be included
 	 *
 	 *
@@ -390,7 +400,16 @@ public class Price extends AbstractPrintTalk
 	 */
 	public String getLineID()
 	{
-		return theElement.getAttribute(ATTR_LINEID, null, null);
+		return theElement.getNonEmpty(ATTR_LINEID);
+	}
+
+	/**
+	 *
+	 * @return lineID
+	 */
+	public String getDropID()
+	{
+		return theElement.getNonEmpty(AttributeName.DROPID);
 	}
 
 	/**

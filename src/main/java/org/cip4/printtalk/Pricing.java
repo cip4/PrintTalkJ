@@ -73,6 +73,9 @@ import java.util.Vector;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
+import org.cip4.jdflib.datatypes.JDFAttributeMap;
+import org.cip4.jdflib.util.StringUtil;
+import org.cip4.printtalk.Price.EnumTaxType;
 
 /**
  * Class represented Pricing element.
@@ -101,6 +104,16 @@ public class Pricing extends AbstractPrintTalk
 	public Payment getCreatePayment()
 	{
 		return new Payment(getCreateElement(Payment.ELEMENT_PAYMENT));
+	}
+
+	/**
+	 * get payment element
+	 * @return
+	 */
+	public Payment getPayment()
+	{
+		KElement e = getElement(Payment.ELEMENT_PAYMENT);
+		return e == null ? null : new Payment(e);
 	}
 
 	/**
@@ -148,6 +161,37 @@ public class Pricing extends AbstractPrintTalk
 
 	/**
 	 *
+	 * @param typ
+	 * @param taxtype
+	 * @param i
+	 * @deprecated use 4 parameter version
+	 * @return
+	 */
+	@Deprecated
+	public Price getPriceByType(String typ, EnumTaxType taxtype, int i)
+	{
+		return getPriceByType(typ, taxtype, null, i);
+	}
+
+	/**
+	 *
+	 */
+	public Price getPriceByType(String typ, EnumTaxType taxtype, String dropID, int i)
+	{
+		JDFAttributeMap map = new JDFAttributeMap();
+		if (StringUtil.getNonEmpty(typ) != null)
+			map.put(Price.ATTR_PRICETYPE, typ);
+		if (taxtype != null)
+			map.put(Price.ATTR_TAXTYPE, taxtype.name());
+		if (StringUtil.getNonEmpty(dropID) != null)
+			map.put(AttributeName.DROPID, dropID);
+
+		KElement price = theElement == null ? null : theElement.getChildByTagName(Price.ELEMENT_PRICE, null, i, map, true, true);
+		return price == null ? null : new Price(price);
+	}
+
+	/**
+	 *
 	 * get a vector of all child Price elements
 	 * @return
 	 */
@@ -161,6 +205,28 @@ public class Pricing extends AbstractPrintTalk
 		for (KElement price : prices)
 		{
 			v.add(new Price(price));
+		}
+		return v;
+	}
+
+	/**
+	 *
+	 * get a vector of all child Price elements
+	 * @return
+	 */
+	public Vector<Price> getPricesForDrop(String dropID)
+	{
+		if (theElement == null)
+			return null;
+		dropID = StringUtil.normalize(dropID, false);
+		Vector<Price> v = new Vector<Price>();
+		VElement prices = theElement.getChildElementVector(Price.ELEMENT_PRICE, null);
+		for (KElement price : prices)
+		{
+			if (dropID == null || dropID.equals(price.getNonEmpty(AttributeName.DROPID)))
+			{
+				v.add(new Price(price));
+			}
 		}
 		return v;
 	}
