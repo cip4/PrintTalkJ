@@ -87,12 +87,12 @@ public class PricingTest extends PrintTalkTestCase
 	@Test
 	public void testPriceByType()
 	{
-		Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
-		Price p1 = p.addPrice("p1", 20);
+		final Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		final Price p1 = p.addPrice("p1", 20);
 		p1.setTaxType(EnumTaxType.Net);
 		p1.setPriceType(EnumPriceType.Handling);
 
-		Price p2 = p.addPrice("p2", 20);
+		final Price p2 = p.addPrice("p2", 20);
 		p2.setTaxType(EnumTaxType.Tax);
 		p2.setPriceType(EnumPriceType.Handling);
 
@@ -110,25 +110,48 @@ public class PricingTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testPricesByType()
+	{
+		final Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		final Price p1 = p.addPrice("p1", 20);
+		p1.setTaxType(EnumTaxType.Net);
+		p1.setPriceType(EnumPriceType.Handling);
+
+		final Price p2 = p.addPrice("p2", 20);
+		p2.setTaxType(EnumTaxType.Tax);
+		p2.setPriceType(EnumPriceType.Handling);
+
+		assertNull(p.getPricesByType("Handling", EnumTaxType.Gross, null));
+		assertNull(p.getPricesByType("Foo", null, null));
+		assertTrue(p.getPricesByType("Handling", null, null).contains(p1));
+		assertTrue(p.getPricesByType("Handling", null, null).contains(p2));
+
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testPriceByTypeDrop()
 	{
-		Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
-		Price p1 = p.addPrice("p1", 20);
+		final Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		final Price p1 = p.addPrice("p1", 20);
 		p1.setTaxType(EnumTaxType.Net);
 		p1.setPriceType(EnumPriceType.Handling);
 		p1.setDropID("d1");
 
-		Price p2 = p.addPrice("p2", 20);
+		final Price p2 = p.addPrice("p2", 20);
 		p2.setTaxType(EnumTaxType.Tax);
 		p2.setPriceType(EnumPriceType.Handling);
 		p2.setDropID("d1");
 
-		Price p21 = p.addPrice("p1", 20);
+		final Price p21 = p.addPrice("p1", 20);
 		p21.setTaxType(EnumTaxType.Net);
 		p21.setPriceType(EnumPriceType.Handling);
 		p21.setDropID("d2");
 
-		Price p22 = p.addPrice("p2", 20);
+		final Price p22 = p.addPrice("p2", 20);
 		p22.setTaxType(EnumTaxType.Tax);
 		p22.setPriceType(EnumPriceType.Handling);
 		p22.setDropID("d2");
@@ -145,33 +168,65 @@ public class PricingTest extends PrintTalkTestCase
 	 *
 	 *
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testPricesForDrop()
 	{
-		Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
-		Price p1 = p.addPrice("p1", 20);
+		final Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		final Price p1 = p.addPrice("p1", 20);
 		p1.setTaxType(EnumTaxType.Net);
 		p1.setPriceType(EnumPriceType.Handling);
 		p1.setDropID("d1");
 
-		Price p2 = p.addPrice("p2", 20);
+		final Price p2 = p.addPrice("p2", 20);
 		p2.setTaxType(EnumTaxType.Tax);
 		p2.setPriceType(EnumPriceType.Handling);
 		p2.setDropID("d1");
 
-		Price p21 = p.addPrice("p1", 20);
+		final Price p21 = p.addPrice("p1", 20);
 		p21.setTaxType(EnumTaxType.Net);
 		p21.setPriceType(EnumPriceType.Handling);
 		p21.setDropID("d2");
 
-		Price p22 = p.addPrice("p2", 20);
+		final Price p22 = p.addPrice("p2", 20);
 		p22.setTaxType(EnumTaxType.Tax);
 		p22.setPriceType(EnumPriceType.Handling);
 		p22.setDropID("d2");
 
 		assertEquals(2, p.getPricesForDrop("d1").size());
 		assertEquals(2, p.getPricesForDrop("d2").size());
-		assertEquals(0, p.getPricesForDrop("d3").size());
+		assertNull(p.getPricesForDrop("d3"));
 
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testPricesByTypeDrop()
+	{
+		final Pricing p = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		final Price p1 = p.addPrice("p1", 20);
+		p1.setTaxType(EnumTaxType.Net);
+		p1.setPriceType(EnumPriceType.Handling);
+		p1.setDropID("d1");
+
+		final Price p2 = p.addPrice("p2", 20);
+		p2.setTaxType(EnumTaxType.Tax);
+		p2.setPriceType(EnumPriceType.Handling);
+		p2.setDropID("d1");
+
+		final Price p21 = p.addPrice("p1", 20);
+		p21.setTaxType(EnumTaxType.Net);
+		p21.setPriceType(EnumPriceType.Handling);
+		p21.setDropID("d2");
+
+		final Price p22 = p.addPrice("p2", 20);
+		p22.setTaxType(EnumTaxType.Tax);
+		p22.setPriceType(EnumPriceType.Handling);
+		p22.setDropID("d2");
+
+		assertEquals(p22, p.getPricesByType("Handling", EnumTaxType.Tax, "d2").get(0));
 	}
 }

@@ -92,7 +92,7 @@ public class Pricing extends AbstractPrintTalk
 	 *
 	 * @param theElement
 	 */
-	public Pricing(KElement theElement)
+	public Pricing(final KElement theElement)
 	{
 		super(theElement);
 	}
@@ -112,7 +112,7 @@ public class Pricing extends AbstractPrintTalk
 	 */
 	public Payment getPayment()
 	{
-		KElement e = getElement(Payment.ELEMENT_PAYMENT);
+		final KElement e = getElement(Payment.ELEMENT_PAYMENT);
 		return e == null ? null : new Payment(e);
 	}
 
@@ -123,9 +123,9 @@ public class Pricing extends AbstractPrintTalk
 	 * @param totalprice
 	 * @return
 	 */
-	public Price addPrice(String description, double totalprice)
+	public Price addPrice(final String description, final double totalprice)
 	{
-		Price price = new Price(theElement.appendElement(Price.ELEMENT_PRICE));
+		final Price price = new Price(theElement.appendElement(Price.ELEMENT_PRICE));
 		price.setDescriptiveName(description);
 		price.setLineID("L_" + theElement.numChildElements(Price.ELEMENT_PRICE, null));
 		if (totalprice >= 0)
@@ -140,9 +140,9 @@ public class Pricing extends AbstractPrintTalk
 	 *
 	 * @return the price, null if it doesn't exist
 	 */
-	public Price getPrice(String lineID)
+	public Price getPrice(final String lineID)
 	{
-		KElement price = theElement == null ? null : theElement.getChildWithAttribute(Price.ELEMENT_PRICE, Price.ATTR_LINEID, null, lineID, 0, true);
+		final KElement price = theElement == null ? null : theElement.getChildWithAttribute(Price.ELEMENT_PRICE, Price.ATTR_LINEID, null, lineID, 0, true);
 		return price == null ? null : new Price(price);
 	}
 
@@ -153,9 +153,9 @@ public class Pricing extends AbstractPrintTalk
 	 *
 	 * @return the price, null if it doesn't exist
 	 */
-	public Price getPriceByDescription(String desc)
+	public Price getPriceByDescription(final String desc)
 	{
-		KElement price = theElement == null ? null : theElement.getChildWithAttribute(Price.ELEMENT_PRICE, AttributeName.DESCRIPTIVENAME, null, desc, 0, true);
+		final KElement price = theElement == null ? null : theElement.getChildWithAttribute(Price.ELEMENT_PRICE, AttributeName.DESCRIPTIVENAME, null, desc, 0, true);
 		return price == null ? null : new Price(price);
 	}
 
@@ -168,7 +168,7 @@ public class Pricing extends AbstractPrintTalk
 	 * @return
 	 */
 	@Deprecated
-	public Price getPriceByType(String typ, EnumTaxType taxtype, int i)
+	public Price getPriceByType(final String typ, final EnumTaxType taxtype, final int i)
 	{
 		return getPriceByType(typ, taxtype, null, i);
 	}
@@ -176,18 +176,43 @@ public class Pricing extends AbstractPrintTalk
 	/**
 	 *
 	 */
-	public Price getPriceByType(String typ, EnumTaxType taxtype, String dropID, int i)
+	public Price getPriceByType(final String typ, final EnumTaxType taxtype, final String dropID, int i)
 	{
-		JDFAttributeMap map = new JDFAttributeMap();
-		if (StringUtil.getNonEmpty(typ) != null)
+		final Vector<Price> v = getPricesByType(typ, taxtype, dropID);
+		if (v == null)
+			return null;
+		if (i < 0)
+			i = v.size() + i;
+		return (i >= 0 && i < v.size()) ? v.get(i) : null;
+	}
+
+	/**
+	 *
+	 */
+	public Vector<Price> getPricesByType(final String typ, final EnumTaxType taxtype, final String dropID)
+	{
+		final JDFAttributeMap map = new JDFAttributeMap();
+		if (!StringUtil.isEmpty(typ))
 			map.put(Price.ATTR_PRICETYPE, typ);
 		if (taxtype != null)
 			map.put(Price.ATTR_TAXTYPE, taxtype.name());
-		if (StringUtil.getNonEmpty(dropID) != null)
+		if (!StringUtil.isEmpty(dropID))
 			map.put(AttributeName.DROPID, dropID);
 
-		KElement price = theElement == null ? null : theElement.getChildByTagName(Price.ELEMENT_PRICE, null, i, map, true, true);
-		return price == null ? null : new Price(price);
+		final VElement v = theElement == null ? null : theElement.getChildElementVector(Price.ELEMENT_PRICE, null, map, true, 0, false);
+		if (v == null || v.isEmpty())
+		{
+			return null;
+		}
+		else
+		{
+			final Vector<Price> ret = new Vector<>();
+			for (final KElement e : v)
+			{
+				ret.add(new Price(e));
+			}
+			return ret;
+		}
 	}
 
 	/**
@@ -200,35 +225,25 @@ public class Pricing extends AbstractPrintTalk
 		if (theElement == null)
 			return null;
 
-		Vector<Price> v = new Vector<Price>();
-		VElement prices = theElement.getChildElementVector(Price.ELEMENT_PRICE, null);
-		for (KElement price : prices)
+		final Vector<Price> v = new Vector<Price>();
+		final VElement prices = theElement.getChildElementVector(Price.ELEMENT_PRICE, null);
+		for (final KElement price : prices)
 		{
 			v.add(new Price(price));
 		}
-		return v;
+		return v.isEmpty() ? null : v;
 	}
 
 	/**
 	 *
 	 * get a vector of all child Price elements
 	 * @return
+	 * @deprecated use getPricesByType getPricesByType
 	 */
-	public Vector<Price> getPricesForDrop(String dropID)
+	@Deprecated
+	public Vector<Price> getPricesForDrop(final String dropID)
 	{
-		if (theElement == null)
-			return null;
-		dropID = StringUtil.normalize(dropID, false);
-		Vector<Price> v = new Vector<Price>();
-		VElement prices = theElement.getChildElementVector(Price.ELEMENT_PRICE, null);
-		for (KElement price : prices)
-		{
-			if (dropID == null || dropID.equals(price.getNonEmpty(AttributeName.DROPID)))
-			{
-				v.add(new Price(price));
-			}
-		}
-		return v;
+		return getPricesByType(null, null, dropID);
 	}
 
 }
