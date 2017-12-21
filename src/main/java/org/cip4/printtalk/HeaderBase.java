@@ -1,8 +1,8 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
+ * Copyright (c) 2001-2017 The International Cooperation for the Integration of
+ * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -10,7 +10,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -18,17 +18,17 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:  
+ *    if any, must include the following acknowledgment:
  *       "This product includes software developed by the
- *        The International Cooperation for the Integration of 
+ *        The International Cooperation for the Integration of
  *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
  *    Alternately, this acknowledgment may appear in the software itself,
  *    if and wherever such third-party acknowledgments normally appear.
  *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of 
+ * 4. The names "CIP4" and "The International Cooperation for the Integration of
  *    Processes in  Prepress, Press and Postpress" must
  *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written 
+ *    software without prior written permission. For written
  *    permission, please contact info@cip4.org.
  *
  * 5. Products derived from this software may not be called "CIP4",
@@ -54,17 +54,17 @@
  * ====================================================================
  *
  * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration 
+ * individuals on behalf of the The International Cooperation for the Integration
  * of Processes in Prepress, Press and Postpress and was
- * originally based on software 
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG 
- * copyright (c) 1999-2001, Agfa-Gevaert N.V. 
- *  
- * For more information on The International Cooperation for the 
+ * originally based on software
+ * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
+ * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ *
+ * For more information on The International Cooperation for the
  * Integration of Processes in  Prepress, Press and Postpress , please see
  * <http://www.cip4.org/>.
- *  
- * 
+ *
+ *
  */
 package org.cip4.printtalk;
 
@@ -80,34 +80,34 @@ public class HeaderBase extends AbstractPrintTalk
 	/**
 	 * @param header
 	 */
-	public HeaderBase(KElement header)
+	public HeaderBase(final KElement header)
 	{
 		super(header);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param iskip
 	 * @return
 	 */
-	public Credential getCredential(int iskip)
+	public Credential getCredential(final int iskip)
 	{
-		KElement e = getElement(Credential.ELEMENT_CREDENTIAL, iskip);
+		final KElement e = getElement(Credential.ELEMENT_CREDENTIAL, iskip);
 		return e == null ? null : new Credential(e);
 	}
 
 	/**
-	 * 
-	 * set the Identity value of a credential 
-	 * 
+	 *
+	 * set the Identity value of a credential
+	 *
 	 * @param domain of the credential
-	 * @param identity 
-	 * 
-	 *  
+	 * @param identity
+	 *
+	 *
 	 */
-	public void setCredential(String domain, String identity)
+	public void setCredential(final String domain, final String identity)
 	{
-		Credential c = getCreateCredential(domain);
+		final Credential c = getCreateCredential(domain);
 		if (c != null)
 		{
 			c.setIdentity(identity);
@@ -115,37 +115,37 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * @param domain
 	 * @return
 	 */
-	public Credential getCredential(String domain)
+	public Credential getCredential(final String domain)
 	{
-		KElement e = theElement == null ? null : theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
+		final KElement e = theElement == null ? null : theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
 		return e == null ? null : new Credential(e);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param domain
 	 * @return
 	 */
-	public Credential getCreateCredential(String domain)
+	public Credential getCreateCredential(final String domain)
 	{
 		if (theElement == null)
 			return null;
 
-		KElement e = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
+		final KElement e = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
 		if (e == null)
 		{
-			Credential c = new Credential(theElement.appendElement(Credential.ELEMENT_CREDENTIAL));
+			final Credential c = new Credential(theElement.appendElement(Credential.ELEMENT_CREDENTIAL));
 			c.setDomain(domain);
 		}
 		return getCredential(domain);
 	}
 
 	/**
-	 * 
+	 *
 	 * @author rainer prosi
 	 * @date Oct 28, 2013
 	 */
@@ -163,9 +163,9 @@ public class HeaderBase extends AbstractPrintTalk
 	 * @param domain
 	 * @return
 	 */
-	public String getCredentialIdentity(String domain)
+	public String getCredentialIdentity(final String domain)
 	{
-		Credential c = getCredential(domain);
+		final Credential c = getCredential(domain);
 		return c == null ? null : c.getIdentity();
-	};
+	}
 }
