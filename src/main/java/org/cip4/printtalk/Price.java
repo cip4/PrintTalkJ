@@ -111,7 +111,7 @@ public class Price extends AbstractPrintTalk
 	public enum EnumPriceType
 	{
 		Discount, Handling, Markup, Other, Product, Shipping, Subtotal, Total
-	};
+	}
 
 	/**
 	 *  PrintTalk 1.5 priceType enum
@@ -120,7 +120,7 @@ public class Price extends AbstractPrintTalk
 	public enum EnumTaxType
 	{
 		Gross, Net, Tax
-	};
+	}
 
 	/**
 	 *
@@ -129,12 +129,12 @@ public class Price extends AbstractPrintTalk
 	 */
 	public EnumPriceType getPriceTypeEnum()
 	{
-		String s = getAttribute(ATTR_PRICETYPE, null);
+		final String s = getAttribute(ATTR_PRICETYPE, null);
 		try
 		{
 			return s == null ? null : EnumPriceType.valueOf(s);
 		}
-		catch (Exception x)
+		catch (final Exception x)
 		{
 			return null;
 		}
@@ -147,12 +147,12 @@ public class Price extends AbstractPrintTalk
 	 */
 	public EnumTaxType getTaxType()
 	{
-		String s = getAttribute(ATTR_TAXTYPE, null);
+		final String s = getAttribute(ATTR_TAXTYPE, null);
 		try
 		{
 			return s == null ? null : EnumTaxType.valueOf(s);
 		}
-		catch (Exception x)
+		catch (final Exception x)
 		{
 			return null;
 		}
@@ -163,7 +163,7 @@ public class Price extends AbstractPrintTalk
 	 * @param taxType
 	 *
 	 */
-	public void setTaxType(EnumTaxType taxType)
+	public void setTaxType(final EnumTaxType taxType)
 	{
 		theElement.setAttribute(ATTR_TAXTYPE, taxType == null ? null : taxType.name(), null);
 	}
@@ -184,7 +184,7 @@ public class Price extends AbstractPrintTalk
 	 * @param priceType
 	 *
 	 */
-	public void setPriceType(EnumPriceType priceType)
+	public void setPriceType(final EnumPriceType priceType)
 	{
 		theElement.setAttribute(ATTR_PRICETYPE, priceType == null ? null : priceType.name(), null);
 	}
@@ -195,7 +195,7 @@ public class Price extends AbstractPrintTalk
 	 * @param priceType
 	 *
 	 */
-	public void setPriceType(String priceType)
+	public void setPriceType(final String priceType)
 	{
 		theElement.setAttribute(ATTR_PRICETYPE, priceType, null);
 	}
@@ -215,7 +215,7 @@ public class Price extends AbstractPrintTalk
 	 * set the precision for currency
 	 * @param currencyPrecision typically 0 e.g. for yen or 2 e.g. for $, default=2
 	 */
-	public static void setCurrencyPrecision(int currencyPrecision)
+	public static void setCurrencyPrecision(final int currencyPrecision)
 	{
 		Price.currencyPrecision = currencyPrecision;
 	}
@@ -224,7 +224,7 @@ public class Price extends AbstractPrintTalk
 	 *
 	 * @param theElement
 	 */
-	public Price(KElement theElement)
+	public Price(final KElement theElement)
 	{
 		super(theElement);
 	}
@@ -243,9 +243,9 @@ public class Price extends AbstractPrintTalk
 	 * set the price
 	 * @param price
 	 */
-	public void setPrice(double price)
+	public void setPrice(final double price)
 	{
-		String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
+		final String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
 		setAttribute(ATTR_PRICE, amount);
 	}
 
@@ -262,9 +262,9 @@ public class Price extends AbstractPrintTalk
 	 * set the price per unit
 	 * @param price
 	 */
-	public void setUnitPrice(double price)
+	public void setUnitPrice(final double price)
 	{
-		String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
+		final String amount = new NumberFormatter().formatDouble(price, currencyPrecision);
 		setAttribute(ATTR_UNITPRICE, amount);
 	}
 
@@ -281,9 +281,9 @@ public class Price extends AbstractPrintTalk
 	 * set amount
 	 * @param price
 	 */
-	public void setAmount(double price)
+	public void setAmount(final double price)
 	{
-		String amount = new NumberFormatter().formatDouble(price);
+		final String amount = new NumberFormatter().formatDouble(price);
 		setAttribute(ATTR_AMOUNT, amount);
 	}
 
@@ -300,7 +300,7 @@ public class Price extends AbstractPrintTalk
 	 *
 	 * @param lineID
 	 */
-	public void setLineID(String lineID)
+	public void setLineID(final String lineID)
 	{
 		theElement.setAttribute(ATTR_LINEID, lineID);
 	}
@@ -309,7 +309,7 @@ public class Price extends AbstractPrintTalk
 	 *
 	 * @param dropID
 	 */
-	public void setDropID(String dropID)
+	public void setDropID(final String dropID)
 	{
 		theElement.setAttribute(AttributeName.DROPID, dropID);
 	}
@@ -323,23 +323,23 @@ public class Price extends AbstractPrintTalk
 	 */
 	public boolean isReferenced()
 	{
-		String lineID = getLineID();
+		final String lineID = getLineID();
 		if (lineID == null)
 		{
 			return false;
 		}
-		Pricing parent = getParentPricing();
+		final Pricing parent = getParentPricing();
 		if (parent == null)
 		{
 			return false;
 		}
-		Vector<Price> v = parent.getPriceVector();
+		final Vector<Price> v = parent.getPriceVector();
 		if (v == null)
 		{
 			log.error("whazzup - my parent ain't got me...");
 			return false;
 		}
-		for (Price p : v)
+		for (final Price p : v)
 		{
 			if (equals(p))
 			{
@@ -357,7 +357,7 @@ public class Price extends AbstractPrintTalk
 	 *
 	 * @param lineIDRefs
 	 */
-	public void setLineIDRefs(VString lineIDRefs)
+	public void setLineIDRefs(final VString lineIDRefs)
 	{
 		theElement.setAttribute(ATTR_LINEIDREFS, lineIDRefs, null);
 	}
@@ -366,7 +366,7 @@ public class Price extends AbstractPrintTalk
 	 *
 	 * @param lineIDRef
 	 */
-	public void addLineIDRef(String lineIDRef)
+	public void addLineIDRef(final String lineIDRef)
 	{
 		theElement.appendAttribute(ATTR_LINEIDREFS, lineIDRef, null, " ", true);
 	}
@@ -375,11 +375,11 @@ public class Price extends AbstractPrintTalk
 	 *  add the LineID of subPrice to LineIDRefs of this, ignoring duplicates
 	 * @param subPrice
 	 */
-	public void refPrice(Price subPrice)
+	public void refPrice(final Price subPrice)
 	{
 		if (subPrice == null)
 			return;
-		VString v = getLineIDRefs();
+		final VString v = getLineIDRefs();
 		v.appendUnique(subPrice.getLineID());
 		theElement.setAttribute(ATTR_LINEIDREFS, v, null);
 	}
@@ -390,7 +390,7 @@ public class Price extends AbstractPrintTalk
 	 */
 	public VString getLineIDRefs()
 	{
-		String s = theElement.getAttribute(ATTR_LINEIDREFS, null, null);
+		final String s = theElement.getAttribute(ATTR_LINEIDREFS, null, null);
 		return StringUtil.tokenize(s, null, false);
 	}
 
@@ -419,9 +419,9 @@ public class Price extends AbstractPrintTalk
 	 * @param price
 	 * @return
 	 */
-	public Additional addAdditional(double amount, double price)
+	public Additional addAdditional(final double amount, final double price)
 	{
-		Additional a = new Additional(theElement.appendElement(Additional.ELEMENT_Additional));
+		final Additional a = new Additional(theElement.appendElement(Additional.ELEMENT_Additional));
 		a.setAmount(amount);
 		a.setPrice(price);
 		return a;
@@ -434,9 +434,9 @@ public class Price extends AbstractPrintTalk
 	 *
 	 * @return the price, null if it doesn't exist
 	 */
-	public Additional getAdditional(int i)
+	public Additional getAdditional(final int i)
 	{
-		KElement a = theElement.getElement(Additional.ELEMENT_Additional, null, i);
+		final KElement a = theElement.getElement(Additional.ELEMENT_Additional, null, i);
 		return a == null ? null : new Additional(a);
 	}
 
