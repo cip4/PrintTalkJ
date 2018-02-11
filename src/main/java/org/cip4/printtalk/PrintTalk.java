@@ -1,8 +1,8 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2015 The International Cooperation for the Integration of 
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of
+ * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -10,7 +10,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -18,17 +18,17 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:  
+ *    if any, must include the following acknowledgment:
  *       "This product includes software developed by the
- *        The International Cooperation for the Integration of 
+ *        The International Cooperation for the Integration of
  *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
  *    Alternately, this acknowledgment may appear in the software itself,
  *    if and wherever such third-party acknowledgments normally appear.
  *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of 
+ * 4. The names "CIP4" and "The International Cooperation for the Integration of
  *    Processes in  Prepress, Press and Postpress" must
  *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written 
+ *    software without prior written permission. For written
  *    permission, please contact info@cip4.org.
  *
  * 5. Products derived from this software may not be called "CIP4",
@@ -54,17 +54,17 @@
  * ====================================================================
  *
  * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration 
+ * individuals on behalf of the The International Cooperation for the Integration
  * of Processes in Prepress, Press and Postpress and was
- * originally based on software 
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG 
- * copyright (c) 1999-2001, Agfa-Gevaert N.V. 
- *  
- * For more information on The International Cooperation for the 
+ * originally based on software
+ * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
+ * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ *
+ * For more information on The International Cooperation for the
  * Integration of Processes in  Prepress, Press and Postpress , please see
  * <http://www.cip4.org/>.
- *  
- * 
+ *
+ *
  */
 package org.cip4.printtalk;
 
@@ -78,35 +78,35 @@ import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 
 /**
  * Class to wrap the PrintTalk Root element
- * 
+ *
  * @author rainer prosi
  * @date Jan 3, 2011
  */
 public class PrintTalk extends AbstractPrintTalk
 {
 	/**
-	 * 
+	 *
 	 */
 	public static final String REQUEST = "Request";
 	/**
-	 * 
+	 *
 	 */
 	public static final String RESPONSE = "Response";
 	/**
-	 * 
+	 *
 	 */
 	public static final String PRINT_TALK = "PrintTalk";
 	/**
-	 * 
+	 *
 	 */
 	public static final String AGENT_ID = "jdf:AgentID";
 	/**
-	 * 
+	 *
 	 */
 	public static final String MIME_PRINT_TALK = "application/vnd.cip4-ptk+xml";
 
 	/**
-	 * 
+	 *
 	 * business object types
 	 * @author rainer prosi
 	 * @date Jan 3, 2011
@@ -158,7 +158,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 * Setter for defaultVersion attribute.
 	 * @param defaultVersion the defaultVersion to set
 	 */
-	public static void setDefaultVersion(int defaultVersion)
+	public static void setDefaultVersion(final int defaultVersion)
 	{
 		PrintTalk.defaultVersion = defaultVersion;
 	}
@@ -166,12 +166,12 @@ public class PrintTalk extends AbstractPrintTalk
 	private int version;
 
 	/**
-	 * 
+	 *
 	 * return the PrintTalk element for theElement id TheElement is a printtalk element
 	 * @param theElement
 	 * @return
 	 */
-	public static PrintTalk getPrintTalk(KElement theElement)
+	public static PrintTalk getPrintTalk(final KElement theElement)
 	{
 		if (theElement == null || !PRINT_TALK.equalsIgnoreCase(theElement.getLocalName()))
 			return null;
@@ -182,7 +182,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 * create a printtalk helper
 	 * @param theElement
 	 */
-	public PrintTalk(KElement theElement)
+	public PrintTalk(final KElement theElement)
 	{
 		super(theElement);
 		version = 0;
@@ -190,7 +190,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * create a new printtalk helper
-	 *  
+	 *
 	 */
 	public PrintTalk()
 	{
@@ -204,7 +204,7 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * get the correct namespace uri string
 	 * @param version 10=1.0 etc
 	 * @return
@@ -217,7 +217,7 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * get the correct namespace uri string
 	 * @return
 	 */
@@ -228,51 +228,51 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * initialize a new printtalk
-	 *  
+	 *
 	 */
 	@Override
 	public void init()
 	{
 		super.init();
 		theElement.setAttribute("version", getVersionString("."));
-		String dateTimeISO = new JDFDate().getDateTimeISO();
+		final String dateTimeISO = new JDFDate().getDateTimeISO();
 		theElement.setAttribute("Timestamp", dateTimeISO);
 		theElement.setAttribute("payloadID", JDFAudit.software() + dateTimeISO);
 	}
 
 	/**
-	 *  
-	 * @param sep 
+	 *
+	 * @param sep
 	 * @return
 	 */
-	private String getVersionString(String sep)
+	private String getVersionString(final String sep)
 	{
 		return (getVersion() < 10) ? ("1" + sep + getVersion()) : ("2" + sep + (getVersion() - 20));
 	}
 
 	/**
-	 * 
+	 *
 	 * set a new credential identity value
 	 * @param headerType type of header
 	 * @param domain domain name
 	 * @param identity Identity value
 	 */
-	public void setCredential(EnumHeaderType headerType, String domain, String identity)
+	public void setCredential(final EnumHeaderType headerType, final String domain, final String identity)
 	{
-		HeaderBase header = getCreateHeader(headerType);
+		final HeaderBase header = getCreateHeader(headerType);
 		header.setCredential(domain, identity);
 	}
 
 	/**
-	 * 
+	 *
 	 * set a new credential value
 	 * @param headerType type of header
 	 * @param domain domain name
 	 * @return identity Identity value
 	 */
-	public String getCredentialIdentity(EnumHeaderType headerType, String domain)
+	public String getCredentialIdentity(final EnumHeaderType headerType, final String domain)
 	{
-		HeaderBase header = getHeader(headerType);
+		final HeaderBase header = getHeader(headerType);
 		return header == null ? null : header.getCredentialIdentity(domain);
 	}
 
@@ -281,7 +281,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 * @param headerType
 	 * @return
 	 */
-	public HeaderBase getCreateHeader(EnumHeaderType headerType)
+	public HeaderBase getCreateHeader(final EnumHeaderType headerType)
 	{
 		HeaderBase header = getHeader(headerType);
 		if (header == null && headerType != null)
@@ -295,7 +295,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 * Setter for version attribute.
 	 * @param version the version to set
 	 */
-	public void setVersion(int version)
+	public void setVersion(final int version)
 	{
 		this.version = version;
 	}
@@ -319,46 +319,46 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * 
+	 *
 	 * appends a request with an initialized Business Object
 	 * @param bo the business object type
-	 * @param ref the printtalk object that this references  
+	 * @param ref the printtalk object that this references
 	 * @return the newly created BusinessObject, null if unsuccessful
 	 * @throws IllegalArgumentException if bo already exists
 	 */
-	public BusinessObject appendRequest(EnumBusinessObject bo, PrintTalk ref) throws IllegalArgumentException
+	public BusinessObject appendRequest(final EnumBusinessObject bo, final PrintTalk ref) throws IllegalArgumentException
 	{
-		BusinessObject oldBO = getBusinessObject();
+		final BusinessObject oldBO = getBusinessObject();
 		if (oldBO != null || getElement(RESPONSE) != null)
 			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
 
-		String boName = bo.name();
-		KElement e = theElement.getCreateElement(REQUEST).appendElement(boName);
+		final String boName = bo.name();
+		final KElement e = theElement.getCreateElement(REQUEST).appendElement(boName);
 		final BusinessObject businessObject = initBO(ref, e);
 		return businessObject;
 	}
 
 	/**
-	 * 
+	 *
 	 * appends a synchronous response with an initialized Business Object
 	 * @param bo the business object type
-	 * @param ref the printtalk object that this references  
+	 * @param ref the printtalk object that this references
 	 * @return the newly created BusinessObject, null if unsuccessful
 	 * @throws IllegalArgumentException if bo already exists
 	 */
-	public BusinessObject appendResponse(EnumBusinessObject bo, PrintTalk ref) throws IllegalArgumentException
+	public BusinessObject appendResponse(final EnumBusinessObject bo, final PrintTalk ref) throws IllegalArgumentException
 	{
-		BusinessObject oldBO = getBusinessObject();
+		final BusinessObject oldBO = getBusinessObject();
 		if (oldBO != null || getElement(REQUEST) != null)
 			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
 
-		String boName = bo.name();
-		KElement e = theElement.getCreateElement(RESPONSE).appendElement(boName);
+		final String boName = bo.name();
+		final KElement e = theElement.getCreateElement(RESPONSE).appendElement(boName);
 		final BusinessObject businessObject = initBO(ref, e);
 		return businessObject;
 	}
 
-	private BusinessObject initBO(PrintTalk ref, KElement e)
+	private BusinessObject initBO(final PrintTalk ref, final KElement e)
 	{
 		final BusinessObject businessObject = BusinessObject.getBusinessObject(e);
 		businessObject.init();
@@ -375,7 +375,7 @@ public class PrintTalk extends AbstractPrintTalk
 		KElement request = getElement(REQUEST);
 		if (request == null)
 			request = getElement(RESPONSE);
-		KElement oldBO = request == null ? null : request.getFirstChildElement();
+		final KElement oldBO = request == null ? null : request.getFirstChildElement();
 		return BusinessObject.getBusinessObject(oldBO);
 	}
 
@@ -384,10 +384,10 @@ public class PrintTalk extends AbstractPrintTalk
 	 * @param headerType the type (From / to / Sender)
 	 * @return
 	 */
-	public HeaderBase getHeader(EnumHeaderType headerType)
+	public HeaderBase getHeader(final EnumHeaderType headerType)
 	{
-		KElement request = headerType == null ? null : getElement("Header");
-		KElement header = request == null ? null : request.getElement(headerType.name());
+		final KElement request = headerType == null ? null : getElement("Header");
+		final KElement header = request == null ? null : request.getElement(headerType.name());
 		return header == null ? null : new HeaderBase(header);
 	}
 
