@@ -1,18 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.cip4.lib.ptk</groupId>
-	<artifactId>PrintTalkJ</artifactId>
-	<version>2.1.5.91-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>PrintTalkJ</name>
-	<url>http://www.cip4.org</url>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.cip4.lib.ptk</groupId>
+    <artifactId>PrintTalkJ</artifactId>
+    <version>2.1.5.91-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>PrintTalkJ</name>
+    <url>http://www.cip4.org</url>
     <description>CIP4 PrintTalk Library for PrintTalk 1.x</description>
-	<properties>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<timestamp>${maven.build.timestamp}</timestamp>
-		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-	</properties>
-	<licenses>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+    </properties>
+    <licenses>
         <license>
             <name>CIP4 Software License</name>
             <url>https://confluence.cip4.org/display/PUB/CIP4+Software+License</url>
@@ -23,47 +24,66 @@
         <url>https://stash.cip4.org/scm/lib/printtalkj.git</url>
         <developerConnection>scm:git:https://stash.cip4.org/scm/lib/printtalkj.git</developerConnection>
         <connection>scm:svn:https://stash.cip4.org/scm/lib/printtalkj.git</connection>
-    <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <issueManagement>
         <system>JIRA</system>
         <url>https://jira.cip4.org/browse/PTKJ</url>
     </issueManagement>
     <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-	<developers>
-		<developer>
-			<id>r.prosi</id>
-			<name>Dr. Rainer Prosi</name>
-			<organization>Heidelberger Druckmaschinen AG</organization>
-			<organizationUrl>http://www.heidelberg.com</organizationUrl>
-			<email>rainer.prosi@heidelberg.com</email>
-		</developer>
-		<developer>
-			<id>s.meissner</id>
-			<name>Stefan Meissner</name>
-			<organization>flyeralarm GmbH</organization>
-			<organizationUrl>http://www.flyeralarm.com</organizationUrl>
-			<email>s.meissner@flyeralarm.de</email>
-		</developer>
-	</developers>
-	<build>
-		<plugins>
-		    <plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.5</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
+    <developers>
+        <developer>
+            <id>r.prosi</id>
+            <name>Dr. Rainer Prosi</name>
+            <organization>Heidelberger Druckmaschinen AG</organization>
+            <organizationUrl>http://www.heidelberg.com</organizationUrl>
+            <email>rainer.prosi@heidelberg.com</email>
+        </developer>
+        <developer>
+            <id>s.meissner</id>
+            <name>Stefan Meissner</name>
+            <organization>flyeralarm GmbH</organization>
+            <organizationUrl>http://www.flyeralarm.com</organizationUrl>
+            <email>s.meissner@flyeralarm.de</email>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>org.cip4.lib.jdf</groupId>
+            <artifactId>JDFLibJ</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <!-- Test Environment -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.5</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -73,78 +93,49 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-                <version>2.5</version>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-	            </configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<dependencies>
-		<dependency>
-			<groupId>org.cip4.lib.jdf</groupId>
-			<artifactId>JDFLibJ</artifactId>
-			<version>2.1.5.91-SNAPSHOT</version>
-		</dependency>
-	
-		<!-- Test Environment -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
