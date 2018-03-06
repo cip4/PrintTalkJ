@@ -34,12 +34,6 @@
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus Snapshots</name>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </repository>
     </repositories>
     <distributionManagement>
@@ -72,7 +66,7 @@
         <dependency>
             <groupId>org.cip4.lib.jdf</groupId>
             <artifactId>JDFLibJ</artifactId>
-            <version>2.1.6.2</version>
+            <version>LATEST</version>
         </dependency>
 
         <!-- Test Environment -->
