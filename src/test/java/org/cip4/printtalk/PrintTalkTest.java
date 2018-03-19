@@ -1,8 +1,8 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of
+ * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -10,7 +10,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -18,17 +18,17 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:  
+ *    if any, must include the following acknowledgment:
  *       "This product includes software developed by the
- *        The International Cooperation for the Integration of 
+ *        The International Cooperation for the Integration of
  *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
  *    Alternately, this acknowledgment may appear in the software itself,
  *    if and wherever such third-party acknowledgments normally appear.
  *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of 
+ * 4. The names "CIP4" and "The International Cooperation for the Integration of
  *    Processes in  Prepress, Press and Postpress" must
  *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written 
+ *    software without prior written permission. For written
  *    permission, please contact info@cip4.org.
  *
  * 5. Products derived from this software may not be called "CIP4",
@@ -54,17 +54,17 @@
  * ====================================================================
  *
  * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration 
+ * individuals on behalf of the The International Cooperation for the Integration
  * of Processes in Prepress, Press and Postpress and was
- * originally based on software 
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG 
- * copyright (c) 1999-2001, Agfa-Gevaert N.V. 
- *  
- * For more information on The International Cooperation for the 
+ * originally based on software
+ * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
+ * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ *
+ * For more information on The International Cooperation for the
  * Integration of Processes in  Prepress, Press and Postpress , please see
  * <http://www.cip4.org/>.
- *  
- * 
+ *
+ *
  */
 package org.cip4.printtalk;
 
@@ -74,20 +74,20 @@ import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
 /**
- * 
+ *
  * @author rainer prosi
  * @date Jan 3, 2011
  */
 public class PrintTalkTest extends PrintTalkTestCase
 {
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testSetHeader()
 	{
-		PrintTalk pt = new PrintTalk();
+		final PrintTalk pt = new PrintTalk();
 		pt.setCredential(EnumHeaderType.From, "ID", "Its me");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
 		assertEquals(pt.getCredentialIdentity(EnumHeaderType.From, "ID"), "Its me");
@@ -96,7 +96,7 @@ public class PrintTalkTest extends PrintTalkTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
@@ -106,47 +106,47 @@ public class PrintTalkTest extends PrintTalkTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testAppendRequest()
 	{
-		PrintTalk pt = new PrintTalk();
+		final PrintTalk pt = new PrintTalk();
 		pt.setCredential(EnumHeaderType.From, "ID", "Its me");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its me");
-		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
+		final BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
 		assertTrue(bo instanceof RFQ);
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testAppendResponse()
 	{
-		PrintTalk pt = new PrintTalk();
-		BusinessObject bo = pt.appendResponse(EnumBusinessObject.RFQ, null);
+		final PrintTalk pt = new PrintTalk();
+		final BusinessObject bo = pt.appendResponse(EnumBusinessObject.RFQ, null);
 		assertTrue(bo instanceof RFQ);
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testAppendRequestResponse()
 	{
-		PrintTalk pt = new PrintTalk();
-		BusinessObject bo = pt.appendResponse(EnumBusinessObject.RFQ, null);
+		final PrintTalk pt = new PrintTalk();
+		final BusinessObject bo = pt.appendResponse(EnumBusinessObject.RFQ, null);
 		assertTrue(bo instanceof RFQ);
 		try
 		{
 			pt.appendResponse(EnumBusinessObject.RFQ, null);
 			fail("no two");
 		}
-		catch (IllegalArgumentException x)
+		catch (final IllegalArgumentException x)
 		{
 			//
 		}
@@ -155,47 +155,47 @@ public class PrintTalkTest extends PrintTalkTestCase
 			pt.appendRequest(EnumBusinessObject.RFQ, null);
 			fail("no two");
 		}
-		catch (IllegalArgumentException x)
+		catch (final IllegalArgumentException x)
 		{
 			//
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testAppendRequestRef()
 	{
-		PrintTalk pt = new PrintTalk();
-		BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
+		final PrintTalk pt = new PrintTalk();
+		final BusinessObject bo = pt.appendRequest(EnumBusinessObject.RFQ, null);
 		assertTrue(bo instanceof RFQ);
-		PrintTalk pt2 = new PrintTalk();
-		BusinessObject bo2 = pt2.appendRequest(EnumBusinessObject.Quotation, pt);
+		final PrintTalk pt2 = new PrintTalk();
+		final BusinessObject bo2 = pt2.appendRequest(EnumBusinessObject.Quotation, pt);
 		assertTrue(bo2 instanceof Quotation);
 		assertEquals(bo2.getBusinessRefID(), bo.getBusinessID());
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testGetTimestamp()
 	{
-		PrintTalk pt = new PrintTalk();
-		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 3333);
+		final PrintTalk pt = new PrintTalk();
+		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 6666);
 	}
 
 	/**
-	 * 
-	 *  
+	 *
+	 *
 	 */
 	@Test
 	public void testVersion()
 	{
-		PrintTalk pt = new PrintTalk();
+		final PrintTalk pt = new PrintTalk();
 		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_15");
 		pt.setVersion(13);
 		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_13");
@@ -208,14 +208,14 @@ public class PrintTalkTest extends PrintTalkTestCase
 	}
 
 	/**
-	 * 
-	 *  
+	 *
+	 *
 	 */
 	@Test
 	public void testdefaultVersion()
 	{
 		PrintTalk.setDefaultVersion(20);
-		PrintTalk pt = new PrintTalk();
+		final PrintTalk pt = new PrintTalk();
 		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_20");
 		PrintTalk.setDefaultVersion(13);
 		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_13");
@@ -224,24 +224,24 @@ public class PrintTalkTest extends PrintTalkTestCase
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testGetPrintTalk()
 	{
-		PrintTalk pt = new PrintTalk();
+		final PrintTalk pt = new PrintTalk();
 		assertEquals(pt.getPrintTalk(), pt);
 	}
 
 	/**
-	 * 
+	 *
 	 * duh...
 	 */
 	@Test
 	public void testEquals()
 	{
-		PrintTalk pt = new PrintTalk();
+		final PrintTalk pt = new PrintTalk();
 		assertEquals(pt.getPrintTalk(), pt);
 		assertEquals(pt.getPrintTalk().hashCode(), pt.hashCode());
 		assertNotSame(pt, new PrintTalk(pt.getRoot().clone()));
