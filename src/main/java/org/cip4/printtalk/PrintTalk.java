@@ -257,10 +257,10 @@ public class PrintTalk extends AbstractPrintTalk
 	 * @param domain domain name
 	 * @param identity Identity value
 	 */
-	public void setCredential(final EnumHeaderType headerType, final String domain, final String identity)
+	public Credential setCredential(final EnumHeaderType headerType, final String domain, final String identity)
 	{
 		final HeaderBase header = getCreateHeader(headerType);
-		header.setCredential(domain, identity);
+		return header.setCredential(domain, identity);
 	}
 
 	/**
@@ -274,6 +274,20 @@ public class PrintTalk extends AbstractPrintTalk
 	{
 		final HeaderBase header = getHeader(headerType);
 		return header == null ? null : header.getCredentialIdentity(domain);
+	}
+
+	/**
+	 *
+	 * get a  credential
+	 *
+	 * @param headerType type of header
+	 * @param domain domain name
+	 * @return the credential
+	 */
+	public Credential getCredential(final EnumHeaderType headerType, final String domain)
+	{
+		final HeaderBase header = getHeader(headerType);
+		return header == null ? null : header.getCredential(domain);
 	}
 
 	/**

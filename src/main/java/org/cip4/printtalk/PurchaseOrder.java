@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
@@ -71,6 +71,7 @@ package org.cip4.printtalk;
 import java.util.zip.DataFormatException;
 
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
 
 /**
@@ -94,7 +95,7 @@ public class PurchaseOrder extends BusinessObject
 	 *
 	 * @param theElement
 	 */
-	public PurchaseOrder(KElement theElement)
+	public PurchaseOrder(final KElement theElement)
 	{
 		super(theElement);
 	}
@@ -114,7 +115,7 @@ public class PurchaseOrder extends BusinessObject
 	 * set the currency value
 	 * @param currency
 	 */
-	public void setCurrency(String currency)
+	public void setCurrency(final String currency)
 	{
 		setAttribute(ATTR_CURRENCY, currency);
 	}
@@ -126,12 +127,12 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public JDFDate getExpires()
 	{
-		String s = getAttribute(ATTR_EXPIRES);
+		final String s = getAttribute(ATTR_EXPIRES);
 		try
 		{
 			return (s == null) ? null : new JDFDate(s);
 		}
-		catch (DataFormatException e)
+		catch (final DataFormatException e)
 		{
 			return null;
 		}
@@ -142,7 +143,7 @@ public class PurchaseOrder extends BusinessObject
 	 * set the expires value
 	 * @param expires
 	 */
-	public void setExpires(JDFDate expires)
+	public void setExpires(final JDFDate expires)
 	{
 		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
 	}
@@ -160,7 +161,7 @@ public class PurchaseOrder extends BusinessObject
 	 * set quote id value
 	 * @param s
 	 */
-	public void setQuoteID(String s)
+	public void setQuoteID(final String s)
 	{
 		setAttribute(ATTR_QUOTEID, s);
 	}
@@ -178,7 +179,7 @@ public class PurchaseOrder extends BusinessObject
 	 * set reorder id value
 	 * @param s
 	 */
-	public void setReorderID(String s)
+	public void setReorderID(final String s)
 	{
 		setAttribute(ATTR_REORDERID, s);
 	}
@@ -196,7 +197,7 @@ public class PurchaseOrder extends BusinessObject
 	 * set replace id value
 	 * @param s
 	 */
-	public void setReplaceID(String s)
+	public void setReplaceID(final String s)
 	{
 		setAttribute(ATTR_REPLACEID, s);
 	}
@@ -214,7 +215,7 @@ public class PurchaseOrder extends BusinessObject
 	 * set return jdf value
 	 * @param b
 	 */
-	public void setReturnJDF(boolean b)
+	public void setReturnJDF(final boolean b)
 	{
 		setAttribute(ATTR_RETURNJDF, b ? "true" : "false");
 	}
@@ -234,8 +235,19 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public Pricing getPricing()
 	{
-		KElement element = getElement(Pricing.ELEMENT_PRICING);
+		final KElement element = getElement(Pricing.ELEMENT_PRICING);
 		return element == null ? null : new Pricing(element);
+	}
+
+	/**
+	 *
+	 * @param xjdf
+	 */
+	@Override
+	public void setXJDF(final XJDFHelper xjdf)
+	{
+		super.setXJDF(xjdf);
+
 	}
 
 }

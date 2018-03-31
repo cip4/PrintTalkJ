@@ -68,30 +68,25 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.extensions.XJDFHelper;
-import org.cip4.jdflib.node.JDFNode;
-import org.cip4.jdflib.util.JDFDate;
-import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.junit.Test;
 
-/**
- *
- * @author rainer prosi
- * @date Jan 5, 2011
- */
-public class PurchaseOrderTest extends PrintTalkTestCase
+public class HeaderBaseTest
 {
+
 	/**
 	 *
 	 *
 	 */
 	@Test
-	public void testSetExpires()
+	public void testGetHeader()
 	{
-		final PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final JDFDate expires = new JDFDate();
-		po.setExpires(expires);
-		assertEquals(expires, po.getExpires());
+		final PrintTalk pt = new PrintTalk();
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_CUSTOMERID, "cid");
+		assertNotNull(pt.getHeader(EnumHeaderType.From));
 	}
 
 	/**
@@ -99,53 +94,12 @@ public class PurchaseOrderTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
-	public void testgetPrintTalk()
+	public void testGetCredentialMap()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		assertEquals(printTalk, po.getPrintTalk());
+		final PrintTalk pt = new PrintTalk();
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_CUSTOMERID, "cid");
+		final HeaderBase header = pt.getHeader(EnumHeaderType.From);
+		assertEquals(1, header.getCredentialMap().size());
 	}
 
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testsetXJDF()
-	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final XJDFHelper h = new XJDFHelper("j1", null, null);
-		po.setXJDF(h);
-		assertEquals("j1", printTalk.getXPathAttribute("Request/PurchaseOrder/XJDF/@JobID", null));
-	}
-
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testMultiJDF()
-	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final Pricing pricing = po.getCreatePricing();
-		final Price tp = pricing.addPrice("total", 42);
-		tp.setLineID("Total");
-
-		int total = 0;
-		for (int i = 1; i < 4; i++)
-		{
-			final JDFNode n = (JDFNode) po.getCreateJDFRoot("JDF", i - 1);
-			n.appendGeneralID("LineID", "Line" + i);
-			pricing.addPrice("Price for JDF # " + i, i * 100).setLineID("Line" + i);
-			total += i * 100;
-			tp.addLineIDRef("Line" + i);
-		}
-		pricing.addPrice("shipping", 42).setLineID("Shipping");
-		total += 42;
-		tp.addLineIDRef("shipping");
-		tp.setPrice(total);
-		// printTalk.getRoot().getOwnerDocument_KElement().write2File(sm_dirTestDataTemp + "multiJDF.pt", 2, true);
-	}
 }

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
@@ -68,7 +68,12 @@
  */
 package org.cip4.printtalk;
 
+import java.util.Vector;
+
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.VElement;
+import org.cip4.jdflib.datatypes.JDFAttributeMap;
+import org.cip4.jdflib.util.ContainerUtil;
 
 /**
  *  base class for From To and Sender
@@ -105,13 +110,14 @@ public class HeaderBase extends AbstractPrintTalk
 	 *
 	 *
 	 */
-	public void setCredential(final String domain, final String identity)
+	public Credential setCredential(final String domain, final String identity)
 	{
 		final Credential c = getCreateCredential(domain);
 		if (c != null)
 		{
 			c.setIdentity(identity);
 		}
+		return c;
 	}
 
 	/**
@@ -159,7 +165,7 @@ public class HeaderBase extends AbstractPrintTalk
 		Sender
 	}
 
-	/**TODO Please insert comment!
+	/**
 	 * @param domain
 	 * @return
 	 */
@@ -168,4 +174,44 @@ public class HeaderBase extends AbstractPrintTalk
 		final Credential c = getCredential(domain);
 		return c == null ? null : c.getIdentity();
 	}
+
+	/**
+	 * @param domain
+	 * @return
+	 */
+	public JDFAttributeMap getCredentialMap()
+	{
+		final Vector<Credential> v = getCredentials();
+		final JDFAttributeMap map = new JDFAttributeMap();
+		if (v != null)
+		{
+			for (final Credential c : v)
+			{
+				final String id = c.getIdentity();
+				if (id != null)
+				{
+					final String domain = c.getDomain();
+					map.put(domain == null ? "" : domain, id);
+
+				}
+			}
+		}
+		return map.isEmpty() ? null : map;
+	}
+
+	public Vector<Credential> getCredentials()
+	{
+		final VElement v0 = theElement == null ? null : theElement.getChildElementVector(Credential.ELEMENT_CREDENTIAL, null);
+		if (!ContainerUtil.isEmpty(v0))
+		{
+			final Vector<Credential> v = new Vector<>();
+			for (final KElement e : v0)
+			{
+				v.add(new Credential(e));
+			}
+			return v;
+		}
+		return null;
+	}
+
 }

@@ -66,86 +66,66 @@
  *
  *
  */
-package org.cip4.printtalk;
+package org.cip4.printtalk.builder;
 
-import org.cip4.jdflib.extensions.XJDFHelper;
-import org.cip4.jdflib.node.JDFNode;
-import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.printtalk.PrintTalkTestCase;
 import org.junit.Test;
 
-/**
- *
- * @author rainer prosi
- * @date Jan 5, 2011
- */
-public class PurchaseOrderTest extends PrintTalkTestCase
+public class PrintTalkBuilderFactoryTest extends PrintTalkTestCase
 {
+
 	/**
-	 *
 	 *
 	 */
 	@Test
-	public void testSetExpires()
+	public void testGetFactory()
 	{
-		final PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final JDFDate expires = new JDFDate();
-		po.setExpires(expires);
-		assertEquals(expires, po.getExpires());
+		assertNotNull(PrintTalkBuilderFactory.getTheFactory());
 	}
 
 	/**
 	 *
-	 *
 	 */
 	@Test
-	public void testgetPrintTalk()
+	public void testGetBuilder()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		assertEquals(printTalk, po.getPrintTalk());
+		assertNotNull(PrintTalkBuilderFactory.getTheFactory().getBuilder());
 	}
 
 	/**
 	 *
-	 *
 	 */
 	@Test
-	public void testsetXJDF()
+	public synchronized void testGetTo()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final XJDFHelper h = new XJDFHelper("j1", null, null);
-		po.setXJDF(h);
-		assertEquals("j1", printTalk.getXPathAttribute("Request/PurchaseOrder/XJDF/@JobID", null));
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		theFactory.setTo("to2");
+		assertEquals("to2", theFactory.getBuilder().getTo());
 	}
 
 	/**
 	 *
+	 */
+	@Test
+	public synchronized void testNoBack()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		theFactory.setTo(null);
+		final PrintTalkBuilder builder = theFactory.getBuilder();
+		builder.setTo("42");
+		assertNull(theFactory.getTo());
+	}
+
+	/**
 	 *
 	 */
 	@Test
-	public void testMultiJDF()
+	public void testBO()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final Pricing pricing = po.getCreatePricing();
-		final Price tp = pricing.addPrice("total", 42);
-		tp.setLineID("Total");
-
-		int total = 0;
-		for (int i = 1; i < 4; i++)
-		{
-			final JDFNode n = (JDFNode) po.getCreateJDFRoot("JDF", i - 1);
-			n.appendGeneralID("LineID", "Line" + i);
-			pricing.addPrice("Price for JDF # " + i, i * 100).setLineID("Line" + i);
-			total += i * 100;
-			tp.addLineIDRef("Line" + i);
-		}
-		pricing.addPrice("shipping", 42).setLineID("Shipping");
-		total += 42;
-		tp.addLineIDRef("shipping");
-		tp.setPrice(total);
-		// printTalk.getRoot().getOwnerDocument_KElement().write2File(sm_dirTestDataTemp + "multiJDF.pt", 2, true);
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		theFactory.setBusinessObject(EnumBusinessObject.Cancellation);
+		assertEquals(EnumBusinessObject.Cancellation, theFactory.getBuilder().getBusinessObject());
 	}
+
 }

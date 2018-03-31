@@ -66,86 +66,27 @@
  *
  *
  */
-package org.cip4.printtalk;
+package org.cip4.printtalk.builder;
 
-import org.cip4.jdflib.extensions.XJDFHelper;
-import org.cip4.jdflib.node.JDFNode;
-import org.cip4.jdflib.util.JDFDate;
-import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Test;
-
-/**
- *
- * @author rainer prosi
- * @date Jan 5, 2011
- */
-public class PurchaseOrderTest extends PrintTalkTestCase
+public class PrintTalkBuilderFactory extends PrintTalkBuilder
 {
+	private static PrintTalkBuilderFactory theFactory = new PrintTalkBuilderFactory();
+
 	/**
-	 *
-	 *
+	 * @return the singleton Factory
 	 */
-	@Test
-	public void testSetExpires()
+	public static PrintTalkBuilderFactory getTheFactory()
 	{
-		final PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final JDFDate expires = new JDFDate();
-		po.setExpires(expires);
-		assertEquals(expires, po.getExpires());
+		return theFactory;
 	}
 
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testgetPrintTalk()
+	private PrintTalkBuilderFactory()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		assertEquals(printTalk, po.getPrintTalk());
+		super();
 	}
 
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testsetXJDF()
+	public PrintTalkBuilder getBuilder()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final XJDFHelper h = new XJDFHelper("j1", null, null);
-		po.setXJDF(h);
-		assertEquals("j1", printTalk.getXPathAttribute("Request/PurchaseOrder/XJDF/@JobID", null));
-	}
-
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testMultiJDF()
-	{
-		final PrintTalk printTalk = new PrintTalk();
-		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		final Pricing pricing = po.getCreatePricing();
-		final Price tp = pricing.addPrice("total", 42);
-		tp.setLineID("Total");
-
-		int total = 0;
-		for (int i = 1; i < 4; i++)
-		{
-			final JDFNode n = (JDFNode) po.getCreateJDFRoot("JDF", i - 1);
-			n.appendGeneralID("LineID", "Line" + i);
-			pricing.addPrice("Price for JDF # " + i, i * 100).setLineID("Line" + i);
-			total += i * 100;
-			tp.addLineIDRef("Line" + i);
-		}
-		pricing.addPrice("shipping", 42).setLineID("Shipping");
-		total += 42;
-		tp.addLineIDRef("shipping");
-		tp.setPrice(total);
-		// printTalk.getRoot().getOwnerDocument_KElement().write2File(sm_dirTestDataTemp + "multiJDF.pt", 2, true);
+		return new PrintTalkBuilder(this);
 	}
 }

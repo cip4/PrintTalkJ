@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
@@ -77,17 +77,27 @@ import org.cip4.jdflib.core.KElement;
  */
 public class Credential extends AbstractPrintTalk
 {
+	public static final String DOMAIN = "domain";
+	public static final String IDENTITY = "Identity";
+	public static final String SHARED_SECRET = "SharedSecret";
 	/** */
 	public final static String ELEMENT_CREDENTIAL = "Credential";
 	/** */
-	public final static String DOMAIN_CUSTOMERID = "jdf:CustomerID";
+	public final static String DOMAIN_CUSTOMERID = "xjdf:CustomerID";
 	/** */
+	/**
+	 * @deprecated use senderid in 2.0
+	 */
+	@Deprecated
 	public final static String DOMAIN_AGENTID = "jdf:AgentID";
+	public static final String DOMAIN_SHOP_ID = "xjdf:ShopID";
+	public static final String DOMAIN_SENDER_ID = "xjdf:SenderID";
+	public static final String DOMAIN_USER_ID = "xjdf:UserID";
 
 	/**
 	 * @param header
 	 */
-	public Credential(KElement header)
+	public Credential(final KElement header)
 	{
 		super(header);
 	}
@@ -98,33 +108,51 @@ public class Credential extends AbstractPrintTalk
 	 */
 	public String getIdentity()
 	{
-		return getXPathAttribute("Identity", null);
+		return getXPathAttribute(IDENTITY, null);
 	}
 
 	/**
 	 *
 	 * @param value
 	 */
-	public void setIdentity(String value)
+	public void setSharedSecret(final String value)
 	{
-		setXPathValue("Identity", value);
+		setXPathValue(SHARED_SECRET, value);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getSharedSecret()
+	{
+		return getXPathAttribute(SHARED_SECRET, null);
+	}
+
+	/**
+	 *
+	 * @param value
+	 */
+	public void setIdentity(final String value)
+	{
+		setXPathValue(IDENTITY, value);
 	}
 
 	/**
 	 * set the domain to domain
 	 * @param domain
 	 */
-	public void setDomain(String domain)
+	public void setDomain(final String domain)
 	{
-		setAttribute("domain", domain);
+		setAttribute(DOMAIN, domain);
 	}
 
 	/**
-	 * set the domain to domain
+	 * get the domain
 	 * @return domain
 	 */
 	public String getDomain()
 	{
-		return getAttribute("domain");
+		return getAttribute(DOMAIN);
 	}
 }
