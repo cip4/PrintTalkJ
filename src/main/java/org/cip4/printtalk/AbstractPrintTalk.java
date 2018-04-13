@@ -1,68 +1,36 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights
- * reserved.
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
  *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the
+ * distribution.
  *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
- *       "This product includes software developed by the
- *        The International Cooperation for the Integration of
- *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
+ * 3. The end-user documentation included with the redistribution, if any, must include the following acknowledgment: "This product includes software developed by the The International Cooperation for
+ * the Integration of Processes in Prepress, Press and Postpress (www.cip4.org)" Alternately, this acknowledgment may appear in the software itself, if and wherever such third-party acknowledgments
+ * normally appear.
  *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of
- *    Processes in  Prepress, Press and Postpress" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written
- *    permission, please contact info@cip4.org.
+ * 4. The names "CIP4" and "The International Cooperation for the Integration of Processes in Prepress, Press and Postpress" must not be used to endorse or promote products derived from this software
+ * without prior written permission. For written permission, please contact info@cip4.org.
  *
- * 5. Products derived from this software may not be called "CIP4",
- *    nor may "CIP4" appear in their name, without prior written
- *    permission of the CIP4 organization
+ * 5. Products derived from this software may not be called "CIP4", nor may "CIP4" appear in their name, without prior written permission of the CIP4 organization
  *
- * Usage of this software in commercial products is subject to restrictions. For
- * details please consult info@cip4.org.
+ * Usage of this software in commercial products is subject to restrictions. For details please consult info@cip4.org.
  *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR
- * THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGE. ====================================================================
  *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration
- * of Processes in Prepress, Press and Postpress and was
- * originally based on software
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
- * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ * This software consists of voluntary contributions made by many individuals on behalf of the The International Cooperation for the Integration of Processes in Prepress, Press and Postpress and was
+ * originally based on software copyright (c) 1999-2001, Heidelberger Druckmaschinen AG copyright (c) 1999-2001, Agfa-Gevaert N.V.
  *
- * For more information on The International Cooperation for the
- * Integration of Processes in  Prepress, Press and Postpress , please see
- * <http://www.cip4.org/>.
+ * For more information on The International Cooperation for the Integration of Processes in Prepress, Press and Postpress , please see <http://www.cip4.org/>.
  *
  *
  */
@@ -125,6 +93,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * get the root element that represints myself
+	 *
 	 * @return
 	 */
 	public KElement getRoot()
@@ -135,6 +104,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * get the root element
+	 *
 	 * @return
 	 */
 	public PrintTalk getPrintTalk()
@@ -144,7 +114,7 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
-	 *  initialize
+	 * initialize
 	 */
 	public void init()
 	{
@@ -226,6 +196,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * set an attribute in this
+	 *
 	 * @param key
 	 * @param value
 	 */
@@ -237,6 +208,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * append an element
+	 *
 	 * @param elementName
 	 * @return
 	 */
@@ -246,7 +218,8 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
-	 *
+	 * set an XJDF - delete any previous occurences
+	 * 
 	 * @param xjdf the xjdf to set
 	 */
 	void setXJDF(final XJDFHelper xjdf)
@@ -260,8 +233,23 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
+	 * append an XJDF - retain any previous occurences
+	 * 
+	 * @param xjdf the xjdf to set
+	 */
+	void appendXJDF(final XJDFHelper xjdf)
+	{
+		final KElement xjdfe = xjdf == null ? null : xjdf.getRoot();
+		if (xjdfe != null)
+		{
+			theElement.copyElement(xjdfe, null);
+		}
+	}
+
+	/**
 	 *
 	 * get an element, create it if it does not yet exist
+	 *
 	 * @param nodeName
 	 * @return
 	 */
@@ -273,6 +261,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * get an element, create it if it does not yet exist
+	 *
 	 * @param nodeName
 	 * @param n index of the element
 	 * @return
@@ -285,6 +274,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * get an element, create it if it does not yet exist
+	 *
 	 * @param nodeName
 	 * @return
 	 */
@@ -296,6 +286,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * get an element, create it if it does not yet exist
+	 *
 	 * @param nodeName
 	 * @param nSkip
 	 * @return
@@ -308,6 +299,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 *
 	 * get all elements,
+	 *
 	 * @param nodeName
 	 * @return
 	 */
@@ -321,7 +313,8 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 *
-	 * get number of  all elements,
+	 * get number of all elements,
+	 *
 	 * @param nodeName
 	 * @return
 	 */
@@ -382,7 +375,8 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
-	 *get the contents of a text element
+	 * get the contents of a text element
+	 *
 	 * @param elemName
 	 * @return
 	 */
@@ -394,6 +388,7 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 * Create text element and set its value
+	 *
 	 * @param elemName
 	 * @param s
 	 */
@@ -404,6 +399,7 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 * we are equal if the underlying element is equal
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -416,6 +412,7 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 * we are equal if the underlying element is equal
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
