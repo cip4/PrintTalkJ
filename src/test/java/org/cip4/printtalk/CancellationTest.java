@@ -29,199 +29,24 @@
  *
  * This software consists of voluntary contributions made by many individuals on behalf of the The International Cooperation for the Integration of Processes in Prepress, Press and Postpress and was
  * originally based on software copyright (c) 1999-2001, Heidelberger Druckmaschinen AG copyright (c) 1999-2001, Agfa-Gevaert N.V.
- *
+ * 
  * For more information on The International Cooperation for the Integration of Processes in Prepress, Press and Postpress , please see <http://www.cip4.org/>.
- *
+ * 
  *
  */
 package org.cip4.printtalk;
 
-import java.util.Vector;
+import static org.junit.Assert.fail;
 
-import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.extensions.XJDFHelper;
+import org.junit.Test;
 
-/**
- * Class represented Quote element.
- *
- * @since PrintTalk 1.3
- */
-public class Quote extends AbstractPrintTalk
+public class CancellationTest
 {
-	/** */
-	public final static String ELEMENT_QUOTE = "Quote";
-	/** */
-	public final static String ATTR_ESTIMATE = "Estimate";
-	/** */
-	public final static String ATTR_QUOTEID = "QuoteID";
-	/** */
-	public final static String ATTR_REPLACEID = "ReplaceID";
-	/** */
-	public final static String ATTR_RETURNJDF = "ReturnJDF";
 
-	/**
-	 *
-	 * @param theElement
-	 */
-	public Quote(final KElement theElement)
+	@Test
+	public void test()
 	{
-		super(theElement);
-	}
-
-	/**
-	 * get currency value
-	 * 
-	 * @return
-	 */
-	public String getCurrency()
-	{
-		return getAttribute(BusinessObject.ATTR_CURRENCY);
-	}
-
-	/**
-	 * set currency value
-	 * 
-	 * @param currency
-	 */
-	public void setCurrency(final String currency)
-	{
-		setAttribute(BusinessObject.ATTR_CURRENCY, currency);
-	}
-
-	/**
-	 * get estimate value
-	 * 
-	 * @return
-	 */
-	public boolean getEstimate()
-	{
-		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set estimate value
-	 * 
-	 * @param b
-	 */
-	public void setEstimate(final boolean b)
-	{
-		setAttribute(ATTR_ESTIMATE, b ? "true" : "false");
-	}
-
-	/**
-	 * get quote id value
-	 * 
-	 * @return
-	 */
-	public String getQuoteID()
-	{
-		return getAttribute(ATTR_QUOTEID);
-	}
-
-	/**
-	 * set quote id value
-	 * 
-	 * @param s
-	 */
-	public void setQuoteID(final String s)
-	{
-		setAttribute(ATTR_QUOTEID, s);
-	}
-
-	/**
-	 * get replace id value
-	 * 
-	 * @return
-	 */
-	public String getReplaceID()
-	{
-		return getAttribute(ATTR_REPLACEID);
-	}
-
-	/**
-	 * set replace id value
-	 * 
-	 * @param s
-	 */
-	public void setReplaceID(final String s)
-	{
-		setAttribute(ATTR_REPLACEID, s);
-	}
-
-	/**
-	 * get return jdf value
-	 * 
-	 * @return
-	 */
-	public boolean getReturnJDF()
-	{
-		return getAttribute(ATTR_RETURNJDF).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set return jdf value
-	 * 
-	 * @param b
-	 */
-	public void setReturnJDF(final boolean b)
-	{
-		setAttribute(ATTR_RETURNJDF, b ? "true" : "false");
-	}
-
-	/**
-	 * create pricing element
-	 * 
-	 * @return
-	 */
-	public Pricing getCreatePricing()
-	{
-		return new Pricing(getCreateElement(Pricing.ELEMENT_PRICING));
-	}
-
-	/**
-	 * get pricing element
-	 * 
-	 * @return
-	 */
-	public Pricing getPricing()
-	{
-		return new Pricing(getElement(Pricing.ELEMENT_PRICING));
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#setXJDF(org.cip4.jdflib.extensions.XJDFHelper)
-	 */
-	@Override
-	public void setXJDF(final XJDFHelper xjdf)
-	{
-		super.setXJDF(xjdf);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDF(int)
-	 */
-	@Override
-	public XJDFHelper getXJDF(final int i)
-	{
-		return super.getXJDF(i);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDFs()
-	 */
-	@Override
-	public Vector<XJDFHelper> getXJDFs()
-	{
-		return super.getXJDFs();
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#appendXJDF(org.cip4.jdflib.extensions.XJDFHelper)
-	 */
-	@Override
-	public void appendXJDF(final XJDFHelper xjdf)
-	{
-		super.appendXJDF(xjdf);
+		fail("Not yet implemented");
 	}
 
 }

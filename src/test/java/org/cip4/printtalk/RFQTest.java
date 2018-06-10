@@ -36,192 +36,74 @@
  */
 package org.cip4.printtalk;
 
-import java.util.Vector;
-
-import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.junit.Test;
 
 /**
- * Class represented Quote element.
  *
- * @since PrintTalk 1.3
+ * @author rainer prosi
+ * @date Jan 5, 2011
  */
-public class Quote extends AbstractPrintTalk
+public class RFQTest extends PrintTalkTestCase
 {
-	/** */
-	public final static String ELEMENT_QUOTE = "Quote";
-	/** */
-	public final static String ATTR_ESTIMATE = "Estimate";
-	/** */
-	public final static String ATTR_QUOTEID = "QuoteID";
-	/** */
-	public final static String ATTR_REPLACEID = "ReplaceID";
-	/** */
-	public final static String ATTR_RETURNJDF = "ReturnJDF";
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testgetPrintTalk()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ po = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		assertEquals(printTalk, po.getPrintTalk());
+	}
 
 	/**
 	 *
-	 * @param theElement
+	 *
 	 */
-	public Quote(final KElement theElement)
+	@Test
+	public void testsetXJDF()
 	{
-		super(theElement);
+		final PrintTalk printTalk = new PrintTalk();
+		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		final XJDFHelper h = new XJDFHelper("j1", null, null);
+		po.setXJDF(h);
+		assertEquals("j1", po.getXJDF(0).getJobID());
 	}
 
 	/**
-	 * get currency value
-	 * 
-	 * @return
+	 *
+	 *
 	 */
-	public String getCurrency()
+	@Test
+	public void testappendXJDF()
 	{
-		return getAttribute(BusinessObject.ATTR_CURRENCY);
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ po = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		final XJDFHelper h = new XJDFHelper("j1", null, null);
+		po.appendXJDF(h);
+		final XJDFHelper h2 = new XJDFHelper("j2", null, null);
+		po.appendXJDF(h2);
+		assertEquals("j1", printTalk.getXPathAttribute("Request/RFQ/XJDF/@JobID", null));
+		assertEquals("j2", printTalk.getXPathAttribute("Request/RFQ/XJDF[2]/@JobID", null));
 	}
 
 	/**
-	 * set currency value
-	 * 
-	 * @param currency
+	 *
+	 *
 	 */
-	public void setCurrency(final String currency)
+	@Test
+	public void testGetXJDFs()
 	{
-		setAttribute(BusinessObject.ATTR_CURRENCY, currency);
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ po = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		final XJDFHelper h = new XJDFHelper("j1", null, null);
+		po.appendXJDF(h);
+		final XJDFHelper h2 = new XJDFHelper("j2", null, null);
+		po.appendXJDF(h2);
+		assertEquals("j1", po.getXJDFs().get(0).getJobID());
+		assertEquals("j2", po.getXJDFs().get(1).getJobID());
 	}
-
-	/**
-	 * get estimate value
-	 * 
-	 * @return
-	 */
-	public boolean getEstimate()
-	{
-		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set estimate value
-	 * 
-	 * @param b
-	 */
-	public void setEstimate(final boolean b)
-	{
-		setAttribute(ATTR_ESTIMATE, b ? "true" : "false");
-	}
-
-	/**
-	 * get quote id value
-	 * 
-	 * @return
-	 */
-	public String getQuoteID()
-	{
-		return getAttribute(ATTR_QUOTEID);
-	}
-
-	/**
-	 * set quote id value
-	 * 
-	 * @param s
-	 */
-	public void setQuoteID(final String s)
-	{
-		setAttribute(ATTR_QUOTEID, s);
-	}
-
-	/**
-	 * get replace id value
-	 * 
-	 * @return
-	 */
-	public String getReplaceID()
-	{
-		return getAttribute(ATTR_REPLACEID);
-	}
-
-	/**
-	 * set replace id value
-	 * 
-	 * @param s
-	 */
-	public void setReplaceID(final String s)
-	{
-		setAttribute(ATTR_REPLACEID, s);
-	}
-
-	/**
-	 * get return jdf value
-	 * 
-	 * @return
-	 */
-	public boolean getReturnJDF()
-	{
-		return getAttribute(ATTR_RETURNJDF).equalsIgnoreCase("true") ? true : false;
-	}
-
-	/**
-	 * set return jdf value
-	 * 
-	 * @param b
-	 */
-	public void setReturnJDF(final boolean b)
-	{
-		setAttribute(ATTR_RETURNJDF, b ? "true" : "false");
-	}
-
-	/**
-	 * create pricing element
-	 * 
-	 * @return
-	 */
-	public Pricing getCreatePricing()
-	{
-		return new Pricing(getCreateElement(Pricing.ELEMENT_PRICING));
-	}
-
-	/**
-	 * get pricing element
-	 * 
-	 * @return
-	 */
-	public Pricing getPricing()
-	{
-		return new Pricing(getElement(Pricing.ELEMENT_PRICING));
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#setXJDF(org.cip4.jdflib.extensions.XJDFHelper)
-	 */
-	@Override
-	public void setXJDF(final XJDFHelper xjdf)
-	{
-		super.setXJDF(xjdf);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDF(int)
-	 */
-	@Override
-	public XJDFHelper getXJDF(final int i)
-	{
-		return super.getXJDF(i);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDFs()
-	 */
-	@Override
-	public Vector<XJDFHelper> getXJDFs()
-	{
-		return super.getXJDFs();
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#appendXJDF(org.cip4.jdflib.extensions.XJDFHelper)
-	 */
-	@Override
-	public void appendXJDF(final XJDFHelper xjdf)
-	{
-		super.appendXJDF(xjdf);
-	}
-
 }

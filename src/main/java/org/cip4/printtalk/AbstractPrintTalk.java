@@ -36,6 +36,8 @@
  */
 package org.cip4.printtalk;
 
+import java.util.Vector;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
@@ -219,7 +221,7 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 * set an XJDF - delete any previous occurences
-	 * 
+	 *
 	 * @param xjdf the xjdf to set
 	 */
 	void setXJDF(final XJDFHelper xjdf)
@@ -233,8 +235,37 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
+	 * get an XJDF - delete any previous occurences
+	 *
+	 * @param i the index
+	 */
+	XJDFHelper getXJDF(final int i)
+	{
+		final KElement xjdfe = theElement == null ? null : theElement.getElement(XJDFConstants.XJDF, null, i);
+		return XJDFHelper.getHelper(xjdfe);
+	}
+
+	/**
+	 * get an XJDF - delete any previous occurences
+	 *
+	 * @param i the index
+	 */
+	Vector<XJDFHelper> getXJDFs()
+	{
+		final VElement xjdfe = theElement == null ? null : theElement.getChildElementVector(XJDFConstants.XJDF, null);
+		if (ContainerUtil.isEmpty(xjdfe))
+			return null;
+		final Vector<XJDFHelper> v = new Vector<>();
+		for (final KElement e : xjdfe)
+		{
+			v.add(new XJDFHelper(e));
+		}
+		return v;
+	}
+
+	/**
 	 * append an XJDF - retain any previous occurences
-	 * 
+	 *
 	 * @param xjdf the xjdf to set
 	 */
 	void appendXJDF(final XJDFHelper xjdf)
@@ -480,6 +511,21 @@ public abstract class AbstractPrintTalk
 	public double getRealAttribute(final String attrib, final double def)
 	{
 		return theElement == null ? def : theElement.getRealAttribute(attrib, null, def);
+	}
+
+	public String getLocalName()
+	{
+		return theElement.getLocalName();
+	}
+
+	public String getNodeName()
+	{
+		return theElement.getNodeName();
+	}
+
+	public String toXML()
+	{
+		return theElement.toXML();
 	}
 
 }

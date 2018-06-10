@@ -36,6 +36,7 @@
  */
 package org.cip4.printtalk;
 
+import java.util.Vector;
 import java.util.zip.DataFormatException;
 
 import org.cip4.jdflib.core.KElement;
@@ -71,7 +72,7 @@ public class PurchaseOrder extends BusinessObject
 	/**
 	 *
 	 * get the currency value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getCurrency()
@@ -82,7 +83,7 @@ public class PurchaseOrder extends BusinessObject
 	/**
 	 *
 	 * set the currency value
-	 * 
+	 *
 	 * @param currency
 	 */
 	public void setCurrency(final String currency)
@@ -93,7 +94,7 @@ public class PurchaseOrder extends BusinessObject
 	/**
 	 *
 	 * get the expires value
-	 * 
+	 *
 	 * @return
 	 */
 	public JDFDate getExpires()
@@ -112,7 +113,7 @@ public class PurchaseOrder extends BusinessObject
 	/**
 	 *
 	 * set the expires value
-	 * 
+	 *
 	 * @param expires
 	 */
 	public void setExpires(final JDFDate expires)
@@ -122,7 +123,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * get quote id value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getQuoteID()
@@ -132,7 +133,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * set quote id value
-	 * 
+	 *
 	 * @param s
 	 */
 	public void setQuoteID(final String s)
@@ -142,7 +143,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * get reorder id value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getReorderID()
@@ -152,7 +153,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * set reorder id value
-	 * 
+	 *
 	 * @param s
 	 */
 	public void setReorderID(final String s)
@@ -162,7 +163,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * get replace id value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getReplaceID()
@@ -172,7 +173,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * set replace id value
-	 * 
+	 *
 	 * @param s
 	 */
 	public void setReplaceID(final String s)
@@ -182,7 +183,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * get return jdf value
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean getReturnJDF()
@@ -192,7 +193,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * set return jdf value
-	 * 
+	 *
 	 * @param b
 	 */
 	public void setReturnJDF(final boolean b)
@@ -202,7 +203,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * get the pricing element
-	 * 
+	 *
 	 * @return
 	 */
 	public Pricing getCreatePricing()
@@ -212,7 +213,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 * get the pricing element
-	 * 
+	 *
 	 * @return
 	 */
 	public Pricing getPricing()
@@ -222,7 +223,7 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
-	 * 
+	 *
 	 * @see org.cip4.printtalk.AbstractPrintTalk#setXJDF(org.cip4.jdflib.extensions.XJDFHelper)
 	 */
 	@Override
@@ -233,6 +234,15 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDF(int)
+	 */
+	@Override
+	public XJDFHelper getXJDF(final int i)
+	{
+		return super.getXJDF(i);
+	}
+
+	/**
 	 *
 	 * @see org.cip4.printtalk.AbstractPrintTalk#appendXJDF(org.cip4.jdflib.extensions.XJDFHelper)
 	 */
@@ -240,6 +250,15 @@ public class PurchaseOrder extends BusinessObject
 	public void appendXJDF(final XJDFHelper xjdf)
 	{
 		super.appendXJDF(xjdf);
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDFs()
+	 */
+	@Override
+	public Vector<XJDFHelper> getXJDFs()
+	{
+		return super.getXJDFs();
 	}
 
 }

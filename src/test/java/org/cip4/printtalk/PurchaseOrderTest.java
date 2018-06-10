@@ -85,7 +85,7 @@ public class PurchaseOrderTest extends PrintTalkTestCase
 		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
 		final XJDFHelper h = new XJDFHelper("j1", null, null);
 		po.setXJDF(h);
-		assertEquals("j1", printTalk.getXPathAttribute("Request/PurchaseOrder/XJDF/@JobID", null));
+		assertEquals("j1", po.getXJDF(0).getJobID());
 	}
 
 	/**
@@ -103,6 +103,23 @@ public class PurchaseOrderTest extends PrintTalkTestCase
 		po.appendXJDF(h2);
 		assertEquals("j1", printTalk.getXPathAttribute("Request/PurchaseOrder/XJDF/@JobID", null));
 		assertEquals("j2", printTalk.getXPathAttribute("Request/PurchaseOrder/XJDF[2]/@JobID", null));
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetXJDFs()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		final XJDFHelper h = new XJDFHelper("j1", null, null);
+		po.appendXJDF(h);
+		final XJDFHelper h2 = new XJDFHelper("j2", null, null);
+		po.appendXJDF(h2);
+		assertEquals("j1", po.getXJDFs().get(0).getJobID());
+		assertEquals("j2", po.getXJDFs().get(1).getJobID());
 	}
 
 	/**
