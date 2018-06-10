@@ -1,68 +1,36 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights
- * reserved.
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
  *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the
+ * distribution.
  *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
- *       "This product includes software developed by the
- *        The International Cooperation for the Integration of
- *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
+ * 3. The end-user documentation included with the redistribution, if any, must include the following acknowledgment: "This product includes software developed by the The International Cooperation for
+ * the Integration of Processes in Prepress, Press and Postpress (www.cip4.org)" Alternately, this acknowledgment may appear in the software itself, if and wherever such third-party acknowledgments
+ * normally appear.
  *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of
- *    Processes in  Prepress, Press and Postpress" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written
- *    permission, please contact info@cip4.org.
+ * 4. The names "CIP4" and "The International Cooperation for the Integration of Processes in Prepress, Press and Postpress" must not be used to endorse or promote products derived from this software
+ * without prior written permission. For written permission, please contact info@cip4.org.
  *
- * 5. Products derived from this software may not be called "CIP4",
- *    nor may "CIP4" appear in their name, without prior written
- *    permission of the CIP4 organization
+ * 5. Products derived from this software may not be called "CIP4", nor may "CIP4" appear in their name, without prior written permission of the CIP4 organization
  *
- * Usage of this software in commercial products is subject to restrictions. For
- * details please consult info@cip4.org.
+ * Usage of this software in commercial products is subject to restrictions. For details please consult info@cip4.org.
  *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR
- * THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGE. ====================================================================
  *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration
- * of Processes in Prepress, Press and Postpress and was
- * originally based on software
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
- * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ * This software consists of voluntary contributions made by many individuals on behalf of the The International Cooperation for the Integration of Processes in Prepress, Press and Postpress and was
+ * originally based on software copyright (c) 1999-2001, Heidelberger Druckmaschinen AG copyright (c) 1999-2001, Agfa-Gevaert N.V.
  *
- * For more information on The International Cooperation for the
- * Integration of Processes in  Prepress, Press and Postpress , please see
- * <http://www.cip4.org/>.
+ * For more information on The International Cooperation for the Integration of Processes in Prepress, Press and Postpress , please see <http://www.cip4.org/>.
  *
  *
  */
@@ -108,11 +76,14 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * business object types
+	 *
 	 * @author rainer prosi
 	 * @date Jan 3, 2011
 	 */
 	public static enum EnumBusinessObject
 	{
+		/** */
+		ArtDelivery, ArtDeliveryResult,
 		/** */
 		RFQ,
 		/** */
@@ -126,27 +97,22 @@ public class PrintTalk extends AbstractPrintTalk
 		/** */
 		Refusal,
 		/** */
-		OrderStatusRequest,
+		OrderStatusRequest, OrderStatusResponse,
 		/** */
-		OrderStatusResponse,
-		/** */
-		ProofApprovalRequest,
-		/** */
-		ProofApprovalResponse,
+		ProofApprovalRequest, ProofApprovalResponse,
 		/** */
 		Invoice,
 		/** */
 		ReturnJob,
 		/** */
-		StockLevelRequest,
-		/** */
-		StockLevelResponse
+		StockLevelRequest, StockLevelResponse
 	}
 
 	private static int defaultVersion = 15;
 
 	/**
 	 * Getter for defaultVersion attribute.
+	 *
 	 * @return the defaultVersion
 	 */
 	public static int getDefaultVersion()
@@ -156,6 +122,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * Setter for defaultVersion attribute.
+	 *
 	 * @param defaultVersion the defaultVersion to set
 	 */
 	public static void setDefaultVersion(final int defaultVersion)
@@ -168,6 +135,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * return the PrintTalk element for theElement id TheElement is a printtalk element
+	 *
 	 * @param theElement
 	 * @return
 	 */
@@ -180,6 +148,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * create a printtalk helper
+	 *
 	 * @param theElement
 	 */
 	public PrintTalk(final KElement theElement)
@@ -206,6 +175,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * get the correct namespace uri string
+	 *
 	 * @param version 10=1.0 etc
 	 * @return
 	 */
@@ -219,6 +189,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * get the correct namespace uri string
+	 *
 	 * @return
 	 */
 	public String getNamespaceURI()
@@ -253,6 +224,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * set a new credential identity value
+	 *
 	 * @param headerType type of header
 	 * @param domain domain name
 	 * @param identity Identity value
@@ -266,6 +238,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * set a new credential value
+	 *
 	 * @param headerType type of header
 	 * @param domain domain name
 	 * @return identity Identity value
@@ -278,7 +251,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 *
-	 * get a  credential
+	 * get a credential
 	 *
 	 * @param headerType type of header
 	 * @param domain domain name
@@ -292,6 +265,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * get the one and only header of type headerType
+	 *
 	 * @param headerType
 	 * @return
 	 */
@@ -307,6 +281,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * Setter for version attribute.
+	 *
 	 * @param version the version to set
 	 */
 	public void setVersion(final int version)
@@ -316,6 +291,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * Getter for version attribute.
+	 *
 	 * @return the version
 	 */
 	public int getVersion()
@@ -325,6 +301,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * Getter for Timestamp attribute.
+	 *
 	 * @return the version
 	 */
 	public JDFDate getTimestamp()
@@ -335,6 +312,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * appends a request with an initialized Business Object
+	 *
 	 * @param bo the business object type
 	 * @param ref the printtalk object that this references
 	 * @return the newly created BusinessObject, null if unsuccessful
@@ -355,6 +333,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 *
 	 * appends a synchronous response with an initialized Business Object
+	 *
 	 * @param bo the business object type
 	 * @param ref the printtalk object that this references
 	 * @return the newly created BusinessObject, null if unsuccessful
@@ -382,6 +361,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * get the business object from a request or response
+	 *
 	 * @return
 	 */
 	public BusinessObject getBusinessObject()
@@ -395,6 +375,7 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 * get the header from a request
+	 *
 	 * @param headerType the type (From / to / Sender)
 	 * @return
 	 */

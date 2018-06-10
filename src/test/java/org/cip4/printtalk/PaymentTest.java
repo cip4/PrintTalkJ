@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,157 +36,28 @@
  */
 package org.cip4.printtalk;
 
-import java.util.zip.DataFormatException;
-
-import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.util.JDFDate;
+import org.cip4.jdflib.core.XMLDoc;
+import org.cip4.printtalk.Payment.EnumPaymentType;
+import org.junit.Test;
 
 /**
- * Class represented CreditCard element.
  *
- * @since PrintTalk 1.3
+ * @author rainer prosi
+ * @date Jan 4, 2011
  */
-@Deprecated
-public class CreditCard extends AbstractPrintTalk
+public class PaymentTest extends PrintTalkTestCase
 {
-	/** */
-	public final static String ELEMENT_CREDITCARD = "CreditCard";
-	/** */
-	public final static String ATTR_AUTHORIZATION = "Authorization";
-	/** */
-	public final static String ATTR_AUTHORIZATIONEXPIRES = "AuthorizationExpires";
-	/** */
-	public final static String ATTR_NUMBER = "Number";
-	/** */
-	public final static String ATTR_TYPE = "Type";
-	/** */
-	public final static String FORMAT_YEARMONTH = "yyyy-MM";
 
 	/**
 	 *
-	 * @param theElement
+	 *
 	 */
-	public CreditCard(final KElement theElement)
+	@Test
+	public void testPaymentType()
 	{
-		super(theElement);
-	}
-
-	/**
-	 * get authorization value
-	 * 
-	 * @return
-	 */
-	public String getAuthorization()
-	{
-		return getAttribute(ATTR_AUTHORIZATION);
-	}
-
-	/**
-	 * set authorization value
-	 * 
-	 * @param s
-	 */
-	public void setAuthorization(final String s)
-	{
-		setAttribute(ATTR_AUTHORIZATION, s);
-	}
-
-	/**
-	 * get authorization expires value
-	 * 
-	 * @return
-	 */
-	public JDFDate getAuthorizationExpires()
-	{
-		final String s = getAttribute(ATTR_AUTHORIZATIONEXPIRES);
-
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (final DataFormatException e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * set authorization expires value
-	 * 
-	 * @param expires
-	 */
-	public void setAuthorizationExpires(final JDFDate expires)
-	{
-		setAttribute(ATTR_AUTHORIZATIONEXPIRES, expires == null ? null : expires.getFormattedDateTime(FORMAT_YEARMONTH));
-	}
-
-	/**
-	 * get expires value
-	 * 
-	 * @return
-	 */
-	public JDFDate getExpires()
-	{
-		final String s = getAttribute(BusinessObject.ATTR_EXPIRES);
-
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (final DataFormatException e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * set expires value
-	 * 
-	 * @param expires
-	 */
-	public void setExpires(final JDFDate expires)
-	{
-		setAttribute(BusinessObject.ATTR_EXPIRES, expires == null ? null : expires.getFormattedDateTime(FORMAT_YEARMONTH));
-	}
-
-	/**
-	 * get number value
-	 * 
-	 * @return
-	 */
-	public String getNumber()
-	{
-		return getAttribute(ATTR_NUMBER);
-	}
-
-	/**
-	 * set number value
-	 * 
-	 * @param s
-	 */
-	public void setNumber(final String s)
-	{
-		setAttribute(ATTR_NUMBER, s);
-	}
-
-	/**
-	 * get type value
-	 * 
-	 * @return
-	 */
-	public String getType()
-	{
-		return getAttribute(ATTR_TYPE);
-	}
-
-	/**
-	 * set type value
-	 * 
-	 * @param s
-	 */
-	public void setType(final String s)
-	{
-		setAttribute(ATTR_TYPE, s);
+		final Payment p = new Payment(new XMLDoc(Payment.ELEMENT_PAYMENT, null).getRoot());
+		p.setPaymentType(EnumPaymentType.BankTransfer);
+		assertEquals(p.getPaymentType(), EnumPaymentType.BankTransfer);
 	}
 
 }
