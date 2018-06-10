@@ -29,9 +29,9 @@
  *
  * This software consists of voluntary contributions made by many individuals on behalf of the The International Cooperation for the Integration of Processes in Prepress, Press and Postpress and was
  * originally based on software copyright (c) 1999-2001, Heidelberger Druckmaschinen AG copyright (c) 1999-2001, Agfa-Gevaert N.V.
- * 
+ *
  * For more information on The International Cooperation for the Integration of Processes in Prepress, Press and Postpress , please see <http://www.cip4.org/>.
- * 
+ *
  *
  */
 package org.cip4.printtalk;
@@ -49,7 +49,7 @@ import junit.framework.TestCase;
  * @author rainer prosi
  * @date Jun 13, 2014
  */
-public class PrintTalkTestCase extends TestCase
+public abstract class PrintTalkTestCase extends TestCase
 {
 	static protected final EnumVersion defaultVersion = EnumVersion.Version_1_5;
 	static protected final String sm_dirTestData = getTestDataDir();
