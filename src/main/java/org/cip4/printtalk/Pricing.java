@@ -94,13 +94,28 @@ public class Pricing extends AbstractPrintTalk
 	 * @param totalprice
 	 * @return
 	 */
+	@Deprecated
 	public Price addPrice(final String description, final double totalprice)
+	{
+		return addPrice(null, null, description, totalprice);
+	}
+
+	/**
+	 * add a price element
+	 *
+	 * @param description
+	 * @param totalprice
+	 * @return
+	 */
+	public Price addPrice(final EnumPriceType priceType, final EnumTaxType taxType, final String description, final double totalprice)
 	{
 		final Price price = new Price(theElement.appendElement(Price.ELEMENT_PRICE));
 		price.setDescriptiveName(description);
 		price.setLineID("L_" + theElement.numChildElements(Price.ELEMENT_PRICE, null));
 		if (totalprice >= 0)
 			price.setPrice(totalprice);
+		price.setPriceType(priceType);
+		price.setTaxType(taxType);
 		return price;
 	}
 

@@ -246,7 +246,7 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
-	 * get an XJDF - delete any previous occurences
+	 * get list of XJDFs
 	 *
 	 * @param i the index
 	 */
@@ -513,19 +513,30 @@ public abstract class AbstractPrintTalk
 		return theElement == null ? def : theElement.getRealAttribute(attrib, null, def);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getLocalName()
 	{
-		return theElement.getLocalName();
+		return theElement == null ? null : theElement.getLocalName();
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getNodeName()
 	{
-		return theElement.getNodeName();
+		return theElement == null ? null : theElement.getNodeName();
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String toXML()
 	{
-		return theElement.toXML();
+		return theElement == null ? null : theElement.toXML();
 	}
-
 }

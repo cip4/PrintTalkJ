@@ -34,99 +34,79 @@
  *
  *
  */
-package org.cip4.printtalk;
+package org.cip4.printtalk.examples;
 
 import org.cip4.jdflib.core.KElement;
+import org.cip4.printtalk.Credential;
+import org.cip4.printtalk.HeaderBase.EnumHeaderType;
+import org.cip4.printtalk.PrintTalk;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.printtalk.PrintTalkConstants;
+import org.cip4.printtalk.PrintTalkTestCase;
+import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
+import org.junit.Test;
 
-/**
- *
- * @author rainer prosi
- * @date Jan 3, 2011
- */
-public class Credential extends AbstractPrintTalk
+public class ExampleHeader extends PrintTalkTestCase
 {
-	public static final String DOMAIN = "domain";
-	public static final String IDENTITY = "Identity";
-	public static final String SHARED_SECRET = "SharedSecret";
-	/** */
-	public final static String ELEMENT_CREDENTIAL = "Credential";
-	public final static String DOMAIN_CUSTOMERID = "xjdf:CustomerID";
-	public final static String DOMAIN_COMPANYID = "xjdf:CompanyID";
-	/**
-	 * @deprecated use senderid in 2.0
-	 */
-	@Deprecated
-	public final static String DOMAIN_AGENTID = "jdf:AgentID";
-	public static final String DOMAIN_SHOP_ID = "xjdf:ShopID";
-	public static final String DOMAIN_SENDER_ID = "xjdf:SenderID";
-	public static final String DOMAIN_USER_ID = "xjdf:UserID";
-	public static final String DOMAIN_URL = "xjdf:URL";
-	public static final String DOMAIN_EMAIL = "Email";
-	public static final String DOMAIN_DUNS = "DUNS";
 
 	/**
-	 * @param header
+	 *
 	 */
-	public Credential(final KElement header)
+	@Test
+	public void testGetFactory()
 	{
-		super(header);
+		assertNotNull(PrintTalkBuilderFactory.getTheFactory());
 	}
 
 	/**
 	 *
-	 * @return
 	 */
-	public String getIdentity()
+	@Test
+	public void testGetBuilder()
 	{
-		return getXPathAttribute(IDENTITY, null);
+		assertNotNull(PrintTalkBuilderFactory.getTheFactory().getBuilder());
 	}
 
 	/**
 	 *
-	 * @param value
 	 */
-	@Deprecated
-	public void setSharedSecret(final String value)
+	@Test
+	public synchronized void testWriteSimple()
 	{
-		setXPathValue(SHARED_SECRET, value);
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
+		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
+		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		setSnippet(pt.getRoot(), true);
+		setSnippet(pt.getElement(PrintTalkConstants.Header), false);
+		setSnippet(pt.getElement(PrintTalkConstants.Request), false);
+		writeExample(pt, "PrintTalkOnly.ptk");
 	}
 
 	/**
 	 *
-	 * @return
 	 */
-	@Deprecated
-	public String getSharedSecret()
+	@Test
+	public synchronized void testWriteHeader()
 	{
-		return getXPathAttribute(SHARED_SECRET, null);
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
+		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
+		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		setSnippet(pt.getElement(PrintTalkConstants.Header), true);
+		writeExample(pt, "HeaderOnly.ptk");
 	}
 
 	/**
-	 *
-	 * @param value
+	 * @see junit.framework.TestCase#setUp()
 	 */
-	public void setIdentity(final String value)
+	@Override
+	protected void setUp() throws Exception
 	{
-		setXPathValue(IDENTITY, value);
+		KElement.setLongID(false);
+		super.setUp();
 	}
 
-	/**
-	 * set the domain to domain
-	 *
-	 * @param domain
-	 */
-	public void setDomain(final String domain)
-	{
-		setAttribute(DOMAIN, domain);
-	}
-
-	/**
-	 * get the domain
-	 *
-	 * @return domain
-	 */
-	public String getDomain()
-	{
-		return getAttribute(DOMAIN);
-	}
 }

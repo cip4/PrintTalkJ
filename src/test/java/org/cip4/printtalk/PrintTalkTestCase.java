@@ -40,6 +40,9 @@ import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
 import org.cip4.jdflib.core.JDFElement.EnumVersion;
+import org.cip4.jdflib.core.KElement;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Node;
 
 import junit.framework.TestCase;
 
@@ -75,8 +78,37 @@ public abstract class PrintTalkTestCase extends TestCase
 	@Override
 	protected void tearDown() throws Exception
 	{
-		PrintTalk.setDefaultVersion(15);
+		PrintTalk.setDefaultVersion(20);
 		super.tearDown();
+	}
+
+	/**
+	 *
+	 * @param e
+	 * @param startFirst if true include the enclosing element, if false exclude it
+	 */
+	protected void setSnippet(final KElement e, final boolean startFirst)
+	{
+		if (e != null)
+		{
+			final Node parent = e.getParentNode();
+			final String start = " START SNIPPET ";
+			final String end = " END SNIPPET ";
+			Comment newChild = e.getOwnerDocument().createComment(startFirst ? start : end);
+			parent.insertBefore(newChild, e);
+			newChild = e.getOwnerDocument().createComment(startFirst ? end : start);
+			parent.insertBefore(newChild, e.getNextSibling());
+		}
+	}
+
+	/**
+	 *
+	 * @param pt
+	 */
+	protected void writeExample(final PrintTalk pt, final String file)
+	{
+		// TODO add schema parsing
+		pt.write2File(sm_dirTestDataTemp + "Example/" + file);
 	}
 
 }

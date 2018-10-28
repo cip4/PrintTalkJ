@@ -36,8 +36,8 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.DocumentJDFImpl;
-import org.cip4.jdflib.core.JDFAudit;
 import org.cip4.jdflib.core.JDFDoc;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.XMLDoc;
@@ -108,7 +108,7 @@ public class PrintTalk extends AbstractPrintTalk
 		StockLevelRequest, StockLevelResponse
 	}
 
-	private static int defaultVersion = 15;
+	private static int defaultVersion = 20;
 
 	/**
 	 * Getter for defaultVersion attribute.
@@ -154,7 +154,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk(final KElement theElement)
 	{
 		super(theElement);
-		version = 0;
+		version = defaultVersion;
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk()
 	{
 		super(null);
-		version = 0;
+		version = defaultVersion;
 		XMLDoc doc = new XMLDoc(PRINT_TALK, getNamespaceURI());
 		doc = new JDFDoc(doc);
 		((DocumentJDFImpl) doc.getMemberDocument()).bInitOnCreate = true;
@@ -181,7 +181,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public static String getNamespaceURI(int version)
 	{
-		if (version == 0)
+		if (version <= 0)
 			version = defaultVersion;
 		return "http://www.printtalk.org/schema_" + version;
 	}
@@ -205,20 +205,9 @@ public class PrintTalk extends AbstractPrintTalk
 	public void init()
 	{
 		super.init();
-		theElement.setAttribute("version", getVersionString("."));
 		final String dateTimeISO = new JDFDate().getDateTimeISO();
-		theElement.setAttribute("Timestamp", dateTimeISO);
-		theElement.setAttribute("payloadID", JDFAudit.software() + dateTimeISO);
-	}
-
-	/**
-	 *
-	 * @param sep
-	 * @return
-	 */
-	private String getVersionString(final String sep)
-	{
-		return (getVersion() < 10) ? ("1" + sep + getVersion()) : ("2" + sep + (getVersion() - 20));
+		theElement.setAttribute(AttributeName.TIMESTAMP, dateTimeISO);
+		theElement.setAttribute(PrintTalkConstants.payloadID, "P" + KElement.uniqueID(0));
 	}
 
 	/**
@@ -280,7 +269,7 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * Setter for version attribute.
+	 * Setter for version that is used to generate the namespace
 	 *
 	 * @param version the version to set
 	 */
@@ -337,8 +326,11 @@ public class PrintTalk extends AbstractPrintTalk
 	 * @param bo the business object type
 	 * @param ref the printtalk object that this references
 	 * @return the newly created BusinessObject, null if unsuccessful
+	 *
 	 * @throws IllegalArgumentException if bo already exists
+	 * @deprecated currently synchronous responses are not handled
 	 */
+	@Deprecated
 	public BusinessObject appendResponse(final EnumBusinessObject bo, final PrintTalk ref) throws IllegalArgumentException
 	{
 		final BusinessObject oldBO = getBusinessObject();
@@ -360,15 +352,13 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * get the business object from a request or response
+	 * get the business object from a request
 	 *
 	 * @return
 	 */
 	public BusinessObject getBusinessObject()
 	{
-		KElement request = getElement(REQUEST);
-		if (request == null)
-			request = getElement(RESPONSE);
+		final KElement request = getElement(REQUEST);
 		final KElement oldBO = request == null ? null : request.getFirstChildElement();
 		return BusinessObject.getBusinessObject(oldBO);
 	}
@@ -381,7 +371,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public HeaderBase getHeader(final EnumHeaderType headerType)
 	{
-		final KElement request = headerType == null ? null : getElement("Header");
+		final KElement request = headerType == null ? null : getElement(PrintTalkConstants.Header);
 		final KElement header = request == null ? null : request.getElement(headerType.name());
 		return header == null ? null : new HeaderBase(header);
 	}
@@ -394,4 +384,33 @@ public class PrintTalk extends AbstractPrintTalk
 	{
 		return this;
 	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getPayloadID()
+	{
+		return getAttribute(PrintTalkConstants.payloadID);
+	}
+
+	/**
+	 *
+	 * @param payloadID
+	 */
+	public void setPayloadID(final String payloadID)
+	{
+		setAttribute(PrintTalkConstants.payloadID, payloadID);
+	}
+
+	/**
+	 * @param filename
+	 * @return
+	 * @see org.cip4.jdflib.core.KElement#write2File(java.lang.String)
+	 */
+	public boolean write2File(final String filename)
+	{
+		return theElement == null ? false : theElement.getOwnerDocument_KElement().write2File(filename, 2, false);
+	}
+
 }

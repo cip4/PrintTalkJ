@@ -36,97 +36,18 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.KElement;
-
-/**
- *
- * @author rainer prosi
- * @date Jan 3, 2011
- */
-public class Credential extends AbstractPrintTalk
+public class PrintTalkConstants
 {
-	public static final String DOMAIN = "domain";
-	public static final String IDENTITY = "Identity";
-	public static final String SHARED_SECRET = "SharedSecret";
-	/** */
-	public final static String ELEMENT_CREDENTIAL = "Credential";
-	public final static String DOMAIN_CUSTOMERID = "xjdf:CustomerID";
-	public final static String DOMAIN_COMPANYID = "xjdf:CompanyID";
-	/**
-	 * @deprecated use senderid in 2.0
-	 */
-	@Deprecated
-	public final static String DOMAIN_AGENTID = "jdf:AgentID";
-	public static final String DOMAIN_SHOP_ID = "xjdf:ShopID";
-	public static final String DOMAIN_SENDER_ID = "xjdf:SenderID";
-	public static final String DOMAIN_USER_ID = "xjdf:UserID";
-	public static final String DOMAIN_URL = "xjdf:URL";
-	public static final String DOMAIN_EMAIL = "Email";
-	public static final String DOMAIN_DUNS = "DUNS";
-
-	/**
-	 * @param header
-	 */
-	public Credential(final KElement header)
-	{
-		super(header);
-	}
-
 	/**
 	 *
-	 * @return
 	 */
-	public String getIdentity()
+	private PrintTalkConstants()
 	{
-		return getXPathAttribute(IDENTITY, null);
 	}
 
-	/**
-	 *
-	 * @param value
-	 */
-	@Deprecated
-	public void setSharedSecret(final String value)
-	{
-		setXPathValue(SHARED_SECRET, value);
-	}
+	public static final String Header = "Header";
 
-	/**
-	 *
-	 * @return
-	 */
-	@Deprecated
-	public String getSharedSecret()
-	{
-		return getXPathAttribute(SHARED_SECRET, null);
-	}
+	public final static String payloadID = "payloadID";
 
-	/**
-	 *
-	 * @param value
-	 */
-	public void setIdentity(final String value)
-	{
-		setXPathValue(IDENTITY, value);
-	}
-
-	/**
-	 * set the domain to domain
-	 *
-	 * @param domain
-	 */
-	public void setDomain(final String domain)
-	{
-		setAttribute(DOMAIN, domain);
-	}
-
-	/**
-	 * get the domain
-	 *
-	 * @return domain
-	 */
-	public String getDomain()
-	{
-		return getAttribute(DOMAIN);
-	}
+	public static final String Request = "Request";
 }

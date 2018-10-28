@@ -36,6 +36,12 @@
  */
 package org.cip4.printtalk.builder;
 
+/**
+ * the factory is also a builder and provides default values for builder instances
+ * 
+ * @author prosirai
+ *
+ */
 public final class PrintTalkBuilderFactory extends PrintTalkBuilder
 {
 	private static PrintTalkBuilderFactory theFactory = new PrintTalkBuilderFactory();
