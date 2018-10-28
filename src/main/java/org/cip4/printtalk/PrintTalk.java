@@ -322,7 +322,7 @@ public class PrintTalk extends AbstractPrintTalk
 	{
 		final BusinessObject oldBO = getBusinessObject();
 		if (oldBO != null || getElement(RESPONSE) != null)
-			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
+			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO == null ? "null" : oldBO.theElement.getLocalName());
 
 		final String boName = bo.name();
 		final KElement e = theElement.getCreateElement(REQUEST).appendElement(boName);
@@ -343,7 +343,7 @@ public class PrintTalk extends AbstractPrintTalk
 	{
 		final BusinessObject oldBO = getBusinessObject();
 		if (oldBO != null || getElement(REQUEST) != null)
-			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO.theElement.getLocalName());
+			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO == null ? "null" : oldBO.theElement.getLocalName());
 
 		final String boName = bo.name();
 		final KElement e = theElement.getCreateElement(RESPONSE).appendElement(boName);
