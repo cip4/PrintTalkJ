@@ -105,6 +105,7 @@ public class ExampleHeader extends PrintTalkTestCase
 	@Override
 	protected void setUp() throws Exception
 	{
+		PrintTalkBuilderFactory.getTheFactory().resetInstance();
 		KElement.setLongID(false);
 		super.setUp();
 	}

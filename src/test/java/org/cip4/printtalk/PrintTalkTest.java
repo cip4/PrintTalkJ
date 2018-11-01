@@ -183,12 +183,11 @@ public class PrintTalkTest extends PrintTalkTestCase
 	public void testdefaultVersion()
 	{
 		PrintTalk.setDefaultVersion(20);
-		final PrintTalk pt = new PrintTalk();
-		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_20");
+		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_20");
 		PrintTalk.setDefaultVersion(13);
-		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_13");
+		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_13");
 		PrintTalk.setDefaultVersion(22);
-		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_22");
+		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_22");
 	}
 
 	/**

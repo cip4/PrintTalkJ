@@ -85,6 +85,7 @@ public class ExampleElement extends PrintTalkTestCase
 	protected void setUp() throws Exception
 	{
 		KElement.setLongID(false);
+		PrintTalkBuilderFactory.getTheFactory().resetInstance();
 		super.setUp();
 	}
 

@@ -36,7 +36,6 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.DocumentJDFImpl;
 import org.cip4.jdflib.core.JDFDoc;
 import org.cip4.jdflib.core.KElement;
@@ -206,7 +205,7 @@ public class PrintTalk extends AbstractPrintTalk
 	{
 		super.init();
 		final String dateTimeISO = new JDFDate().getDateTimeISO();
-		theElement.setAttribute(AttributeName.TIMESTAMP, dateTimeISO);
+		theElement.setAttribute(PrintTalkConstants.Timestamp, dateTimeISO);
 		theElement.setAttribute(PrintTalkConstants.payloadID, "P" + KElement.uniqueID(0));
 	}
 
@@ -311,7 +310,7 @@ public class PrintTalk extends AbstractPrintTalk
 	{
 		final BusinessObject oldBO = getBusinessObject();
 		if (oldBO != null || getElement(RESPONSE) != null)
-			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO == null ? "null" : oldBO.theElement.getLocalName());
+			throw new IllegalArgumentException("BusinessObject already exists: " + ((oldBO == null) ? "null" : oldBO.theElement.getLocalName()));
 
 		final String boName = bo.name();
 		final KElement e = theElement.getCreateElement(REQUEST).appendElement(boName);
@@ -334,8 +333,8 @@ public class PrintTalk extends AbstractPrintTalk
 	public BusinessObject appendResponse(final EnumBusinessObject bo, final PrintTalk ref) throws IllegalArgumentException
 	{
 		final BusinessObject oldBO = getBusinessObject();
-		if (oldBO != null || getElement(REQUEST) != null)
-			throw new IllegalArgumentException("BusinessObject already exists: " + oldBO == null ? "null" : oldBO.theElement.getLocalName());
+		if (oldBO != null || getElement(REQUEST) != null || getElement(RESPONSE) != null)
+			throw new IllegalArgumentException("BusinessObject already exists: " + ((oldBO == null) ? "null" : oldBO.theElement.getLocalName()));
 
 		final String boName = bo.name();
 		final KElement e = theElement.getCreateElement(RESPONSE).appendElement(boName);

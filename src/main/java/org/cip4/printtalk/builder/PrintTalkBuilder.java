@@ -92,10 +92,26 @@ public class PrintTalkBuilder
 	PrintTalkBuilder()
 	{
 		version = 20;
+		reset();
+	}
+
+	/**
+	 *
+	 */
+	public void reset()
+	{
 		customerID = null;
 		shopID = null;
 		to = null;
 		userID = null;
+		resetInstance();
+	}
+
+	/**
+	 *
+	 */
+	public void resetInstance()
+	{
 		businessObject = null;
 		xjdf = null;
 	}
