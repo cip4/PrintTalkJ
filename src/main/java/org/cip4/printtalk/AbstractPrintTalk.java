@@ -235,6 +235,15 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
+	 *
+	 * generic cleanup routine
+	 */
+	public void cleanUp()
+	{
+		theElement.sortChildren(new KElement.SimpleElementNameComparator(), true);
+	}
+
+	/**
 	 * get an XJDF - delete any previous occurences
 	 *
 	 * @param i the index

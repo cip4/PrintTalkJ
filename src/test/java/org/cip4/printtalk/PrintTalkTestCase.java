@@ -108,7 +108,7 @@ public abstract class PrintTalkTestCase extends TestCase
 	protected void writeExample(final PrintTalk pt, final String file)
 	{
 		// TODO add schema parsing
-		pt.write2File(sm_dirTestDataTemp + "Example/" + file);
+		pt.write2File(sm_dirTestDataTemp + "printtalkexamples/" + file);
 	}
 
 }

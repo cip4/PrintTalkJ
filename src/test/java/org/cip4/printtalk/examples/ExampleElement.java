@@ -72,10 +72,11 @@ public class ExampleElement extends PrintTalkTestCase
 		ptot.refPrice(pi1);
 		ptot.refPrice(pi2);
 		final Price ptx = p.addPrice(EnumPriceType.Total, EnumTaxType.Tax, "Included tax", 63.00 * 0.2);
+		pt.cleanUp();
 		setSnippet(p.getRoot(), true);
 		ptx.refPrice(pi1);
 		ptx.refPrice(pi2);
-		writeExample(pt, "Pricing.ptk");
+		writeExample(pt, "subelements/Pricing.ptk");
 	}
 
 	/**

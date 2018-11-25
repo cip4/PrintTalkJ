@@ -64,8 +64,9 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		po.setBusinessID("cart1");
 		po.appendXJDF(new XJDFHelper("cart1.item1", null, null));
 		po.appendXJDF(new XJDFHelper("cart1.item2", null, null));
+		pt.cleanUp();
 		setSnippet(po.getRoot(), true);
-		writeExample(pt, "Cart.ptk");
+		writeExample(pt, "businessobjects/PurchaseOrderCart.ptk");
 	}
 
 	/**

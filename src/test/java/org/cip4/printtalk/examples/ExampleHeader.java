@@ -71,17 +71,18 @@ public class ExampleHeader extends PrintTalkTestCase
 	 *
 	 */
 	@Test
-	public synchronized void testWriteSimple()
+	public synchronized void testWritePrintTalk()
 	{
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
 		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		pt.cleanUp();
 		setSnippet(pt.getRoot(), true);
 		setSnippet(pt.getElement(PrintTalkConstants.Header), false);
 		setSnippet(pt.getElement(PrintTalkConstants.Request), false);
-		writeExample(pt, "PrintTalkOnly.ptk");
+		writeExample(pt, "structure/PrintTalkOnly.ptk");
 	}
 
 	/**
@@ -95,8 +96,25 @@ public class ExampleHeader extends PrintTalkTestCase
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
 		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		pt.cleanUp();
 		setSnippet(pt.getElement(PrintTalkConstants.Header), true);
-		writeExample(pt, "HeaderOnly.ptk");
+		writeExample(pt, "structure/Header.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testWriteRequest()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://customer.com");
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://printer.com");
+		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		pt.cleanUp();
+		setSnippet(pt.getElement(PrintTalkConstants.Header), true);
+		writeExample(pt, "structure/Header.ptk");
 	}
 
 	/**

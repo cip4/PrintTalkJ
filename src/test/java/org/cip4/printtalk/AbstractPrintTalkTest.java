@@ -29,13 +29,15 @@
  *
  * This software consists of voluntary contributions made by many individuals on behalf of the The International Cooperation for the Integration of Processes in Prepress, Press and Postpress and was
  * originally based on software copyright (c) 1999-2001, Heidelberger Druckmaschinen AG copyright (c) 1999-2001, Agfa-Gevaert N.V.
- * 
+ *
  * For more information on The International Cooperation for the Integration of Processes in Prepress, Press and Postpress , please see <http://www.cip4.org/>.
- * 
+ *
  *
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.ElementName;
+import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.junit.Test;
 
 /**
@@ -64,7 +66,7 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 	{
 		final PrintTalk pt = new PrintTalk();
 		assertNull(pt.getComment());
-		pt.getCreateElement("Comment").setText("foo");
+		pt.getCreateElement(ElementName.COMMENT).setText("foo");
 		assertEquals("foo", pt.getComment());
 	}
 
@@ -79,6 +81,21 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 		assertNull(pt.getComment());
 		pt.setComment("foo");
 		assertEquals("foo", pt.getComment());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testCleanup()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final Credential to = pt.setCredential(EnumHeaderType.To, "abc", "efg");
+		final Credential from = pt.setCredential(EnumHeaderType.From, "abc0", "efg0");
+		pt.cleanUp();
+		assertEquals("not sorted", to.theElement.getParentNode_KElement(), from.theElement.getParentNode_KElement().getNextSiblingElement());
+
 	}
 
 }
