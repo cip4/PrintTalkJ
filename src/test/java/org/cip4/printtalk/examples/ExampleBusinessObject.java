@@ -38,12 +38,14 @@ package org.cip4.printtalk.examples;
 
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.Credential;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkTestCase;
 import org.cip4.printtalk.PurchaseOrder;
+import org.cip4.printtalk.Quotation;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
 import org.junit.Test;
 
@@ -67,6 +69,25 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		pt.cleanUp();
 		setSnippet(po.getRoot(), true);
 		writeExample(pt, "businessobjects/PurchaseOrderCart.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testQuotation()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://customer.com");
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://printer.com");
+
+		final Quotation quotation = (Quotation) pt.appendRequest(EnumBusinessObject.Quotation, null);
+		quotation.setBusinessID("q1");
+		quotation.setEstimate(false);
+		quotation.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
+		// TODO continue
+		writeExample(pt, "businessobjects/Quotation.ptk");
 	}
 
 	/**
