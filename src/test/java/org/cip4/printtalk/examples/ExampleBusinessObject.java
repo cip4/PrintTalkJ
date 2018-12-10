@@ -46,6 +46,7 @@ import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkTestCase;
 import org.cip4.printtalk.PurchaseOrder;
 import org.cip4.printtalk.Quotation;
+import org.cip4.printtalk.RFQ;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
 import org.junit.Test;
 
@@ -88,6 +89,56 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		quotation.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
 		// TODO continue
 		writeExample(pt, "businessobjects/Quotation.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testIdRfq()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+
+		final RFQ quotation = (RFQ) pt.appendRequest(EnumBusinessObject.RFQ, null);
+		quotation.setBusinessID("RFQ_1");
+		setSnippet(quotation.getRequest(), true);
+		writeExample(pt, "idusage/SimpleRFQ.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testIdQuotation()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+
+		final Quotation quotation = (Quotation) pt.appendRequest(EnumBusinessObject.Quotation, null);
+		quotation.setBusinessRefID("RFQ_1");
+		quotation.setBusinessID("Quotation_1");
+		quotation.appendQuote().setQuoteID("Quote_1");
+		quotation.appendQuote().setQuoteID("Quote_2");
+		setSnippet(quotation.getRequest(), true);
+		writeExample(pt, "idusage/SimpleQuotation.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testIdPurchaseOrder()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+
+		final PurchaseOrder quotation = (PurchaseOrder) pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		quotation.setBusinessRefID("Quotation_1");
+		quotation.setBusinessID("Quotation_1");
+		quotation.setQuoteID("Quote_1");
+		setSnippet(quotation.getRequest(), true);
+		writeExample(pt, "idusage/SimplePO.ptk");
 	}
 
 	/**

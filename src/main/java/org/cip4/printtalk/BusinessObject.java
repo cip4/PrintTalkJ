@@ -104,7 +104,11 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public String getBusinessID()
 	{
-		return getAttribute(ATTR_BUSINESSID);
+		final String bid = getAttribute(ATTR_BUSINESSID);
+		if (bid != null)
+			return bid;
+		final KElement request = getRequest();
+		return request == null ? null : request.getAttribute(ATTR_BUSINESSID);
 	}
 
 	/**
@@ -113,7 +117,16 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public void setBusinessID(final String id)
 	{
-		setAttribute(ATTR_BUSINESSID, id);
+		final KElement request = getRequest();
+		if (request != null)
+		{
+			request.setAttribute(ATTR_BUSINESSID, id);
+		}
+	}
+
+	public KElement getRequest()
+	{
+		return getRoot() == null ? null : getRoot().getParentNode_KElement();
 	}
 
 	/**
@@ -122,7 +135,11 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public String getBusinessRefID()
 	{
-		return getAttribute(ATTR_BUSINESSREFID, null);
+		final String bid = getAttribute(ATTR_BUSINESSREFID);
+		if (bid != null)
+			return bid;
+		final KElement request = getRequest();
+		return request == null ? null : request.getAttribute(ATTR_BUSINESSREFID);
 	}
 
 	/**
@@ -131,7 +148,12 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public void setBusinessRefID(final String id)
 	{
-		theElement.setAttribute(ATTR_BUSINESSREFID, id);
+
+		final KElement request = getRequest();
+		if (request != null)
+		{
+			request.setAttribute(ATTR_BUSINESSREFID, id);
+		}
 	}
 
 	/**
