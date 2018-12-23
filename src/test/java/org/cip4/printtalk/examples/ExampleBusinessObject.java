@@ -36,9 +36,11 @@
  */
 package org.cip4.printtalk.examples;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.Confirmation;
 import org.cip4.printtalk.Credential;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk;
@@ -47,6 +49,8 @@ import org.cip4.printtalk.PrintTalkTestCase;
 import org.cip4.printtalk.PurchaseOrder;
 import org.cip4.printtalk.Quotation;
 import org.cip4.printtalk.RFQ;
+import org.cip4.printtalk.Refusal;
+import org.cip4.printtalk.Refusal.EnumReason;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
 import org.junit.Test;
 
@@ -122,6 +126,40 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		quotation.appendQuote().setQuoteID("Quote_2");
 		setSnippet(quotation.getRequest(), true);
 		writeExample(pt, "idusage/SimpleQuotation.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testIdConfirmation()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+
+		final Confirmation c = (Confirmation) pt.appendRequest(EnumBusinessObject.Confirmation, null);
+		c.setBusinessRefID("PO_1");
+		c.setBusinessID("Confirmation_1");
+		setSnippet(c.getRequest(), true);
+		writeExample(pt, "idusage/SimpleConfirmation.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testIdRefusal()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+
+		final Refusal ref = (Refusal) pt.appendRequest(EnumBusinessObject.Refusal, null);
+		ref.setBusinessRefID("PO_1");
+		ref.setBusinessID("Confirmation_1");
+		ref.setAttribute(AttributeName.REASON, EnumReason.Busy.name());
+		ref.setAttribute(AttributeName.REASONDETAILS, "Christmas");
+		setSnippet(ref.getRequest(), true);
+		writeExample(pt, "idusage/SimpleRefusal.ptk");
 	}
 
 	/**

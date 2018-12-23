@@ -47,21 +47,23 @@ public class Credential extends AbstractPrintTalk
 {
 	public static final String DOMAIN = "domain";
 	public static final String IDENTITY = "Identity";
+	@Deprecated
 	public static final String SHARED_SECRET = "SharedSecret";
 	/** */
 	public final static String ELEMENT_CREDENTIAL = "Credential";
-	public final static String DOMAIN_CUSTOMERID = "xjdf:CustomerID";
-	public final static String DOMAIN_COMPANYID = "xjdf:CompanyID";
 	/**
 	 * @deprecated use senderid in 2.0
 	 */
 	@Deprecated
 	public final static String DOMAIN_AGENTID = "jdf:AgentID";
+	public final static String DOMAIN_CUSTOMERID = "xjdf:CustomerID";
+	public final static String DOMAIN_COMPANYID = "xjdf:CompanyID";
 	public static final String DOMAIN_SHOP_ID = "xjdf:ShopID";
 	public static final String DOMAIN_SENDER_ID = "xjdf:SenderID";
 	public static final String DOMAIN_USER_ID = "xjdf:UserID";
+	public static final String DOMAIN_RESPONSE_URL = "xjdf:ResponseURL";
 	public static final String DOMAIN_URL = "xjdf:URL";
-	public static final String DOMAIN_EMAIL = "Email";
+	public static final String DOMAIN_EMAIL = "xjdf:Email";
 	public static final String DOMAIN_DUNS = "DUNS";
 
 	/**

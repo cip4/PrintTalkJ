@@ -153,7 +153,7 @@ public class PrintTalkTest extends PrintTalkTestCase
 	public void testGetTimestamp()
 	{
 		final PrintTalk pt = new PrintTalk();
-		assertEquals(new JDFDate().getTimeInMillis(), pt.getTimestamp().getTimeInMillis(), 6666);
+		assertEquals(new JDFDate().getTimeInMillis() - pt.getTimestamp().getTimeInMillis(), 6666, 6666);
 	}
 
 	/**

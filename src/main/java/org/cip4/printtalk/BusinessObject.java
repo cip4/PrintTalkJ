@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2016 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -49,17 +49,9 @@ import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
  */
 public abstract class BusinessObject extends AbstractPrintTalk
 {
-	/**
-	 *
-	 */
 	public static final String ATTR_BUSINESSREFID = "BusinessRefID";
-	/**
-	 *
-	 */
 	public static final String ATTR_BUSINESSID = "BusinessID";
-	/** */
 	public static final String ATTR_CURRENCY = "Currency";
-	/** */
 	public static final String ATTR_EXPIRES = "Expires";
 
 	/**
