@@ -38,7 +38,6 @@ package org.cip4.printtalk;
 
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.extensions.XJDF20;
 import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 
@@ -63,7 +62,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	public KElement getCreateJDFRoot(final String rootName, final int iSkip)
 	{
-		final String schemaURL = (XJDFConstants.XJDF.equals(rootName)) ? XJDF20.getSchemaURL() : JDFElement.getSchemaURL();
+		final String schemaURL = (XJDFConstants.XJDF.equals(rootName)) ? JDFElement.getSchemaURL(2, 0) : JDFElement.getSchemaURL();
 
 		final KElement element = theElement.getCreateElement(rootName, schemaURL, iSkip);
 		element.init();
