@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -51,8 +51,11 @@ public class PrintTalkBuilder
 	String userID;
 	String shopID;
 	String to;
+	String toURL;
+	String fromURL;
 	EnumBusinessObject businessObject;
 	XJDFHelper xjdf;
+	boolean wantSender;
 
 	/**
 	 * @return the version
@@ -79,11 +82,14 @@ public class PrintTalkBuilder
 		super();
 		version = factory.version;
 		to = factory.to;
+		fromURL = factory.fromURL;
+		toURL = factory.toURL;
 		shopID = factory.shopID;
 		userID = factory.userID;
 		customerID = factory.customerID;
 		businessObject = factory.businessObject;
 		xjdf = factory.xjdf;
+		wantSender = factory.wantSender;
 	}
 
 	/**
@@ -104,6 +110,9 @@ public class PrintTalkBuilder
 		shopID = null;
 		to = null;
 		userID = null;
+		fromURL = null;
+		toURL = null;
+		wantSender = false;
 		resetInstance();
 	}
 
@@ -122,8 +131,7 @@ public class PrintTalkBuilder
 	 */
 	public PrintTalk getPrintTalk()
 	{
-		final PrintTalk pt = new PrintTalk();
-		pt.setVersion(version);
+		final PrintTalk pt = new PrintTalk(version);
 		setCredentials(pt);
 		setRequest(pt);
 		return pt;
@@ -152,19 +160,26 @@ public class PrintTalkBuilder
 		if (customerID != null)
 		{
 			final Credential cred = pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_CUSTOMERID, customerID);
-
+		}
+		if (fromURL != null)
+		{
+			pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, fromURL);
 		}
 		if (shopID != null)
 		{
-			final Credential cred = pt.setCredential(EnumHeaderType.Sender, Credential.DOMAIN_SHOP_ID, shopID);
+			final Credential cred = pt.setCredential(wantSender ? EnumHeaderType.Sender : EnumHeaderType.From, Credential.DOMAIN_SHOP_ID, shopID);
 		}
 		if (userID != null)
 		{
-			final Credential cred = pt.setCredential(EnumHeaderType.Sender, Credential.DOMAIN_USER_ID, userID);
+			final Credential cred = pt.setCredential(wantSender ? EnumHeaderType.Sender : EnumHeaderType.From, Credential.DOMAIN_USER_ID, userID);
 		}
 		if (to != null)
 		{
 			pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_SENDER_ID, to);
+		}
+		if (toURL != null)
+		{
+			pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, toURL);
 		}
 	}
 
@@ -198,6 +213,22 @@ public class PrintTalkBuilder
 	public void setTo(final String to)
 	{
 		this.to = to;
+	}
+
+	/**
+	 * @param to the fromURL to set
+	 */
+	public void setFromURL(final String fromURL)
+	{
+		this.fromURL = fromURL;
+	}
+
+	/**
+	 * @param to the toURL to set
+	 */
+	public void setToURL(final String toURL)
+	{
+		this.toURL = toURL;
 	}
 
 	/**
@@ -279,6 +310,22 @@ public class PrintTalkBuilder
 	public String toString()
 	{
 		return "PrintTalkBuilder [version=" + version + ", customerID=" + customerID + ", userID=" + userID + ", shopID=" + shopID + ", to=" + to + ", businessObject=" + businessObject + "]";
+	}
+
+	/**
+	 * @return the wantSender
+	 */
+	public boolean isWantSender()
+	{
+		return wantSender;
+	}
+
+	/**
+	 * @param wantSender the wantSender to set
+	 */
+	public void setWantSender(final boolean wantSender)
+	{
+		this.wantSender = wantSender;
 	}
 
 }

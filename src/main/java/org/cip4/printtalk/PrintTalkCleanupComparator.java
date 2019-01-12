@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -34,121 +34,37 @@
  *
  *
  */
+
 package org.cip4.printtalk;
 
-import java.util.zip.DataFormatException;
-
+import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.extensions.XJDFHelper;
-import org.cip4.jdflib.util.JDFDate;
 
-/**
- * Class represented Invoice business object.
- *
- * @author rainer prosi
- * @date Jan 3, 2011
- * @since PrintTalk 1.3
- */
-public class Invoice extends BusinessObject
+class PrintTalkCleanupComparator extends KElement.SimpleElementNameComparator
 {
-	/** */
-	public final static String ELEMENT_PRICING = "Pricing";
 
 	/**
 	 *
-	 * @param theElement
 	 */
-	public Invoice(final KElement theElement)
+	public PrintTalkCleanupComparator()
 	{
-		super(theElement);
+		super();
 	}
 
 	/**
-	 * get currency value
-	 *
-	 * @return
-	 */
-	public String getCurrency()
-	{
-		return getAttribute(ATTR_CURRENCY);
-	}
-
-	/**
-	 * set currency value
-	 *
-	 * @param currency
-	 */
-	public void setCurrency(final String currency)
-	{
-		setAttribute(ATTR_CURRENCY, currency);
-	}
-
-	/**
-	 *
-	 * @see org.cip4.printtalk.AbstractPrintTalk#appendXJDF(org.cip4.jdflib.extensions.XJDFHelper)
+	 * @see org.cip4.jdflib.core.KElement.SimpleElementNameComparator#compare(org.cip4.jdflib.core.KElement, org.cip4.jdflib.core.KElement)
 	 */
 	@Override
-	public void appendXJDF(final XJDFHelper xjdf)
+	public int compare(final KElement o1, final KElement o2)
 	{
-		super.appendXJDF(xjdf);
-	}
-
-	/**
-	 * get expires value
-	 *
-	 * @return
-	 */
-	public JDFDate getExpires()
-	{
-		final String s = getAttribute(ATTR_EXPIRES);
-		try
+		if (o1 != null && o2 != null)
 		{
-			return (s == null) ? null : new JDFDate(s);
+			if (JDFElement.isInXJDFNameSpaceStatic(o2.getNamespaceURI()) ^ JDFElement.isInXJDFNameSpaceStatic(o1.getNamespaceURI()))
+			{
+				return JDFElement.isInXJDFNameSpaceStatic(o2.getNamespaceURI()) ? 1 : -1;
+			}
 		}
-		catch (final DataFormatException e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * set expires value
-	 *
-	 * @param expires
-	 */
-	public void setExpires(final JDFDate expires)
-	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
-	}
-
-	/**
-	 * set the expires dates
-	 *
-	 * @param i
-	 */
-	public void setExpiresDays(final int days)
-	{
-		setExpires(getExpirationDays(days));
-	}
-
-	/**
-	 * create pricing element
-	 *
-	 * @return
-	 */
-	public Pricing getCreatePricing()
-	{
-		return new Pricing(getCreateElement(ELEMENT_PRICING));
-	}
-
-	/**
-	 * get pricing element
-	 *
-	 * @return
-	 */
-	public Pricing getPricing()
-	{
-		return new Pricing(getElement(ELEMENT_PRICING));
+		return super.compare(o1, o2);
 	}
 
 }

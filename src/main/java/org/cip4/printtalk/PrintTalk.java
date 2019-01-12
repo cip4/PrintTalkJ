@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -146,6 +146,21 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
+	 *
+	 * generic cleanup routine
+	 */
+	@Override
+	public void cleanUp()
+	{
+		final BusinessObject bo = getBusinessObject();
+		if (bo != null)
+		{
+			bo.cleanUp();
+		}
+		super.cleanUp();
+	}
+
+	/**
 	 * create a printtalk helper
 	 *
 	 * @param theElement
@@ -162,8 +177,17 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public PrintTalk()
 	{
+		this(defaultVersion);
+	}
+
+	/**
+	 * create a new printtalk helper
+	 *
+	 */
+	public PrintTalk(final int version)
+	{
 		super(null);
-		version = defaultVersion;
+		this.version = version;
 		XMLDoc doc = new XMLDoc(PRINT_TALK, getNamespaceURI());
 		doc = new JDFDoc(doc);
 		((DocumentJDFImpl) doc.getMemberDocument()).bInitOnCreate = true;

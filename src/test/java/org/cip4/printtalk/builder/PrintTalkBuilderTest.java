@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -58,7 +58,7 @@ public class PrintTalkBuilderTest extends PrintTalkTestCase
 		final PrintTalkBuilder b = PrintTalkBuilderFactory.getTheFactory().getBuilder();
 		b.setShopID("sid");
 		final PrintTalk pt = b.getPrintTalk();
-		assertEquals("sid", pt.getCredentialIdentity(EnumHeaderType.Sender, Credential.DOMAIN_SHOP_ID));
+		assertEquals("sid", pt.getCredentialIdentity(EnumHeaderType.From, Credential.DOMAIN_SHOP_ID));
 	}
 
 	/**
@@ -77,11 +77,24 @@ public class PrintTalkBuilderTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testURI()
+	{
+		final PrintTalkBuilder b = PrintTalkBuilderFactory.getTheFactory().getBuilder();
+		b.setVersion(21);
+		final PrintTalk pt = b.getPrintTalk();
+		assertEquals(PrintTalk.getNamespaceURI(21), pt.getNamespaceURI());
+	}
+
+	/**
+	 *
+	 */
+	@Test
 	public void testUserID()
 	{
 		final PrintTalkBuilder b = PrintTalkBuilderFactory.getTheFactory().getBuilder();
 		b.setCustomerID("cid");
 		b.setUserID("uid");
+		b.setWantSender(true);
 		final PrintTalk pt = b.getPrintTalk();
 		assertEquals("uid", pt.getCredentialIdentity(EnumHeaderType.Sender, Credential.DOMAIN_USER_ID));
 	}

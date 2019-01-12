@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -38,7 +38,11 @@ package org.cip4.printtalk;
 
 import java.util.zip.DataFormatException;
 
+import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.ElementName;
+import org.cip4.jdflib.core.JDFComment;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.resource.process.JDFContact;
 import org.cip4.jdflib.util.JDFDate;
 
 /**
@@ -51,7 +55,7 @@ public class Payment extends AbstractPrintTalk
 	/** */
 	public final static String ELEMENT_PAYMENT = "Payment";
 
-	/** */
+	@Deprecated
 	public final static String ELEMENT_PAYTERM = "PayTerm";
 
 	/** */
@@ -92,7 +96,7 @@ public class Payment extends AbstractPrintTalk
 	 */
 	public String getPayTerm()
 	{
-		return getTElem(ELEMENT_PAYTERM);
+		return getTElem(ElementName.COMMENT);
 	}
 
 	/**
@@ -102,7 +106,9 @@ public class Payment extends AbstractPrintTalk
 	 */
 	public void setPayTerm(final String s)
 	{
-		setTElem(ELEMENT_PAYTERM, s);
+		final JDFComment c = (JDFComment) getCreateXJDFElement(ElementName.COMMENT, 0);
+		c.setText(s);
+		c.setAttribute(AttributeName.TYPE, "ptk:PaymentTerms");
 	}
 
 	/**
@@ -114,6 +120,24 @@ public class Payment extends AbstractPrintTalk
 	public CreditCard getCreateCreditCard()
 	{
 		return new CreditCard(getCreateElement(CreditCard.ELEMENT_CREDITCARD));
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public JDFContact getCreateContact()
+	{
+		return (JDFContact) getCreateXJDFElement(ElementName.CONTACT, 0);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public JDFContact getContact()
+	{
+		return (JDFContact) getElement(ElementName.CONTACT);
 	}
 
 	/**

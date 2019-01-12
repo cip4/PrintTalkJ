@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -41,8 +41,6 @@ import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.Confirmation;
-import org.cip4.printtalk.Credential;
-import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkTestCase;
@@ -65,8 +63,6 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	{
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
-		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
-		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
 		final PurchaseOrder po = (PurchaseOrder) pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
 		po.setBusinessID("cart1");
 		po.appendXJDF(new XJDFHelper("cart1.item1", null, null));
@@ -84,13 +80,12 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	{
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
-		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://customer.com");
-		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://printer.com");
 
 		final Quotation quotation = (Quotation) pt.appendRequest(EnumBusinessObject.Quotation, null);
 		quotation.setBusinessID("q1");
 		quotation.setEstimate(false);
 		quotation.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
+		pt.cleanUp();
 		// TODO continue
 		writeExample(pt, "businessobjects/Quotation.ptk");
 	}
@@ -103,10 +98,10 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	{
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
-
-		final RFQ quotation = (RFQ) pt.appendRequest(EnumBusinessObject.RFQ, null);
-		quotation.setBusinessID("RFQ_1");
-		setSnippet(quotation.getRequest(), true);
+		final RFQ rfq = (RFQ) pt.appendRequest(EnumBusinessObject.RFQ, null);
+		rfq.setBusinessID("RFQ_1");
+		rfq.setExpiresDays(5);
+		setSnippet(rfq.getRequest(), true);
 		writeExample(pt, "idusage/SimpleRFQ.ptk");
 	}
 
@@ -125,6 +120,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		quotation.appendQuote().setQuoteID("Quote_1");
 		quotation.appendQuote().setQuoteID("Quote_2");
 		setSnippet(quotation.getRequest(), true);
+		pt.cleanUp();
 		writeExample(pt, "idusage/SimpleQuotation.ptk");
 	}
 
@@ -141,6 +137,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		c.setBusinessRefID("PO_1");
 		c.setBusinessID("Confirmation_1");
 		setSnippet(c.getRequest(), true);
+		pt.cleanUp();
 		writeExample(pt, "idusage/SimpleConfirmation.ptk");
 	}
 
@@ -159,6 +156,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		ref.setAttribute(AttributeName.REASON, EnumReason.Busy.name());
 		ref.setAttribute(AttributeName.REASONDETAILS, "Christmas");
 		setSnippet(ref.getRequest(), true);
+		pt.cleanUp();
 		writeExample(pt, "idusage/SimpleRefusal.ptk");
 	}
 
@@ -176,6 +174,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		quotation.setBusinessID("Quotation_1");
 		quotation.setQuoteID("Quote_1");
 		setSnippet(quotation.getRequest(), true);
+		pt.cleanUp();
 		writeExample(pt, "idusage/SimplePO.ptk");
 	}
 
@@ -186,7 +185,11 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	protected void setUp() throws Exception
 	{
 		KElement.setLongID(false);
-		PrintTalkBuilderFactory.getTheFactory().resetInstance();
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		theFactory.resetInstance();
+		theFactory.setFromURL("https://customer.com");
+		theFactory.setToURL("https://printer.com");
+
 		super.setUp();
 	}
 

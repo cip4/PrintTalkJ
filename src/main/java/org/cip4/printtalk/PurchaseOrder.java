@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -37,7 +37,6 @@
 package org.cip4.printtalk;
 
 import java.util.Vector;
-import java.util.zip.DataFormatException;
 
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
@@ -99,15 +98,7 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public JDFDate getExpires()
 	{
-		final String s = getAttribute(ATTR_EXPIRES);
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (final DataFormatException e)
-		{
-			return null;
-		}
+		return JDFDate.createDate(getAttribute(ATTR_EXPIRES));
 	}
 
 	/**
@@ -119,6 +110,16 @@ public class PurchaseOrder extends BusinessObject
 	public void setExpires(final JDFDate expires)
 	{
 		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
+	}
+
+	/**
+	 * set the expires dates
+	 *
+	 * @param i
+	 */
+	public void setExpiresDays(final int days)
+	{
+		setExpires(getExpirationDays(days));
 	}
 
 	/**

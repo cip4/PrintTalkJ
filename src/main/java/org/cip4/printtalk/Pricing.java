@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -103,6 +103,8 @@ public class Pricing extends AbstractPrintTalk
 	/**
 	 * add a price element
 	 *
+	 * @param priceType
+	 * @param taxType
 	 * @param description
 	 * @param totalprice
 	 * @return
@@ -218,6 +220,25 @@ public class Pricing extends AbstractPrintTalk
 	public Vector<Price> getPricesForDrop(final String dropID)
 	{
 		return getPricesByType(null, null, dropID);
+	}
+
+	/**
+	 *
+	 * @param currency
+	 */
+	public void setCurrency(final String currency)
+	{
+		setAttribute(AttributeName.CURRENCY, currency == null ? null : currency.toUpperCase());
+	}
+
+	/**
+	 * get currency value
+	 *
+	 * @return
+	 */
+	public String getCurrency()
+	{
+		return getAttribute(AttributeName.CURRENCY);
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -39,6 +39,7 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.printtalk.Price.EnumPriceType;
 import org.cip4.printtalk.Price.EnumTaxType;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
 /**
@@ -66,6 +67,7 @@ public class PricingTest extends PrintTalkTestCase
 		assertEquals(p2, p.getPriceByType(null, null, null, -1));
 		assertNull(p.getPriceByType(EnumPriceType.Handling, EnumTaxType.Gross, null, 0));
 		assertNull(p.getPriceByType(EnumPriceType.Other, null, null, 0));
+		reparse(p, defaultversion, false);
 
 	}
 
@@ -84,6 +86,7 @@ public class PricingTest extends PrintTalkTestCase
 		assertNull(p.getPricesByType(EnumPriceType.Handling, EnumTaxType.Gross, null));
 		assertTrue(p.getPricesByType(EnumPriceType.Handling, null, null).contains(p1));
 		assertTrue(p.getPricesByType(EnumPriceType.Handling, null, null).contains(p2));
+		reparse(p, defaultversion, false);
 
 	}
 
@@ -112,6 +115,7 @@ public class PricingTest extends PrintTalkTestCase
 		assertEquals(p1, p.getPriceByType(EnumPriceType.Handling, null, "d1", 0));
 		assertEquals(p21, p.getPriceByType(EnumPriceType.Handling, null, "d2", 0));
 		assertNull(p.getPriceByType(EnumPriceType.Handling, null, "d3", 0));
+		reparse(p, defaultversion, false);
 
 	}
 
@@ -136,5 +140,17 @@ public class PricingTest extends PrintTalkTestCase
 		p22.setDropID("d2");
 
 		assertEquals(p22, p.getPricesByType(EnumPriceType.Handling, EnumTaxType.Tax, "d2").get(0));
+		reparse(p, defaultversion, false);
 	}
+
+	static void reparse(final Pricing p, final int ptv, final boolean fail)
+	{
+		final Invoice i = new Invoice(new XMLDoc(EnumBusinessObject.Invoice.name(), null).getRoot());
+		p.setCurrency("eur");
+		i.getRoot().copyElement(p.getRoot(), null);
+		i.setExpiresDays(42);
+		i.cleanUp();
+		reparse(i, ptv, fail);
+	}
+
 }

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2017 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -37,8 +37,9 @@
 package org.cip4.printtalk;
 
 import java.util.Vector;
-import java.util.zip.DataFormatException;
 
+import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.JDFConstants;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
@@ -106,7 +107,7 @@ public class RFQ extends BusinessObject
 
 	/**
 	 * get currency value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getCurrency()
@@ -115,28 +116,27 @@ public class RFQ extends BusinessObject
 	}
 
 	/**
-	 * set currency value
-	 * 
+	 *
 	 * @param currency
 	 */
 	public void setCurrency(final String currency)
 	{
-		setAttribute(ATTR_CURRENCY, currency);
+		setAttribute(AttributeName.CURRENCY, currency == null ? null : currency.toUpperCase());
 	}
 
 	/**
 	 * get estimate value
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean getEstimate()
 	{
-		return getAttribute(ATTR_ESTIMATE).equalsIgnoreCase("true") ? true : false;
+		return JDFConstants.TRUE.equalsIgnoreCase(getAttribute(ATTR_ESTIMATE)) ? true : false;
 	}
 
 	/**
 	 * set estimate value
-	 * 
+	 *
 	 * @param b
 	 */
 	public void setEstimate(final boolean b)
@@ -146,25 +146,17 @@ public class RFQ extends BusinessObject
 
 	/**
 	 * get expires value
-	 * 
+	 *
 	 * @return
 	 */
 	public JDFDate getExpires()
 	{
-		final String s = getAttribute(ATTR_EXPIRES);
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (final DataFormatException e)
-		{
-			return null;
-		}
+		return JDFDate.createDate(getAttribute(ATTR_EXPIRES));
 	}
 
 	/**
 	 * set expires value
-	 * 
+	 *
 	 * @param expires
 	 */
 	public void setExpires(final JDFDate expires)
@@ -174,7 +166,7 @@ public class RFQ extends BusinessObject
 
 	/**
 	 * get ReorderID value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getReorderID()
@@ -184,7 +176,7 @@ public class RFQ extends BusinessObject
 
 	/**
 	 * set ReorderID value
-	 * 
+	 *
 	 * @param s
 	 */
 	public void setReorderID(final String s)
@@ -194,7 +186,7 @@ public class RFQ extends BusinessObject
 
 	/**
 	 * get ReplaceID value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getReplaceID()
@@ -204,7 +196,7 @@ public class RFQ extends BusinessObject
 
 	/**
 	 * set ReplaceID value
-	 * 
+	 *
 	 * @param s
 	 */
 	public void setReplaceID(final String s)
@@ -246,6 +238,26 @@ public class RFQ extends BusinessObject
 	public void appendXJDF(final XJDFHelper xjdf)
 	{
 		super.appendXJDF(xjdf);
+	}
+
+	/**
+	 * set the expires dates
+	 *
+	 * @param i
+	 */
+	public void setExpiresDays(final int days)
+	{
+		setExpires(getExpirationDays(days));
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 */
+	@Override
+	public void cleanUp()
+	{
+		setEstimate(getEstimate());
+		super.cleanUp();
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,7 +36,11 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.VString;
+import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.printtalk.Price.EnumPriceType;
+import org.cip4.printtalk.Price.EnumTaxType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
@@ -57,6 +61,50 @@ public class QuoteTest extends PrintTalkTestCase
 		final PrintTalk printTalk = new PrintTalk();
 		final Quote po = ((Quotation) printTalk.appendRequest(EnumBusinessObject.Quotation, null)).appendQuote();
 		assertEquals(printTalk, po.getPrintTalk());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testSetCurrency()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final Quote qs = ((Quotation) printTalk.appendRequest(EnumBusinessObject.Quotation, null)).appendQuote();
+		qs.setCurrency("usd");
+		qs.setQuoteID("i1");
+		assertEquals("USD", qs.getCurrency());
+		reparse(qs, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testSetDeviations()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final Quote qs = ((Quotation) printTalk.appendRequest(EnumBusinessObject.Quotation, null)).appendQuote();
+		qs.setCurrency("usd");
+		qs.setQuoteID("i1");
+		qs.setDeviations(new VString("DeliveryDate"));
+		assertEquals("DeliveryDate", qs.getDeviations().get(0));
+		reparse(qs, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testMissCurrency()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final Quote qs = ((Quotation) printTalk.appendRequest(EnumBusinessObject.Quotation, null)).appendQuote();
+		qs.setQuoteID("i1");
+		reparse(qs, defaultversion, true);
 	}
 
 	/**
@@ -106,4 +154,15 @@ public class QuoteTest extends PrintTalkTestCase
 		assertEquals("j1", po.getXJDFs().get(0).getJobID());
 		assertEquals("j2", po.getXJDFs().get(1).getJobID());
 	}
+
+	static void reparse(final Quote q, final int ptv, final boolean fail)
+	{
+		final Quotation qs = new Quotation(new XMLDoc(EnumBusinessObject.Quotation.name(), null).getRoot());
+		q.getCreatePricing().addPrice(EnumPriceType.Discount, EnumTaxType.Net, "dummy", 0);
+		qs.getRoot().copyElement(q.getRoot(), null);
+		qs.setExpiresDays(4);
+		qs.cleanUp();
+		reparse(qs, ptv, fail);
+	}
+
 }

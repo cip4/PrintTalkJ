@@ -39,7 +39,9 @@ package org.cip4.printtalk;
 import java.util.Vector;
 
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.util.StringUtil;
 
 /**
  * Class represented Quote element.
@@ -56,7 +58,7 @@ public class Quote extends AbstractPrintTalk
 	public final static String ATTR_QUOTEID = "QuoteID";
 	/** */
 	public final static String ATTR_REPLACEID = "ReplaceID";
-	/** */
+	public final static String ATTR_DEVIATIONS = "Deviations";
 	public final static String ATTR_RETURNJDF = "ReturnJDF";
 
 	/**
@@ -70,27 +72,28 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * get currency value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getCurrency()
 	{
-		return getAttribute(BusinessObject.ATTR_CURRENCY);
+		final Pricing p = getPricing();
+		return p == null ? null : p.getCurrency();
 	}
 
 	/**
 	 * set currency value
-	 * 
+	 *
 	 * @param currency
 	 */
 	public void setCurrency(final String currency)
 	{
-		setAttribute(BusinessObject.ATTR_CURRENCY, currency);
+		getCreatePricing().setCurrency(currency);
 	}
 
 	/**
 	 * get estimate value
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean getEstimate()
@@ -100,7 +103,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * set estimate value
-	 * 
+	 *
 	 * @param b
 	 */
 	public void setEstimate(final boolean b)
@@ -110,7 +113,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * get quote id value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getQuoteID()
@@ -120,7 +123,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * set quote id value
-	 * 
+	 *
 	 * @param s
 	 */
 	public void setQuoteID(final String s)
@@ -130,7 +133,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * get replace id value
-	 * 
+	 *
 	 * @return
 	 */
 	public String getReplaceID()
@@ -140,7 +143,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * set replace id value
-	 * 
+	 *
 	 * @param s
 	 */
 	public void setReplaceID(final String s)
@@ -150,7 +153,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * get return jdf value
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean getReturnJDF()
@@ -160,7 +163,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * set return jdf value
-	 * 
+	 *
 	 * @param b
 	 */
 	public void setReturnJDF(final boolean b)
@@ -170,7 +173,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * create pricing element
-	 * 
+	 *
 	 * @return
 	 */
 	public Pricing getCreatePricing()
@@ -180,7 +183,7 @@ public class Quote extends AbstractPrintTalk
 
 	/**
 	 * get pricing element
-	 * 
+	 *
 	 * @return
 	 */
 	public Pricing getPricing()
@@ -222,6 +225,25 @@ public class Quote extends AbstractPrintTalk
 	public void appendXJDF(final XJDFHelper xjdf)
 	{
 		super.appendXJDF(xjdf);
+	}
+
+	/**
+	 *
+	 * @param deviations
+	 */
+	public void setDeviations(final VString deviations)
+	{
+		final String val = StringUtil.setvString(deviations);
+		setAttribute(ATTR_DEVIATIONS, val);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public VString getDeviations()
+	{
+		return StringUtil.tokenize(getAttribute(ATTR_DEVIATIONS), null, false);
 	}
 
 }

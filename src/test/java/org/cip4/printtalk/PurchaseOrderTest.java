@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,6 +36,7 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.node.JDFNode;
 import org.cip4.jdflib.util.JDFDate;
@@ -57,9 +58,25 @@ public class PurchaseOrderTest extends PrintTalkTestCase
 	public void testSetExpires()
 	{
 		final PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		assertNull(po.getExpires());
 		final JDFDate expires = new JDFDate();
 		po.setExpires(expires);
 		assertEquals(expires, po.getExpires());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testSetDescriptiveName()
+	{
+		final PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
+
+		po.setDescriptiveName("foo");
+		assertEquals("foo", po.getDescriptiveName());
+		assertNull(po.getAttribute(AttributeName.DESCRIPTIVENAME));
+		reparse(po, false);
 	}
 
 	/**

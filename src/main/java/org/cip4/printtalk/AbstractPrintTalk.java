@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,17 +36,20 @@
  */
 package org.cip4.printtalk;
 
+import java.util.Collection;
 import java.util.Vector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
+import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
 import org.cip4.jdflib.datatypes.JDFAttributeMap;
 import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.node.JDFNode.EnumType;
 import org.cip4.jdflib.util.ContainerUtil;
 import org.cip4.jdflib.util.StringUtil;
 
@@ -240,7 +243,19 @@ public abstract class AbstractPrintTalk
 	 */
 	public void cleanUp()
 	{
-		theElement.sortChildren(new KElement.SimpleElementNameComparator(), true);
+		theElement.sortChildren(new PrintTalkCleanupComparator(), true);
+		final Collection<XJDFHelper> v = getXJDFs();
+		if (v != null)
+		{
+			for (final XJDFHelper h : v)
+			{
+				if (ContainerUtil.isEmpty(h.getTypes()))
+				{
+					h.addType(EnumType.Product);
+				}
+				h.cleanUp();
+			}
+		}
 	}
 
 	/**
@@ -309,6 +324,43 @@ public abstract class AbstractPrintTalk
 	public KElement getCreateElement(final String nodeName, final int n)
 	{
 		return theElement.getCreateElement(nodeName, null, n);
+	}
+
+	/**
+	 *
+	 * get an element, create it if it does not yet exist
+	 *
+	 * @param nodeName
+	 * @param n index of the element
+	 * @return
+	 */
+	public KElement getCreateXJDFElement(final String nodeName, final int n)
+	{
+		return theElement.getCreateElement(nodeName, getXJDFNamespace(), n);
+	}
+
+	/**
+	 *
+	 * get an element, create it if it does not yet exist
+	 *
+	 * @param nodeName
+	 * @param n index of the element
+	 * @return
+	 */
+	public KElement appendXJDFElement(final String nodeName)
+	{
+		return theElement.appendElement(nodeName, getXJDFNamespace());
+	}
+
+	String getXJDFNamespace()
+	{
+		final String nsURI = theElement.getNamespaceURI();
+		int n = StringUtil.parseInt(StringUtil.rightStr(nsURI, 1), -1);
+		if (n < 0)
+		{
+			n = PrintTalk.getDefaultVersion() % 10;
+		}
+		return JDFElement.getSchemaURL(2, n);
 	}
 
 	/**

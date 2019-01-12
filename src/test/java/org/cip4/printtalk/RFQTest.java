@@ -37,6 +37,7 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
@@ -78,6 +79,55 @@ public class RFQTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testsetExpiresDays()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ rfq = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		rfq.setExpiresDays(5);
+		final JDFDate expires = rfq.getExpires();
+		assertEquals(5 * 1000l * 3600l * 24l, expires.getTimeInMillis() - System.currentTimeMillis(), 1000l * 3600l * 24);
+		assertEquals(JDFDate.getDefaultHour(), expires.getHour());
+		assertEquals(0, expires.getMinute());
+		assertEquals(0, expires.getSecond());
+		rfq.cleanUp();
+		reparse(rfq, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testCurrency()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ rfq = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		rfq.setExpiresDays(5);
+		rfq.setCurrency("eur");
+		rfq.cleanUp();
+		reparse(rfq, false);
+	}
+
+	/**
+	*
+	*
+	*/
+	@Test
+	public void testCurrencyBad()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ rfq = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		rfq.setExpiresDays(5);
+		rfq.setCurrency("€");
+		rfq.cleanUp();
+		reparse(rfq, true);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testappendXJDF()
 	{
 		final PrintTalk printTalk = new PrintTalk();
@@ -88,6 +138,9 @@ public class RFQTest extends PrintTalkTestCase
 		po.appendXJDF(h2);
 		assertEquals("j1", printTalk.getXPathAttribute("Request/RFQ/XJDF/@JobID", null));
 		assertEquals("j2", printTalk.getXPathAttribute("Request/RFQ/XJDF[2]/@JobID", null));
+		po.cleanUp();
+		po.setExpiresDays(4);
+		reparse(po, false);
 	}
 
 	/**

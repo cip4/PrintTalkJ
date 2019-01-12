@@ -39,8 +39,19 @@ package org.cip4.printtalk;
 import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
+import org.cip4.jdflib.core.JDFDoc;
+import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.JDFElement.EnumVersion;
+import org.cip4.jdflib.core.JDFParser;
+import org.cip4.jdflib.core.JDFParserFactory;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.XMLDoc;
+import org.cip4.jdflib.core.XMLErrorHandler;
+import org.cip4.jdflib.util.StringUtil;
+import org.cip4.jdflib.util.UrlUtil;
+import org.cip4.jdflib.util.logging.LogConfigurator;
+import org.cip4.printtalk.builder.PrintTalkBuilder;
+import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Node;
 
@@ -56,8 +67,8 @@ public abstract class PrintTalkTestCase extends TestCase
 {
 	static protected final EnumVersion defaultVersion = EnumVersion.Version_1_5;
 	static protected final String sm_dirTestData = getTestDataDir();
-	static protected final String sm_dirTestSchema = sm_dirTestData + "schema" + File.separator + defaultVersion + File.separator;
 	static protected final String sm_dirTestDataTemp = sm_dirTestData + "temp" + File.separator;
+	protected static final int defaultversion = 20;
 
 	private static String getTestDataDir()
 	{
@@ -101,14 +112,101 @@ public abstract class PrintTalkTestCase extends TestCase
 		}
 	}
 
+	int getPrinttalkVersion(final PrintTalk pt)
+	{
+		final String s = pt.getNamespaceURI();
+		return StringUtil.parseInt(StringUtil.token(s, -1, "_"), 0);
+	}
+
 	/**
 	 *
 	 * @param pt
 	 */
 	protected void writeExample(final PrintTalk pt, final String file)
 	{
-		// TODO add schema parsing
-		pt.write2File(sm_dirTestDataTemp + "printtalkexamples/" + file);
+		final String absolute = sm_dirTestDataTemp + "printtalkexamples/" + file;
+		final boolean written = pt.write2File(absolute);
+		assertTrue(written);
+		final int ptv = getPrinttalkVersion(pt);
+		final JDFParser p = getSchemaParser(ptv);
+		final JDFDoc xParsed = p.parseFile(absolute);
+		final XMLDoc dVal = xParsed.getValidationResult();
+		final String valResult = dVal.getRoot().getAttribute(XMLErrorHandler.VALIDATION_RESULT);
+		if (!XMLErrorHandler.VALID.equals(valResult))
+		{
+			dVal.write2File(UrlUtil.newExtension(absolute, "val.xml"), 2, false);
+		}
+		assertEquals(XMLErrorHandler.VALID, valResult);
+
+	}
+
+	protected void reparse(final BusinessObject pt, final boolean fail)
+	{
+		reparse(pt, defaultversion, fail);
+	}
+
+	/**
+	 *
+	 * @param fail TODO
+	 * @param pt
+	 */
+	static protected void reparse(final BusinessObject bo, final int ptv, final boolean fail)
+	{
+		final PrintTalkBuilder ptb = PrintTalkBuilderFactory.getTheFactory().getBuilder();
+		ptb.resetInstance();
+		ptb.setVersion(ptv);
+		ptb.setFromURL("https://customer.com");
+		ptb.setToURL("https://printer.com");
+
+		final PrintTalk pt = ptb.getPrintTalk();
+		pt.getRoot().getCreateElement(PrintTalk.REQUEST).copyElement(bo.getRoot(), null);
+		pt.getBusinessObject().init();
+		final String written = pt.getRoot().toXML();
+		assertNotNull(written);
+		final JDFParser p = getSchemaParser(ptv);
+		final JDFDoc xParsed = p.parseString(written);
+		final XMLDoc dVal = xParsed.getValidationResult();
+		final String valResult = dVal.getRoot().getAttribute(XMLErrorHandler.VALIDATION_RESULT);
+		if (fail)
+		{
+			assertFalse(XMLErrorHandler.VALID.equals(valResult));
+		}
+		else
+		{
+			if (!XMLErrorHandler.VALID.equals(valResult))
+			{
+				dVal.write2File(sm_dirTestDataTemp + pt.getRoot().getLocalName() + ".validation.xml", 2, false);
+			}
+			assertEquals(XMLErrorHandler.VALID, valResult);
+		}
+	}
+
+	static JDFParser getSchemaParser(final int ptv)
+	{
+		final JDFParser parser = JDFParserFactory.getFactory().get();
+		final int minor = ptv % 10;
+		final File jdfxsd = new File(sm_dirTestData + "schema" + "/Version_2_" + minor + File.separator + "xjdf.xsd");
+		assertTrue(jdfxsd.canRead());
+		final String url = UrlUtil.fileToUrl(jdfxsd, false);
+		parser.setSchemaLocation(JDFElement.getSchemaURL(2, minor), url);
+		parser.addSchemaLocation(PrintTalk.getNamespaceURI(ptv), StringUtil.replaceString(url, "xjdf.", "PrintTalk."));
+		return parser;
+	}
+
+	protected String getPTNamespace()
+	{
+		return PrintTalk.getNamespaceURI(defaultversion);
+	}
+
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception
+	{
+		LogConfigurator.configureLog(null, null);
+		JDFElement.setLongID(false);
+		super.setUp();
 	}
 
 }

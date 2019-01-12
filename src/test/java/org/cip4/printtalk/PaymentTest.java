@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,8 +36,11 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.JDFDoc;
 import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.printtalk.Payment.EnumPaymentType;
+import org.cip4.printtalk.Price.EnumPriceType;
+import org.cip4.printtalk.Price.EnumTaxType;
 import org.junit.Test;
 
 /**
@@ -55,9 +58,60 @@ public class PaymentTest extends PrintTalkTestCase
 	@Test
 	public void testPaymentType()
 	{
-		final Payment p = new Payment(new XMLDoc(Payment.ELEMENT_PAYMENT, null).getRoot());
+		final Payment p = new Payment(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace()).getRoot());
 		p.setPaymentType(EnumPaymentType.BankTransfer);
 		assertEquals(p.getPaymentType(), EnumPaymentType.BankTransfer);
+		reparse(p, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testContact()
+	{
+		final Payment p = new Payment(new JDFDoc(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace())).getRoot());
+		p.setPaymentType(EnumPaymentType.BankTransfer);
+		p.getCreateContact().appendAddress().setStreet("s1");
+		reparse(p, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetContact()
+	{
+		final Payment p = new Payment(new JDFDoc(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace())).getRoot());
+		p.setPaymentType(EnumPaymentType.BankTransfer);
+		p.getCreateContact().appendAddress().setStreet("s1");
+		assertEquals(p.getContact(), p.getCreateContact());
+		reparse(p, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetComment()
+	{
+		final Payment p = new Payment(new JDFDoc(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace())).getRoot());
+		p.setPaymentType(EnumPaymentType.Invoice);
+		p.setPayTerm("abcd");
+		assertEquals("abcd", p.getPayTerm());
+		reparse(p, defaultversion, false);
+	}
+
+	void reparse(final Payment p, final int ptv, final boolean fail)
+	{
+		final Pricing pr = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());
+		pr.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "stuff", 42.42);
+		pr.getRoot().copyElement(p.getRoot(), null);
+		pr.cleanUp();
+		PricingTest.reparse(pr, ptv, fail);
 	}
 
 }

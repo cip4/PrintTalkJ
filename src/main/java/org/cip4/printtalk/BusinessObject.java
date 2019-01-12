@@ -36,9 +36,11 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFConstants;
+import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 
 /**
@@ -135,6 +137,20 @@ public abstract class BusinessObject extends AbstractPrintTalk
 
 	/**
 	 *
+	 * @return id
+	 */
+	@Override
+	public String getDescriptiveName()
+	{
+		final String desc = super.getDescriptiveName();
+		if (desc != null)
+			return desc;
+		final KElement request = getRequest();
+		return request == null ? null : request.getAttribute(AttributeName.DESCRIPTIVENAME);
+	}
+
+	/**
+	 *
 	 * @param id
 	 */
 	public void setBusinessRefID(final String id)
@@ -144,6 +160,21 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		if (request != null)
 		{
 			request.setAttribute(ATTR_BUSINESSREFID, id);
+		}
+	}
+
+	/**
+	 *
+	 * @param id
+	 */
+	@Override
+	public void setDescriptiveName(final String desc)
+	{
+
+		final KElement request = getRequest();
+		if (request != null)
+		{
+			request.setAttribute(AttributeName.DESCRIPTIVENAME, desc);
 		}
 	}
 
@@ -242,6 +273,19 @@ public abstract class BusinessObject extends AbstractPrintTalk
 			throw new IllegalArgumentException("BusinessObject type not yet implemented: " + boName);
 		}
 		return businessObject;
+	}
+
+	/**
+	 * set the expires dates
+	 *
+	 * @param i
+	 */
+	JDFDate getExpirationDays(final int days)
+	{
+		final JDFDate d = new JDFDate();
+		d.setTime(JDFDate.getDefaultHour(), 0, 0);
+		d.addOffset(0, 0, 0, days);
+		return d;
 	}
 
 }
