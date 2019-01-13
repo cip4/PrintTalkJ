@@ -39,6 +39,7 @@ package org.cip4.printtalk;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
@@ -178,6 +179,8 @@ public class Price extends AbstractPrintTalk
 	{
 		return currencyPrecision;
 	}
+
+	private static AtomicInteger linecount = new AtomicInteger();
 
 	/**
 	 *
@@ -358,7 +361,7 @@ public class Price extends AbstractPrintTalk
 		if (subPrice == null)
 			return;
 		final VString v = getLineIDRefs();
-		v.appendUnique(subPrice.getLineID());
+		v.appendUnique(subPrice.ensureLineID());
 		theElement.setAttribute(ATTR_LINEIDREFS, v, null);
 	}
 
@@ -417,6 +420,21 @@ public class Price extends AbstractPrintTalk
 	{
 		final KElement a = theElement.getElement(Additional.ELEMENT_Additional, null, i);
 		return a == null ? null : new Additional(a);
+	}
+
+	/**
+	 * @return
+	 *
+	 */
+	public String ensureLineID()
+	{
+		String lineID = getAttribute(ATTR_LINEID);
+		if (lineID == null)
+		{
+			lineID = "L_" + linecount.incrementAndGet();
+			setLineID(lineID);
+		}
+		return lineID;
 	}
 
 }

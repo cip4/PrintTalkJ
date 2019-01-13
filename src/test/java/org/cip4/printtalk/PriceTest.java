@@ -147,6 +147,19 @@ public class PriceTest extends PrintTalkTestCase
 		assertEquals(p1.getTaxType(), EnumTaxType.Net);
 	}
 
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testEnsureLineID()
+	{
+		final Pricing p = new Pricing(new XMLDoc("Pricing", null).getRoot());
+		final Price p1 = p.addPrice(null, EnumTaxType.Net, "p1", 20);
+		assertNull(p1.getLineID());
+		assertNotNull(p1.ensureLineID());
+	}
+
 	void reparse(final Price p, final int ptv, final boolean fail)
 	{
 		final Pricing pr = new Pricing(new XMLDoc(Pricing.ELEMENT_PRICING, null).getRoot());

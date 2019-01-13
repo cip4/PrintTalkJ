@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -65,7 +65,9 @@ public class ExampleElement extends PrintTalkTestCase
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
 		final Invoice invoice = (Invoice) pt.appendRequest(EnumBusinessObject.Invoice, null);
 		invoice.setBusinessID("invoice1");
+		invoice.setExpiresDays(33);
 		final Pricing p = invoice.getCreatePricing();
+		p.setCurrency("CAD");
 		final Price pi1 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Item #1", 42.00);
 		final Price pi2 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Item #2", 21.00);
 		final Price ptot = p.addPrice(EnumPriceType.Total, EnumTaxType.Gross, "Total", 63.00);
