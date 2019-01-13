@@ -398,8 +398,8 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 	<xs:complexType name="Quotation">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="unbounded" minOccurs="1">
-					<xs:element name="Quote" type="ptk:Quote" maxOccurs="1" minOccurs="0" />
+				<xs:sequence maxOccurs="1" minOccurs="1">
+					<xs:element name="Quote" type="ptk:Quote" maxOccurs="unbounded" minOccurs="1" />
 					<xs:element ref="xjdf:Comment" maxOccurs="1" minOccurs="0" />
 				</xs:sequence>
 				<xs:attribute name="Estimate" type="xs:boolean" use="required" />
