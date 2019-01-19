@@ -65,10 +65,14 @@ import junit.framework.TestCase;
  */
 public abstract class PrintTalkTestCase extends TestCase
 {
-	static protected final EnumVersion defaultVersion = EnumVersion.Version_1_5;
 	static protected final String sm_dirTestData = getTestDataDir();
 	static protected final String sm_dirTestDataTemp = sm_dirTestData + "temp" + File.separator;
 	protected static final int defaultversion = 20;
+
+	EnumVersion getXJDFVersion()
+	{
+		return EnumVersion.getEnum(2, defaultversion % 10);
+	}
 
 	private static String getTestDataDir()
 	{

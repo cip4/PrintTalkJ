@@ -82,7 +82,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public static enum EnumBusinessObject
 	{
 		/** */
-		ArtDelivery, ArtDeliveryResult,
+		ArtDeliveryRequest, ArtDeliveryResponse,
 		/** */
 		RFQ,
 		/** */

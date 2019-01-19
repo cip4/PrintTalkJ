@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,6 +36,7 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
 
@@ -44,8 +45,15 @@ import org.cip4.jdflib.extensions.XJDFHelper;
  * @author rainer prosi
  * @date Jan 3, 2011
  */
-public class ArtDelivery extends BusinessObject
+public class ArtDelivery extends AbstractPrintTalk
 {
+
+	public static final String ELEMENT_ARTDELIVERY = "ArtDelivery";
+
+	public enum EnumUpdateMethod
+	{
+		Add, Replace
+	}
 
 	/**
 	 *
@@ -72,6 +80,26 @@ public class ArtDelivery extends BusinessObject
 	public XJDFHelper getXJDF(final int i)
 	{
 		return super.getXJDF(i);
+	}
+
+	/**
+	 *
+	 * @param m
+	 */
+	public void setUpdateMethod(final EnumUpdateMethod m)
+	{
+		setAttribute(AttributeName.UPDATEMETHOD, (m == null) ? null : m.name());
+	}
+
+	/**
+	 * get update method value
+	 *
+	 * @return
+	 */
+	public EnumUpdateMethod getUpdateMethod()
+	{
+		final String s = getAttribute(AttributeName.UPDATEMETHOD);
+		return s == null ? null : EnumUpdateMethod.valueOf(s);
 	}
 
 }

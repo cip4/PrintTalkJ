@@ -204,13 +204,13 @@ public abstract class BusinessObject extends AbstractPrintTalk
 
 		final String boName = e.getLocalName();
 		final BusinessObject businessObject;
-		if (EnumBusinessObject.ArtDelivery.name().equals(boName))
+		if (EnumBusinessObject.ArtDeliveryRequest.name().equals(boName))
 		{
-			businessObject = new ArtDelivery(e);
+			businessObject = new ArtDeliveryRequest(e);
 		}
-		else if (EnumBusinessObject.ArtDeliveryResult.name().equals(boName))
+		else if (EnumBusinessObject.ArtDeliveryResponse.name().equals(boName))
 		{
-			businessObject = new ArtDeliveryResult(e);
+			businessObject = new ArtDeliveryResponse(e);
 		}
 		else if (EnumBusinessObject.RFQ.name().equals(boName))
 		{

@@ -43,8 +43,10 @@ import org.cip4.jdflib.core.KElement;
  * @author rainer prosi
  * @date Jan 3, 2011
  */
-public class ArtDeliveryResult extends BusinessObject
+public class ArtDeliveryResponse extends BusinessObject
 {
+	public final String ATTR_RESULT = "Result";
+
 	enum EnumResult
 	{
 		Accepted, AcceptedWaiting, Rejected
@@ -54,9 +56,29 @@ public class ArtDeliveryResult extends BusinessObject
 	 *
 	 * @param theElement
 	 */
-	public ArtDeliveryResult(final KElement theElement)
+	public ArtDeliveryResponse(final KElement theElement)
 	{
 		super(theElement);
+	}
+
+	/**
+	 *
+	 * @param m
+	 */
+	public void setResult(final EnumResult r)
+	{
+		setAttribute(ATTR_RESULT, (r == null) ? null : r.name());
+	}
+
+	/**
+	 * get update method value
+	 *
+	 * @return
+	 */
+	public EnumResult getResult()
+	{
+		final String s = getAttribute(ATTR_RESULT);
+		return s == null ? null : EnumResult.valueOf(s);
 	}
 
 }

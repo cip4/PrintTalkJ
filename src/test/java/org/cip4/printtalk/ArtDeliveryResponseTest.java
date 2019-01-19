@@ -36,8 +36,7 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.extensions.XJDFHelper;
-import org.cip4.printtalk.ArtDelivery.EnumUpdateMethod;
+import org.cip4.printtalk.ArtDeliveryResponse.EnumResult;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
@@ -46,7 +45,7 @@ import org.junit.Test;
  * @author rainer prosi
  * @date Jan 5, 2011
  */
-public class ArtDeliveryTest extends PrintTalkTestCase
+public class ArtDeliveryResponseTest extends PrintTalkTestCase
 {
 	/**
 	 *
@@ -56,7 +55,7 @@ public class ArtDeliveryTest extends PrintTalkTestCase
 	public void testgetPrintTalk()
 	{
 		final PrintTalk printTalk = new PrintTalk();
-		final ArtDeliveryRequest po = (ArtDeliveryRequest) printTalk.appendRequest(EnumBusinessObject.ArtDeliveryRequest, null);
+		final ArtDeliveryResponse po = (ArtDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ArtDeliveryResponse, null);
 		assertEquals(printTalk, po.getPrintTalk());
 	}
 
@@ -65,16 +64,13 @@ public class ArtDeliveryTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
-	public void testValidRequest()
+	public void testValidResponse()
 	{
 		final PrintTalk printTalk = new PrintTalk();
-		final ArtDeliveryRequest adr = (ArtDeliveryRequest) printTalk.appendRequest(EnumBusinessObject.ArtDeliveryRequest, null);
-		final ArtDelivery createArtDelivery = adr.getCreateArtDelivery(0);
-		createArtDelivery.setUpdateMethod(EnumUpdateMethod.Add);
-		final XJDFHelper xjdf = new XJDFHelper(getXJDFVersion(), "j1");
-		xjdf.setTypes("Product");
-		createArtDelivery.appendXJDF(xjdf);
+		final ArtDeliveryResponse adr = (ArtDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ArtDeliveryResponse, null);
+		adr.setResult(EnumResult.Accepted);
 		printTalk.cleanUp();
 		reparse(adr, false);
 	}
+
 }

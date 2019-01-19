@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,26 +36,53 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Test;
+import org.cip4.jdflib.core.KElement;
 
 /**
  *
  * @author rainer prosi
- * @date Jan 5, 2011
+ * @date Jan 3, 2011
  */
-public class ArtDeliveryResultTest extends PrintTalkTestCase
+public class ArtDeliveryRequest extends BusinessObject
 {
+
 	/**
 	 *
-	 *
+	 * @param theElement
 	 */
-	@Test
-	public void testgetPrintTalk()
+	public ArtDeliveryRequest(final KElement theElement)
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ArtDeliveryResult po = (ArtDeliveryResult) printTalk.appendRequest(EnumBusinessObject.ArtDeliveryResult, null);
-		assertEquals(printTalk, po.getPrintTalk());
+		super(theElement);
+	}
+
+	/**
+	 * create art delivery element
+	 *
+	 * @return
+	 */
+	public ArtDelivery getCreateArtDelivery(final int n)
+	{
+		return new ArtDelivery(getCreateElement(ArtDelivery.ELEMENT_ARTDELIVERY, n));
+	}
+
+	/**
+	 * create art delivery element
+	 *
+	 * @return
+	 */
+	public ArtDelivery getArtDelivery(final int n)
+	{
+		return new ArtDelivery(getElement(ArtDelivery.ELEMENT_ARTDELIVERY, n));
+	}
+
+	/**
+	 * create art delivery element
+	 *
+	 * @return
+	 */
+	public ArtDelivery appendArtDelivery()
+	{
+		return new ArtDelivery(appendElement(ArtDelivery.ELEMENT_ARTDELIVERY));
 	}
 
 }
