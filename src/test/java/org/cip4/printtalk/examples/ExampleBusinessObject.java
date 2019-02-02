@@ -37,6 +37,7 @@
 package org.cip4.printtalk.examples;
 
 import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
@@ -88,8 +89,16 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		quotation.setBusinessID("q1");
 		quotation.setEstimate(false);
 		quotation.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
+		final Quote q = quotation.appendQuote();
+		q.setQuoteID("q1");
+		q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "100 business cards", 420000.00);
+		q.getCreatePricing().setCurrency("GBP");
+		final Quote q2 = quotation.appendQuote();
+		q2.setQuoteID("q1");
+		q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "100 business cards", 42.00);
+		q2.getCreatePricing().setCurrency("DKK");
 		pt.cleanUp();
-		// TODO continue
+		setSnippet(quotation, true);
 		writeExample(pt, "businessobjects/Quotation.ptk");
 	}
 
@@ -104,8 +113,29 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final RFQ rfq = (RFQ) pt.appendRequest(EnumBusinessObject.RFQ, null);
 		rfq.setBusinessID("RFQ_1");
 		rfq.setExpiresDays(5);
+		rfq.appendXJDF(new XJDFHelper("MyJob", null));
+		pt.cleanUp();
 		setSnippet(rfq.getRequest(), true);
 		writeExample(pt, "idusage/SimpleRFQ.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testIdChangeRfq()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		final RFQ rfq = (RFQ) pt.appendRequest(EnumBusinessObject.RFQ, null);
+		rfq.setBusinessID("Change_RFQ_1");
+		rfq.setBusinessRefID("PO_1");
+		rfq.setExpiresDays(1);
+		rfq.appendXJDF(new XJDFHelper("MyJob", null));
+		rfq.appendXJDFElement(ElementName.COMMENT).setText("Please call me asap!");
+		pt.cleanUp();
+		setSnippet(rfq.getRequest(), true);
+		writeExample(pt, "idusage/ChangeRFQ.ptk");
 	}
 
 	/**
@@ -129,8 +159,8 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		q2.setQuoteID("Quote_2");
 		q2.getCreatePricing().setCurrency("CHF");
 		q2.getCreatePricing().addPrice(EnumPriceType.Product, EnumTaxType.Gross, "all of 2", 222.22);
-		setSnippet(quotation.getRequest(), true);
 		pt.cleanUp();
+		setSnippet(quotation.getRequest(), true);
 		writeExample(pt, "idusage/SimpleQuotation.ptk");
 	}
 
@@ -146,8 +176,8 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final Confirmation c = (Confirmation) pt.appendRequest(EnumBusinessObject.Confirmation, null);
 		c.setBusinessRefID("PO_1");
 		c.setBusinessID("Confirmation_1");
-		setSnippet(c.getRequest(), true);
 		pt.cleanUp();
+		setSnippet(c.getRequest(), true);
 		writeExample(pt, "idusage/SimpleConfirmation.ptk");
 	}
 
@@ -165,8 +195,8 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		ref.setBusinessID("Confirmation_1");
 		ref.setAttribute(AttributeName.REASON, EnumReason.Busy.name());
 		ref.setAttribute(AttributeName.REASONDETAILS, "Christmas");
-		setSnippet(ref.getRequest(), true);
 		pt.cleanUp();
+		setSnippet(ref.getRequest(), true);
 		writeExample(pt, "idusage/SimpleRefusal.ptk");
 	}
 
@@ -179,11 +209,12 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 
-		final PurchaseOrder quotation = (PurchaseOrder) pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
-		quotation.setBusinessRefID("Quotation_1");
-		quotation.setBusinessID("Quotation_1");
-		quotation.setQuoteID("Quote_1");
-		setSnippet(quotation.getRequest(), true);
+		final PurchaseOrder po = (PurchaseOrder) pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		po.setBusinessRefID("Quotation_1");
+		po.setBusinessID("PO_1");
+		po.setQuoteID("Quote_1");
+		po.appendXJDF(new XJDFHelper("MyJob", null));
+		setSnippet(po.getRequest(), true);
 		pt.cleanUp();
 		writeExample(pt, "idusage/SimplePO.ptk");
 	}

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,6 +36,7 @@
  */
 package org.cip4.printtalk.examples;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.printtalk.Credential;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
@@ -77,7 +78,7 @@ public class ExampleHeader extends PrintTalkTestCase
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
-		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		pt.appendRequest(EnumBusinessObject.Confirmation, null);
 		pt.cleanUp();
 		setSnippet(pt.getRoot(), true);
 		setSnippet(pt.getElement(PrintTalkConstants.Header), false);
@@ -95,8 +96,11 @@ public class ExampleHeader extends PrintTalkTestCase
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_DUNS, "123456789");
+		pt.setCredential(EnumHeaderType.From, AttributeName.DESCRIPTIVENAME, "Polkadot Printers");
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
-		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		pt.setCredential(EnumHeaderType.To, AttributeName.DESCRIPTIVENAME, "PeterPan");
+		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_DUNS, "93009388");
+		pt.appendRequest(EnumBusinessObject.Confirmation, null);
 		pt.cleanUp();
 		setSnippet(pt.getElement(PrintTalkConstants.Header), true);
 		writeExample(pt, "structure/Header.ptk");
@@ -112,10 +116,10 @@ public class ExampleHeader extends PrintTalkTestCase
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://customer.com");
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://printer.com");
-		pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		pt.appendRequest(EnumBusinessObject.Confirmation, null);
 		pt.cleanUp();
 		setSnippet(pt.getElement(PrintTalkConstants.Header), true);
-		writeExample(pt, "structure/Header.ptk");
+		writeExample(pt, "structure/Request.ptk");
 	}
 
 	/**

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -114,6 +114,16 @@ public abstract class PrintTalkTestCase extends TestCase
 			newChild = e.getOwnerDocument().createComment(startFirst ? end : start);
 			parent.insertBefore(newChild, e.getNextSibling());
 		}
+	}
+
+	/**
+	 *
+	 * @param e
+	 * @param startFirst if true include the enclosing element, if false exclude it
+	 */
+	protected void setSnippet(final AbstractPrintTalk e, final boolean startFirst)
+	{
+		setSnippet(e == null ? null : e.getRoot(), startFirst);
 	}
 
 	int getPrinttalkVersion(final PrintTalk pt)

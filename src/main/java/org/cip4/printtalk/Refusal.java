@@ -49,7 +49,7 @@ public class Refusal extends BusinessObject
 	public enum EnumReason
 	{
 		Busy, WrongProduct, InvalidPrice, Other
-	};
+	}
 
 	/**
 	 *
