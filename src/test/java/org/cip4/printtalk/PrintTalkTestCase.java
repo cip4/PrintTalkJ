@@ -161,7 +161,7 @@ public abstract class PrintTalkTestCase extends TestCase
 
 	/**
 	 *
-	 * @param fail TODO
+	 * @param fail if true should fail
 	 * @param pt
 	 */
 	static protected void reparse(final BusinessObject bo, final int ptv, final boolean fail)

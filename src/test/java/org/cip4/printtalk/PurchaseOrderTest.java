@@ -71,11 +71,15 @@ public class PurchaseOrderTest extends PrintTalkTestCase
 	@Test
 	public void testSetDescriptiveName()
 	{
-		final PurchaseOrder po = (PurchaseOrder) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		final PrintTalk printTalk = new PrintTalk();
+		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
 
 		po.setDescriptiveName("foo");
 		assertEquals("foo", po.getDescriptiveName());
 		assertNull(po.getAttribute(AttributeName.DESCRIPTIVENAME));
+		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		po.appendXJDF(xjdf);
+		printTalk.cleanUp();
 		reparse(po, false);
 	}
 
