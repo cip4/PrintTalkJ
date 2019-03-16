@@ -75,6 +75,7 @@ public class CredentialTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	@Deprecated
 	public void testSharedSecret()
 	{
 		final PrintTalk pt = new PrintTalk();

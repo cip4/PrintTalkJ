@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,64 +36,27 @@
  */
 package org.cip4.printtalk;
 
-import java.util.Vector;
-
-import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.junit.Test;
 
 /**
  *
  * @author rainer prosi
- * @date Jan 3, 2011
- * @deprecated use OrderStausResponse
+ * @date Jan 11, 2011
  */
-@Deprecated
-public class ReturnJob extends BusinessObject
+public class OrderStatusRequestTest extends PrintTalkTestCase
 {
-
 	/**
 	 *
-	 * @param theElement
+	 *
 	 */
-	public ReturnJob(final KElement theElement)
+	@Test
+	public void testAppend()
 	{
-		super(theElement);
+		final OrderStatusRequest r = (OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
+		final StatusRequest s = r.appendStatusRequest();
+		s.setSubscribed(true);
+		assertEquals(s, r.getStatusRequest());
+		reparse(r, false);
 	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#setXJDF(org.cip4.jdflib.extensions.XJDFHelper)
-	 */
-	@Override
-	public void setXJDF(final XJDFHelper xjdf)
-	{
-		super.setXJDF(xjdf);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDF(int)
-	 */
-	@Override
-	public XJDFHelper getXJDF(final int i)
-	{
-		return super.getXJDF(i);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDFs()
-	 */
-	@Override
-	public Vector<XJDFHelper> getXJDFs()
-	{
-		return super.getXJDFs();
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#appendXJDF(org.cip4.jdflib.extensions.XJDFHelper)
-	 */
-	@Override
-	public void appendXJDF(final XJDFHelper xjdf)
-	{
-		super.appendXJDF(xjdf);
-	}
-
 }

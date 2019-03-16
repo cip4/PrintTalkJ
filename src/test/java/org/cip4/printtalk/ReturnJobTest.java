@@ -44,7 +44,9 @@ import org.junit.Test;
  *
  * @author rainer prosi
  * @date Jan 5, 2011
+ * @deprecated
  */
+@Deprecated
 public class ReturnJobTest extends PrintTalkTestCase
 {
 	/**

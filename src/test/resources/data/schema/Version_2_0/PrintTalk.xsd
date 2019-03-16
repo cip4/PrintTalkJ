@@ -256,7 +256,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:sequence maxOccurs="1" minOccurs="1">
 					<xs:element ref="xjdf:Comment" maxOccurs="1" minOccurs="0" />
 				</xs:sequence>
-				<xs:attribute name="JobIDRef" type="xs:string" use="optional" />
+				<xs:attribute name="JobIDRef" type="xs:NMTOKEN" use="optional" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -308,9 +308,11 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 						<xs:restriction base="xs:NMTOKEN">
 							<xs:enumeration value="Brief" />
 							<xs:enumeration value="CompletedMilestones" />
+							<xs:enumeration value="Full" />
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:attribute>
+				<xs:attribute name="ReturnAudits" type="xs:NMTOKENS" use="optional" />
 				<xs:attribute name="Subscribed" type="xs:boolean" use="required" />
 			</xs:extension>
 		</xs:complexContent>
@@ -321,11 +323,12 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 	<xs:complexType name="OrderStatusResponse">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
-					<xs:element ref="xjdf:Notification" maxOccurs="unbounded" minOccurs="0" />
+				<xs:sequence>
+					<xs:element ref="xjdf:AuditPool" />
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
+		<xs:attribute name="JobIDRef" type="xs:NMTOKEN" use="required" />
 	</xs:complexType>
 
 	<!-- ProofApprovalRequest -->
@@ -334,18 +337,9 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
 				<xs:sequence maxOccurs="1" minOccurs="1">
-					<xs:element name="ProofRequest" type="ptk:ProofRequest" maxOccurs="unbounded" minOccurs="0" />
+					<xs:element ref="xjdf:ProofItem" maxOccurs="1" minOccurs="1" />
 				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<xs:complexType name="ProofRequest">
-		<xs:complexContent>
-			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
-					<xs:element ref="xjdf:ProofItem" maxOccurs="unbounded" minOccurs="0" />
-				</xs:sequence>
-				<xs:attribute name="JobIDRef" type="xs:string" use="optional" />
+				<xs:attribute name="JobIDRef" type="xs:NMTOKEN" use="required" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -355,20 +349,11 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 	<xs:complexType name="ProofApprovalResponse">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
-					<xs:element name="ProofResponse" type="ptk:ProofResponse" maxOccurs="unbounded" minOccurs="0" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<xs:complexType name="ProofResponse">
-		<xs:complexContent>
-			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
+				<xs:sequence>
 					<xs:element ref="xjdf:ApprovalDetails" maxOccurs="1" minOccurs="1" />
-					<xs:element ref="xjdf:ProofItem" maxOccurs="1" minOccurs="1" />
+					<xs:element ref="xjdf:ProofItem" maxOccurs="1" minOccurs="0" />
 				</xs:sequence>
-				<xs:attribute name="JobIDRef" type="xs:string" use="required" />
+				<xs:attribute name="JobIDRef" type="xs:NMTOKEN" use="required" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -381,7 +366,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:sequence maxOccurs="1" minOccurs="1">
 					<xs:element name="Pricing" type="ptk:Pricing" maxOccurs="1" minOccurs="0" />
 					<xs:element ref="xjdf:Comment" maxOccurs="1" minOccurs="0" />
-					<xs:element ref="xjdf:XJDF" maxOccurs="unbounded" minOccurs="0" />
+					<xs:element ref="xjdf:XJDF" maxOccurs="unbounded" minOccurs="1" />
 				</xs:sequence>
 				<xs:attribute name="Expires" type="xs:dateTime" use="optional" />
 				<xs:attribute name="QuoteID" type="xs:NMTOKEN" use="optional" />
@@ -398,7 +383,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 	<xs:complexType name="Quotation">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="unbounded" minOccurs="1">
+				<xs:sequence>
 					<xs:element name="Quote" type="ptk:Quote" maxOccurs="unbounded" minOccurs="1" />
 					<xs:element ref="xjdf:Comment" maxOccurs="1" minOccurs="0" />
 				</xs:sequence>
@@ -422,6 +407,17 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 					</xs:element>
 					<xs:element ref="xjdf:XJDF" maxOccurs="unbounded" minOccurs="0" />
 				</xs:sequence>
+				<xs:attribute name="DeviationCause" use="optional" >
+					<xs:simpleType>
+						<xs:restriction base="xs:NMTOKEN">
+							<xs:enumeration value="ContentMismatch" />
+							<xs:enumeration value="Efficiency" />
+							<xs:enumeration value="Other" />
+							<xs:enumeration value="Production" />
+							<xs:enumeration value="Quality" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>				
 				<xs:attribute name="Deviations" type="xs:NMTOKENS" use="optional" />
 				<xs:attribute name="QuoteID" type="xs:NMTOKEN" use="required" />
 				<xs:attribute name="ReplaceID" type="xs:NMTOKEN" use="optional" />
@@ -442,7 +438,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 						<xs:restriction base="xs:NMTOKEN">
 							<xs:enumeration value="Busy" />
 							<xs:enumeration value="InvalidPrice" />
-							<xs:enumeration value="other" />
+							<xs:enumeration value="Other" />
 							<xs:enumeration value="WrongProduct" />
 						</xs:restriction>
 					</xs:simpleType>
@@ -452,26 +448,14 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 		</xs:complexContent>
 	</xs:complexType>
 
-	<!-- ReturnJob -->
-	<xs:element name="ReturnJob" substitutionGroup="ptk:BusinessObject" type="ptk:ReturnJob" />
-	<xs:complexType name="ReturnJob">
-		<xs:complexContent>
-			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
-					<xs:element ref="xjdf:XJDF" maxOccurs="unbounded" minOccurs="0" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-
 	<!-- RFQ -->
 	<xs:element name="RFQ" substitutionGroup="ptk:BusinessObject" type="ptk:RFQ" />
 	<xs:complexType name="RFQ">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
+				<xs:sequence>
 					<xs:element ref="xjdf:Comment" maxOccurs="1" minOccurs="0" />
-					<xs:element ref="xjdf:XJDF" maxOccurs="unbounded" minOccurs="0" />
+					<xs:element ref="xjdf:XJDF" maxOccurs="unbounded" minOccurs="1" />
 				</xs:sequence>
 				<xs:attribute name="Currency" type="ptk:Currency" use="optional" />
 				<xs:attribute name="Estimate" type="xs:boolean" use="optional" />
@@ -512,7 +496,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:sequence maxOccurs="1" minOccurs="1">
 					<xs:element name="Pricing" type="ptk:Pricing" maxOccurs="1" minOccurs="0" />
 					<xs:element ref="xjdf:Contact" maxOccurs="1" minOccurs="0" />
-					<xs:element ref="xjdf:XJDF" maxOccurs="1" minOccurs="0" />
+					<xs:element ref="xjdf:XJDF" maxOccurs="1" minOccurs="1" />
 				</xs:sequence>
 				<xs:attribute name="Amount" type="xs:integer" use="required" />
 				<xs:attribute name="Availability" type="ptk:Availability" use="required" />
@@ -639,8 +623,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
     <xs:simpleType name="Currency">
     	<xs:restriction base="xs:NMTOKEN">
     		<xs:pattern value="[A-Z][A-Z][A-Z]"/>
-    		<xs:pattern value="[0-9][0-9][0-9]"/>
-    	</xs:restriction>
+     	</xs:restriction>
     </xs:simpleType>
 
 
