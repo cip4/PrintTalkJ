@@ -42,6 +42,7 @@ import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
+import org.cip4.jdflib.resource.JDFMilestone;
 import org.cip4.jdflib.resource.JDFNotification;
 
 /**
@@ -71,6 +72,7 @@ public class OrderStatusResponse extends BusinessObject
 	 */
 	public void setMilestone(final String jobID, final String milestone)
 	{
+		setJobIDRef(jobID);
 		final AuditPoolHelper auditPoolHelper = getAuditPoolHelper();
 		final JDFNotification notification = (JDFNotification) auditPoolHelper.appendAudit(ElementName.NOTIFICATION).getRoot().appendElementRaw(ElementName.NOTIFICATION, null);
 		notification.setJobID(jobID);
@@ -81,7 +83,27 @@ public class OrderStatusResponse extends BusinessObject
 	}
 
 	/**
-	 * 
+	 * get job id ref value
+	 *
+	 * @return
+	 */
+	public String getJobIDRef()
+	{
+		return getAttribute(ATTR_JOBIDREF);
+	}
+
+	/**
+	 * set job id ref value
+	 *
+	 * @param s
+	 */
+	public void setJobIDRef(final String s)
+	{
+		setAttribute(ATTR_JOBIDREF, s);
+	}
+
+	/**
+	 *
 	 * @return
 	 */
 	public AuditPoolHelper getAuditPoolHelper()
@@ -102,6 +124,18 @@ public class OrderStatusResponse extends BusinessObject
 	public JDFNotification getMilestoneNotification(final int nSkip)
 	{
 		return (JDFNotification) getRoot().getChildWithAttribute(ElementName.NOTIFICATION, AttributeName.CLASS, null, "*", nSkip, false);
+	}
+
+	/**
+	 *
+	 * @param n
+	 * @return
+	 */
+	public String getMilestoneName(final int n)
+	{
+		final JDFNotification milestoneNotification = getMilestoneNotification(n);
+		final JDFMilestone milestone = milestoneNotification != null ? milestoneNotification.getMilestone() : null;
+		return milestone != null ? milestone.getMilestoneType() : null;
 	}
 
 }

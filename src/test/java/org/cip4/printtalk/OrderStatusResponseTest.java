@@ -29,9 +29,9 @@
  *
  * This software consists of voluntary contributions made by many individuals on behalf of the The International Cooperation for the Integration of Processes in Prepress, Press and Postpress and was
  * originally based on software copyright (c) 1999-2001, Heidelberger Druckmaschinen AG copyright (c) 1999-2001, Agfa-Gevaert N.V.
- * 
+ *
  * For more information on The International Cooperation for the Integration of Processes in Prepress, Press and Postpress , please see <http://www.cip4.org/>.
- * 
+ *
  *
  */
 package org.cip4.printtalk;
@@ -60,5 +60,31 @@ public class OrderStatusResponseTest extends PrintTalkTestCase
 		assertNotNull(osResp.getMilestoneNotification(0));
 		assertNull(osResp.getMilestoneNotification(1));
 		reparse(osResp, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetJobIDREf()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
+		osResp.setMilestone("JiD", "PrepressAvailable");
+		assertEquals("JiD", osResp.getJobIDRef());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetMilestone()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
+		osResp.setMilestone("JiD", "PrepressAvailable");
+		assertEquals("PrepressAvailable", osResp.getMilestoneName(0));
 	}
 }

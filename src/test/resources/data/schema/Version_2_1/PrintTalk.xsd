@@ -64,7 +64,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 		elementFormDefault="qualified" attributeFormDefault="unqualified" version="V2.0" >
     <xs:annotation>
         <xs:documentation>
-        	PrintTalk schema: Version 1.4 This schema is intended for use with a single root element, namely: PrintTalk
+        	PrintTalk schema: Version 2.0 This schema is intended for use with a single root element, namely: PrintTalk
         </xs:documentation>
     </xs:annotation>
     
@@ -326,9 +326,9 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:sequence>
 					<xs:element ref="xjdf:AuditPool" />
 				</xs:sequence>
+			    <xs:attribute name="JobIDRef" type="xs:NMTOKEN" use="required" />
 			</xs:extension>
 		</xs:complexContent>
-		<xs:attribute name="JobIDRef" type="xs:NMTOKEN" use="required" />
 	</xs:complexType>
 
 	<!-- ProofApprovalRequest -->
