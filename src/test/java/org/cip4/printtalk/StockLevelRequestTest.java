@@ -70,10 +70,11 @@ public class StockLevelRequestTest extends PrintTalkTestCase
 	{
 		final StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
 		assertNull(req.getCurrency());
-		req.setAvailability(EnumAvailability.Deliverable);
-		assertEquals(req.getAvailability(), EnumAvailability.Deliverable);
+		req.addAvailability(EnumAvailability.Deliverable);
+		assertEquals(EnumAvailability.Deliverable, req.getAvailability().get(0));
 		req.setAvailability(null);
-		assertEquals(req.getAvailability(), EnumAvailability.Any);
+		assertTrue(req.getAvailability().isEmpty());
+		reparse(req, false);
 	}
 
 }

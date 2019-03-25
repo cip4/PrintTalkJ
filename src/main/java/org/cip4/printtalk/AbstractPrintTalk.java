@@ -46,6 +46,7 @@ import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
+import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.datatypes.JDFAttributeMap;
 import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.jdflib.extensions.XJDFHelper;
@@ -208,6 +209,18 @@ public abstract class AbstractPrintTalk
 	public void setAttribute(final String key, final String value)
 	{
 		theElement.setAttribute(key, value);
+	}
+
+	/**
+	 *
+	 * set an attribute in this
+	 *
+	 * @param key
+	 * @param value
+	 */
+	public void setVAttribute(final String key, final VString value)
+	{
+		theElement.setAttribute(key, value, null);
 	}
 
 	/**
