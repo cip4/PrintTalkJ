@@ -36,6 +36,8 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Vector;
 
 import org.cip4.jdflib.extensions.XJDFHelper;

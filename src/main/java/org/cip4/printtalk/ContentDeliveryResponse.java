@@ -34,80 +34,45 @@
  *
  *
  */
-package org.cip4.printtalk.builder;
+package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.cip4.jdflib.core.KElement;
 
-import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.cip4.printtalk.PrintTalkTestCase;
-import org.junit.Test;
-
-public class PrintTalkBuilderFactoryTest extends PrintTalkTestCase
+/**
+ *
+ * @author rainer prosi
+ * @date Jan 3, 2011
+ */
+public class ContentDeliveryResponse extends BusinessObject
 {
 
 	/**
 	 *
+	 * @param theElement
 	 */
-	@Test
-	public void testGetFactory()
+	public ContentDeliveryResponse(final KElement theElement)
 	{
-		assertNotNull(PrintTalkBuilderFactory.getTheFactory());
+		super(theElement);
 	}
 
 	/**
 	 *
+	 * @param m
 	 */
-	@Test
-	public void testGetBuilder()
+	public void setResult(final EnumResult r)
 	{
-		assertNotNull(PrintTalkBuilderFactory.getTheFactory().getBuilder());
+		setAttribute(PrintTalkConstants.Result, (r == null) ? null : r.name());
 	}
 
 	/**
+	 * get update method value
 	 *
+	 * @return
 	 */
-	@Test
-	public synchronized void testGetTo()
+	public EnumResult getResult()
 	{
-		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
-		theFactory.setTo("to2");
-		assertEquals("to2", theFactory.getBuilder().getTo());
-	}
-
-	/**
-	 *
-	 */
-	@Test
-	public synchronized void testNoBack()
-	{
-		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
-		theFactory.setTo(null);
-		final PrintTalkBuilder builder = theFactory.getBuilder();
-		builder.setTo("42");
-		assertNull(theFactory.getTo());
-	}
-
-	/**
-	 *
-	 */
-	@Test
-	public void testBO()
-	{
-		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
-		theFactory.setBusinessObject(EnumBusinessObject.Cancellation);
-		assertEquals(EnumBusinessObject.Cancellation, theFactory.getBuilder().getBusinessObject());
-	}
-
-	/**
-	 * @see org.cip4.printtalk.PrintTalkTestCase#tearDown()
-	 */
-	@Override
-	public void tearDown() throws Exception
-	{
-		PrintTalkBuilderFactory.getTheFactory().resetInstance();
-		super.tearDown();
+		final String s = getAttribute(PrintTalkConstants.Result);
+		return s == null ? null : EnumResult.valueOf(s);
 	}
 
 }

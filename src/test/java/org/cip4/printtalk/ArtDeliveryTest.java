@@ -36,9 +36,12 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+
 import org.cip4.jdflib.extensions.XJDFHelper;
-import org.cip4.printtalk.ArtDelivery.EnumUpdateMethod;
+import org.cip4.printtalk.BusinessObject.EnumUpdateMethod;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,6 +68,7 @@ public class ArtDeliveryTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	@Ignore
 	public void testValidRequest()
 	{
 		final PrintTalk printTalk = new PrintTalk();

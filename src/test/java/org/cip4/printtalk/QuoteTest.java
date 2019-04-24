@@ -36,6 +36,8 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.jdflib.extensions.XJDFHelper;

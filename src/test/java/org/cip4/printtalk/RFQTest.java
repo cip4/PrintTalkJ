@@ -36,6 +36,8 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;

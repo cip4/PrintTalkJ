@@ -43,6 +43,7 @@ import org.cip4.jdflib.core.KElement;
  * @author rainer prosi
  * @date Jan 3, 2011
  */
+@Deprecated
 public class ArtDeliveryRequest extends BusinessObject
 {
 

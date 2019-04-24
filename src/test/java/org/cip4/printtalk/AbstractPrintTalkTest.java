@@ -36,6 +36,9 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.cip4.jdflib.core.ElementName;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.junit.Test;

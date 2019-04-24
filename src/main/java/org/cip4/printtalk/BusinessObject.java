@@ -55,6 +55,16 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	public static final String ATTR_CURRENCY = "Currency";
 	public static final String ATTR_EXPIRES = "Expires";
 
+	public enum EnumResult
+	{
+		Accepted, AcceptedWaiting, Rejected
+	}
+
+	public enum EnumUpdateMethod
+	{
+		Add, Replace
+	}
+
 	/**
 	 * note that it is not necessarily always legal to add a JDF to an arbitrary bo
 	 *
@@ -204,13 +214,13 @@ public abstract class BusinessObject extends AbstractPrintTalk
 
 		final String boName = e.getLocalName();
 		final BusinessObject businessObject;
-		if (EnumBusinessObject.ArtDeliveryRequest.name().equals(boName))
+		if (EnumBusinessObject.ContentDelivery.name().equals(boName))
 		{
-			businessObject = new ArtDeliveryRequest(e);
+			businessObject = new ContentDelivery(e);
 		}
-		else if (EnumBusinessObject.ArtDeliveryResponse.name().equals(boName))
+		else if (EnumBusinessObject.ContentDeliveryResponse.name().equals(boName))
 		{
-			businessObject = new ArtDeliveryResponse(e);
+			businessObject = new ContentDeliveryResponse(e);
 		}
 		else if (EnumBusinessObject.RFQ.name().equals(boName))
 		{
@@ -256,10 +266,6 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		{
 			businessObject = new Invoice(e);
 		}
-		else if (EnumBusinessObject.ReturnJob.name().equals(boName))
-		{
-			businessObject = new ReturnJob(e);
-		}
 		else if (EnumBusinessObject.StockLevelRequest.name().equals(boName))
 		{
 			businessObject = new StockLevelRequest(e);
@@ -267,6 +273,18 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		else if (EnumBusinessObject.StockLevelResponse.name().equals(boName))
 		{
 			businessObject = new StockLevelResponse(e);
+		}
+		else if (EnumBusinessObject.ReturnJob.name().equals(boName))
+		{
+			businessObject = new ReturnJob(e);
+		}
+		else if (EnumBusinessObject.ArtDeliveryRequest.name().equals(boName))
+		{
+			businessObject = new ArtDeliveryRequest(e);
+		}
+		else if (EnumBusinessObject.ArtDeliveryResponse.name().equals(boName))
+		{
+			businessObject = new ArtDeliveryResponse(e);
 		}
 		else
 		{

@@ -36,6 +36,10 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.StockLevelRequest.EnumAvailability;
 import org.junit.Test;

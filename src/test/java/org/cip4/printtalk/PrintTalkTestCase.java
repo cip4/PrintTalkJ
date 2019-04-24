@@ -36,6 +36,11 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
@@ -52,10 +57,10 @@ import org.cip4.jdflib.util.UrlUtil;
 import org.cip4.jdflib.util.logging.LogConfigurator;
 import org.cip4.printtalk.builder.PrintTalkBuilder;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
+import org.junit.After;
+import org.junit.Before;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Node;
-
-import junit.framework.TestCase;
 
 /**
  * testcase base class
@@ -63,7 +68,7 @@ import junit.framework.TestCase;
  * @author rainer prosi
  * @date Jun 13, 2014
  */
-public abstract class PrintTalkTestCase extends TestCase
+public abstract class PrintTalkTestCase
 {
 	static protected final String sm_dirTestData = getTestDataDir();
 	static protected final String sm_dirTestDataTemp = sm_dirTestData + "temp" + File.separator;
@@ -90,11 +95,10 @@ public abstract class PrintTalkTestCase extends TestCase
 	/**
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	@Override
-	protected void tearDown() throws Exception
+	@After
+	public void tearDown() throws Exception
 	{
 		PrintTalk.setDefaultVersion(20);
-		super.tearDown();
 	}
 
 	/**
@@ -215,12 +219,11 @@ public abstract class PrintTalkTestCase extends TestCase
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	@Override
-	protected void setUp() throws Exception
+	@Before
+	public void setUp() throws Exception
 	{
 		LogConfigurator.configureLog(null, null);
 		JDFElement.setLongID(false);
-		super.setUp();
 	}
 
 }
