@@ -170,8 +170,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public void setComment(final String comment)
 	{
-		final KElement c = getCreateElement(ElementName.COMMENT);
-		c.setText(comment);
+		setTElem(ElementName.COMMENT, comment);
 	}
 
 	/**
@@ -487,8 +486,8 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getTElem(final String elemName)
 	{
-		final KElement payTerm = getElement(elemName);
-		return payTerm == null ? null : StringUtil.getNonEmpty(payTerm.getText());
+		final KElement e = getElement(elemName);
+		return e == null ? null : StringUtil.getNonEmpty(e.getText());
 	}
 
 	/**
@@ -499,7 +498,14 @@ public abstract class AbstractPrintTalk
 	 */
 	public void setTElem(final String elemName, final String s)
 	{
-		getCreateElement(elemName).setText(s);
+		if (StringUtil.isEmpty(s))
+		{
+			theElement.removeChild(elemName, null, 0);
+		}
+		else
+		{
+			getCreateElement(elemName).setText(s);
+		}
 	}
 
 	/**

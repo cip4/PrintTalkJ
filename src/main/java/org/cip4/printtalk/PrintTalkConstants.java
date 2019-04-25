@@ -53,5 +53,6 @@ public class PrintTalkConstants
 	public static final String Result = "Result";
 
 	public static final String Timestamp = "Timestamp";
+	public static final String UserAgent = "UserAgent";
 
 }

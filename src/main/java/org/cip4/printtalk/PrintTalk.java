@@ -161,6 +161,14 @@ public class PrintTalk extends AbstractPrintTalk
 		{
 			bo.cleanUp();
 		}
+		for (final EnumHeaderType ht : EnumHeaderType.values())
+		{
+			final HeaderBase b = getHeader(ht);
+			if (b != null)
+			{
+				b.cleanUp();
+			}
+		}
 		super.cleanUp();
 	}
 
