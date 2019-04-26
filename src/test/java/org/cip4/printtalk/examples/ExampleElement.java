@@ -85,7 +85,7 @@ public class ExampleElement extends PrintTalkTestCase
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	@Override
-	protected void setUp() throws Exception
+	public void setUp() throws Exception
 	{
 		KElement.setLongID(false);
 		PrintTalkBuilderFactory.getTheFactory().resetInstance();

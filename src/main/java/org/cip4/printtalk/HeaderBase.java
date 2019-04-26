@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
@@ -68,8 +68,11 @@
  */
 package org.cip4.printtalk;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.cip4.jdflib.core.JDFAudit;
+import org.cip4.jdflib.core.JDFConstants;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
 import org.cip4.jdflib.datatypes.JDFAttributeMap;
@@ -99,6 +102,24 @@ public class HeaderBase extends AbstractPrintTalk
 	{
 		final KElement e = getElement(Credential.ELEMENT_CREDENTIAL, iskip);
 		return e == null ? null : new Credential(e);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getUserAgent()
+	{
+		return getTElem(PrintTalkConstants.UserAgent);
+	}
+
+	/**
+	 *
+	 * @param agent
+	 */
+	public void setUserAgent(final String agent)
+	{
+		setTElem(PrintTalkConstants.UserAgent, agent);
 	}
 
 	/**
@@ -181,7 +202,7 @@ public class HeaderBase extends AbstractPrintTalk
 	 */
 	public JDFAttributeMap getCredentialMap()
 	{
-		final Vector<Credential> v = getCredentials();
+		final List<Credential> v = getCredentials();
 		final JDFAttributeMap map = new JDFAttributeMap();
 		if (v != null)
 		{
@@ -199,12 +220,12 @@ public class HeaderBase extends AbstractPrintTalk
 		return map.isEmpty() ? null : map;
 	}
 
-	public Vector<Credential> getCredentials()
+	public List<Credential> getCredentials()
 	{
 		final VElement v0 = theElement == null ? null : theElement.getChildElementVector(Credential.ELEMENT_CREDENTIAL, null);
 		if (!ContainerUtil.isEmpty(v0))
 		{
-			final Vector<Credential> v = new Vector<>();
+			final List<Credential> v = new ArrayList<>();
 			for (final KElement e : v0)
 			{
 				v.add(new Credential(e));
@@ -212,6 +233,41 @@ public class HeaderBase extends AbstractPrintTalk
 			return v;
 		}
 		return null;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public EnumHeaderType getHeaderType()
+	{
+		final String s = getLocalName();
+		try
+		{
+			return EnumHeaderType.valueOf(s);
+		}
+		catch (final Exception x)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 */
+	@Override
+	public void cleanUp()
+	{
+		final EnumHeaderType ht = getHeaderType();
+		if (EnumHeaderType.From.equals(ht) || EnumHeaderType.Sender.equals(ht))
+		{
+			final String a = getUserAgent();
+			if (a == null)
+			{
+				setUserAgent(JDFAudit.getStaticAgentName() + JDFConstants.BLANK + JDFAudit.getStaticAgentVersion());
+			}
+		}
+		super.cleanUp();
 	}
 
 }

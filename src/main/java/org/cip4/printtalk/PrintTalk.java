@@ -82,7 +82,9 @@ public class PrintTalk extends AbstractPrintTalk
 	public static enum EnumBusinessObject
 	{
 		/** */
-		ArtDeliveryRequest, ArtDeliveryResponse,
+		@Deprecated
+		ArtDeliveryRequest, @Deprecated
+		ArtDeliveryResponse,
 		/** */
 		RFQ,
 		/** */
@@ -104,7 +106,9 @@ public class PrintTalk extends AbstractPrintTalk
 		/** */
 		ReturnJob,
 		/** */
-		StockLevelRequest, StockLevelResponse
+		StockLevelRequest, StockLevelResponse,
+
+		ContentDelivery, ContentDeliveryResponse
 	}
 
 	private static int defaultVersion = 20;
@@ -156,6 +160,14 @@ public class PrintTalk extends AbstractPrintTalk
 		if (bo != null)
 		{
 			bo.cleanUp();
+		}
+		for (final EnumHeaderType ht : EnumHeaderType.values())
+		{
+			final HeaderBase b = getHeader(ht);
+			if (b != null)
+			{
+				b.cleanUp();
+			}
 		}
 		super.cleanUp();
 	}

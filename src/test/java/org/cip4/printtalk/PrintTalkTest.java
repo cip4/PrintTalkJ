@@ -36,6 +36,11 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;

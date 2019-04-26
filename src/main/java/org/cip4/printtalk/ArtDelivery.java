@@ -39,6 +39,7 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.printtalk.BusinessObject.EnumUpdateMethod;
 
 /**
  *
@@ -51,11 +52,6 @@ public class ArtDelivery extends AbstractPrintTalk
 {
 
 	public static final String ELEMENT_ARTDELIVERY = "ArtDelivery";
-
-	public enum EnumUpdateMethod
-	{
-		Add, Replace
-	}
 
 	/**
 	 *

@@ -43,14 +43,10 @@ import org.cip4.jdflib.core.KElement;
  * @author rainer prosi
  * @date Jan 3, 2011
  */
+@Deprecated
 public class ArtDeliveryResponse extends BusinessObject
 {
 	public final String ATTR_RESULT = "Result";
-
-	enum EnumResult
-	{
-		Accepted, AcceptedWaiting, Rejected
-	};
 
 	/**
 	 *

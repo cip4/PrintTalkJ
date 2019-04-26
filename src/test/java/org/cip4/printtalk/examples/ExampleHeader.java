@@ -36,6 +36,8 @@
  */
 package org.cip4.printtalk.examples;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.printtalk.Credential;
@@ -126,7 +128,7 @@ public class ExampleHeader extends PrintTalkTestCase
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	@Override
-	protected void setUp() throws Exception
+	public void setUp() throws Exception
 	{
 		PrintTalkBuilderFactory.getTheFactory().resetInstance();
 		KElement.setLongID(false);

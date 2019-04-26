@@ -198,18 +198,8 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
     <!--								-->
     
     <!-- ArtDeliveryRequest -->
-	<xs:element name="ArtDeliveryRequest" substitutionGroup="ptk:BusinessObject" type="ptk:ArtDeliveryRequest" />
-	<xs:complexType name="ArtDeliveryRequest">
-		<xs:complexContent>
-			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
-					<xs:element name="ArtDelivery" type="ptk:ArtDelivery" maxOccurs="unbounded" minOccurs="1" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-
-	<xs:complexType name="ArtDelivery">
+	<xs:element name="ContentDelivery" substitutionGroup="ptk:BusinessObject" type="ptk:ContentDelivery" />
+	<xs:complexType name="ContentDelivery">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
 				<xs:sequence>
@@ -227,13 +217,13 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 		</xs:complexContent>
 	</xs:complexType>
     
-    <!-- ArtDeliveryResponse -->
-    <xs:element name="ArtDeliveryResponse" substitutionGroup="ptk:BusinessObject" type="ptk:ArtDeliveryResponse" />
-	<xs:complexType name="ArtDeliveryResponse">
+    <!-- ContentDeliveryResponse -->
+    <xs:element name="ContentDeliveryResponse" substitutionGroup="ptk:BusinessObject" type="ptk:ContentDeliveryResponse" />
+	<xs:complexType name="ContentDeliveryResponse">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
-				<xs:sequence maxOccurs="1" minOccurs="1">
-					<xs:element ref="xjdf:PreflightReport" maxOccurs="1" minOccurs="0" />
+				<xs:sequence>
+					<xs:element ref="xjdf:AuditPool" maxOccurs="1" minOccurs="0" />
 				</xs:sequence>
 				<xs:attribute name="Result" use="required">
 					<xs:simpleType>

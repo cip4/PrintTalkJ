@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
@@ -74,7 +74,7 @@ import static org.junit.Assert.assertNotNull;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.junit.Test;
 
-public class HeaderBaseTest
+public class HeaderBaseTest extends PrintTalkTestCase
 {
 
 	/**
@@ -87,6 +87,31 @@ public class HeaderBaseTest
 		final PrintTalk pt = new PrintTalk();
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_CUSTOMERID, "cid");
 		assertNotNull(pt.getHeader(EnumHeaderType.From));
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testCleanup()
+	{
+		final PrintTalk pt = new PrintTalk();
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_CUSTOMERID, "cid");
+		pt.cleanUp();
+		assertNotNull(pt.getHeader(EnumHeaderType.From).getUserAgent());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetHeaderType()
+	{
+		final PrintTalk pt = new PrintTalk();
+		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_CUSTOMERID, "cid");
+		assertEquals(EnumHeaderType.From, pt.getHeader(EnumHeaderType.From).getHeaderType());
 	}
 
 	/**

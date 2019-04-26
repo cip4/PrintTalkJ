@@ -36,6 +36,9 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.cip4.jdflib.core.ElementName;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.junit.Test;
@@ -81,6 +84,21 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 		assertNull(pt.getComment());
 		pt.setComment("foo");
 		assertEquals("foo", pt.getComment());
+		pt.setComment(null);
+		assertNull(pt.getElement(ElementName.COMMENT));
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testSetUserAgent()
+	{
+		final PrintTalk pt = new PrintTalk();
+		assertNull(pt.getComment());
+		pt.getCreateHeader(EnumHeaderType.From).setUserAgent("a");
+		assertEquals("a", pt.getCreateHeader(EnumHeaderType.From).getUserAgent());
 	}
 
 	/**

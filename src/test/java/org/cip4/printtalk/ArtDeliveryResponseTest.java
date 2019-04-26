@@ -36,8 +36,11 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.printtalk.ArtDeliveryResponse.EnumResult;
+import static org.junit.Assert.assertEquals;
+
+import org.cip4.printtalk.BusinessObject.EnumResult;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -64,6 +67,7 @@ public class ArtDeliveryResponseTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	@Ignore
 	public void testValidResponse()
 	{
 		final PrintTalk printTalk = new PrintTalk();

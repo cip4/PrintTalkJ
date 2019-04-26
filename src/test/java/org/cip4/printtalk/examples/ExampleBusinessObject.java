@@ -223,7 +223,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	@Override
-	protected void setUp() throws Exception
+	public void setUp() throws Exception
 	{
 		KElement.setLongID(false);
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();

@@ -45,6 +45,8 @@ public class PrintTalkConstants
 	{
 	}
 
+	public static final String ContentDelivery = "ContentDelivery";
+
 	public static final String Header = "Header";
 
 	public final static String payloadID = "payloadID";
@@ -54,6 +56,6 @@ public class PrintTalkConstants
 
 	public static final String Timestamp = "Timestamp";
 
-	public static final String ContentDelivery = "ContentDelivery";
+	public static final String UserAgent = "UserAgent";
 
 }

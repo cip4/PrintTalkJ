@@ -36,6 +36,9 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.junit.Test;
 
@@ -46,15 +49,6 @@ import org.junit.Test;
  */
 public class CredentialTest extends PrintTalkTestCase
 {
-
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-	}
 
 	/**
 	 *

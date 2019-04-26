@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -34,80 +34,45 @@
  *
  *
  */
-package org.cip4.printtalk.builder;
+package org.cip4.printtalk;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
+import org.cip4.printtalk.BusinessObject.EnumResult;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.cip4.printtalk.PrintTalkTestCase;
 import org.junit.Test;
 
-public class PrintTalkBuilderFactoryTest extends PrintTalkTestCase
+/**
+ *
+ * @author rainer prosi
+ * @date Jan 5, 2011
+ */
+public class ContentDeliveryResponseTest extends PrintTalkTestCase
 {
-
 	/**
+	 *
 	 *
 	 */
 	@Test
-	public void testGetFactory()
+	public void testgetPrintTalk()
 	{
-		assertNotNull(PrintTalkBuilderFactory.getTheFactory());
+		final PrintTalk printTalk = new PrintTalk();
+		final ContentDeliveryResponse po = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
+		assertEquals(printTalk, po.getPrintTalk());
 	}
 
 	/**
 	 *
-	 */
-	@Test
-	public void testGetBuilder()
-	{
-		assertNotNull(PrintTalkBuilderFactory.getTheFactory().getBuilder());
-	}
-
-	/**
 	 *
 	 */
 	@Test
-	public synchronized void testGetTo()
+	public void testValidResponse()
 	{
-		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
-		theFactory.setTo("to2");
-		assertEquals("to2", theFactory.getBuilder().getTo());
-	}
-
-	/**
-	 *
-	 */
-	@Test
-	public synchronized void testNoBack()
-	{
-		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
-		theFactory.setTo(null);
-		final PrintTalkBuilder builder = theFactory.getBuilder();
-		builder.setTo("42");
-		assertNull(theFactory.getTo());
-	}
-
-	/**
-	 *
-	 */
-	@Test
-	public void testBO()
-	{
-		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
-		theFactory.setBusinessObject(EnumBusinessObject.Cancellation);
-		assertEquals(EnumBusinessObject.Cancellation, theFactory.getBuilder().getBusinessObject());
-	}
-
-	/**
-	 * @see org.cip4.printtalk.PrintTalkTestCase#tearDown()
-	 */
-	@Override
-	public void tearDown() throws Exception
-	{
-		PrintTalkBuilderFactory.getTheFactory().resetInstance();
-		super.tearDown();
+		final PrintTalk printTalk = new PrintTalk();
+		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
+		adr.setResult(EnumResult.Accepted);
+		printTalk.cleanUp();
+		reparse(adr, false);
 	}
 
 }
