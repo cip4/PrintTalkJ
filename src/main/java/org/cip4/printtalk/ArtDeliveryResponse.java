@@ -44,7 +44,7 @@ import org.cip4.jdflib.core.KElement;
  * @date Jan 3, 2011
  */
 @Deprecated
-public class ArtDeliveryResponse extends BusinessObject
+public class ArtDeliveryResponse extends ContentDeliveryResponse
 {
 	public final String ATTR_RESULT = "Result";
 
@@ -55,26 +55,6 @@ public class ArtDeliveryResponse extends BusinessObject
 	public ArtDeliveryResponse(final KElement theElement)
 	{
 		super(theElement);
-	}
-
-	/**
-	 *
-	 * @param m
-	 */
-	public void setResult(final EnumResult r)
-	{
-		setAttribute(ATTR_RESULT, (r == null) ? null : r.name());
-	}
-
-	/**
-	 * get update method value
-	 *
-	 * @return
-	 */
-	public EnumResult getResult()
-	{
-		final String s = getAttribute(ATTR_RESULT);
-		return s == null ? null : EnumResult.valueOf(s);
 	}
 
 }

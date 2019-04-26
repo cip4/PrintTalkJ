@@ -36,10 +36,7 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
-import org.cip4.jdflib.extensions.XJDFHelper;
-import org.cip4.printtalk.BusinessObject.EnumUpdateMethod;
 
 /**
  *
@@ -48,7 +45,7 @@ import org.cip4.printtalk.BusinessObject.EnumUpdateMethod;
  * @deprecated
  */
 @Deprecated
-public class ArtDelivery extends AbstractPrintTalk
+public class ArtDelivery extends ContentDelivery
 {
 
 	public static final String ELEMENT_ARTDELIVERY = "ArtDelivery";
@@ -60,44 +57,6 @@ public class ArtDelivery extends AbstractPrintTalk
 	public ArtDelivery(final KElement theElement)
 	{
 		super(theElement);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#setXJDF(org.cip4.jdflib.extensions.XJDFHelper)
-	 */
-	@Override
-	public void setXJDF(final XJDFHelper xjdf)
-	{
-		super.setXJDF(xjdf);
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDF(int)
-	 */
-	@Override
-	public XJDFHelper getXJDF(final int i)
-	{
-		return super.getXJDF(i);
-	}
-
-	/**
-	 *
-	 * @param m
-	 */
-	public void setUpdateMethod(final EnumUpdateMethod m)
-	{
-		setAttribute(AttributeName.UPDATEMETHOD, (m == null) ? null : m.name());
-	}
-
-	/**
-	 * get update method value
-	 *
-	 * @return
-	 */
-	public EnumUpdateMethod getUpdateMethod()
-	{
-		final String s = getAttribute(AttributeName.UPDATEMETHOD);
-		return s == null ? null : EnumUpdateMethod.valueOf(s);
 	}
 
 }
