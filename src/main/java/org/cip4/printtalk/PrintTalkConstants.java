@@ -50,6 +50,10 @@ public class PrintTalkConstants
 	public final static String payloadID = "payloadID";
 
 	public static final String Request = "Request";
+	public final static String Result = "Result";
 
 	public static final String Timestamp = "Timestamp";
+
+	public static final String ContentDelivery = "ContentDelivery";
+
 }

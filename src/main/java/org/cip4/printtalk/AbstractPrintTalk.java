@@ -48,6 +48,7 @@ import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.datatypes.JDFAttributeMap;
+import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.node.JDFNode.EnumType;
@@ -280,6 +281,32 @@ public abstract class AbstractPrintTalk
 	{
 		final KElement xjdfe = theElement == null ? null : theElement.getElement(XJDFConstants.XJDF, null, i);
 		return XJDFHelper.getHelper(xjdfe);
+	}
+
+	/**
+	 * get the auditpool -
+	 *
+	 *
+	 */
+	AuditPoolHelper getAuditPool()
+	{
+		final KElement ap = theElement == null ? null : theElement.getElement(ElementName.AUDITPOOL);
+		return ap == null ? null : new AuditPoolHelper(ap);
+	}
+
+	/**
+	 * get the auditpool - create it if not present
+	 *
+	 */
+	AuditPoolHelper getCreateAuditPool()
+	{
+		AuditPoolHelper ap = getAuditPool();
+		if (ap != null)
+		{
+			appendElement(ElementName.AUDITPOOL);
+			ap = getAuditPool();
+		}
+		return ap;
 	}
 
 	/**

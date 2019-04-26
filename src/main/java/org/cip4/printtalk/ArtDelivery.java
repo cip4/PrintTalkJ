@@ -44,7 +44,9 @@ import org.cip4.jdflib.extensions.XJDFHelper;
  *
  * @author rainer prosi
  * @date Jan 3, 2011
+ * @deprecated
  */
+@Deprecated
 public class ArtDelivery extends AbstractPrintTalk
 {
 
