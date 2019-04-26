@@ -106,6 +106,19 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testGetElements()
+	{
+		final PrintTalk pt = new PrintTalk();
+		assertNull(pt.getElements(null));
+		pt.getCreateHeader(EnumHeaderType.From);
+		assertEquals("Header", pt.getElements(null).get(0).getLocalName());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testCleanup()
 	{
 		final PrintTalk pt = new PrintTalk();

@@ -78,4 +78,17 @@ public class ContentDeliveryTest extends PrintTalkTestCase
 		printTalk.cleanUp();
 		reparse(adr, false);
 	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testUpdateMethod()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final ContentDelivery adr = (ContentDelivery) printTalk.appendRequest(EnumBusinessObject.ContentDelivery, null);
+		adr.setUpdateMethod(EnumUpdateMethod.Add);
+		assertEquals(EnumUpdateMethod.Add, adr.getUpdateMethod());
+	}
 }

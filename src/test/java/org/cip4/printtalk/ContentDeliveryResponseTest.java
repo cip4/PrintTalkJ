@@ -37,7 +37,9 @@
 package org.cip4.printtalk;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
+import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.printtalk.BusinessObject.EnumResult;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
@@ -73,6 +75,34 @@ public class ContentDeliveryResponseTest extends PrintTalkTestCase
 		adr.setResult(EnumResult.Accepted);
 		printTalk.cleanUp();
 		reparse(adr, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testResult()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
+		adr.setResult(EnumResult.Accepted);
+		assertEquals(EnumResult.Accepted, adr.getResult());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testAP()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
+		assertNull(adr.getAuditPool());
+		final AuditPoolHelper ap = adr.getCreateAuditPool();
+		assertEquals(ap, adr.getCreateAuditPool());
+		assertEquals(ap, adr.getAuditPool());
 	}
 
 }

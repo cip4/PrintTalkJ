@@ -37,6 +37,7 @@
 package org.cip4.printtalk;
 
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.extensions.AuditPoolHelper;
 
 /**
  *
@@ -73,6 +74,24 @@ public class ContentDeliveryResponse extends BusinessObject
 	{
 		final String s = getAttribute(PrintTalkConstants.Result);
 		return s == null ? null : EnumResult.valueOf(s);
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#getAuditPool()
+	 */
+	@Override
+	public AuditPoolHelper getAuditPool()
+	{
+		return super.getAuditPool();
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#getCreateAuditPool()
+	 */
+	@Override
+	public AuditPoolHelper getCreateAuditPool()
+	{
+		return super.getCreateAuditPool();
 	}
 
 }

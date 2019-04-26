@@ -437,7 +437,7 @@ public abstract class AbstractPrintTalk
 	public VElement getElements(final String nodeName)
 	{
 		final VElement v = theElement == null ? null : theElement.getChildElementVector(nodeName, null);
-		if (v == null || v.size() == 0)
+		if (ContainerUtil.isEmpty(v))
 			return null;
 		return v;
 	}
