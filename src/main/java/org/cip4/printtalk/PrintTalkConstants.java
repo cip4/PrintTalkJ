@@ -45,6 +45,8 @@ public class PrintTalkConstants
 	{
 	}
 
+	public static final String AmountPrices = "AmountPrices";
+
 	public static final String ContentDelivery = "ContentDelivery";
 
 	public static final String Header = "Header";

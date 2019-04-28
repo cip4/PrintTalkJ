@@ -39,7 +39,6 @@ package org.cip4.printtalk;
 import org.cip4.jdflib.auto.JDFAutoNotification.EnumClass;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
-import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.jdflib.resource.JDFMilestone;
@@ -73,7 +72,7 @@ public class OrderStatusResponse extends BusinessObject
 	public void setMilestone(final String jobID, final String milestone)
 	{
 		setJobIDRef(jobID);
-		final AuditPoolHelper auditPoolHelper = getAuditPoolHelper();
+		final AuditPoolHelper auditPoolHelper = getCreateAuditPool();
 		final JDFNotification notification = (JDFNotification) auditPoolHelper.appendAudit(ElementName.NOTIFICATION).getRoot().appendElementRaw(ElementName.NOTIFICATION, null);
 		notification.setJobID(jobID);
 		notification.appendMilestone().setMilestoneType(milestone);
@@ -104,17 +103,6 @@ public class OrderStatusResponse extends BusinessObject
 
 	/**
 	 *
-	 * @return
-	 */
-	public AuditPoolHelper getAuditPoolHelper()
-	{
-		final KElement ap = getRoot().getCreateElement(ElementName.AUDITPOOL, JDFElement.getSchemaURL(2, 0), 0);
-		final AuditPoolHelper auditPoolHelper = new AuditPoolHelper(ap);
-		return auditPoolHelper;
-	}
-
-	/**
-	 *
 	 *
 	 * set a milestone
 	 *
@@ -136,6 +124,15 @@ public class OrderStatusResponse extends BusinessObject
 		final JDFNotification milestoneNotification = getMilestoneNotification(n);
 		final JDFMilestone milestone = milestoneNotification != null ? milestoneNotification.getMilestone() : null;
 		return milestone != null ? milestone.getMilestoneType() : null;
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#getCreateAuditPool()
+	 */
+	@Override
+	public AuditPoolHelper getCreateAuditPool()
+	{
+		return super.getCreateAuditPool();
 	}
 
 }

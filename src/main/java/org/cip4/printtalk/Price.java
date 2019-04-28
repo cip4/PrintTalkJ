@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -260,9 +260,8 @@ public class Price extends AbstractPrintTalk
 	 *
 	 * @param price
 	 */
-	public void setAmount(final double price)
+	public void setAmount(final double amount)
 	{
-		final String amount = new NumberFormatter().formatDouble(price);
 		setAttribute(ATTR_AMOUNT, amount);
 	}
 

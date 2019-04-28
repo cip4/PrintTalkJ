@@ -300,9 +300,9 @@ public abstract class AbstractPrintTalk
 	AuditPoolHelper getCreateAuditPool()
 	{
 		AuditPoolHelper ap = getAuditPool();
-		if (ap != null)
+		if (ap == null)
 		{
-			appendElement(ElementName.AUDITPOOL);
+			appendXJDFElement(ElementName.AUDITPOOL);
 			ap = getAuditPool();
 		}
 		return ap;

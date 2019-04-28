@@ -38,6 +38,7 @@ package org.cip4.printtalk;
 
 import static org.junit.Assert.assertEquals;
 
+import org.cip4.jdflib.datatypes.JDFIntegerList;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
@@ -110,6 +111,25 @@ public class RFQTest extends PrintTalkTestCase
 		final XJDFHelper xjdf = new XJDFHelper("J1", null);
 		rfq.appendXJDF(xjdf);
 		rfq.setExpiresDays(5);
+		rfq.cleanUp();
+		reparse(rfq, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testAmountPrices()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ rfq = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		rfq.setExpiresDays(5);
+		rfq.appendXJDF(xjdf);
+		final JDFIntegerList amounts = new JDFIntegerList(new int[] { 50, 200, 1000 });
+		rfq.setAmountPrices(amounts);
+		assertEquals(amounts, rfq.getAmountPrices());
 		rfq.cleanUp();
 		reparse(rfq, false);
 	}

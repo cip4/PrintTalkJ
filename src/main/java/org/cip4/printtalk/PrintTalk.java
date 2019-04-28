@@ -202,7 +202,7 @@ public class PrintTalk extends AbstractPrintTalk
 		this.version = version;
 		XMLDoc doc = new XMLDoc(PRINT_TALK, getNamespaceURI());
 		doc = new JDFDoc(doc);
-		((DocumentJDFImpl) doc.getMemberDocument()).bInitOnCreate = true;
+		((DocumentJDFImpl) doc.getMemberDocument()).bInitOnCreate = false;
 		setRoot(doc.getRoot());
 		init();
 	}

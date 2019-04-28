@@ -41,13 +41,14 @@ import java.util.Vector;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.JDFConstants;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.datatypes.JDFIntegerList;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
 
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -248,6 +249,26 @@ public class RFQ extends BusinessObject
 	public void setExpiresDays(final int days)
 	{
 		setExpires(getExpirationDays(days));
+	}
+
+	/**
+	 * set the list of amounts
+	 *
+	 * @param amounts
+	 */
+	public void setAmountPrices(final JDFIntegerList amounts)
+	{
+		setAttribute(PrintTalkConstants.AmountPrices, amounts == null ? null : amounts.getString(0));
+	}
+
+	/**
+	 * set the list of amounts
+	 *
+	 * @param amounts
+	 */
+	public JDFIntegerList getAmountPrices()
+	{
+		return JDFIntegerList.createIntegerList(getAttribute(PrintTalkConstants.AmountPrices));
 	}
 
 	/**

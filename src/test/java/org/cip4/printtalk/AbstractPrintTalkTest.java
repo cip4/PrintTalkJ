@@ -37,9 +37,13 @@
 package org.cip4.printtalk;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.cip4.jdflib.core.ElementName;
+import org.cip4.jdflib.core.JDFElement;
+import org.cip4.jdflib.core.JDFElement.EnumVersion;
+import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.junit.Test;
 
@@ -112,6 +116,19 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 		assertNull(pt.getElements(null));
 		pt.getCreateHeader(EnumHeaderType.From);
 		assertEquals("Header", pt.getElements(null).get(0).getLocalName());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetAuditPool()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final AuditPoolHelper ap = pt.getCreateAuditPool();
+		assertNotNull(ap);
+		assertEquals(JDFElement.getSchemaURL(EnumVersion.Version_2_0), ap.getRoot().getNamespaceURI());
 	}
 
 	/**

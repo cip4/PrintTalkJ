@@ -36,12 +36,29 @@
  */
 package org.cip4.printtalk.examples;
 
+import static org.junit.Assert.assertEquals;
+
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
+import org.cip4.jdflib.core.JDFConstants;
+import org.cip4.jdflib.core.JDFResourceLink.EnumUsage;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.datatypes.JDFIntegerList;
+import org.cip4.jdflib.extensions.AuditHelper;
+import org.cip4.jdflib.extensions.AuditPoolHelper;
+import org.cip4.jdflib.extensions.MessageResourceHelper;
+import org.cip4.jdflib.extensions.ResourceHelper;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.resource.process.JDFDeliveryParams;
+import org.cip4.jdflib.resource.process.JDFRunList;
 import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.BusinessObject.EnumResult;
+import org.cip4.printtalk.BusinessObject.EnumUpdateMethod;
 import org.cip4.printtalk.Confirmation;
+import org.cip4.printtalk.ContentDelivery;
+import org.cip4.printtalk.ContentDeliveryResponse;
+import org.cip4.printtalk.OrderStatusResponse;
+import org.cip4.printtalk.Price;
 import org.cip4.printtalk.Price.EnumPriceType;
 import org.cip4.printtalk.Price.EnumTaxType;
 import org.cip4.printtalk.PrintTalk;
@@ -80,8 +97,80 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public synchronized void testContentDelivery()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		final ContentDelivery po = (ContentDelivery) pt.appendRequest(EnumBusinessObject.ContentDelivery, null);
+		po.setBusinessID("CD_1");
+		po.setBusinessRefID("PO_1");
+		po.setUpdateMethod(EnumUpdateMethod.Add);
+		final XJDFHelper xjdf = new XJDFHelper("cart1.item1", null, null);
+		xjdf.setTypes(JDFConstants.TYPE_DIGITALDELIVERY);
+		final ResourceHelper rh = xjdf.appendResourceSet(ElementName.RUNLIST, EnumUsage.Input).getCreatePartition(0, true);
+		final JDFRunList rl = (JDFRunList) rh.getResource();
+		rl.setFileSpecURL("https://myFileSource/pdfs/file1.pdf");
+		po.setXJDF(xjdf);
+		pt.cleanUp();
+		setSnippet(po.getRoot(), true);
+		writeExample(pt, "businessobjects/ContentDelivery.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testContentDeliveryResponse()
+	{
+		setFrom(false);
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		final ContentDeliveryResponse po = (ContentDeliveryResponse) pt.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
+		po.setBusinessID("CDR_1");
+		po.setBusinessRefID("CD_1");
+		po.setResult(EnumResult.Accepted);
+		final AuditPoolHelper aph = po.getCreateAuditPool();
+		final AuditHelper ah = aph.appendAudit("Resource");
+		final MessageResourceHelper mrh = new MessageResourceHelper(ah.getRoot());
+		mrh.getCreateSet().setName(ElementName.PREFLIGHTREPORT);
+
+		pt.cleanUp();
+		setSnippet(po.getRoot(), true);
+		writeExample(pt, "businessobjects/ContentDelivery.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testOrderStatusResponse()
+	{
+		setFrom(false);
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		final OrderStatusResponse po = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
+		po.setBusinessID("Staus_1");
+		po.setBusinessRefID("PO_1");
+		final AuditPoolHelper aph = po.getCreateAuditPool();
+		po.setMilestone("j1", "ShippingInProgress");
+
+		final AuditHelper ah = aph.appendAudit("Resource");
+		final MessageResourceHelper mrh = new MessageResourceHelper(ah.getRoot());
+		mrh.getCreateSet().setName(ElementName.DELIVERYPARAMS);
+		final JDFDeliveryParams dp = (JDFDeliveryParams) mrh.getSet().getCreatePartition(0, true).getResource();
+		dp.setAttribute(AttributeName.TRACKINGID, "T123");
+		pt.cleanUp();
+		setSnippet(po.getRoot(), true);
+		writeExample(pt, "businessobjects/OrderStatus.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
 	public synchronized void testQuotation()
 	{
+		setFrom(false);
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 
@@ -94,9 +183,40 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "100 business cards", 420000.00);
 		q.getCreatePricing().setCurrency("GBP");
 		final Quote q2 = quotation.appendQuote();
-		q2.setQuoteID("q1");
+		q2.setQuoteID("q2");
 		q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "100 business cards", 42.00);
 		q2.getCreatePricing().setCurrency("DKK");
+		pt.cleanUp();
+		setSnippet(quotation, true);
+		writeExample(pt, "businessobjects/Quotation.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testQuotationAmounts()
+	{
+		setFrom(false);
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+
+		final Quotation quotation = (Quotation) pt.appendRequest(EnumBusinessObject.Quotation, null);
+		quotation.setBusinessRefID("RFQ_Amount");
+		quotation.setBusinessID("q1");
+		quotation.setEstimate(false);
+		quotation.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
+		final Quote q = quotation.appendQuote();
+		q.setQuoteID("q1");
+		final Price price1 = q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "1000 business cards", 500.00);
+		price1.setAmount(1000);
+		price1.addAdditional(100, 40.00);
+		price1.addAdditional(1000, 200.00);
+		q.getCreatePricing().setCurrency("GBP");
+		final Quote q2 = quotation.appendQuote();
+		q2.setQuoteID("q2");
+		q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "5000 business cards", 1500.00).addAdditional(1000, 250.00);
+		q2.getCreatePricing().setCurrency("GBP");
 		pt.cleanUp();
 		setSnippet(quotation, true);
 		writeExample(pt, "businessobjects/Quotation.ptk");
@@ -117,6 +237,28 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		pt.cleanUp();
 		setSnippet(rfq.getRequest(), true);
 		writeExample(pt, "idusage/SimpleRFQ.ptk");
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public synchronized void testAmountPrices()
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+		final RFQ rfq = (RFQ) pt.appendRequest(EnumBusinessObject.RFQ, null);
+		rfq.setBusinessID("RFQ_Amount");
+		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		rfq.setExpiresDays(5);
+		rfq.appendXJDF(xjdf);
+		final JDFIntegerList amounts = new JDFIntegerList(new int[] { 1000, 5000 });
+		rfq.setAmountPrices(amounts);
+		assertEquals(amounts, rfq.getAmountPrices());
+		pt.cleanUp();
+		setSnippet(rfq.getRequest(), true);
+		writeExample(pt, "businessobjects/RFQAmounts.ptk");
 	}
 
 	/**
@@ -170,6 +312,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	@Test
 	public synchronized void testIdConfirmation()
 	{
+		setFrom(false);
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 
@@ -187,12 +330,13 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	@Test
 	public synchronized void testIdRefusal()
 	{
+		setFrom(false);
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 
 		final Refusal ref = (Refusal) pt.appendRequest(EnumBusinessObject.Refusal, null);
 		ref.setBusinessRefID("PO_1");
-		ref.setBusinessID("Confirmation_1");
+		ref.setBusinessID("Refusal_1");
 		ref.setAttribute(AttributeName.REASON, EnumReason.Busy.name());
 		ref.setAttribute(AttributeName.REASONDETAILS, "Christmas");
 		pt.cleanUp();
@@ -226,12 +370,25 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	public void setUp() throws Exception
 	{
 		KElement.setLongID(false);
-		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
-		theFactory.resetInstance();
-		theFactory.setFromURL("https://customer.com");
-		theFactory.setToURL("https://printer.com");
+		setFrom(true);
 
 		super.setUp();
+	}
+
+	protected void setFrom(final boolean isCustomer)
+	{
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		theFactory.resetInstance();
+		if (isCustomer)
+		{
+			theFactory.setFromURL("https://customer.com");
+			theFactory.setToURL("https://printer.com");
+		}
+		else
+		{
+			theFactory.setToURL("https://customer.com");
+			theFactory.setFromURL("https://printer.com");
+		}
 	}
 
 }
