@@ -156,6 +156,8 @@ public class PrintTalk extends AbstractPrintTalk
 	@Override
 	public void cleanUp()
 	{
+		if (theElement != null)
+			theElement.renameAttribute("Timestamp", PrintTalkConstants.Timestamp);
 		final BusinessObject bo = getBusinessObject();
 		if (bo != null)
 		{
@@ -324,13 +326,18 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * Getter for Timestamp attribute.
+	 * Getter for timestamp attribute. also checks for legacy "TimeStamp"
 	 *
 	 * @return the version
 	 */
 	public JDFDate getTimestamp()
 	{
-		return theElement == null ? null : JDFDate.createDate(theElement.getAttribute("Timestamp", null, null));
+		if (theElement == null)
+			return null;
+		String ts = theElement.getNonEmpty(PrintTalkConstants.Timestamp);
+		if (ts == null)
+			ts = theElement.getNonEmpty("Timestamp");
+		return JDFDate.createDate(ts);
 	}
 
 	/**
