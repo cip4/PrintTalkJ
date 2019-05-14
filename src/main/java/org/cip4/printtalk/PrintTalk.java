@@ -36,9 +36,11 @@
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.DocumentJDFImpl;
 import org.cip4.jdflib.core.JDFDoc;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
@@ -453,6 +455,29 @@ public class PrintTalk extends AbstractPrintTalk
 	public boolean write2File(final String filename)
 	{
 		return theElement == null ? false : theElement.getOwnerDocument_KElement().write2File(filename, 2, false);
+	}
+
+	/**
+	 * set attribute ICSVersions
+	 *
+	 * @param value the value to set the attribute to
+	 */
+	public void setICSVersions(final VString value)
+	{
+		setAttribute(AttributeName.ICSVERSIONS, value == null ? null : value.getString());
+	}
+
+	/**
+	 * get NMTOKENS attribute ICSVersions
+	 *
+	 * @param bInherit if true recurse through ancestors when searching
+	 * @return VString - attribute value
+	 *
+	 * @default getICSVersions(false)
+	 */
+	public VString getICSVersions()
+	{
+		return VString.getVString(getAttribute(AttributeName.ICSVERSIONS), null);
 	}
 
 }

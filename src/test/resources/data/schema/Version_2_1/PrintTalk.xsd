@@ -197,7 +197,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
     <!-- The Derived Business Objects 	-->
     <!--								-->
     
-    <!-- ArtDeliveryRequest -->
+    <!-- ContentDelivery -->
 	<xs:element name="ContentDelivery" substitutionGroup="ptk:BusinessObject" type="ptk:ContentDelivery" />
 	<xs:complexType name="ContentDelivery">
 		<xs:complexContent>
@@ -428,6 +428,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 						<xs:restriction base="xs:NMTOKEN">
 							<xs:enumeration value="Busy" />
 							<xs:enumeration value="InvalidPrice" />
+							<xs:enumeration value="Milestone" />
 							<xs:enumeration value="Other" />
 							<xs:enumeration value="WrongProduct" />
 						</xs:restriction>

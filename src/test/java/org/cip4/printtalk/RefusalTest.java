@@ -36,71 +36,57 @@
  */
 package org.cip4.printtalk;
 
-import org.cip4.jdflib.core.AttributeName;
-import org.cip4.jdflib.core.KElement;
+import static org.junit.Assert.assertEquals;
 
-/**
- *
- * @author rainer prosi
- * @date Jan 3, 2011
- */
-public class Refusal extends BusinessObject
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
+import org.cip4.printtalk.Refusal.EnumReason;
+import org.junit.Test;
+
+public class RefusalTest extends PrintTalkTestCase
 {
 
-	public enum EnumReason
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testSetReason()
 	{
-		Busy, InvalidPrice, Milestone, Other, WrongProduct
+		final PrintTalk printTalk = new PrintTalk();
+		final Refusal refusal = (Refusal) printTalk.appendRequest(EnumBusinessObject.Refusal, null);
+		refusal.setReason(EnumReason.Busy);
+		assertEquals(EnumReason.Busy, refusal.getReason());
+		reparse(refusal, defaultversion, false);
 	}
 
 	/**
 	 *
-	 * @param theElement
+	 *
 	 */
-	public Refusal(final KElement theElement)
+	@Test
+	public void testSetReasonDetails()
 	{
-		super(theElement);
+		final PrintTalk printTalk = new PrintTalk();
+		final Refusal refusal = (Refusal) printTalk.appendRequest(EnumBusinessObject.Refusal, null);
+		refusal.setReason(EnumReason.Milestone);
+		refusal.setReasonDetails("whatever");
+		assertEquals("whatever", refusal.getReasonDetails());
+		reparse(refusal, defaultversion, false);
 	}
 
 	/**
 	 *
-	 * @param r
+	 *
 	 */
-	public void setReason(final EnumReason r)
+	@Test
+	public void testSetComment()
 	{
-		setAttribute(AttributeName.REASON, r == null ? null : r.name());
+		final PrintTalk printTalk = new PrintTalk();
+		final Refusal refusal = (Refusal) printTalk.appendRequest(EnumBusinessObject.Refusal, null);
+		refusal.setReason(EnumReason.Milestone);
+		refusal.setComment("whatever");
+		assertEquals("whatever", refusal.getComment());
+		reparse(refusal, defaultversion, false);
 	}
 
-	/**
-	 *
-	 * @param r
-	 */
-	public EnumReason getReason()
-	{
-		try
-		{
-			return EnumReason.valueOf(getAttribute(AttributeName.REASON));
-		}
-		catch (final Exception x)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 *
-	 * @param r
-	 */
-	public void setReasonDetails(final String rd)
-	{
-		setAttribute(AttributeName.REASONDETAILS, rd);
-	}
-
-	/**
-	 *
-	 * @param r
-	 */
-	public String getReasonDetails()
-	{
-		return getAttribute(AttributeName.REASONDETAILS);
-	}
 }

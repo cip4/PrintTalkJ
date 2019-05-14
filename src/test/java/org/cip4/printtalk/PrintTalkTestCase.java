@@ -158,6 +158,11 @@ public abstract class PrintTalkTestCase
 
 	}
 
+	/**
+	 *
+	 * @param pt
+	 * @param fail if true, failing is good
+	 */
 	protected void reparse(final BusinessObject pt, final boolean fail)
 	{
 		reparse(pt, defaultversion, fail);

@@ -162,7 +162,8 @@ public abstract class AbstractPrintTalk
 	 */
 	public String getComment()
 	{
-		return getTElem(ElementName.COMMENT);
+		final KElement e = getXJDFElement(ElementName.COMMENT, 0);
+		return e == null ? null : StringUtil.getNonEmpty(e.getText());
 	}
 
 	/**
@@ -171,7 +172,14 @@ public abstract class AbstractPrintTalk
 	 */
 	public void setComment(final String comment)
 	{
-		setTElem(ElementName.COMMENT, comment);
+		if (StringUtil.isEmpty(comment))
+		{
+			theElement.removeChild(ElementName.COMMENT, null, 0);
+		}
+		else
+		{
+			getCreateXJDFElement(ElementName.COMMENT, 0).setText(comment);
+		}
 	}
 
 	/**
@@ -376,6 +384,19 @@ public abstract class AbstractPrintTalk
 	public KElement getCreateXJDFElement(final String nodeName, final int n)
 	{
 		return theElement.getCreateElement(nodeName, getXJDFNamespace(), n);
+	}
+
+	/**
+	 *
+	 * get an element, create it if it does not yet exist
+	 *
+	 * @param nodeName
+	 * @param n index of the element
+	 * @return
+	 */
+	public KElement getXJDFElement(final String nodeName, final int n)
+	{
+		return theElement.getElement(nodeName, getXJDFNamespace(), n);
 	}
 
 	/**

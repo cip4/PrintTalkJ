@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -38,9 +38,11 @@ package org.cip4.printtalk;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
@@ -66,6 +68,20 @@ public class PrintTalkTest extends PrintTalkTestCase
 		assertEquals(pt.getCredentialIdentity(EnumHeaderType.From, "ID"), "Its me");
 		pt.setCredential(EnumHeaderType.From, "ID", "Its you");
 		assertEquals(pt.getXPathAttribute("Header/From/Credential/Identity", null), "Its you");
+	}
+
+	/**
+	 *
+	 * duh...
+	 */
+	@Test
+	public void testICSVersions()
+	{
+		final PrintTalk pt = new PrintTalk();
+		assertNull(pt.getICSVersions());
+		pt.setICSVersions(new VString("Cus-EP_L1-2.0"));
+		assertEquals(new VString("Cus-EP_L1-2.0"), pt.getICSVersions());
+		reparse(pt.appendRequest(EnumBusinessObject.Cancellation, null), false);
 	}
 
 	/**
