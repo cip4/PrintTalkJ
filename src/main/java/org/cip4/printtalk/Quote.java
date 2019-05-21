@@ -56,7 +56,10 @@ public class Quote extends AbstractPrintTalk
 	public final static String ATTR_ESTIMATE = "Estimate";
 	/** */
 	public final static String ATTR_QUOTEID = "QuoteID";
-	/** */
+	/**
+	 * @deprecated
+	 * */
+	@Deprecated
 	public final static String ATTR_REPLACEID = "ReplaceID";
 	public final static String ATTR_DEVIATIONS = "Deviations";
 	public final static String ATTR_RETURNJDF = "ReturnJDF";
@@ -135,7 +138,9 @@ public class Quote extends AbstractPrintTalk
 	 * get replace id value
 	 *
 	 * @return
+	 * @deprecated
 	 */
+	@Deprecated
 	public String getReplaceID()
 	{
 		return getAttribute(ATTR_REPLACEID);
@@ -145,7 +150,9 @@ public class Quote extends AbstractPrintTalk
 	 * set replace id value
 	 *
 	 * @param s
+	 * @deprecated
 	 */
+	@Deprecated
 	public void setReplaceID(final String s)
 	{
 		setAttribute(ATTR_REPLACEID, s);

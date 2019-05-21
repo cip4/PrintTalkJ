@@ -94,7 +94,11 @@ public class RFQ extends BusinessObject
 	public static final String ATTR_ESTIMATE = "Estimate";
 	/** */
 	public static final String ATTR_REORDERID = "ReorderID";
-	/** */
+	/**
+	 *
+	 * @deprecated
+	 * */
+	@Deprecated
 	public static final String ATTR_REPLACEID = "ReplaceID";
 
 	/**
@@ -189,7 +193,9 @@ public class RFQ extends BusinessObject
 	 * get ReplaceID value
 	 *
 	 * @return
+	 * @deprecated
 	 */
+	@Deprecated
 	public String getReplaceID()
 	{
 		return getAttribute(ATTR_REPLACEID);
@@ -199,7 +205,9 @@ public class RFQ extends BusinessObject
 	 * set ReplaceID value
 	 *
 	 * @param s
+	 * @deprecated
 	 */
+	@Deprecated
 	public void setReplaceID(final String s)
 	{
 		setAttribute(ATTR_REPLACEID, s);
@@ -269,16 +277,6 @@ public class RFQ extends BusinessObject
 	public JDFIntegerList getAmountPrices()
 	{
 		return JDFIntegerList.createIntegerList(getAttribute(PrintTalkConstants.AmountPrices));
-	}
-
-	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
-	 */
-	@Override
-	public void cleanUp()
-	{
-		setEstimate(getEstimate());
-		super.cleanUp();
 	}
 
 }

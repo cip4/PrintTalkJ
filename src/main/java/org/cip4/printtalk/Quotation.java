@@ -57,7 +57,10 @@ public class Quotation extends BusinessObject
 	public final static String ATTR_ESTIMATE = "Estimate";
 	/** */
 	public final static String ATTR_REORDERID = "ReorderID";
-	/** */
+	/**
+	 * @deprecated
+	 * */
+	@Deprecated
 	public final static String ATTR_REPLACEID = "ReplaceID";
 
 	/**
@@ -163,7 +166,9 @@ public class Quotation extends BusinessObject
 	 * get ReplaceID value
 	 *
 	 * @return
+	 * @deprecated
 	 */
+	@Deprecated
 	public String getReplaceID()
 	{
 		return getAttribute(ATTR_REPLACEID);
@@ -173,7 +178,9 @@ public class Quotation extends BusinessObject
 	 * set ReplaceID value
 	 *
 	 * @param s
+	 * @deprecated
 	 */
+	@Deprecated
 	public void setReplaceID(final String s)
 	{
 		setAttribute(ATTR_REPLACEID, s);

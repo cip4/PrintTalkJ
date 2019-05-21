@@ -54,7 +54,10 @@ public class PurchaseOrder extends BusinessObject
 	public final static String ATTR_QUOTEID = "QuoteID";
 	/** */
 	public final static String ATTR_REORDERID = "ReorderID";
-	/** */
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	public final static String ATTR_REPLACEID = "ReplaceID";
 	/** */
 	public final static String ATTR_RETURNJDF = "ReturnJDF";
@@ -166,7 +169,9 @@ public class PurchaseOrder extends BusinessObject
 	 * get replace id value
 	 *
 	 * @return
+	 * @deprecated
 	 */
+	@Deprecated
 	public String getReplaceID()
 	{
 		return getAttribute(ATTR_REPLACEID);
@@ -176,7 +181,9 @@ public class PurchaseOrder extends BusinessObject
 	 * set replace id value
 	 *
 	 * @param s
+	 * @deprecated
 	 */
+	@Deprecated
 	public void setReplaceID(final String s)
 	{
 		setAttribute(ATTR_REPLACEID, s);

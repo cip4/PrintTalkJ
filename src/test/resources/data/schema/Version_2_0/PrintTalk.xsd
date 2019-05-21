@@ -361,7 +361,6 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:attribute name="Expires" type="xs:dateTime" use="optional" />
 				<xs:attribute name="QuoteID" type="xs:NMTOKEN" use="optional" />
 				<xs:attribute name="ReorderID" type="xs:NMTOKENS" />
-				<xs:attribute name="ReplaceID" type="xs:NMTOKEN" use="optional" />
 				<xs:attribute name="ReturnAudits" type="xs:NMTOKENS" use="optional" />
 				<xs:attribute name="ReturnJDF" type="xs:boolean" use="optional" />
 			</xs:extension>
@@ -379,7 +378,6 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				</xs:sequence>
 				<xs:attribute name="Estimate" type="xs:boolean" use="required" />
 				<xs:attribute name="Expires" type="xs:dateTime" use="required" />
-				<xs:attribute name="ReplaceID" type="xs:NMTOKEN" use="optional" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -410,7 +408,6 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				</xs:attribute>				
 				<xs:attribute name="Deviations" type="xs:NMTOKENS" use="optional" />
 				<xs:attribute name="QuoteID" type="xs:NMTOKEN" use="required" />
-				<xs:attribute name="ReplaceID" type="xs:NMTOKEN" use="optional" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -453,7 +450,6 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:attribute name="Estimate" type="xs:boolean" use="optional" />
 				<xs:attribute name="Expires" type="xs:dateTime" use="required" />
 				<xs:attribute name="ReorderID" type="xs:NMTOKENS" use="optional" />
-				<xs:attribute name="ReplaceID" type="xs:NMTOKEN" use="optional" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
