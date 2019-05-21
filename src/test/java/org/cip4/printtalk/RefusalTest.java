@@ -64,6 +64,22 @@ public class RefusalTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testCustomerProjectID()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final Refusal refusal = (Refusal) printTalk.appendRequest(EnumBusinessObject.Refusal, null);
+		refusal.setReason(EnumReason.Busy);
+		assertEquals(EnumReason.Busy, refusal.getReason());
+		refusal.setCustomerProjectID("cpi");
+		assertEquals("cpi", refusal.getCustomerProjectID());
+		reparse(refusal, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testSetReasonDetails()
 	{
 		final PrintTalk printTalk = new PrintTalk();

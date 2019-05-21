@@ -127,6 +127,10 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		}
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public KElement getRequest()
 	{
 		return getRoot() == null ? null : getRoot().getParentNode_KElement();
@@ -143,6 +147,30 @@ public abstract class BusinessObject extends AbstractPrintTalk
 			return bid;
 		final KElement request = getRequest();
 		return request == null ? null : request.getAttribute(ATTR_BUSINESSREFID);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getCustomerProjectID()
+	{
+		final KElement request = getRequest();
+		return request == null ? null : request.getAttribute(AttributeName.CUSTOMERPROJECTID);
+	}
+
+	/**
+	 *
+	 * @param coid
+	 */
+	public void setCustomerProjectID(final String coid)
+	{
+
+		final KElement request = getRequest();
+		if (request != null)
+		{
+			request.setAttribute(AttributeName.CUSTOMERPROJECTID, coid);
+		}
 	}
 
 	/**
