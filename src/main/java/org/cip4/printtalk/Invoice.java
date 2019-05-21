@@ -79,7 +79,7 @@ public class Invoice extends BusinessObject
 	 */
 	public void setCurrency(final String currency)
 	{
-		setAttribute(ATTR_CURRENCY, currency);
+		setAttribute(ATTR_CURRENCY, currency == null ? null : currency.toUpperCase());
 	}
 
 	/**

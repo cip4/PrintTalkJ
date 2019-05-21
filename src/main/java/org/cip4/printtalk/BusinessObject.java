@@ -52,7 +52,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 {
 	public static final String ATTR_BUSINESSREFID = "BusinessRefID";
 	public static final String ATTR_BUSINESSID = "BusinessID";
-	public static final String ATTR_CURRENCY = "Currency";
+	public static final String ATTR_CURRENCY = PrintTalkConstants.Currency;
 	public static final String ATTR_EXPIRES = "Expires";
 
 	public enum EnumResult

@@ -79,7 +79,8 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public String getCurrency()
 	{
-		return getAttribute(ATTR_CURRENCY);
+		final Pricing pricing = getPricing();
+		return pricing == null ? null : pricing.getCurrency();
 	}
 
 	/**
@@ -90,7 +91,7 @@ public class PurchaseOrder extends BusinessObject
 	 */
 	public void setCurrency(final String currency)
 	{
-		setAttribute(ATTR_CURRENCY, currency);
+		getCreatePricing().setCurrency(currency);
 	}
 
 	/**

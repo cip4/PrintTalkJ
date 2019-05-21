@@ -1,8 +1,8 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of
+ * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -10,7 +10,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -18,17 +18,17 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:  
+ *    if any, must include the following acknowledgment:
  *       "This product includes software developed by the
- *        The International Cooperation for the Integration of 
+ *        The International Cooperation for the Integration of
  *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
  *    Alternately, this acknowledgment may appear in the software itself,
  *    if and wherever such third-party acknowledgments normally appear.
  *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of 
+ * 4. The names "CIP4" and "The International Cooperation for the Integration of
  *    Processes in  Prepress, Press and Postpress" must
  *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written 
+ *    software without prior written permission. For written
  *    permission, please contact info@cip4.org.
  *
  * 5. Products derived from this software may not be called "CIP4",
@@ -54,17 +54,17 @@
  * ====================================================================
  *
  * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration 
+ * individuals on behalf of the The International Cooperation for the Integration
  * of Processes in Prepress, Press and Postpress and was
- * originally based on software 
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG 
- * copyright (c) 1999-2001, Agfa-Gevaert N.V. 
- *  
- * For more information on The International Cooperation for the 
+ * originally based on software
+ * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
+ * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ *
+ * For more information on The International Cooperation for the
  * Integration of Processes in  Prepress, Press and Postpress , please see
  * <http://www.cip4.org/>.
- *  
- * 
+ *
+ *
  */
 package org.cip4.printtalk;
 
@@ -76,27 +76,27 @@ import org.cip4.jdflib.util.StringUtil;
 
 /**
  * Class represented OrderStatusRequest business object.
- * 
+ *
  * @author rainer prosi
- *  
+ *
  */
 public class StockLevelResponse extends BusinessObject
 {
 	/**
-	 * 
+	 *
 	 * @param theElement
 	 */
-	public StockLevelResponse(KElement theElement)
+	public StockLevelResponse(final KElement theElement)
 	{
 		super(theElement);
 	}
 
 	/**
 	 * get or create stocklevel element
-	 * @param nSkip 
+	 * @param nSkip
 	 * @return
 	 */
-	public StockLevel getStockLevel(int nSkip)
+	public StockLevel getStockLevel(final int nSkip)
 	{
 		return new StockLevel(getElement(StockLevel.ELEMENT_STOCKLEVEL, nSkip));
 	}
@@ -124,15 +124,15 @@ public class StockLevelResponse extends BusinessObject
 	 * @param productID regexp that StockLevel/@ProductID should match
 	 * @return the matching list, null if none match
 	 */
-	private Vector<StockLevel> getStockLevelsImpl(Object match)
+	private Vector<StockLevel> getStockLevelsImpl(final Object match)
 	{
-		VElement v = getElements(StockLevel.ELEMENT_STOCKLEVEL);
+		final VElement v = getElements(StockLevel.ELEMENT_STOCKLEVEL);
 		if (v == null)
 			return null;
-		Vector<StockLevel> vs = new Vector<StockLevel>();
-		for (KElement e : v)
+		final Vector<StockLevel> vs = new Vector<StockLevel>();
+		for (final KElement e : v)
 		{
-			StockLevel stockLevel = new StockLevel(e);
+			final StockLevel stockLevel = new StockLevel(e);
 			if (stockLevel.matches(match))
 			{
 				vs.add(stockLevel);
@@ -157,27 +157,50 @@ public class StockLevelResponse extends BusinessObject
 	 * @param req stockLevelRequest that StockLevel/@ProductID should match
 	 * @return the matching list, null if none match
 	 */
-	public Vector<StockLevel> getStockLevels(StockLevelRequest req)
+	public Vector<StockLevel> getStockLevels(final StockLevelRequest req)
 	{
 		return getStockLevelsImpl(req);
 	}
 
 	/**
 	 * get currency value
+	 *
 	 * @return
 	 */
 	public String getCurrency()
 	{
-		return getAttribute(ATTR_CURRENCY);
+		final Pricing p = getPricing();
+		return p == null ? null : p.getCurrency();
 	}
 
 	/**
 	 * set currency value
+	 *
 	 * @param currency
 	 */
-	public void setCurrency(String currency)
+	public void setCurrency(final String currency)
 	{
-		setAttribute(ATTR_CURRENCY, currency);
+		getCreatePricing().setCurrency(currency);
+	}
+
+	/**
+	 * create pricing element
+	 *
+	 * @return
+	 */
+	public Pricing getCreatePricing()
+	{
+		return new Pricing(getCreateElement(Pricing.ELEMENT_PRICING));
+	}
+
+	/**
+	 * get pricing element
+	 *
+	 * @return
+	 */
+	public Pricing getPricing()
+	{
+		return new Pricing(getElement(Pricing.ELEMENT_PRICING));
 	}
 
 }
