@@ -271,7 +271,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:sequence maxOccurs="1" minOccurs="1">
 					<xs:element name="Pricing" type="ptk:Pricing" maxOccurs="1" minOccurs="1" />
 				</xs:sequence>
-				<xs:attribute name="Expires" type="xs:dateTime" use="required" />
+				<xs:attribute name="DueDate" type="xs:dateTime" use="required" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>

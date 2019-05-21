@@ -149,10 +149,10 @@ public class PricingTest extends PrintTalkTestCase
 
 	static void reparse(final Pricing p, final int ptv, final boolean fail)
 	{
+		Pricing.setDefaultCurrency("eur");
 		final Invoice i = new Invoice(new XMLDoc(EnumBusinessObject.Invoice.name(), null).getRoot());
-		p.setCurrency("eur");
 		i.getRoot().copyElement(p.getRoot(), null);
-		i.setExpiresDays(42);
+		i.setDueDate(42);
 		i.cleanUp();
 		reparse(i, ptv, fail);
 	}

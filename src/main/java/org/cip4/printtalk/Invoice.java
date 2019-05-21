@@ -36,8 +36,7 @@
  */
 package org.cip4.printtalk;
 
-import java.util.zip.DataFormatException;
-
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.JDFDate;
@@ -97,18 +96,24 @@ public class Invoice extends BusinessObject
 	 * get expires value
 	 *
 	 * @return
+	 * @deprecated use getDueDate
 	 */
+	@Deprecated
 	public JDFDate getExpires()
 	{
-		final String s = getAttribute(ATTR_EXPIRES);
-		try
-		{
-			return (s == null) ? null : new JDFDate(s);
-		}
-		catch (final DataFormatException e)
-		{
-			return null;
-		}
+		return getDueDate();
+	}
+
+	/**
+	 * get expires value
+	 *
+	 * @return
+	 */
+	public JDFDate getDueDate()
+	{
+		final String s = getAttribute(AttributeName.DUEDATE);
+		final JDFDate d = JDFDate.createDate(s);
+		return d == null ? JDFDate.createDate(getAttribute(ATTR_EXPIRES)) : d;
 	}
 
 	/**
@@ -116,9 +121,21 @@ public class Invoice extends BusinessObject
 	 *
 	 * @param expires
 	 */
+	public void setDueDate(final JDFDate expires)
+	{
+		setAttribute(AttributeName.DUEDATE, expires == null ? null : expires.getDateTimeISO());
+	}
+
+	/**
+	 * set expires value
+	 *
+	 * @param expires
+	 * @deprecated use setDueDate
+	 */
+	@Deprecated
 	public void setExpires(final JDFDate expires)
 	{
-		setAttribute(ATTR_EXPIRES, expires == null ? null : expires.getDateTimeISO());
+		setDueDate(expires);
 	}
 
 	/**
@@ -126,9 +143,9 @@ public class Invoice extends BusinessObject
 	 *
 	 * @param i
 	 */
-	public void setExpiresDays(final int days)
+	public void setDueDate(final int days)
 	{
-		setExpires(getExpirationDays(days));
+		setDueDate(getExpirationDays(days));
 	}
 
 	/**
@@ -149,6 +166,18 @@ public class Invoice extends BusinessObject
 	public Pricing getPricing()
 	{
 		return new Pricing(getElement(ELEMENT_PRICING));
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 */
+	@Override
+	public void cleanUp()
+	{
+		final Pricing p = getPricing();
+		if (p != null)
+			p.cleanUp();
+		super.cleanUp();
 	}
 
 }

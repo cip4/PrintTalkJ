@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
@@ -71,6 +71,8 @@ package org.cip4.printtalk;
 import static org.junit.Assert.assertEquals;
 
 import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.Price.EnumPriceType;
+import org.cip4.printtalk.Price.EnumTaxType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
@@ -82,7 +84,6 @@ public class InvoiceTest extends PrintTalkTestCase
 	/**
 	 *
 	 */
-
 	@Test
 	public void testSetExpires()
 	{
@@ -94,14 +95,39 @@ public class InvoiceTest extends PrintTalkTestCase
 
 	/**
 	 *
+	 */
+	@Test
+	public void testDueDate()
+	{
+		final Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
+		final JDFDate expires = new JDFDate();
+		invoice.setDueDate(expires);
+		assertEquals(expires, invoice.getDueDate());
+	}
+
+	/**
+	 *
 	 *
 	 */
 	@Test
 	public void testGetCreatePricing()
 	{
 		final Invoice invoice = (Invoice) new PrintTalk().appendRequest(EnumBusinessObject.Invoice, null);
+		invoice.setDueDate(3);
 		final Pricing p = invoice.getCreatePricing();
-		p.addPrice("Our best price", 100);
-		System.out.println("invoice: " + invoice);
+		p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Our best price", 100);
+		log.info("invoice: " + invoice);
+		invoice.cleanUp();
+		reparse(invoice, false);
+	}
+
+	/**
+	 * @see org.cip4.printtalk.PrintTalkTestCase#setUp()
+	 */
+	@Override
+	public void setUp() throws Exception
+	{
+		super.setUp();
+		Pricing.setDefaultCurrency("eur");
 	}
 }

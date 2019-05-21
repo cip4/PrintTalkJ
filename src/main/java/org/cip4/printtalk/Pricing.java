@@ -54,6 +54,24 @@ import org.cip4.printtalk.Price.EnumTaxType;
  */
 public class Pricing extends AbstractPrintTalk
 {
+	private static String defaultCurrency = null;
+
+	/**
+	 * @return the defaultCurrency
+	 */
+	public static String getDefaultCurrency()
+	{
+		return defaultCurrency;
+	}
+
+	/**
+	 * @param defaultCurrency the defaultCurrency to set
+	 */
+	public static void setDefaultCurrency(final String defaultCurrency)
+	{
+		Pricing.defaultCurrency = defaultCurrency;
+	}
+
 	/** */
 	public final static String ELEMENT_PRICING = "Pricing";
 
@@ -238,6 +256,19 @@ public class Pricing extends AbstractPrintTalk
 	public String getCurrency()
 	{
 		return getAttribute(AttributeName.CURRENCY);
+	}
+
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 */
+	@Override
+	public void cleanUp()
+	{
+		if (getCurrency() == null && getDefaultCurrency() != null)
+		{
+			setCurrency(getDefaultCurrency());
+		}
+		super.cleanUp();
 	}
 
 }

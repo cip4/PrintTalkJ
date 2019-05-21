@@ -65,7 +65,7 @@ public class ExampleElement extends PrintTalkTestCase
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
 		final Invoice invoice = (Invoice) pt.appendRequest(EnumBusinessObject.Invoice, null);
 		invoice.setBusinessID("invoice1");
-		invoice.setExpiresDays(33);
+		invoice.setDueDate(33);
 		final Pricing p = invoice.getCreatePricing();
 		p.setCurrency("CAD");
 		final Price pi1 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Item #1", 42.00);
