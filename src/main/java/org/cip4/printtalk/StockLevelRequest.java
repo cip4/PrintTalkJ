@@ -148,7 +148,7 @@ public class StockLevelRequest extends BusinessObject
 	}
 
 	/**
-	 * set currency value
+	 * set displayPrice value
 	 *
 	 * @param displayPrice
 	 */
@@ -199,7 +199,7 @@ public class StockLevelRequest extends BusinessObject
 	}
 
 	/**
-	 * set currency value
+	 * set availability value
 	 *
 	 * @param availability
 	 */

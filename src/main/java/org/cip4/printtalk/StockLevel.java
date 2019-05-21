@@ -264,7 +264,7 @@ public class StockLevel extends AbstractPrintTalk implements IMatches
 	}
 
 	/**
-	 * set currency value
+	 * set availability value
 	 *
 	 * @param availability
 	 */
