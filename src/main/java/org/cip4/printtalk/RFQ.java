@@ -182,11 +182,11 @@ public class RFQ extends BusinessObject
 	/**
 	 * set ReorderID value
 	 *
-	 * @param s
+	 * @param roid
 	 */
-	public void setReorderID(final String s)
+	public void setReorderID(final String roid)
 	{
-		setAttribute(ATTR_REORDERID, s);
+		setAttribute(ATTR_REORDERID, roid);
 	}
 
 	/**
@@ -204,13 +204,13 @@ public class RFQ extends BusinessObject
 	/**
 	 * set ReplaceID value
 	 *
-	 * @param s
+	 * @param rid
 	 * @deprecated
 	 */
 	@Deprecated
-	public void setReplaceID(final String s)
+	public void setReplaceID(final String rid)
 	{
-		setAttribute(ATTR_REPLACEID, s);
+		setAttribute(ATTR_REPLACEID, rid);
 	}
 
 	/**

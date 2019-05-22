@@ -59,7 +59,7 @@ public class Quotation extends BusinessObject
 	public final static String ATTR_REORDERID = "ReorderID";
 	/**
 	 * @deprecated
-	 * */
+	 */
 	@Deprecated
 	public final static String ATTR_REPLACEID = "ReplaceID";
 
@@ -133,16 +133,6 @@ public class Quotation extends BusinessObject
 	}
 
 	/**
-	 * set the expires dates
-	 *
-	 * @param i
-	 */
-	public void setExpiresDays(final int days)
-	{
-		setExpires(getExpirationDays(days));
-	}
-
-	/**
 	 * get ReorderID value
 	 *
 	 * @return
@@ -160,6 +150,16 @@ public class Quotation extends BusinessObject
 	public void setReorderID(final String s)
 	{
 		setAttribute(ATTR_REORDERID, s);
+	}
+
+	/**
+	 * set the expires dates
+	 *
+	 * @param i
+	 */
+	public void setExpiresDays(final int days)
+	{
+		setExpires(getExpirationDays(days));
 	}
 
 	/**
