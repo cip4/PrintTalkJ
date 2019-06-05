@@ -210,12 +210,12 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		q.setQuoteID("q1");
 		final Price price1 = q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "1000 business cards", 500.00);
 		price1.setAmount(1000);
-		price1.addAdditional(100, 40.00);
-		price1.addAdditional(1000, 200.00);
+		price1.addAdditional(500, 250, 100, 40.00);
+		price1.addAdditional(1000, 200, 1000, 200.00);
 		q.getCreatePricing().setCurrency("GBP");
 		final Quote q2 = quotation.appendQuote();
 		q2.setQuoteID("q2");
-		q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "5000 business cards", 1500.00).addAdditional(1000, 250.00);
+		q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "5000 business cards", 1500.00).addAdditional(5000, 1500, 1000, 250.00);
 		q2.getCreatePricing().setCurrency("GBP");
 		pt.cleanUp();
 		setSnippet(quotation, true);

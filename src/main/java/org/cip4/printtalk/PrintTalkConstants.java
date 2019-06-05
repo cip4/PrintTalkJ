@@ -47,6 +47,9 @@ public class PrintTalkConstants
 
 	public static final String AmountPrices = "AmountPrices";
 
+	public static final String BaseAmount = "BaseAmount";
+	public static final String BasePrice = "BasePrice";
+
 	public static final String ContentDelivery = "ContentDelivery";
 	public static final String Currency = "Currency";
 

@@ -503,8 +503,10 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 	<xs:complexType name="Additional">
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
-				<xs:attribute name="Amount" type="xs:double" use="required" />
-				<xs:attribute name="Price" type="xs:double" use="required" />
+				<xs:attribute name="Amount" type="xs:double" use="optional" />
+				<xs:attribute name="BaseAmount" type="xs:double" use="required" />
+				<xs:attribute name="BasePrice" type="xs:double" use="required" />
+				<xs:attribute name="Price" type="xs:double" use="optional" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>

@@ -394,7 +394,24 @@ public class Price extends AbstractPrintTalk
 	}
 
 	/**
-	 * add a price element
+	 *
+	 * @param baseAmount
+	 * @param basePrice
+	 * @param amount
+	 * @param price
+	 * @return
+	 */
+	public Additional addAdditional(final double baseAmount, final double basePrice, final double amount, final double price)
+	{
+		final Additional a = new Additional(theElement.appendElement(Additional.ELEMENT_Additional));
+		a.setBaseAmount(baseAmount);
+		a.setBasePrice(basePrice);
+		a.setAmount(amount);
+		a.setPrice(price);
+		return a;
+	}
+
+	/**
 	 *
 	 * @param amount
 	 * @param price
@@ -402,10 +419,7 @@ public class Price extends AbstractPrintTalk
 	 */
 	public Additional addAdditional(final double amount, final double price)
 	{
-		final Additional a = new Additional(theElement.appendElement(Additional.ELEMENT_Additional));
-		a.setAmount(amount);
-		a.setPrice(price);
-		return a;
+		return addAdditional(0, 0, amount, price);
 	}
 
 	/**
