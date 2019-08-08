@@ -92,6 +92,30 @@ public class StockLevelResponse extends BusinessObject
 	}
 
 	/**
+	 * get or create MasterContract element
+	 *
+	 * @param contractID the new contractID
+	 * @return
+	 */
+	@Override
+	public MasterContract getCreateMasterContract(final String contractID)
+	{
+		return super.getCreateMasterContract(contractID);
+	}
+
+	/**
+	 * get the existing MasterContract element
+	 *
+	 *
+	 * @return
+	 */
+	@Override
+	public MasterContract getMasterContract()
+	{
+		return super.getMasterContract();
+	}
+
+	/**
 	 * get or create stocklevel element
 	 * @param nSkip
 	 * @return

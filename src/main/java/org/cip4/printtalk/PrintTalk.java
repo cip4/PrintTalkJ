@@ -212,6 +212,17 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
+	 * checks whether kElem is in the PTK namespace
+	 *
+	 * @param ns the KElement to check
+	 * @return boolean - true, if kElem is in the PTK namespace
+	 */
+	public static boolean isInPTKNameSpace(final String ns)
+	{
+		return ns != null && (ns.startsWith("http://www.printtalk.org/schema_20"));
+	}
+
+	/**
 	 *
 	 * get the correct namespace uri string
 	 *

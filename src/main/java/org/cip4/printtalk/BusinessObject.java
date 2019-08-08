@@ -90,6 +90,25 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		super(theElement);
 	}
 
+	MasterContract getCreateMasterContract(final String contractID)
+	{
+		final MasterContract masterContract = new MasterContract(getCreateElement(PrintTalkConstants.MasterContract, 0));
+		masterContract.setContractID(contractID);
+		return masterContract;
+	}
+
+	/**
+	 * get the existing MasterContract element
+	 *
+	 *
+	 * @return
+	 */
+	MasterContract getMasterContract()
+	{
+		final MasterContract masterContract = new MasterContract(getElement(PrintTalkConstants.MasterContract, 0));
+		return masterContract;
+	}
+
 	/**
 	 *
 	 * @see org.cip4.printtalk.AbstractPrintTalk#init()

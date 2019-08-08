@@ -59,6 +59,10 @@ class PrintTalkCleanupComparator extends KElement.SimpleElementNameComparator
 	{
 		if (o1 != null && o2 != null)
 		{
+			if (PrintTalk.isInPTKNameSpace(o2.getNamespaceURI()) ^ PrintTalk.isInPTKNameSpace(o1.getNamespaceURI()))
+			{
+				return PrintTalk.isInPTKNameSpace(o2.getNamespaceURI()) ? 1 : -1;
+			}
 			if (JDFElement.isInXJDFNameSpaceStatic(o2.getNamespaceURI()) ^ JDFElement.isInXJDFNameSpaceStatic(o1.getNamespaceURI()))
 			{
 				return JDFElement.isInXJDFNameSpaceStatic(o2.getNamespaceURI()) ? 1 : -1;

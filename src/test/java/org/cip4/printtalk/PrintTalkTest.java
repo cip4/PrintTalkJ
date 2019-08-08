@@ -85,6 +85,17 @@ public class PrintTalkTest extends PrintTalkTestCase
 	}
 
 	/**
+	*
+	* duh...
+	*/
+	@Test
+	public void testIsPTKNS()
+	{
+		final PrintTalk pt = new PrintTalk();
+		assertTrue(PrintTalk.isInPTKNameSpace(pt.getRoot().getNamespaceURI()));
+	}
+
+	/**
 	 *
 	 * duh...
 	 */

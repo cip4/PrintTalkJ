@@ -120,6 +120,23 @@ public class RFQTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testMasterContract()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final RFQ rfq = (RFQ) printTalk.appendRequest(EnumBusinessObject.RFQ, null);
+		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		rfq.appendXJDF(xjdf);
+		rfq.setExpiresDays(5);
+		rfq.getCreateMasterContract("mcid");
+		rfq.cleanUp();
+		reparse(rfq, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testAmountPrices()
 	{
 		final PrintTalk printTalk = new PrintTalk();

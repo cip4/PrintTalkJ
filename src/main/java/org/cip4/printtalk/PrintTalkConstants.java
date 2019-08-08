@@ -51,9 +51,12 @@ public class PrintTalkConstants
 	public static final String BasePrice = "BasePrice";
 
 	public static final String ContentDelivery = "ContentDelivery";
+	public static final String ContractID = "ContractID";
 	public static final String Currency = "Currency";
 
 	public static final String Header = "Header";
+
+	public static final String MasterContract = "MasterContract";
 
 	public final static String payloadID = "payloadID";
 
