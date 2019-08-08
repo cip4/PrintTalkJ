@@ -54,13 +54,20 @@ public class StatusRequest extends AbstractPrintTalk
 		/** **/
 		Brief,
 		/** **/
-		CompletedMilestones,
-		/** **/
-		Full
+		Completed
+
 	}
 
-	public final static String ATTR_RESPONSEDETAILS = "ResponseDetails";
-	public final static String ATTR_RETURNAUDITS = "ReturnAudits";
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
+	public final static String ATTR_RESPONSEDETAILS = PrintTalkConstants.MilestoneAmount;
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
+	public final static String ATTR_RETURNAUDITS = PrintTalkConstants.ResourceAudit;
 
 	/**
 	 *
@@ -115,7 +122,9 @@ public class StatusRequest extends AbstractPrintTalk
 	 * get ResponseDetails value
 	 *
 	 * @return
+	 * @deprecated
 	 */
+	@Deprecated
 	public EnumResponseDetails getResponseDetails()
 	{
 		final String s = getAttribute(ATTR_RESPONSEDETAILS);
@@ -126,10 +135,54 @@ public class StatusRequest extends AbstractPrintTalk
 	 * set ResponseDetails value
 	 *
 	 * @param rd
+	 * @deprecated
 	 */
+	@Deprecated
 	public void setResponseDetails(final EnumResponseDetails rd)
 	{
 		setAttribute(ATTR_RESPONSEDETAILS, rd == null ? null : rd.name());
+	}
+
+	/**
+	 * set ResponseDetails value
+	 *
+	 * @param rd
+	 *
+	 */
+	public void setMilestoneAmount(final EnumResponseDetails rd)
+	{
+		setAttribute(PrintTalkConstants.MilestoneAmount, rd == null ? null : rd.name());
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public EnumResponseDetails getMilestoneAmount()
+	{
+		final String s = getAttribute(PrintTalkConstants.MilestoneAmount);
+		return s == null ? null : EnumResponseDetails.valueOf(s);
+	}
+
+	/**
+	 * set ResponseDetails value
+	 *
+	 * @param resType
+	 *
+	 */
+	public void setResourceAudit(final String resType)
+	{
+		setAttribute(PrintTalkConstants.ResourceAudit, resType);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getResourceAudit()
+	{
+		final String s = getAttribute(PrintTalkConstants.ResourceAudit);
+		return s;
 	}
 
 }

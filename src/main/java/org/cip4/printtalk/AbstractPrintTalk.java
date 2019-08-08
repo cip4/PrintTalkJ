@@ -216,7 +216,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public void setAttribute(final String key, final String value)
 	{
-		theElement.setAttribute(key, value);
+		theElement.setNonEmpty(key, value);
 	}
 
 	/**

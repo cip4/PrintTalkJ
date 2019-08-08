@@ -57,10 +57,12 @@ public class PrintTalkConstants
 	public static final String Header = "Header";
 
 	public static final String MasterContract = "MasterContract";
+	public static final String MilestoneAmount = "MilestoneAmount";
 
 	public final static String payloadID = "payloadID";
 
 	public static final String Request = "Request";
+	public static final String ResourceAudit = "ResourceAudit";
 	public final static String Result = "Result";
 
 	public static final String Timestamp = "timestamp";

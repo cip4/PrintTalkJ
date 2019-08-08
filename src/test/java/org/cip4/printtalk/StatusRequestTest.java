@@ -86,6 +86,7 @@ public class StatusRequestTest extends PrintTalkTestCase
 	 *
 	 *
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testResponseDetails()
 	{
@@ -93,5 +94,18 @@ public class StatusRequestTest extends PrintTalkTestCase
 		assertNull(r.getResponseDetails());
 		r.setResponseDetails(EnumResponseDetails.Brief);
 		assertEquals(r.getResponseDetails(), EnumResponseDetails.Brief);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testMilestoneAmount()
+	{
+		final StatusRequest r = ((OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null)).getCreateStatusRequest();
+		assertNull(r.getMilestoneAmount());
+		r.setMilestoneAmount(EnumResponseDetails.Brief);
+		assertEquals(r.getMilestoneAmount(), EnumResponseDetails.Brief);
 	}
 }

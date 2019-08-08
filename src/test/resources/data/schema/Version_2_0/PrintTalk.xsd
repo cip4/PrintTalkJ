@@ -294,16 +294,15 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 		<xs:complexContent>
 			<xs:extension base="ptk:BaseElement">
 				<xs:attribute name="JobIDRef" type="xs:NMTOKEN" use="optional" />
-				<xs:attribute name="ResponseDetails" use="optional">
+				<xs:attribute name="MilestoneAmount" use="optional">
 					<xs:simpleType>
 						<xs:restriction base="xs:NMTOKEN">
 							<xs:enumeration value="Brief" />
-							<xs:enumeration value="CompletedMilestones" />
-							<xs:enumeration value="Full" />
+							<xs:enumeration value="Completed" />
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:attribute>
-				<xs:attribute name="ReturnAudits" type="xs:NMTOKENS" use="optional" />
+				<xs:attribute name="ResourceAudit" type="xs:NMTOKEN" use="optional" />
 				<xs:attribute name="Subscribed" type="xs:boolean" use="required" />
 			</xs:extension>
 		</xs:complexContent>
