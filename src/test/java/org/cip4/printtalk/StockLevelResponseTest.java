@@ -98,4 +98,28 @@ public class StockLevelResponseTest extends PrintTalkTestCase
 		reparse(resp, false);
 	}
 
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testMasterContract()
+	{
+		final StockLevelResponse resp = ((StockLevelResponse) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelResponse, null));
+		for (int i = 0; i < 3; i++)
+		{
+			final StockLevel sl = resp.appendStockLevel();
+			sl.setAmount(i * 10);
+			sl.setDescriptiveName("Description " + i);
+			sl.setExternalID("ID_" + i);
+			sl.setAvailability(EnumAvailability.Available);
+			final XJDFHelper xjdf = new XJDFHelper("j1", null);
+			xjdf.setTypes("Product");
+			sl.appendXJDF(xjdf);
+		}
+		resp.getCreateMasterContract("CID");
+		resp.cleanUp();
+		reparse(resp, false);
+	}
+
 }

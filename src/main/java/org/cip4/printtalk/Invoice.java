@@ -54,6 +54,30 @@ public class Invoice extends BusinessObject
 	public final static String ELEMENT_PRICING = "Pricing";
 
 	/**
+	 * get or create MasterContract element
+	 *
+	 * @param contractID the new contractID
+	 * @return
+	 */
+	@Override
+	public MasterContract getCreateMasterContract(final String contractID)
+	{
+		return super.getCreateMasterContract(contractID);
+	}
+
+	/**
+	 * get the existing MasterContract element
+	 *
+	 *
+	 * @return
+	 */
+	@Override
+	public MasterContract getMasterContract()
+	{
+		return super.getMasterContract();
+	}
+
+	/**
 	 *
 	 * @param theElement
 	 */

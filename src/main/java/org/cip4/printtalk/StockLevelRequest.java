@@ -75,6 +75,30 @@ public class StockLevelRequest extends BusinessObject
 	}
 
 	/**
+	 * get or create MasterContract element
+	 *
+	 * @param contractID the new contractID
+	 * @return
+	 */
+	@Override
+	public MasterContract getCreateMasterContract(final String contractID)
+	{
+		return super.getCreateMasterContract(contractID);
+	}
+
+	/**
+	 * get the existing MasterContract element
+	 *
+	 *
+	 * @return
+	 */
+	@Override
+	public MasterContract getMasterContract()
+	{
+		return super.getMasterContract();
+	}
+
+	/**
 	 *
 	 * @return
 	 * @deprecated use getExternalID
