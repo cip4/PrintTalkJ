@@ -80,6 +80,9 @@ public class PurchaseOrderTest extends PrintTalkTestCase
 		po.setDescriptiveName("foo");
 		assertEquals("foo", po.getDescriptiveName());
 		assertNull(po.getAttribute(AttributeName.DESCRIPTIVENAME));
+		final JDFDate expires = new JDFDate();
+		po.setExpires(expires);
+
 		final XJDFHelper xjdf = new XJDFHelper("J1", null);
 		po.appendXJDF(xjdf);
 		printTalk.cleanUp();

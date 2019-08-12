@@ -86,6 +86,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		final PurchaseOrder po = (PurchaseOrder) pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
 		po.setBusinessID("cart1");
+		po.setExpires(new JDFDate());
 		po.appendXJDF(new XJDFHelper("cart1.item1", null, null));
 		po.appendXJDF(new XJDFHelper("cart1.item2", null, null));
 		pt.cleanUp();
@@ -358,6 +359,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		po.setBusinessID("PO_1");
 		po.setQuoteID("Quote_1");
 		po.appendXJDF(new XJDFHelper("MyJob", null));
+		po.setExpires(new JDFDate());
 		setSnippet(po.getRequest(), true);
 		pt.cleanUp();
 		writeExample(pt, "idusage/SimplePO.ptk");
