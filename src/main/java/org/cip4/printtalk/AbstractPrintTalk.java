@@ -43,11 +43,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
+import org.cip4.jdflib.core.JDFConstants;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.datatypes.JDFAttributeMap;
+import org.cip4.jdflib.elementwalker.EnsureNSUri;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.jdflib.extensions.XJDFHelper;
@@ -65,6 +67,23 @@ public abstract class AbstractPrintTalk
 
 	protected KElement theElement;
 	protected final Log log;
+	private static boolean bXJDFPrefix = false;
+
+	/**
+	 * @return the bXJDFPrefix
+	 */
+	public static boolean isXJDFPrefix()
+	{
+		return bXJDFPrefix;
+	}
+
+	/**
+	 * @param bXJDFPrefix the bXJDFPrefix to set if true we want a prefix
+	 */
+	public static void setXJDFPrefix(final boolean bXJDFPrefix)
+	{
+		AbstractPrintTalk.bXJDFPrefix = bXJDFPrefix;
+	}
 
 	/** **/
 	public static final String ATTR_JOBIDREF = "JobIDRef";
@@ -277,6 +296,12 @@ public abstract class AbstractPrintTalk
 				h.cleanUp();
 			}
 		}
+		if (isXJDFPrefix())
+		{
+			final EnsureNSUri ensureNSUri = new EnsureNSUri();
+			ensureNSUri.addNS(XJDFConstants.XJDFPREFIX, JDFElement.getSchemaURL(2, 0));
+			ensureNSUri.walkTree(getRoot(), null);
+		}
 	}
 
 	/**
@@ -383,7 +408,39 @@ public abstract class AbstractPrintTalk
 	 */
 	public KElement getCreateXJDFElement(final String nodeName, final int n)
 	{
-		return theElement.getCreateElement(nodeName, getXJDFNamespace(), n);
+		final String xjdfNodename = getXJDFNodename(nodeName);
+		return theElement.getCreateElement(xjdfNodename, getXJDFNamespace(), n);
+	}
+
+	static String getXJDFNodename(final String nodeName)
+	{
+		if (isXJDFPrefix())
+		{
+			if (nodeName.indexOf(':') >= 0)
+			{
+				if (nodeName.startsWith("xjdf:"))
+				{
+					return nodeName;
+				}
+				else
+				{
+					return StringUtil.replaceToken(nodeName, 0, JDFConstants.COLON, XJDFConstants.XJDFPREFIX);
+				}
+			}
+			else
+			{
+				return XJDFConstants.XJDFPREFIX + ':' + nodeName;
+			}
+		}
+		else if (nodeName.indexOf(':') >= 0)
+		{
+			return StringUtil.replaceToken(nodeName, 0, JDFConstants.COLON, null);
+		}
+		else
+		{
+			return nodeName;
+		}
+
 	}
 
 	/**

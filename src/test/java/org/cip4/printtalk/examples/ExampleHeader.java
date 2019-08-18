@@ -40,6 +40,8 @@ import static org.junit.Assert.assertNotNull;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.printtalk.AbstractPrintTalk;
+import org.cip4.printtalk.Confirmation;
 import org.cip4.printtalk.Credential;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk;
@@ -118,9 +120,11 @@ public class ExampleHeader extends PrintTalkTestCase
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://customer.com");
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://printer.com");
-		pt.appendRequest(EnumBusinessObject.Confirmation, null);
+		final Confirmation c = (Confirmation) pt.appendRequest(EnumBusinessObject.Confirmation, null);
+		c.setBusinessRefID("PO_ID");
+		c.setComment("Thank you for your order");
 		pt.cleanUp();
-		setSnippet(pt.getElement(PrintTalkConstants.Header), true);
+		setSnippet(pt, true);
 		writeExample(pt, "structure/Request.ptk");
 	}
 
@@ -132,6 +136,7 @@ public class ExampleHeader extends PrintTalkTestCase
 	{
 		PrintTalkBuilderFactory.getTheFactory().resetInstance();
 		KElement.setLongID(false);
+		AbstractPrintTalk.setXJDFPrefix(true);
 		super.setUp();
 	}
 

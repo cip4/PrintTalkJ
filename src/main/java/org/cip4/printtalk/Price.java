@@ -42,6 +42,7 @@ import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.JDFConstants;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.util.NumberFormatter;
@@ -348,6 +349,24 @@ public class Price extends AbstractPrintTalk
 	public void addLineIDRef(final String lineIDRef)
 	{
 		theElement.appendAttribute(ATTR_LINEIDREFS, lineIDRef, null, " ", true);
+	}
+
+	/**
+	 *
+	 * @param itemRefs
+	 */
+	public void setItemRefs(final VString itemRefs)
+	{
+		theElement.setAttribute(PrintTalkConstants.ItemRefs, itemRefs, null);
+	}
+
+	/**
+	 *
+	 * @param itemRefs
+	 */
+	public void addItemRef(final String itemRefs)
+	{
+		theElement.appendAttribute(PrintTalkConstants.ItemRefs, itemRefs, null, JDFConstants.BLANK, true);
 	}
 
 	/**

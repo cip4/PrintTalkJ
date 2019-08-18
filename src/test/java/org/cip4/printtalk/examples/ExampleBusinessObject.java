@@ -47,11 +47,14 @@ import org.cip4.jdflib.datatypes.JDFIntegerList;
 import org.cip4.jdflib.extensions.AuditHelper;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.jdflib.extensions.MessageResourceHelper;
+import org.cip4.jdflib.extensions.ProductHelper;
 import org.cip4.jdflib.extensions.ResourceHelper;
+import org.cip4.jdflib.extensions.SetHelper;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.resource.process.JDFDeliveryParams;
 import org.cip4.jdflib.resource.process.JDFRunList;
 import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.AbstractPrintTalk;
 import org.cip4.printtalk.BusinessObject.EnumResult;
 import org.cip4.printtalk.BusinessObject.EnumUpdateMethod;
 import org.cip4.printtalk.Confirmation;
@@ -87,8 +90,24 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final PurchaseOrder po = (PurchaseOrder) pt.appendRequest(EnumBusinessObject.PurchaseOrder, null);
 		po.setBusinessID("cart1");
 		po.setExpires(new JDFDate());
-		po.appendXJDF(new XJDFHelper("cart1.item1", null, null));
-		po.appendXJDF(new XJDFHelper("cart1.item2", null, null));
+		final XJDFHelper xjdf1 = new XJDFHelper("cart1.item1", null, null);
+		xjdf1.removeSet(ElementName.NODEINFO);
+		xjdf1.getRoot().removeChild(ElementName.AUDITPOOL, null, 0);
+		final ProductHelper bc = xjdf1.appendProduct();
+		bc.setDescriptiveName("BusinessCards");
+		bc.setRoot();
+		bc.setAmount(100);
+		po.appendXJDF(xjdf1);
+
+		final XJDFHelper xjdf2 = new XJDFHelper("cart1.item2", null, null);
+		xjdf2.removeSet(ElementName.NODEINFO);
+		xjdf2.getRoot().removeChild(ElementName.AUDITPOOL, null, 0);
+		final ProductHelper broc = xjdf2.appendProduct();
+		broc.setDescriptiveName("Brochures");
+		broc.setRoot();
+		broc.setAmount(500);
+		po.appendXJDF(xjdf2);
+
 		pt.cleanUp();
 		setSnippet(po.getRoot(), true);
 		writeExample(pt, "businessobjects/PurchaseOrderCart.ptk");
@@ -133,11 +152,13 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final AuditPoolHelper aph = po.getCreateAuditPool();
 		final AuditHelper ah = aph.appendAudit("Resource");
 		final MessageResourceHelper mrh = new MessageResourceHelper(ah.getRoot());
-		mrh.getCreateSet().setName(ElementName.PREFLIGHTREPORT);
+		final SetHelper set = mrh.getCreateSet();
+		set.setName(ElementName.PREFLIGHTREPORT);
+		set.getCreatePartition(0, true).getResource().setAttribute(AttributeName.ERRORCOUNT, "0");
 
 		pt.cleanUp();
 		setSnippet(po.getRoot(), true);
-		writeExample(pt, "businessobjects/ContentDelivery.ptk");
+		writeExample(pt, "businessobjects/ContentDeliveryResponse.ptk");
 	}
 
 	/**
@@ -189,7 +210,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		q2.getCreatePricing().setCurrency("DKK");
 		pt.cleanUp();
 		setSnippet(quotation, true);
-		writeExample(pt, "businessobjects/Quotation.ptk");
+		writeExample(pt, "businessobjects/Quotation0.ptk");
 	}
 
 	/**
@@ -216,7 +237,9 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		q.getCreatePricing().setCurrency("GBP");
 		final Quote q2 = quotation.appendQuote();
 		q2.setQuoteID("q2");
-		q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "5000 business cards", 1500.00).addAdditional(5000, 1500, 1000, 250.00);
+		final Price price2 = q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "5000 business cards", 1500.00);
+		price2.setAmount(5000);
+		price2.addAdditional(5000, 1500, 1000, 250.00);
 		q2.getCreatePricing().setCurrency("GBP");
 		pt.cleanUp();
 		setSnippet(quotation, true);
@@ -252,13 +275,19 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final RFQ rfq = (RFQ) pt.appendRequest(EnumBusinessObject.RFQ, null);
 		rfq.setBusinessID("RFQ_Amount");
 		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		xjdf.removeSet(ElementName.NODEINFO);
+		xjdf.getRoot().removeChild(ElementName.AUDITPOOL, null, 0);
+		final ProductHelper bc = xjdf.appendProduct();
+		bc.setDescriptiveName("BusinessCards");
+		bc.setRoot();
+
 		rfq.setExpiresDays(5);
 		rfq.appendXJDF(xjdf);
 		final JDFIntegerList amounts = new JDFIntegerList(new int[] { 1000, 5000 });
 		rfq.setAmountPrices(amounts);
 		assertEquals(amounts, rfq.getAmountPrices());
 		pt.cleanUp();
-		setSnippet(rfq.getRequest(), true);
+		setSnippet(rfq, true);
 		writeExample(pt, "businessobjects/RFQAmounts.ptk");
 	}
 
@@ -373,6 +402,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	{
 		KElement.setLongID(false);
 		setFrom(true);
+		AbstractPrintTalk.setXJDFPrefix(true);
 
 		super.setUp();
 	}

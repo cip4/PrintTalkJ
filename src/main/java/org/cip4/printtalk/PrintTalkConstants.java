@@ -56,6 +56,8 @@ public class PrintTalkConstants
 
 	public static final String Header = "Header";
 
+	public static final String ItemRefs = "ItemRefs";
+
 	public static final String MasterContract = "MasterContract";
 	public static final String MilestoneAmount = "MilestoneAmount";
 

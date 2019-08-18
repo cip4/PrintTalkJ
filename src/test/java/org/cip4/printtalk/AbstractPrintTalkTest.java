@@ -97,6 +97,21 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testGetXJDFNodeName()
+	{
+		AbstractPrintTalk.setXJDFPrefix(false);
+		assertEquals("a", AbstractPrintTalk.getXJDFNodename("a"));
+		assertEquals("a", AbstractPrintTalk.getXJDFNodename("foo:a"));
+		AbstractPrintTalk.setXJDFPrefix(true);
+		assertEquals("xjdf:a", AbstractPrintTalk.getXJDFNodename("a"));
+		assertEquals("xjdf:a", AbstractPrintTalk.getXJDFNodename("foo:a"));
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testSetUserAgent()
 	{
 		final PrintTalk pt = new PrintTalk();
@@ -144,6 +159,16 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 		pt.cleanUp();
 		assertEquals("not sorted", to.theElement.getParentNode_KElement(), from.theElement.getParentNode_KElement().getNextSiblingElement());
 
+	}
+
+	/**
+	 * @see org.cip4.printtalk.PrintTalkTestCase#tearDown()
+	 */
+	@Override
+	public void tearDown() throws Exception
+	{
+		super.tearDown();
+		AbstractPrintTalk.setXJDFPrefix(false);
 	}
 
 }
