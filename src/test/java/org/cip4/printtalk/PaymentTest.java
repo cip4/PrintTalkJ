@@ -76,6 +76,7 @@ public class PaymentTest extends PrintTalkTestCase
 		final Payment p = new Payment(new JDFDoc(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace())).getRoot());
 		p.setPaymentType(EnumPaymentType.BankTransfer);
 		p.getCreateContact().appendAddress().setStreet("s1");
+		p.cleanUp();
 		reparse(p, defaultversion, false);
 	}
 
@@ -90,6 +91,7 @@ public class PaymentTest extends PrintTalkTestCase
 		p.setPaymentType(EnumPaymentType.BankTransfer);
 		p.getCreateContact().appendAddress().setStreet("s1");
 		assertEquals(p.getContact(), p.getCreateContact());
+		p.cleanUp();
 		reparse(p, defaultversion, false);
 	}
 

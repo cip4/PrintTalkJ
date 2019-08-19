@@ -97,21 +97,6 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
-	public void testGetXJDFNodeName()
-	{
-		AbstractPrintTalk.setXJDFPrefix(false);
-		assertEquals("a", AbstractPrintTalk.getXJDFNodename("a"));
-		assertEquals("a", AbstractPrintTalk.getXJDFNodename("foo:a"));
-		AbstractPrintTalk.setXJDFPrefix(true);
-		assertEquals("xjdf:a", AbstractPrintTalk.getXJDFNodename("a"));
-		assertEquals("xjdf:a", AbstractPrintTalk.getXJDFNodename("foo:a"));
-	}
-
-	/**
-	 *
-	 *
-	 */
-	@Test
 	public void testSetUserAgent()
 	{
 		final PrintTalk pt = new PrintTalk();

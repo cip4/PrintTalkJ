@@ -43,7 +43,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
-import org.cip4.jdflib.core.JDFConstants;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VElement;
@@ -296,7 +295,7 @@ public abstract class AbstractPrintTalk
 				h.cleanUp();
 			}
 		}
-		if (isXJDFPrefix())
+		if (isXJDFPrefix() && getRoot().getParentNode_KElement() == null)
 		{
 			final EnsureNSUri ensureNSUri = new EnsureNSUri();
 			ensureNSUri.addNS(XJDFConstants.XJDFPREFIX, JDFElement.getSchemaURL(2, 0));
@@ -408,39 +407,7 @@ public abstract class AbstractPrintTalk
 	 */
 	public KElement getCreateXJDFElement(final String nodeName, final int n)
 	{
-		final String xjdfNodename = getXJDFNodename(nodeName);
-		return theElement.getCreateElement(xjdfNodename, getXJDFNamespace(), n);
-	}
-
-	static String getXJDFNodename(final String nodeName)
-	{
-		if (isXJDFPrefix())
-		{
-			if (nodeName.indexOf(':') >= 0)
-			{
-				if (nodeName.startsWith("xjdf:"))
-				{
-					return nodeName;
-				}
-				else
-				{
-					return StringUtil.replaceToken(nodeName, 0, JDFConstants.COLON, XJDFConstants.XJDFPREFIX);
-				}
-			}
-			else
-			{
-				return XJDFConstants.XJDFPREFIX + ':' + nodeName;
-			}
-		}
-		else if (nodeName.indexOf(':') >= 0)
-		{
-			return StringUtil.replaceToken(nodeName, 0, JDFConstants.COLON, null);
-		}
-		else
-		{
-			return nodeName;
-		}
-
+		return theElement.getCreateElement(nodeName, getXJDFNamespace(), n);
 	}
 
 	/**
