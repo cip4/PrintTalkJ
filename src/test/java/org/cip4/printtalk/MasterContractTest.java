@@ -64,7 +64,7 @@ public class MasterContractTest
 	@Test
 	public void testDescName()
 	{
-		final StockLevelRequest po = (StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.PurchaseOrder, null);
+		final StockLevelRequest po = (StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null);
 		final MasterContract masterContract = po.getCreateMasterContract("foo");
 		assertNull(masterContract.getDescriptiveName());
 		masterContract.setDescriptiveName("bar");
