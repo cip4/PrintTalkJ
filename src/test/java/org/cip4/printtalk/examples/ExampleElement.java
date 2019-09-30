@@ -71,7 +71,7 @@ public class ExampleElement extends PrintTalkTestCase
 		final Price pi1 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Item #1", 42.00);
 		pi1.addItemRef("product1");
 		final Price pi2 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Item #2", 21.00);
-		pi1.addItemRef("product2");
+		pi2.addItemRef("product2");
 		final Price ptot = p.addPrice(EnumPriceType.Total, EnumTaxType.Gross, "Total", 63.00);
 		ptot.refPrice(pi1);
 		ptot.refPrice(pi2);

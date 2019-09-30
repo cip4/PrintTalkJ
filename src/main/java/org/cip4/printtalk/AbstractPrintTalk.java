@@ -295,11 +295,21 @@ public abstract class AbstractPrintTalk
 				h.cleanUp();
 			}
 		}
+
 		if (isXJDFPrefix() && getRoot().getParentNode_KElement() == null)
 		{
-			final EnsureNSUri ensureNSUri = new EnsureNSUri();
-			ensureNSUri.addNS(XJDFConstants.XJDFPREFIX, JDFElement.getSchemaURL(2, 0));
-			ensureNSUri.walkTree(getRoot(), null);
+			final PrintTalk pt = getPrintTalk();
+			if (pt != null)
+			{
+				pt.getRoot().addNameSpace(XJDFConstants.XJDFPREFIX, JDFElement.getSchemaURL(2, 0));
+				final KElement x = pt.getRoot().getChildByTagName(null, JDFElement.getSchemaURL(2, 0), 0, null, false, false);
+				if (x != null)
+				{
+					final EnsureNSUri ensureNSUri = new EnsureNSUri();
+					ensureNSUri.addNS(XJDFConstants.XJDFPREFIX, JDFElement.getSchemaURL(2, 0));
+					ensureNSUri.walkTree(getRoot(), null);
+				}
+			}
 		}
 	}
 

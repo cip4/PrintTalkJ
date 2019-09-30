@@ -100,9 +100,9 @@ public class ExampleHeader extends PrintTalkTestCase
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_URL, "https://customer.com");
 		pt.setCredential(EnumHeaderType.From, Credential.DOMAIN_DUNS, "123456789");
-		pt.setCredential(EnumHeaderType.From, AttributeName.DESCRIPTIVENAME, "Polkadot Printers");
+		pt.setCredential(EnumHeaderType.From, AttributeName.DESCRIPTIVENAME, "Peter Pan");
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, "https://printer.com");
-		pt.setCredential(EnumHeaderType.To, AttributeName.DESCRIPTIVENAME, "PeterPan");
+		pt.setCredential(EnumHeaderType.To, AttributeName.DESCRIPTIVENAME, "Polkadot Printers");
 		pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_DUNS, "93009388");
 		pt.appendRequest(EnumBusinessObject.Confirmation, null);
 		pt.cleanUp();

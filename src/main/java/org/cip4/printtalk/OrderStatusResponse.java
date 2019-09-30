@@ -135,4 +135,16 @@ public class OrderStatusResponse extends BusinessObject
 		return super.getCreateAuditPool();
 	}
 
+	/**
+	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 */
+	@Override
+	public void cleanUp()
+	{
+		final AuditPoolHelper ah = getAuditPool();
+		if (ah != null)
+			ah.cleanUp();
+		super.cleanUp();
+	}
+
 }
