@@ -51,6 +51,7 @@ import org.cip4.jdflib.extensions.ProductHelper;
 import org.cip4.jdflib.extensions.ResourceHelper;
 import org.cip4.jdflib.extensions.SetHelper;
 import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.node.JDFNode.EnumType;
 import org.cip4.jdflib.resource.process.JDFDeliveryParams;
 import org.cip4.jdflib.resource.process.JDFRunList;
 import org.cip4.jdflib.util.JDFDate;
@@ -126,12 +127,15 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		po.setBusinessRefID("PO_1");
 		po.setUpdateMethod(EnumUpdateMethod.Add);
 		final XJDFHelper xjdf = new XJDFHelper("cart1.item1", null, null);
-		xjdf.setTypes(JDFConstants.TYPE_DIGITALDELIVERY);
+		xjdf.setTypes(JDFConstants.TYPE_PRODUCT);
+		xjdf.addType(EnumType.Delivery);
 		final ResourceHelper rh = xjdf.appendResourceSet(ElementName.RUNLIST, EnumUsage.Input).getCreatePartition(0, true);
 		final JDFRunList rl = (JDFRunList) rh.getResource();
 		rl.setFileSpecURL("https://myFileSource/pdfs/file1.pdf");
 		po.setXJDF(xjdf);
 		pt.cleanUp();
+		setSnippet(po.getXJDF(0).getAuditPool().getRoot(), false);
+		setSnippet(po.getXJDF(0).getSet(ElementName.NODEINFO, 0).getRoot(), false);
 		setSnippet(po.getRoot(), true);
 		writeExample(pt, "businessobjects/ContentDelivery.ptk");
 	}

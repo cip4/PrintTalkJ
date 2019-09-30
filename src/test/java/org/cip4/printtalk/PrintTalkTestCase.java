@@ -46,6 +46,7 @@ import java.io.File;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.cip4.jdflib.core.JDFAudit;
 import org.cip4.jdflib.core.JDFDoc;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.JDFElement.EnumVersion;
@@ -241,6 +242,9 @@ public abstract class PrintTalkTestCase
 	{
 		LogConfigurator.configureLog(null, null);
 		JDFElement.setLongID(false);
+		JDFAudit.setStaticAgentName("MIS");
+		JDFAudit.setStaticAgentVersion("2.0");
+
 	}
 
 }
