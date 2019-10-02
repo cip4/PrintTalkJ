@@ -41,8 +41,10 @@ import static org.junit.Assert.assertEquals;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.JDFConstants;
+import org.cip4.jdflib.core.JDFElement.EnumVersion;
 import org.cip4.jdflib.core.JDFResourceLink.EnumUsage;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.core.VElement;
 import org.cip4.jdflib.datatypes.JDFIntegerList;
 import org.cip4.jdflib.extensions.AuditHelper;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
@@ -234,19 +236,35 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		quotation.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
 		final Quote q = quotation.appendQuote();
 		q.setQuoteID("q1");
-		final Price price1 = q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "1000 business cards", 500.00);
-		price1.setAmount(1000);
+		final Price price1 = q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "500 simple business cards", 250.00);
+		price1.setAmount(500);
 		price1.addAdditional(500, 250, 100, 40.00);
-		price1.addAdditional(1000, 200, 1000, 200.00);
+		price1.addAdditional(1000, 400, 500, 150.00);
 		q.getCreatePricing().setCurrency("GBP");
+		final XJDFHelper h1 = new XJDFHelper(EnumVersion.Version_2_0, "jobid");
+		h1.setDescriptiveName("simple business cards");
+		h1.addType(EnumType.Product);
+		q.appendXJDF(h1);
 		final Quote q2 = quotation.appendQuote();
 		q2.setQuoteID("q2");
-		final Price price2 = q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "5000 business cards", 1500.00);
-		price2.setAmount(5000);
-		price2.addAdditional(5000, 1500, 1000, 250.00);
+		final Price price2 = q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "500 varnished business cards", 350.00);
+		price2.setAmount(500);
+		price2.addAdditional(500, 350, 100, 50.00);
+		price2.addAdditional(1000, 500, 500, 200.00);
 		q2.getCreatePricing().setCurrency("GBP");
+		final XJDFHelper h2 = new XJDFHelper(EnumVersion.Version_2_0, "jobid");
+		h2.setDescriptiveName("varnished business cards");
+		h2.addType(EnumType.Product);
+		q2.appendXJDF(h2);
 		pt.cleanUp();
 		setSnippet(quotation, true);
+		final VElement v0 = pt.getRoot().getChildrenByTagName("XJDF", null, null, false, false, 0);
+		for (final KElement e0 : v0)
+		{
+			final VElement v1 = e0.getChildElementVector(null, null);
+			for (final KElement e : v1)
+				setSnippet(e, false);
+		}
 		writeExample(pt, "businessobjects/Quotation.ptk");
 	}
 
