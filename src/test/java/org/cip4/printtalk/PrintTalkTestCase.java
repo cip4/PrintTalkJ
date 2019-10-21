@@ -183,8 +183,9 @@ public abstract class PrintTalkTestCase
 
 	/**
 	 *
+	 * @param bo
+	 * @param ptv
 	 * @param fail if true should fail
-	 * @param pt
 	 */
 	static protected void reparse(final BusinessObject bo, final int ptv, final boolean fail)
 	{
@@ -215,6 +216,24 @@ public abstract class PrintTalkTestCase
 			}
 			assertEquals(XMLErrorHandler.VALID, valResult);
 		}
+	}
+
+	/**
+	 *
+	 * @param ptk
+	 * @param ptv
+	 */
+	static protected void schemaParse(final File ptk, final int ptv)
+	{
+		final JDFParser p = getSchemaParser(ptv);
+		final JDFDoc xParsed = p.parseFile(ptk);
+		final XMLDoc dVal = xParsed.getValidationResult();
+		final String valResult = dVal.getRoot().getAttribute(XMLErrorHandler.VALIDATION_RESULT);
+		if (!XMLErrorHandler.VALID.equals(valResult))
+		{
+			dVal.write2File(sm_dirTestDataTemp + ptk.getName() + ".validation.xml", 2, false);
+		}
+		assertEquals(XMLErrorHandler.VALID, valResult);
 	}
 
 	static JDFParser getSchemaParser(final int ptv)
