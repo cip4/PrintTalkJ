@@ -36,12 +36,14 @@
  */
 package org.cip4.printtalk;
 
+import java.util.List;
 import java.util.zip.DataFormatException;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.JDFComment;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.datatypes.JDFAttributeMap;
 import org.cip4.jdflib.resource.process.JDFContact;
 import org.cip4.jdflib.util.JDFDate;
 
@@ -69,6 +71,7 @@ public class Payment extends AbstractPrintTalk
 	/** */
 	public final static String ATTR_AUTHORIZATIONEXPIRES = "AuthorizationExpires";
 	/** */
+	@Deprecated
 	public final static String ATTR_NUMBER = "Number";
 	/** */
 	public final static String ATTR_TYPE = "Type";
@@ -236,7 +239,8 @@ public class Payment extends AbstractPrintTalk
 	 */
 	public String getNumber()
 	{
-		return getAttribute(ATTR_NUMBER);
+		final String number = getGeneralID("CardNumber");
+		return number == null ? getAttribute(ATTR_NUMBER) : number;
 	}
 
 	/**
@@ -244,9 +248,50 @@ public class Payment extends AbstractPrintTalk
 	 *
 	 * @param s
 	 */
-	public void setNumber(final String s)
+	public void setNumber(final String number)
 	{
-		setAttribute(ATTR_NUMBER, s);
+		setGeneralID("CardNumber", number);
+	}
+
+	public String getGeneralID(final String idUsage)
+	{
+		final List<KElement> v = this.theElement.getChildArray_KElement(ElementName.GENERALID, null, new JDFAttributeMap(AttributeName.IDUSAGE, idUsage), true, 0);
+		final KElement jdfGeneralID = v.isEmpty() ? null : v.get(0);
+		return jdfGeneralID == null ? null : jdfGeneralID.getNonEmpty(AttributeName.IDVALUE);
+	}
+
+	public void setGeneralID(final String idUsage, final String idValue)
+	{
+		final List<KElement> v = this.theElement.getChildArray_KElement(ElementName.GENERALID, null, new JDFAttributeMap(AttributeName.IDUSAGE, idUsage), true, 0);
+		if (!v.isEmpty())
+		{
+			final KElement gid = v.get(0);
+
+			// remove any duplicates
+			for (int i = 1; i < v.size(); i++)
+			{
+				v.get(i).deleteNode();
+			}
+			if (idValue == null)
+			{
+				gid.deleteNode();
+			}
+			else
+			{
+				gid.setAttribute(AttributeName.IDVALUE, idValue);
+			}
+		}
+		else
+		{
+			appendGeneralID(idUsage, idValue);
+		}
+	}
+
+	public void appendGeneralID(final String idUsage, final String idValue)
+	{
+		final KElement gid = appendXJDFElement(ElementName.GENERALID);
+		gid.setAttribute(AttributeName.IDUSAGE, idUsage);
+		gid.setAttribute(AttributeName.IDVALUE, idValue);
 	}
 
 	/**

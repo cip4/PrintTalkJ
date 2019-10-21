@@ -71,6 +71,35 @@ public class PaymentTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testSetGeneralID()
+	{
+		final Payment p = new Payment(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace()).getRoot());
+		p.setPaymentType(EnumPaymentType.BankTransfer);
+		p.setGeneralID(EnumPaymentType.BankTransfer.name(), "foo");
+		assertEquals("foo", p.getGeneralID(EnumPaymentType.BankTransfer.name()));
+		reparse(p, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testSetNumber()
+	{
+		final Payment p = new Payment(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace()).getRoot());
+		p.setPaymentType(EnumPaymentType.BankTransfer);
+		p.setNumber("foo");
+		assertEquals("foo", p.getGeneralID("CardNumber"));
+		assertEquals("foo", p.getNumber());
+		reparse(p, defaultversion, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testContact()
 	{
 		final Payment p = new Payment(new JDFDoc(new XMLDoc(Payment.ELEMENT_PAYMENT, getPTNamespace())).getRoot());
