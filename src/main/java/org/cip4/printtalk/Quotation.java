@@ -97,10 +97,21 @@ public class Quotation extends BusinessObject
 	}
 
 	/**
+	 * @see org.cip4.printtalk.BusinessObject#getMasterContractID()
+	 */
+	@Override
+	public String getMasterContractID()
+	{
+		return super.getMasterContractID();
+	}
+
+	/**
 	 * get currency value
 	 *
 	 * @return
+	 * @deprecated now in pricing
 	 */
+	@Deprecated
 	public String getCurrency()
 	{
 		return getAttribute(ATTR_CURRENCY);
@@ -110,7 +121,9 @@ public class Quotation extends BusinessObject
 	 * set currency value
 	 *
 	 * @param currency
+	 * @deprecated
 	 */
+	@Deprecated
 	public void setCurrency(final String currency)
 	{
 		setAttribute(ATTR_CURRENCY, currency == null ? null : currency.toUpperCase());

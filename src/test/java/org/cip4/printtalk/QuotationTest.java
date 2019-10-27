@@ -38,25 +38,14 @@ package org.cip4.printtalk;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 
+import org.cip4.printtalk.Price.EnumPriceType;
+import org.cip4.printtalk.Price.EnumTaxType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
 public class QuotationTest extends PrintTalkTestCase
 {
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testCurrency()
-	{
-		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
-		assertNull(req.getCurrency());
-		req.setCurrency("JPY");
-		assertEquals(req.getCurrency(), "JPY");
-	}
 
 	/**
 	 *
@@ -66,7 +55,6 @@ public class QuotationTest extends PrintTalkTestCase
 	public void testgetCreateQuote()
 	{
 		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
-		assertNull(req.getCurrency());
 		for (int i = 0; i < 99; i++)
 			req.getCreateQuote(2);
 		assertEquals(req.numElements(Quote.ELEMENT_QUOTE), 3);
@@ -80,7 +68,6 @@ public class QuotationTest extends PrintTalkTestCase
 	public void testappendQuote()
 	{
 		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
-		assertNull(req.getCurrency());
 		for (int i = 0; i < 99; i++)
 			req.appendQuote();
 		assertEquals(req.numElements(Quote.ELEMENT_QUOTE), 99);
@@ -94,7 +81,6 @@ public class QuotationTest extends PrintTalkTestCase
 	public void testgetQuotes()
 	{
 		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
-		assertNull(req.getCurrency());
 		for (int i = 0; i < 99; i++)
 			req.appendQuote();
 		assertEquals(99, req.getQuotes().size());
@@ -109,5 +95,50 @@ public class QuotationTest extends PrintTalkTestCase
 	{
 		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
 		assertFalse(req.getEstimate());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testEstimate()
+	{
+		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
+		req.setEstimate(false);
+		assertFalse(req.getEstimate());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testComment()
+	{
+		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
+		req.setComment("c1");
+		assertEquals("c1", req.getComment());
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testComplete()
+	{
+		final Quotation req = ((Quotation) new PrintTalk().appendRequest(EnumBusinessObject.Quotation, null));
+		req.setEstimate(false);
+		req.setExpiresDays(999);
+		final Quote q = req.appendQuote();
+		q.setQuoteID("q1");
+		req.setComment("c");
+		req.getCreateMasterContract("c");
+		final Pricing pricing = q.getCreatePricing();
+		pricing.setCurrency("JPY");
+		pricing.addPrice(EnumPriceType.Total, EnumTaxType.Net, "total", 42);
+		req.cleanUp();
+		reparse(req, false);
 	}
 }

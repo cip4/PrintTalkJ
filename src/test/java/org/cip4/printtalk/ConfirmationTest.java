@@ -37,74 +37,25 @@
 package org.cip4.printtalk;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
-import org.cip4.jdflib.extensions.AuditPoolHelper;
-import org.cip4.printtalk.BusinessObject.EnumResult;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
-/**
- *
- * @author rainer prosi
- * @date Jan 5, 2011
- */
-public class ContentDeliveryResponseTest extends PrintTalkTestCase
+public class ConfirmationTest extends PrintTalkTestCase
 {
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testgetPrintTalk()
-	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse po = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		assertEquals(printTalk, po.getPrintTalk());
-	}
 
 	/**
 	 *
 	 *
 	 */
 	@Test
-	public void testValidResponse()
+	public void testSetComment()
 	{
 		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		adr.setResult(EnumResult.Accepted);
-		printTalk.cleanUp();
-		reparse(adr, false);
-	}
-
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testResult()
-	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		adr.setResult(EnumResult.Accepted);
-		assertEquals(EnumResult.Accepted, adr.getResult());
-	}
-
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testAP()
-	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		adr.setResult(EnumResult.Rejected);
-		assertNull(adr.getAuditPool());
-		final AuditPoolHelper ap = adr.getCreateAuditPool();
-		assertEquals(ap, adr.getCreateAuditPool());
-		assertEquals(ap, adr.getAuditPool());
-		reparse(adr, false);
+		final Confirmation refusal = (Confirmation) printTalk.appendRequest(EnumBusinessObject.Confirmation, null);
+		refusal.setComment("whatever");
+		assertEquals("whatever", refusal.getComment());
+		reparse(refusal, defaultversion, false);
 	}
 
 }

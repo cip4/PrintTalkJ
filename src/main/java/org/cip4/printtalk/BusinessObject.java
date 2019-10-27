@@ -71,7 +71,9 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 * @param rootName
 	 * @param iSkip
 	 * @return
+	 * @deprecated use the xjdf methods of the appropriate business objects
 	 */
+	@Deprecated
 	public KElement getCreateJDFRoot(final String rootName, final int iSkip)
 	{
 		final String schemaURL = (XJDFConstants.XJDF.equals(rootName)) ? JDFElement.getSchemaURL(2, 0) : JDFElement.getSchemaURL();
@@ -107,6 +109,18 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	{
 		final MasterContract masterContract = new MasterContract(getElement(PrintTalkConstants.MasterContract, 0));
 		return masterContract;
+	}
+
+	/**
+	 * get the existing MasterContract/@ContractID
+	 *
+	 *
+	 * @return
+	 */
+	String getMasterContractID()
+	{
+		final MasterContract masterContract = new MasterContract(getElement(PrintTalkConstants.MasterContract, 0));
+		return masterContract == null ? null : masterContract.getContractID();
 	}
 
 	/**
@@ -203,7 +217,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		if (desc != null)
 			return desc;
 		final KElement request = getRequest();
-		return request == null ? null : request.getAttribute(AttributeName.DESCRIPTIVENAME);
+		return request == null ? null : request.getNonEmpty(AttributeName.DESCRIPTIVENAME);
 	}
 
 	/**
@@ -231,7 +245,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 		final KElement request = getRequest();
 		if (request != null)
 		{
-			request.setAttribute(AttributeName.DESCRIPTIVENAME, desc);
+			request.setNonEmpty(AttributeName.DESCRIPTIVENAME, desc);
 		}
 	}
 

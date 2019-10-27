@@ -80,8 +80,67 @@ public class PurchaseOrderTest extends PrintTalkTestCase
 		po.setDescriptiveName("foo");
 		assertEquals("foo", po.getDescriptiveName());
 		assertNull(po.getAttribute(AttributeName.DESCRIPTIVENAME));
-		final JDFDate expires = new JDFDate();
-		po.setExpires(expires);
+		po.setExpiresDays(4);
+
+		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		po.appendXJDF(xjdf);
+		printTalk.cleanUp();
+		reparse(po, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testQuoteID()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+
+		po.setQuoteID("foo");
+		assertEquals("foo", po.getQuoteID());
+		po.setExpiresDays(4);
+
+		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		po.appendXJDF(xjdf);
+		printTalk.cleanUp();
+		reparse(po, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testReorderID()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+
+		po.setReorderID("foo");
+		assertEquals("foo", po.getReorderID());
+		po.setExpiresDays(4);
+
+		final XJDFHelper xjdf = new XJDFHelper("J1", null);
+		po.appendXJDF(xjdf);
+		printTalk.cleanUp();
+		reparse(po, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testComment()
+	{
+		final PrintTalk printTalk = new PrintTalk();
+		final PurchaseOrder po = (PurchaseOrder) printTalk.appendRequest(EnumBusinessObject.PurchaseOrder, null);
+
+		po.setComment("foo");
+		assertEquals("foo", po.getComment());
+		po.setExpiresDays(4);
 
 		final XJDFHelper xjdf = new XJDFHelper("J1", null);
 		po.appendXJDF(xjdf);

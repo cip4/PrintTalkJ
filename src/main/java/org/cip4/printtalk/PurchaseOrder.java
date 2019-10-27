@@ -87,6 +87,15 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
+	 * @see org.cip4.printtalk.BusinessObject#getMasterContractID()
+	 */
+	@Override
+	public String getMasterContractID()
+	{
+		return super.getMasterContractID();
+	}
+
+	/**
 	 *
 	 * @param theElement
 	 */

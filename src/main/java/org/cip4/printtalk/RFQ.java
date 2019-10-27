@@ -97,7 +97,7 @@ public class RFQ extends BusinessObject
 	/**
 	 *
 	 * @deprecated
-	 * */
+	 */
 	@Deprecated
 	public static final String ATTR_REPLACEID = "ReplaceID";
 
@@ -132,6 +132,15 @@ public class RFQ extends BusinessObject
 	public MasterContract getMasterContract()
 	{
 		return super.getMasterContract();
+	}
+
+	/**
+	 * @see org.cip4.printtalk.BusinessObject#getMasterContractID()
+	 */
+	@Override
+	public String getMasterContractID()
+	{
+		return super.getMasterContractID();
 	}
 
 	/**

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,15 +36,27 @@
  */
 package org.cip4.printtalk;
 
+import static org.junit.Assert.assertEquals;
+
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.junit.Test;
 
-public class CancellationTest
+public class CancellationTest extends PrintTalkTestCase
 {
 
+	/**
+	 *
+	 *
+	 */
 	@Test
-	public void test()
+	public void testSetComment()
 	{
-		// fail("Not yet implemented");
+		final PrintTalk printTalk = new PrintTalk();
+		final Cancellation refusal = (Cancellation) printTalk.appendRequest(EnumBusinessObject.Cancellation, null);
+		refusal.setJobIDRef("r1");
+		refusal.setComment("whatever");
+		assertEquals("whatever", refusal.getComment());
+		reparse(refusal, defaultversion, false);
 	}
 
 }

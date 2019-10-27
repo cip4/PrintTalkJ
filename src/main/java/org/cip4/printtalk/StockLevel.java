@@ -59,7 +59,7 @@ public class StockLevel extends AbstractPrintTalk implements IMatches
 	/** **/
 	public final static String ATTR_PRODUCTIONDURATION = "ProductionDuration";
 	/** **/
-	public final static String ATTR_LOT = "Lot";
+	public final static String ATTR_LOT = "LotID";
 
 	/**
 	 *
@@ -160,7 +160,9 @@ public class StockLevel extends AbstractPrintTalk implements IMatches
 	/**
 	 *
 	 * @return
+	 * @deprecated
 	 */
+	@Deprecated
 	public String getLot()
 	{
 		return getAttribute(ATTR_LOT);
@@ -168,9 +170,29 @@ public class StockLevel extends AbstractPrintTalk implements IMatches
 
 	/**
 	 *
+	 * @return
+	 */
+	public String getLotID()
+	{
+		return getAttribute(ATTR_LOT);
+	}
+
+	/**
+	 *
+	 * @param lot
+	 * @deprecated
+	 */
+	@Deprecated
+	public void setLot(final String lot)
+	{
+		setAttribute(ATTR_LOT, lot);
+	}
+
+	/**
+	 *
 	 * @param lot
 	 */
-	public void setLot(final String lot)
+	public void setLotID(final String lot)
 	{
 		setAttribute(ATTR_LOT, lot);
 	}

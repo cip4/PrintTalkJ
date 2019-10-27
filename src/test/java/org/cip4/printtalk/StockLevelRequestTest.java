@@ -70,6 +70,32 @@ public class StockLevelRequestTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testExternalID()
+	{
+		final StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
+		req.setExternalID("ac*");
+		assertEquals("ac*", req.getExternalID());
+		reparse(req, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testMasterContract()
+	{
+		final StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));
+		req.getCreateMasterContract("mc");
+		assertEquals("mc", req.getMasterContract().getContractID());
+		reparse(req, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testAvailability()
 	{
 		final StockLevelRequest req = ((StockLevelRequest) new PrintTalk().appendRequest(EnumBusinessObject.StockLevelRequest, null));

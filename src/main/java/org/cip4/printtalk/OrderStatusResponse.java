@@ -40,7 +40,9 @@ import org.cip4.jdflib.auto.JDFAutoNotification.EnumClass;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.KElement;
+import org.cip4.jdflib.extensions.AuditHelper;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
+import org.cip4.jdflib.extensions.AuditResourceHelper;
 import org.cip4.jdflib.resource.JDFMilestone;
 import org.cip4.jdflib.resource.JDFNotification;
 
@@ -69,7 +71,7 @@ public class OrderStatusResponse extends BusinessObject
 	 * @param jobID
 	 * @param milestone
 	 */
-	public void setMilestone(final String jobID, final String milestone)
+	public JDFNotification setMilestone(final String jobID, final String milestone)
 	{
 		setJobIDRef(jobID);
 		final AuditPoolHelper auditPoolHelper = getCreateAuditPool();
@@ -79,6 +81,25 @@ public class OrderStatusResponse extends BusinessObject
 		notification.removeAttribute(AttributeName.TYPE, null);
 		notification.setClass(EnumClass.Event);
 		auditPoolHelper.cleanUp();
+		return notification;
+	}
+
+	/**
+	 *
+	 *
+	 * set a milestone
+	 *
+	 * @param jobID
+	 * @param milestone
+	 */
+	public AuditResourceHelper appendResourceAudit(final String jobID, final String resName)
+	{
+		setJobIDRef(jobID);
+		final AuditPoolHelper auditPoolHelper = getCreateAuditPool();
+		final AuditHelper appendAudit = auditPoolHelper.appendAudit("AuditResource");
+		final AuditResourceHelper h = new AuditResourceHelper(appendAudit.getRoot());
+		h.appendSet(resName);
+		return h;
 	}
 
 	/**

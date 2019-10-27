@@ -91,4 +91,30 @@ public class OrderStatusResponseTest extends PrintTalkTestCase
 		osResp.setMilestone("JiD", "PrepressAvailable");
 		assertEquals("PrepressAvailable", osResp.getMilestoneName(0));
 	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testAuditPool()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
+		osResp.setMilestone("JiD", "PrepressAvailable");
+		reparse(osResp, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testAppendRes()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
+		osResp.appendResourceAudit("JiD", "Media");
+		reparse(osResp, false);
+	}
 }

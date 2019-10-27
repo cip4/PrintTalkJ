@@ -257,7 +257,7 @@ public class PrintTalk extends AbstractPrintTalk
 		super.init();
 		final String dateTimeISO = new JDFDate().getDateTimeISO();
 		theElement.setAttribute(PrintTalkConstants.Timestamp, dateTimeISO);
-		theElement.setAttribute(PrintTalkConstants.payloadID, "P" + KElement.uniqueID(0));
+		setPayloadID("P" + KElement.uniqueID(0));
 	}
 
 	/**
@@ -271,7 +271,13 @@ public class PrintTalk extends AbstractPrintTalk
 	public Credential setCredential(final EnumHeaderType headerType, final String domain, final String identity)
 	{
 		final HeaderBase header = getCreateHeader(headerType);
-		return header.setCredential(domain, identity);
+		final Credential setCredential = header.setCredential(domain, identity);
+		if (header.getCredential(0) == null)
+		{
+			removeHeader(headerType);
+			return null;
+		}
+		return setCredential;
 	}
 
 	/**
@@ -323,6 +329,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 *
 	 * @param version the version to set
 	 */
+	// TODO make attribute getter and setter in case we go down that route
 	public void setVersion(final int version)
 	{
 		this.version = version;
@@ -429,6 +436,19 @@ public class PrintTalk extends AbstractPrintTalk
 		final KElement request = headerType == null ? null : getElement(PrintTalkConstants.Header);
 		final KElement header = request == null ? null : request.getElement(headerType.name());
 		return header == null ? null : new HeaderBase(header);
+	}
+
+	/**
+	 * get the header from a request
+	 *
+	 * @param headerType the type (From / to / Sender)
+	 * @return
+	 */
+	public HeaderBase removeHeader(final EnumHeaderType headerType)
+	{
+		final KElement request = headerType == null ? null : getElement(PrintTalkConstants.Header);
+		final KElement header = request == null ? null : request.getElement(headerType.name());
+		return header == null ? null : new HeaderBase(header.deleteNode());
 	}
 
 	/**

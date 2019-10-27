@@ -61,4 +61,20 @@ public class OrderStatusRequestTest extends PrintTalkTestCase
 		assertEquals(s, r.getStatusRequest());
 		reparse(r, false);
 	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testAppend2()
+	{
+		final OrderStatusRequest r = (OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
+		final StatusRequest s = r.appendStatusRequest();
+		s.setSubscribed(true);
+		assertEquals(s, r.getStatusRequest());
+		final StatusRequest s2 = r.appendStatusRequest();
+		s2.setSubscribed(false);
+		reparse(r, false);
+	}
 }

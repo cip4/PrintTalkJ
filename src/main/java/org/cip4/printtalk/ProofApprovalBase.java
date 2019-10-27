@@ -36,75 +36,65 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import org.cip4.jdflib.extensions.AuditPoolHelper;
-import org.cip4.printtalk.BusinessObject.EnumResult;
-import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Test;
+import org.cip4.jdflib.core.ElementName;
+import org.cip4.jdflib.core.KElement;
 
 /**
+ * Class represented ProofApprovalRequest business object.
  *
  * @author rainer prosi
- * @date Jan 5, 2011
+ * @date Jan 3, 2011
  */
-public class ContentDeliveryResponseTest extends PrintTalkTestCase
+public abstract class ProofApprovalBase extends BusinessObject
 {
+
 	/**
 	 *
-	 *
+	 * @param theElement
 	 */
-	@Test
-	public void testgetPrintTalk()
+	public ProofApprovalBase(final KElement theElement)
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse po = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		assertEquals(printTalk, po.getPrintTalk());
+		super(theElement);
+	}
+
+	/**
+	 * get job id ref value
+	 *
+	 * @return
+	 */
+	public String getJobIDRef()
+	{
+		return getAttribute(ATTR_JOBIDREF);
+	}
+
+	/**
+	 * set job id ref value
+	 *
+	 * @param s
+	 */
+	public void setJobIDRef(final String s)
+	{
+		setAttribute(ATTR_JOBIDREF, s);
 	}
 
 	/**
 	 *
-	 *
+	 * @return
 	 */
-	@Test
-	public void testValidResponse()
+	public KElement getCreateProofItem()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		adr.setResult(EnumResult.Accepted);
-		printTalk.cleanUp();
-		reparse(adr, false);
+		return getCreateXJDFElement(ElementName.PROOFITEM, 0);
+
 	}
 
 	/**
 	 *
-	 *
+	 * @return
 	 */
-	@Test
-	public void testResult()
+	public KElement getProofItem()
 	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		adr.setResult(EnumResult.Accepted);
-		assertEquals(EnumResult.Accepted, adr.getResult());
-	}
+		return getXJDFElement(ElementName.PROOFITEM, 0);
 
-	/**
-	 *
-	 *
-	 */
-	@Test
-	public void testAP()
-	{
-		final PrintTalk printTalk = new PrintTalk();
-		final ContentDeliveryResponse adr = (ContentDeliveryResponse) printTalk.appendRequest(EnumBusinessObject.ContentDeliveryResponse, null);
-		adr.setResult(EnumResult.Rejected);
-		assertNull(adr.getAuditPool());
-		final AuditPoolHelper ap = adr.getCreateAuditPool();
-		assertEquals(ap, adr.getCreateAuditPool());
-		assertEquals(ap, adr.getAuditPool());
-		reparse(adr, false);
 	}
 
 }

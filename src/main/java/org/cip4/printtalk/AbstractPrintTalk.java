@@ -185,8 +185,9 @@ public abstract class AbstractPrintTalk
 	}
 
 	/**
+	 * note that comments are only valid for a restricted list of business objects - therefore applying this to incorrect objects can lead to invalid printtalk
 	 *
-	 * @param comment
+	 * @param comment the omment text
 	 */
 	public void setComment(final String comment)
 	{
