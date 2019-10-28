@@ -107,8 +107,8 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	MasterContract getMasterContract()
 	{
-		final MasterContract masterContract = new MasterContract(getElement(PrintTalkConstants.MasterContract, 0));
-		return masterContract;
+		final KElement mc = getElement(PrintTalkConstants.MasterContract, 0);
+		return mc == null ? null : new MasterContract(mc);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 	 */
 	String getMasterContractID()
 	{
-		final MasterContract masterContract = new MasterContract(getElement(PrintTalkConstants.MasterContract, 0));
+		final MasterContract masterContract = getMasterContract();
 		return masterContract == null ? null : masterContract.getContractID();
 	}
 
