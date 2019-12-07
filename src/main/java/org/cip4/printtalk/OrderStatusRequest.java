@@ -29,13 +29,14 @@
  *
  * This software consists of voluntary contributions made by many individuals on behalf of the The International Cooperation for the Integration of Processes in Prepress, Press and Postpress and was
  * originally based on software copyright (c) 1999-2001, Heidelberger Druckmaschinen AG copyright (c) 1999-2001, Agfa-Gevaert N.V.
- * 
+ *
  * For more information on The International Cooperation for the Integration of Processes in Prepress, Press and Postpress , please see <http://www.cip4.org/>.
- * 
+ *
  *
  */
 package org.cip4.printtalk;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
 
 /**
@@ -57,7 +58,7 @@ public class OrderStatusRequest extends BusinessObject
 
 	/**
 	 * create status request element
-	 * 
+	 *
 	 * @return
 	 */
 	public StatusRequest getCreateStatusRequest()
@@ -67,7 +68,7 @@ public class OrderStatusRequest extends BusinessObject
 
 	/**
 	 * create status request element
-	 * 
+	 *
 	 * @return
 	 */
 	public StatusRequest appendStatusRequest()
@@ -77,7 +78,7 @@ public class OrderStatusRequest extends BusinessObject
 
 	/**
 	 * create status request element
-	 * 
+	 *
 	 * @return
 	 */
 	public StatusRequest getStatusRequest(final int n)
@@ -87,12 +88,32 @@ public class OrderStatusRequest extends BusinessObject
 
 	/**
 	 * get status request element
-	 * 
+	 *
 	 * @return
 	 */
 	public StatusRequest getStatusRequest()
 	{
 		return new StatusRequest(getElement(StatusRequest.ELEMENT_STATUSREQUEST));
+	}
+
+	/**
+	 * get job id ref value
+	 *
+	 * @return
+	 */
+	public boolean isSubscribed()
+	{
+		return getBoolAttribute(AttributeName.SUBSCRIBED, true);
+	}
+
+	/**
+	 * set job id ref value
+	 *
+	 * @param s
+	 */
+	public void setSubscribed(final boolean b)
+	{
+		setAttribute(AttributeName.SUBSCRIBED, b);
 	}
 
 }

@@ -99,26 +99,6 @@ public class StatusRequest extends AbstractPrintTalk
 	}
 
 	/**
-	 * get job id ref value
-	 *
-	 * @return
-	 */
-	public boolean isSubscribed()
-	{
-		return getBoolAttribute(AttributeName.SUBSCRIBED, true);
-	}
-
-	/**
-	 * set job id ref value
-	 *
-	 * @param s
-	 */
-	public void setSubscribed(final boolean b)
-	{
-		setAttribute(AttributeName.SUBSCRIBED, b);
-	}
-
-	/**
 	 * get ResponseDetails value
 	 *
 	 * @return

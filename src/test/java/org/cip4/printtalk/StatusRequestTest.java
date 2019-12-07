@@ -71,11 +71,11 @@ public class StatusRequestTest extends PrintTalkTestCase
 	@Test
 	public void testMilestoneAmount()
 	{
-		final BusinessObject req = new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
-		final StatusRequest r = ((OrderStatusRequest) req).getCreateStatusRequest();
+		final OrderStatusRequest req = (OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
+		final StatusRequest r = req.getCreateStatusRequest();
 		assertNull(r.getMilestoneAmount());
 		r.setMilestoneAmount(EnumResponseDetails.Brief);
-		r.setSubscribed(false);
+		req.setSubscribed(false);
 		assertEquals(r.getMilestoneAmount(), EnumResponseDetails.Brief);
 		reparse(req, false);
 
@@ -88,11 +88,11 @@ public class StatusRequestTest extends PrintTalkTestCase
 	@Test
 	public void testResourceAudit()
 	{
-		final BusinessObject req = new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
-		final StatusRequest r = ((OrderStatusRequest) req).getCreateStatusRequest();
+		final OrderStatusRequest req = (OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
+		final StatusRequest r = req.getCreateStatusRequest();
 		assertNull(r.getMilestoneAmount());
 		r.setResourceAudit("fooparams");
-		r.setSubscribed(false);
+		req.setSubscribed(false);
 		assertEquals("fooparams", r.getResourceAudit());
 		reparse(req, false);
 	}

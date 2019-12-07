@@ -57,7 +57,7 @@ public class OrderStatusRequestTest extends PrintTalkTestCase
 	{
 		final OrderStatusRequest r = (OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
 		final StatusRequest s = r.appendStatusRequest();
-		s.setSubscribed(true);
+		r.setSubscribed(true);
 		assertEquals(s, r.getStatusRequest());
 		reparse(r, false);
 	}
@@ -71,10 +71,9 @@ public class OrderStatusRequestTest extends PrintTalkTestCase
 	{
 		final OrderStatusRequest r = (OrderStatusRequest) new PrintTalk().appendRequest(EnumBusinessObject.OrderStatusRequest, null);
 		final StatusRequest s = r.appendStatusRequest();
-		s.setSubscribed(true);
+		r.setSubscribed(true);
 		assertEquals(s, r.getStatusRequest());
 		final StatusRequest s2 = r.appendStatusRequest();
-		s2.setSubscribed(false);
 		reparse(r, false);
 	}
 }

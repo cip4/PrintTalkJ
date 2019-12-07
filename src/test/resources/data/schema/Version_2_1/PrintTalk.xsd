@@ -286,6 +286,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:sequence maxOccurs="1" minOccurs="1">
 					<xs:element name="StatusRequest" type="ptk:StatusRequest" maxOccurs="unbounded" minOccurs="1" />
 				</xs:sequence>
+				<xs:attribute name="Subscribed" type="xs:boolean" use="required" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -303,7 +304,6 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 					</xs:simpleType>
 				</xs:attribute>
 				<xs:attribute name="ResourceAudit" type="xs:NMTOKEN" use="optional" />
-				<xs:attribute name="Subscribed" type="xs:boolean" use="required" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -540,7 +540,6 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:attribute name="AuthorizationExpires" type="xs:dateTime" use="optional" />
 				<xs:attribute name="Expires" type="xs:dateTime" use="optional" />
 				<xs:attribute name="IsPaid" type="xs:boolean" use="optional" />
-				<xs:attribute name="Number" type="xs:NMTOKEN" use="optional" />
 				<xs:attribute name="PaymentType" use="required">
 					<xs:simpleType>
 						<xs:restriction base="xs:NMTOKEN">
