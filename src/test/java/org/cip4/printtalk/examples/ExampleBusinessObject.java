@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2020 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -239,7 +239,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final Price price1 = q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "500 simple business cards", 250.00);
 		price1.setAmount(500);
 		price1.addAdditional(500, 250, 100, 40.00);
-		price1.addAdditional(1000, 400, 500, 150.00);
+		price1.addAdditional(1000, 450, 500, 150.00);
 		q.getCreatePricing().setCurrency("GBP");
 		final XJDFHelper h1 = new XJDFHelper(EnumVersion.Version_2_0, "jobid");
 		h1.setDescriptiveName("simple business cards");
@@ -250,7 +250,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final Price price2 = q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "500 varnished business cards", 350.00);
 		price2.setAmount(500);
 		price2.addAdditional(500, 350, 100, 50.00);
-		price2.addAdditional(1000, 500, 500, 200.00);
+		price2.addAdditional(1000, 600, 500, 200.00);
 		q2.getCreatePricing().setCurrency("GBP");
 		final XJDFHelper h2 = new XJDFHelper(EnumVersion.Version_2_0, "jobid");
 		h2.setDescriptiveName("varnished business cards");
