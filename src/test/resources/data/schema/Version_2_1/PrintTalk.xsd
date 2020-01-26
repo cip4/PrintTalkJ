@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--	The CIP4 Software License, Version 1.0
 
-Copyright (c) 2001-2019 The International Cooperation for the Integration of 
+Copyright (c) 2001-2020 The International Cooperation for the Integration of 
 Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, 
@@ -64,7 +64,7 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 		elementFormDefault="qualified" attributeFormDefault="unqualified" version="V2.0" >
     <xs:annotation>
         <xs:documentation>
-        	PrintTalk schema: Version 2.0 This schema is intended for use with a single root element, namely: PrintTalk
+        	PrintTalk schema: Version 2.1 This schema is intended for use with a single root element, namely: PrintTalk
         </xs:documentation>
     </xs:annotation>
     
@@ -94,6 +94,14 @@ Processes in Prepress, Press and Postpress , please see &lt;http://www.cip4.org/
 				<xs:attribute name="ICSVersions" type="xs:NMTOKENS" use="optional" />
 				<xs:attribute name="payloadID" type="xs:NMTOKEN" use="optional" />
 				<xs:attribute name="timestamp" type="xs:dateTime" use="required" />
+                <xs:attribute name="Version" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="2.0"/>
+                        <xs:enumeration value="2.1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>

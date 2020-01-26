@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2020 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -240,12 +240,18 @@ public abstract class PrintTalkTestCase
 	{
 		final JDFParser parser = JDFParserFactory.getFactory().get();
 		final int minor = ptv % 10;
-		final File jdfxsd = new File(sm_dirTestData + "schema" + "/Version_2_" + minor + File.separator + "xjdf.xsd");
+		final File jdfxsd = getPTKSchema(minor);
 		assertTrue(jdfxsd.canRead());
 		final String url = UrlUtil.fileToUrl(jdfxsd, false);
 		parser.setSchemaLocation(JDFElement.getSchemaURL(2, minor), url);
 		parser.addSchemaLocation(PrintTalk.getNamespaceURI(ptv), StringUtil.replaceString(url, "xjdf.", "PrintTalk."));
 		return parser;
+	}
+
+	protected static File getPTKSchema(final int minor)
+	{
+		final File jdfxsd = new File(sm_dirTestData + "schema" + "/Version_2_" + minor + File.separator + "xjdf.xsd");
+		return jdfxsd;
 	}
 
 	protected String getPTNamespace()
