@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2020 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -135,8 +135,6 @@ public class PrintTalk extends AbstractPrintTalk
 		PrintTalk.defaultVersion = defaultVersion;
 	}
 
-	private int version;
-
 	/**
 	 *
 	 * return the PrintTalk element for theElement id TheElement is a printtalk element
@@ -184,7 +182,7 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk(final KElement theElement)
 	{
 		super(theElement);
-		version = defaultVersion;
+		setVersion(defaultVersion);
 	}
 
 	/**
@@ -203,12 +201,12 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk(final int version)
 	{
 		super(null);
-		this.version = version;
-		XMLDoc doc = new XMLDoc(PRINT_TALK, getNamespaceURI());
+		XMLDoc doc = new XMLDoc(PRINT_TALK, getNamespaceURI(version));
 		doc = new JDFDoc(doc);
 		((DocumentJDFImpl) doc.getMemberDocument()).bInitOnCreate = false;
 		setRoot(doc.getRoot());
 		init();
+		setVersion(version);
 	}
 
 	/**
@@ -233,6 +231,8 @@ public class PrintTalk extends AbstractPrintTalk
 	{
 		if (version <= 0)
 			version = defaultVersion;
+		if (version > 20)
+			version = 10 * (version / 10);
 		return "http://www.printtalk.org/schema_" + version;
 	}
 
@@ -244,7 +244,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public String getNamespaceURI()
 	{
-		return getNamespaceURI(version);
+		return getNamespaceURI(getVersion());
 	}
 
 	/**
@@ -332,7 +332,7 @@ public class PrintTalk extends AbstractPrintTalk
 	// TODO make attribute getter and setter in case we go down that route
 	public void setVersion(final int version)
 	{
-		this.version = version;
+		setAttribute(AttributeName.VERSION, version / 10 + "." + version % 10);
 	}
 
 	/**
@@ -342,7 +342,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public int getVersion()
 	{
-		return version;
+		return (int) Math.round(10 * getRealAttribute(AttributeName.VERSION, defaultVersion));
 	}
 
 	/**

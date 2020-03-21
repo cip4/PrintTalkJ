@@ -81,7 +81,8 @@ public class PrintTalkTest extends PrintTalkTestCase
 		assertNull(pt.getICSVersions());
 		pt.setICSVersions(new VString("Cus-EP_L1-2.0"));
 		assertEquals(new VString("Cus-EP_L1-2.0"), pt.getICSVersions());
-		reparse(pt.appendRequest(EnumBusinessObject.Cancellation, null), false);
+		final BusinessObject req = pt.appendRequest(EnumBusinessObject.Cancellation, null);
+		reparse(req, 20, false);
 	}
 
 	/**
@@ -204,7 +205,7 @@ public class PrintTalkTest extends PrintTalkTestCase
 		pt.setVersion(20);
 		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_20");
 		pt.setVersion(22);
-		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_22");
+		assertEquals(pt.getNamespaceURI(), "http://www.printtalk.org/schema_20");
 	}
 
 	/**
@@ -219,7 +220,7 @@ public class PrintTalkTest extends PrintTalkTestCase
 		PrintTalk.setDefaultVersion(13);
 		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_13");
 		PrintTalk.setDefaultVersion(22);
-		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_22");
+		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_20");
 	}
 
 	/**

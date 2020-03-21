@@ -243,14 +243,14 @@ public abstract class PrintTalkTestCase
 		final File jdfxsd = getPTKSchema(minor);
 		assertTrue(jdfxsd.canRead());
 		final String url = UrlUtil.fileToUrl(jdfxsd, false);
-		parser.setSchemaLocation(JDFElement.getSchemaURL(2, minor), url);
-		parser.addSchemaLocation(PrintTalk.getNamespaceURI(ptv), StringUtil.replaceString(url, "xjdf.", "PrintTalk."));
+		parser.setSchemaLocation(PrintTalk.getNamespaceURI(ptv), url);
+		parser.addSchemaLocation(JDFElement.getSchemaURL(2, minor), StringUtil.replaceString(url, "PrintTalk.", "xjdf."));
 		return parser;
 	}
 
 	protected static File getPTKSchema(final int minor)
 	{
-		final File jdfxsd = new File(sm_dirTestData + "schema" + "/Version_2_" + minor + File.separator + "xjdf.xsd");
+		final File jdfxsd = new File(sm_dirTestData + "schema" + "/Version_2_" + minor + File.separator + "PrintTalk.xsd");
 		return jdfxsd;
 	}
 

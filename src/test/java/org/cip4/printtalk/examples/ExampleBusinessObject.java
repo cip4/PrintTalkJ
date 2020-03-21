@@ -223,6 +223,40 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public synchronized void testQuotationAdditional()
+	{
+		setFrom(false);
+		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
+		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
+
+		final Quotation quotation = (Quotation) pt.appendRequest(EnumBusinessObject.Quotation, null);
+		quotation.setBusinessID("q1");
+		quotation.setEstimate(false);
+		quotation.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
+		final Quote q = quotation.appendQuote();
+
+		q.setQuoteID("q1");
+		q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "100 business cards", 420000.00);
+		q.getCreatePricing().setCurrency("GBP");
+
+		final Price price1 = q.getCreatePricing().addPrice(EnumPriceType.Product, EnumTaxType.Net, "500 simple business cards", 250.00);
+		price1.setAmount(500);
+		price1.addAdditional(500, 250, 100, 40.00);
+
+		final Price price2 = q.getCreatePricing().addPrice(EnumPriceType.Shipping, EnumTaxType.Net, "shipping and handling", 2.00);
+		price2.addAdditional(1000, 2.00, 500, 1.00);
+
+		q.getCreatePricing().setCurrency("DEM");
+
+		pt.cleanUp();
+		setSnippet(quotation, true);
+		writeExample(pt, "businessobjects/QuotationAmount.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
 	public synchronized void testQuotationAmounts()
 	{
 		setFrom(false);
@@ -239,7 +273,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final Price price1 = q.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "500 simple business cards", 250.00);
 		price1.setAmount(500);
 		price1.addAdditional(500, 250, 100, 40.00);
-		price1.addAdditional(1000, 450, 500, 150.00);
+		price1.addAdditional(1000, 425, 500, 150.00);
 		q.getCreatePricing().setCurrency("GBP");
 		final XJDFHelper h1 = new XJDFHelper(EnumVersion.Version_2_0, "jobid");
 		h1.setDescriptiveName("simple business cards");
@@ -250,7 +284,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final Price price2 = q2.getCreatePricing().addPrice(EnumPriceType.Total, EnumTaxType.Net, "500 varnished business cards", 350.00);
 		price2.setAmount(500);
 		price2.addAdditional(500, 350, 100, 50.00);
-		price2.addAdditional(1000, 600, 500, 200.00);
+		price2.addAdditional(1000, 575, 500, 200.00);
 		q2.getCreatePricing().setCurrency("GBP");
 		final XJDFHelper h2 = new XJDFHelper(EnumVersion.Version_2_0, "jobid");
 		h2.setDescriptiveName("varnished business cards");
