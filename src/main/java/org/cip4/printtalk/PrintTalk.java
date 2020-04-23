@@ -113,7 +113,7 @@ public class PrintTalk extends AbstractPrintTalk
 		ContentDelivery, ContentDeliveryResponse
 	}
 
-	private static int defaultVersion = 20;
+	private static int defaultVersion = 21;
 
 	/**
 	 * Getter for defaultVersion attribute.

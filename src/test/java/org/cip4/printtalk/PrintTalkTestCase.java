@@ -84,7 +84,7 @@ public abstract class PrintTalkTestCase
 
 	static protected final String sm_dirTestData = getTestDataDir();
 	static protected final String sm_dirTestDataTemp = sm_dirTestData + "temp" + File.separator;
-	protected static final int defaultversion = 20;
+	protected static final int defaultversion = PrintTalk.getDefaultVersion();
 	protected final Log log;
 
 	EnumVersion getXJDFVersion()
@@ -145,8 +145,7 @@ public abstract class PrintTalkTestCase
 
 	int getPrinttalkVersion(final PrintTalk pt)
 	{
-		final String s = pt.getNamespaceURI();
-		return StringUtil.parseInt(StringUtil.token(s, -1, "_"), 0);
+		return pt.getVersion();
 	}
 
 	/**
@@ -268,8 +267,9 @@ public abstract class PrintTalkTestCase
 		LogConfigurator.configureLog(null, null);
 		JDFElement.setLongID(false);
 		JDFAudit.setStaticAgentName("MIS");
-		JDFAudit.setStaticAgentVersion("2.0");
-
+		JDFAudit.setStaticAgentVersion("2.1");
+		PrintTalk.setDefaultVersion(21);
+		PrintTalkBuilderFactory.getTheFactory().setVersion(PrintTalk.getDefaultVersion());
 	}
 
 }

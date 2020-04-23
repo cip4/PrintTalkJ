@@ -97,7 +97,7 @@ public class PrintTalkBuilder
 	 */
 	PrintTalkBuilder()
 	{
-		version = 20;
+		version = PrintTalk.getDefaultVersion();
 		reset();
 	}
 
