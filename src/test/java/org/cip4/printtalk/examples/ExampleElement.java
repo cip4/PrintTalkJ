@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2020 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -68,14 +68,16 @@ public class ExampleElement extends PrintTalkTestCase
 		invoice.setDueDate(33);
 		final Pricing p = invoice.getCreatePricing();
 		p.setCurrency("CAD");
-		final Price pi1 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Item #1", 42.00);
+		final Price pi1 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "100 expensive item #1", 42.00);
+		pi1.setAmount(100);
 		pi1.addItemRef("product1");
-		final Price pi2 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Item #2", 21.00);
+		final Price pi2 = p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "200 cheap item #2", 21.00);
 		pi2.addItemRef("product2");
+		pi1.setAmount(200);
 		final Price ptot = p.addPrice(EnumPriceType.Total, EnumTaxType.Gross, "Total", 63.00);
 		ptot.refPrice(pi1);
 		ptot.refPrice(pi2);
-		final Price ptx = p.addPrice(EnumPriceType.Total, EnumTaxType.Tax, "Included tax", 63.00 * 0.2);
+		final Price ptx = p.addPrice(EnumPriceType.Total, EnumTaxType.Tax, "Included 20% tax", 63.00 - 63.00 / 1.2);
 		pt.cleanUp();
 		setSnippet(p.getRoot(), true);
 		ptx.refPrice(pi1);

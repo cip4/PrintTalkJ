@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2020 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -42,6 +42,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
@@ -221,6 +222,19 @@ public class PrintTalkTest extends PrintTalkTestCase
 		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_13");
 		PrintTalk.setDefaultVersion(22);
 		assertEquals(new PrintTalk().getNamespaceURI(), "http://www.printtalk.org/schema_20");
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testSetVersion()
+	{
+		PrintTalk.setDefaultVersion(20);
+		assertEquals(20, new PrintTalk().getVersion());
+		assertEquals("2.0", new PrintTalk().getRoot().getAttribute(AttributeName.VERSION));
+
 	}
 
 	/**
