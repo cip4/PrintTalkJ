@@ -87,9 +87,9 @@ public class PrintTalkTest extends PrintTalkTestCase
 	}
 
 	/**
-	*
-	* duh...
-	*/
+	 *
+	 * duh...
+	 */
 	@Test
 	public void testIsPTKNS()
 	{
@@ -246,6 +246,20 @@ public class PrintTalkTest extends PrintTalkTestCase
 	{
 		final PrintTalk pt = new PrintTalk();
 		assertEquals(pt.getPrintTalk(), pt);
+	}
+
+	/**
+	 *
+	 * duh...
+	 */
+	@Test
+	public void testParseFile()
+	{
+		final PrintTalk pt = new PrintTalk();
+		pt.write2File(sm_dirTestDataTemp + "ptk.ptk");
+		final PrintTalk ptp = PrintTalk.parseFile(sm_dirTestDataTemp + "ptk.ptk");
+		assertEquals(pt.getPayloadID(), ptp.getPayloadID());
+
 	}
 
 	/**

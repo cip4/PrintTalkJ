@@ -151,6 +151,19 @@ public class PrintTalk extends AbstractPrintTalk
 
 	/**
 	 *
+	 * return the PrintTalk element for theElement id TheElement is a printtalk element
+	 *
+	 * @param theElement
+	 * @return
+	 */
+	public static PrintTalk parseFile(final String name)
+	{
+		final KElement e = KElement.parseFile(name);
+		return getPrintTalk(e);
+	}
+
+	/**
+	 *
 	 * generic cleanup routine
 	 */
 	@Override
