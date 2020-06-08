@@ -23,4 +23,4 @@ jobs:
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: mvn --settings maven-settings.xml -Dgpg.passphrase=$SIGNING_PASSWORD -Dossrh.username=$OSSRH_USERNAME -Dossrh.password=$OSSRH_PASSWORD -Dmaven.javadoc.failOnError=false deploy
+        run: mvn --settings maven-settings.xml -Dgpg.passphrase=$SIGNING_PASSWORD -Dossrh.username=$OSSRH_USERNAME -Dossrh.password=$OSSRH_PASSWORD -Dmaven.javadoc.failOnError=false clean deploy
