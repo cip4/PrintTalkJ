@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.cip4.lib.ptk</groupId>
     <artifactId>PrintTalkJ</artifactId>
-    <version>2.1.6.3-SNAPSHOT</version>
+    <version>2.1.6.x-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>PrintTalkJ</name>
     <url>http://www.cip4.org</url>
@@ -20,9 +20,9 @@
         </license>
     </licenses>
     <scm>
-        <url>https://bitbucket.cip4.org/scm/lib/printtalkj.git</url>
-        <developerConnection>scm:git:https://bitbucket.cip4.org/scm/lib/printtalkj.git</developerConnection>
-        <connection>scm:git:https://bitbucket.cip4.org/scm/lib/printtalkj.git</connection>
+        <url>https://github.com/cip4/PrintTalkJ</url>
+        <developerConnection>scm:git:https://github.com/cip4/PrintTalkJ.git</developerConnection>
+        <connection>scm:git:https://github.com/cip4/PrintTalkJ.git</connection>
         <tag>PrintTalkJ-2.1.6.2</tag>
     </scm>
     <issueManagement>
@@ -46,27 +46,11 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-    <developers>
-        <developer>
-            <id>r.prosi</id>
-            <name>Dr. Rainer Prosi</name>
-            <organization>Heidelberger Druckmaschinen AG</organization>
-            <organizationUrl>http://www.heidelberg.com</organizationUrl>
-            <email>rainer.prosi@heidelberg.com</email>
-        </developer>
-        <developer>
-            <id>s.meissner</id>
-            <name>Stefan Meissner</name>
-            <organization>flyeralarm GmbH</organization>
-            <organizationUrl>http://www.flyeralarm.com</organizationUrl>
-            <email>s.meissner@flyeralarm.de</email>
-        </developer>
-    </developers>
     <dependencies>
         <dependency>
             <groupId>org.cip4.lib.jdf</groupId>
             <artifactId>JDFLibJ</artifactId>
-            <version>LATEST</version>
+            <version>2.1.6.x-SNAPSHOT</version>
         </dependency>
 
         <!-- Test Environment -->
