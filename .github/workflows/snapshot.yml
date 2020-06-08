@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-utility:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 8
