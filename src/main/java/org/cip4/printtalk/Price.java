@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2021 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -41,6 +41,7 @@ import java.util.Locale;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.commons.logging.LogFactory;
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.JDFConstants;
 import org.cip4.jdflib.core.KElement;
@@ -72,7 +73,20 @@ public class Price extends AbstractPrintTalk
 	/** */
 	public static final String ATTR_TAXTYPE = "TaxType";
 
-	static int currencyPrecision = Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
+	static int currencyPrecision = getPrecision();
+
+	public static int getPrecision()
+	{
+		try
+		{
+			return Currency.getInstance(Locale.getDefault()).getDefaultFractionDigits();
+		}
+		catch (final Exception x)
+		{
+			LogFactory.getLog(Price.class).error("Cannot create  precisison", x);
+			return 2;
+		}
+	}
 
 	/**
 	 * PrintTalk 1.5 priceType enum
