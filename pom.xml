@@ -23,7 +23,7 @@
         <url>https://github.com/cip4/PrintTalkJ</url>
         <developerConnection>scm:git:https://github.com/cip4/PrintTalkJ.git</developerConnection>
         <connection>scm:git:https://github.com/cip4/PrintTalkJ.git</connection>
-        <tag>PrintTalkJ-2.1.6.2</tag>
+        <tag>PrintTalkJ-2.1.7.0</tag>
     </scm>
     <issueManagement>
         <system>JIRA</system>
@@ -94,6 +94,7 @@
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
+            <!-- TBD is this needed?
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -108,6 +109,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
