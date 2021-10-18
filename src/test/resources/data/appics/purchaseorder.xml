@@ -44,7 +44,7 @@
 					<xjdf:Resource>
 						<xjdf:Part ContactType="Delivery"/>
 						<xjdf:Contact>
-							<xjdf:Address Country="Germany" CountryCode="GER" Region="North Rhine-Westphalia" 
+							<xjdf:Address Country="Germany" CountryCode="DE" Region="North Rhine-Westphalia"
 							PostalCode="12345" City="ExampleCity" Street="ExampleStreet 1"/>
 							<xjdf:Company OrganizationName="Example Company Ltd." />
 						</xjdf:Contact>
@@ -52,7 +52,7 @@
 					<xjdf:Resource>
 						<xjdf:Part ContactType="SenderAlias" />
 						<xjdf:Contact>
-							<xjdf:Address Country="Germany" CountryCode="GER" Region="North Rhine-Westphalia" PostalCode="12345" City="ExampleCity" Street="ExampleStreet 1"/>
+							<xjdf:Address Country="Germany" CountryCode="DE" Region="North Rhine-Westphalia" PostalCode="12345" City="ExampleCity" Street="ExampleStreet 1"/>
 							<xjdf:Person FamilyName="Mustermann" FirstName="Max"/>
 						</xjdf:Contact>
 					</xjdf:Resource>

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2021 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -38,7 +38,9 @@ package org.cip4.printtalk.examples;
 
 import java.io.File;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.util.FileUtil;
+import org.cip4.printtalk.PrintTalk;
 import org.cip4.printtalk.PrintTalkTestCase;
 import org.junit.Test;
 
@@ -56,6 +58,24 @@ public class ExampleAppIcs extends PrintTalkTestCase
 		{
 			log.info(f.getName());
 			schemaParse(f, 20);
+		}
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testUpdateExamples()
+	{
+		final File[] files = FileUtil.listFilesWithExtension(new File(sm_dirTestData + "appics"), "xml");
+		for (final File f : files)
+		{
+			log.info(f.getName());
+			final PrintTalk ptk = PrintTalk.parseFile(f.getAbsolutePath());
+			ptk.setAttribute(AttributeName.ICSVERSIONS, "Cus-APP_L1-2.1");
+			ptk.init();
+			ptk.write2File(sm_dirTestDataTemp + f.getName());
+			schemaParse(new File(sm_dirTestDataTemp + f.getName()), 21);
 		}
 	}
 
