@@ -57,7 +57,6 @@ import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.jdflib.core.XMLErrorHandler;
 import org.cip4.jdflib.util.StringUtil;
 import org.cip4.jdflib.util.UrlUtil;
-import org.cip4.jdflib.util.logging.LogConfigurator;
 import org.cip4.printtalk.builder.PrintTalkBuilder;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
 import org.junit.After;
@@ -264,7 +263,7 @@ public abstract class PrintTalkTestCase
 	@Before
 	public void setUp() throws Exception
 	{
-		LogConfigurator.configureLog(null, null);
+		//		LogConfigurator.configureLog(null, null);
 		JDFElement.setLongID(false);
 		JDFAudit.setStaticAgentName("MIS");
 		JDFAudit.setStaticAgentVersion("2.1");
