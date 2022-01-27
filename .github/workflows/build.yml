@@ -1,4 +1,4 @@
-name: PrintTalkJ Snapshot
+name: Check Pull Request
 
 on:
   pull_request:
@@ -18,5 +18,5 @@ jobs:
           java-version: 8
           cache: 'maven'
 
-      - name: Maven Deploy
+      - name: Maven Build
         run: mvn -Dmaven.javadoc.failOnError=false clean verify
