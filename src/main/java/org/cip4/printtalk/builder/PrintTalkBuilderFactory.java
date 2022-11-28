@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2022 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,6 +36,8 @@
  */
 package org.cip4.printtalk.builder;
 
+import org.cip4.printtalk.PrintTalk;
+
 /**
  * the factory is also a builder and provides default values for builder instances
  * 
@@ -52,6 +54,14 @@ public final class PrintTalkBuilderFactory extends PrintTalkBuilder
 	public static PrintTalkBuilderFactory getTheFactory()
 	{
 		return theFactory;
+	}
+
+	/**
+	 * @return the singleton Factory
+	 */
+	public static PrintTalk newPrintTalk()
+	{
+		return new PrintTalkBuilder(theFactory).getPrintTalk();
 	}
 
 	private PrintTalkBuilderFactory()

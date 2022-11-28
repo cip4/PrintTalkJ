@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2018 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-20122 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -63,6 +63,27 @@ public class PrintTalkBuilderFactoryTest extends PrintTalkTestCase
 	public void testGetBuilder()
 	{
 		assertNotNull(PrintTalkBuilderFactory.getTheFactory().getBuilder());
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testNewPrintTalk()
+	{
+		assertNotNull(PrintTalkBuilderFactory.newPrintTalk());
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testUserAgent()
+	{
+		PrintTalkBuilderFactory f = PrintTalkBuilderFactory.getTheFactory();
+		f.setUserAgent("a");
+		assertEquals("a", f.getUserAgent());
+		assertEquals("a", f.getBuilder().getUserAgent());
 	}
 
 	/**

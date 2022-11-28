@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2022 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -39,6 +39,7 @@ package org.cip4.printtalk.builder;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.printtalk.BusinessObject;
 import org.cip4.printtalk.Credential;
+import org.cip4.printtalk.HeaderBase;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
@@ -48,6 +49,18 @@ public class PrintTalkBuilder
 {
 	int version;
 	String customerID;
+	String userAgent;
+
+	public String getUserAgent()
+	{
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent)
+	{
+		this.userAgent = userAgent;
+	}
+
 	String userID;
 	String shopID;
 	String to;
@@ -90,6 +103,7 @@ public class PrintTalkBuilder
 		businessObject = factory.businessObject;
 		xjdf = factory.xjdf;
 		wantSender = factory.wantSender;
+		userAgent = factory.getUserAgent();
 	}
 
 	/**
@@ -113,6 +127,7 @@ public class PrintTalkBuilder
 		fromURL = null;
 		toURL = null;
 		wantSender = false;
+		userAgent = null;
 		resetInstance();
 	}
 
@@ -181,6 +196,18 @@ public class PrintTalkBuilder
 		{
 			pt.setCredential(EnumHeaderType.To, Credential.DOMAIN_URL, toURL);
 		}
+		if (userAgent != null)
+		{
+			for (EnumHeaderType ht : EnumHeaderType.values())
+			{
+				HeaderBase h = pt.getHeader(ht);
+				if (h != null)
+				{
+					h.setUserAgent(userAgent);
+				}
+			}
+		}
+
 	}
 
 	/**
@@ -309,7 +336,8 @@ public class PrintTalkBuilder
 	@Override
 	public String toString()
 	{
-		return "PrintTalkBuilder [version=" + version + ", customerID=" + customerID + ", userID=" + userID + ", shopID=" + shopID + ", to=" + to + ", businessObject=" + businessObject + "]";
+		return "PrintTalkBuilder [version=" + version + ", customerID=" + customerID + ", userID=" + userID + ", shopID=" + shopID + ", to=" + to + ", businessObject="
+				+ businessObject + "]";
 	}
 
 	/**
