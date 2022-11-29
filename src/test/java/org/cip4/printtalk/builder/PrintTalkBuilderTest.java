@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2022 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -38,6 +38,7 @@ package org.cip4.printtalk.builder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.jdflib.extensions.XJDFHelper;
@@ -113,6 +114,23 @@ public class PrintTalkBuilderTest extends PrintTalkTestCase
 		b.setBusinessObject(EnumBusinessObject.Quotation);
 		final PrintTalk pt = b.getPrintTalk();
 		assertEquals(Quotation.class, pt.getBusinessObject().getClass());
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testUserAgent()
+	{
+		final PrintTalkBuilder b = PrintTalkBuilderFactory.getTheFactory().getBuilder();
+		b.setShopID("sid");
+		b.setBusinessObject(EnumBusinessObject.Confirmation);
+		b.setUserAgent("agent");
+		b.setFromURL("f");
+		b.setToURL("t");
+		final PrintTalk pt = b.getPrintTalk();
+		reparse(pt.getBusinessObject(), false);
+		assertNull(pt.getHeader(EnumHeaderType.To).getUserAgent());
 	}
 
 	/**

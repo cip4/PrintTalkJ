@@ -200,7 +200,7 @@ public class PrintTalkBuilder
 		{
 			for (EnumHeaderType ht : EnumHeaderType.values())
 			{
-				HeaderBase h = pt.getHeader(ht);
+				HeaderBase h = EnumHeaderType.To.equals(ht) ? null : pt.getHeader(ht);
 				if (h != null)
 				{
 					h.setUserAgent(userAgent);
