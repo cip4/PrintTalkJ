@@ -43,6 +43,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.JDFElement;
+import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
@@ -246,6 +248,19 @@ public class PrintTalkTest extends PrintTalkTestCase
 	{
 		final PrintTalk pt = new PrintTalk();
 		assertEquals(pt.getPrintTalk(), pt);
+	}
+
+	/**
+	 *
+	 * duh...
+	 */
+	@Test
+	public void testGetPrintTalkXML()
+	{
+		KElement e = KElement.createRoot(PrintTalk.PRINT_TALK, null);
+		final PrintTalk pt = new PrintTalk(e);
+		assertEquals(pt.getPrintTalk(), pt);
+		assertTrue(pt.getRoot() instanceof JDFElement);
 	}
 
 	/**
