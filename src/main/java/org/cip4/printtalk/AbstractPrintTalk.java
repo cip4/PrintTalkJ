@@ -105,6 +105,10 @@ public abstract class AbstractPrintTalk
 		{
 			this.theElement = theElement;
 		}
+		if (this.theElement != null)
+		{
+			this.theElement.setNamespaceURI(PrintTalk.getNamespaceURI(21));
+		}
 	}
 
 	/**
