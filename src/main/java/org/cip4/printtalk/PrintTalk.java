@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2020 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2023 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,9 +36,12 @@
  */
 package org.cip4.printtalk;
 
+import java.io.InputStream;
+
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.DocumentJDFImpl;
 import org.cip4.jdflib.core.JDFDoc;
+import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.core.XMLDoc;
@@ -156,9 +159,23 @@ public class PrintTalk extends AbstractPrintTalk
 	 * @param theElement
 	 * @return
 	 */
+	public static PrintTalk parseStream(final InputStream name)
+	{
+		JDFDoc d = JDFDoc.parseStream(name);
+		final JDFElement e = d == null ? null : (JDFElement) d.getRoot();
+		return getPrintTalk(e);
+	}
+
+	/**
+	 *
+	 * return the PrintTalk element for theElement id TheElement is a printtalk element
+	 *
+	 * @param theElement
+	 * @return
+	 */
 	public static PrintTalk parseFile(final String name)
 	{
-		final KElement e = KElement.parseFile(name);
+		final KElement e = JDFElement.parseFile(name);
 		return getPrintTalk(e);
 	}
 
