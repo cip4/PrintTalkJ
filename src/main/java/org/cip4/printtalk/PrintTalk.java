@@ -212,7 +212,8 @@ public class PrintTalk extends AbstractPrintTalk
 	public PrintTalk(final KElement theElement)
 	{
 		super(theElement);
-		setVersion(defaultVersion);
+		if (theElement != null)
+			setVersion(defaultVersion);
 	}
 
 	/**
@@ -516,6 +517,16 @@ public class PrintTalk extends AbstractPrintTalk
 	public boolean write2File(final String filename)
 	{
 		return theElement == null ? false : theElement.getOwnerDocument_KElement().write2File(filename, 2, false);
+	}
+
+	/**
+	 * 
+	 * @param indent
+	 * @return
+	 */
+	public String write2String(final int indent)
+	{
+		return theElement == null ? null : theElement.getOwnerDocument_KElement().write2String(indent);
 	}
 
 	/**
