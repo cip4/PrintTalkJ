@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2024 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -103,6 +103,20 @@ public class OrderStatusResponseTest extends PrintTalkTestCase
 		final OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
 		osResp.setMilestone("JiD", "PrepressAvailable");
 		reparse(osResp, false);
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetAuditPool()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final OrderStatusResponse osResp = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
+		osResp.setMilestone("JiD", "PrepressAvailable");
+		assertNotNull(osResp.getAuditPool());
+		assertNotNull(osResp.getAuditPool().getMessageHelper(0));
 	}
 
 	/**

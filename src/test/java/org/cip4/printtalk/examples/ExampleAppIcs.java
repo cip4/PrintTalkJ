@@ -39,9 +39,19 @@ package org.cip4.printtalk.examples;
 import java.io.File;
 
 import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.extensions.AuditPoolHelper;
+import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.FileUtil;
+import org.cip4.jdflib.util.JDFDate;
+import org.cip4.printtalk.OrderStatusResponse;
 import org.cip4.printtalk.PrintTalk;
+import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkTestCase;
+import org.cip4.printtalk.PurchaseOrder;
+import org.cip4.printtalk.Refusal;
+import org.cip4.printtalk.Refusal.EnumReason;
+import org.cip4.printtalk.builder.PrintTalkBuilder;
+import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
 import org.junit.Test;
 
 public class ExampleAppIcs extends PrintTalkTestCase
@@ -78,6 +88,104 @@ public class ExampleAppIcs extends PrintTalkTestCase
 			ptk.write2File(sm_dirTestDataTemp + f.getName());
 			schemaParse(new File(sm_dirTestDataTemp + f.getName()), 22);
 		}
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testConfirmation()
+	{
+		final PrintTalkBuilder ptb = getBuilder(true);
+		ptb.setBusinessObject(EnumBusinessObject.Confirmation);
+		final PrintTalk pt = ptb.getPrintTalk();
+		pt.getBusinessObject().setBusinessRefID("PO_ID");
+
+		setSnippet(pt, true);
+		writeExample(pt, "ics/app/confirmation.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testPO()
+	{
+		final PrintTalkBuilder ptb = getBuilder(true);
+		ptb.setBusinessObject(EnumBusinessObject.PurchaseOrder);
+		ptb.setCustomerID("CID-123");
+		final PrintTalk pt = ptb.getPrintTalk();
+
+		setSnippet(pt, true);
+		final PrintTalk ptOld = PrintTalk.parseFile(sm_dirTestData + "appics/purchaseorder.xml");
+		final PurchaseOrder poOld = (PurchaseOrder) ptOld.getBusinessObject();
+		final XJDFHelper xjdf = poOld.getXJDF(0);
+		final PurchaseOrder po = (PurchaseOrder) pt.getBusinessObject();
+		po.setXJDF(xjdf);
+		po.getRoot().copyElement(poOld.getPricing().getRoot(), null);
+		po.setExpires(new JDFDate().setTime(18, 0, 0).addOffset(0, 0, 0, 14));
+		po.setBusinessID("PO_ID");
+		pt.cleanUp();
+		writeExample(pt, "ics/app/purchase-order.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testOSR()
+	{
+		final PrintTalkBuilder ptb = getBuilder(false);
+		ptb.setBusinessObject(EnumBusinessObject.OrderStatusResponse);
+		ptb.setCustomerID("CID-123");
+
+		final PrintTalk pt = ptb.getPrintTalk();
+		setSnippet(pt, true);
+		final PrintTalk ptOld = PrintTalk.parseFile(sm_dirTestData + "appics/orderstatusresponse.xml");
+		final OrderStatusResponse poOld = (OrderStatusResponse) ptOld.getBusinessObject();
+		final AuditPoolHelper ap = poOld.getCreateAuditPool();
+		final OrderStatusResponse osr = (OrderStatusResponse) pt.getBusinessObject();
+		osr.setJobIDRef("JOB-22");
+		osr.setAuditPool(ap);
+		osr.setBusinessRefID("PO_ID");
+		pt.cleanUp();
+		writeExample(pt, "ics/app/order-status-response.ptk");
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public synchronized void testRefusal()
+	{
+		final PrintTalkBuilder ptb = getBuilder(true);
+		ptb.setBusinessObject(EnumBusinessObject.Refusal);
+		final PrintTalk pt = ptb.getPrintTalk();
+		final Refusal r = (Refusal) pt.getBusinessObject();
+		r.setReason(EnumReason.InvalidPrice);
+		r.setReasonDetails("WrongPrice");
+		r.setBusinessRefID("PO_ID");
+
+		setSnippet(pt, true);
+		writeExample(pt, "ics/app/refusal.ptk");
+	}
+
+	protected PrintTalkBuilder getBuilder(final boolean isWorker)
+	{
+		final PrintTalkBuilder ptb = PrintTalkBuilderFactory.getTheFactory().getBuilder();
+		ptb.resetInstance();
+		ptb.setVersion(PrintTalk.getDefaultVersion());
+		if (isWorker)
+		{
+			ptb.setFromURL("https://worker.example.org/XJDF");
+			ptb.setToURL("https://manager.example.org/XJDF");
+		}
+		else
+		{
+			ptb.setToURL("https://worker.example.org/XJDF");
+			ptb.setFromURL("https://manager.example.org/XJDF");
+		}
+		return ptb;
 	}
 
 }

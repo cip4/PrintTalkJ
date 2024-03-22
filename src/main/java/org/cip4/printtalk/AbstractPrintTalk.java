@@ -98,7 +98,7 @@ public abstract class AbstractPrintTalk
 		log = LogFactory.getLog(getClass());
 		if (theElement != null && !(theElement.getOwnerDocument() instanceof DocumentJDFImpl))
 		{
-			JDFDoc d = new JDFDoc(theElement.getOwnerDocument());
+			final JDFDoc d = new JDFDoc(theElement.getOwnerDocument());
 			this.theElement = d.getRoot();
 		}
 		else
@@ -341,7 +341,7 @@ public abstract class AbstractPrintTalk
 	 *
 	 *
 	 */
-	AuditPoolHelper getAuditPool()
+	public AuditPoolHelper getAuditPool()
 	{
 		final KElement ap = theElement == null ? null : theElement.getElement(ElementName.AUDITPOOL);
 		return ap == null ? null : new AuditPoolHelper(ap);

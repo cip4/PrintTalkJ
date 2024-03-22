@@ -37,6 +37,7 @@
 package org.cip4.printtalk;
 
 import java.io.InputStream;
+import java.util.Vector;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.DocumentJDFImpl;
@@ -45,6 +46,8 @@ import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.core.XMLDoc;
+import org.cip4.jdflib.extensions.XJDFHelper;
+import org.cip4.jdflib.util.ContainerUtil;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 
@@ -206,6 +209,18 @@ public class PrintTalk extends AbstractPrintTalk
 			}
 		}
 		super.cleanUp();
+	}
+
+	@Override
+	Vector<XJDFHelper> getXJDFs()
+	{
+		final Vector<XJDFHelper> v = super.getXJDFs();
+		final BusinessObject bo = getBusinessObject();
+		if (bo != null)
+		{
+			return (Vector<XJDFHelper>) ContainerUtil.addAll(v, bo.getXJDFs());
+		}
+		return v;
 	}
 
 	/**
