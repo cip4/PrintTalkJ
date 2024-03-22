@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2023 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2024 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -41,6 +41,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.JDFElement.EnumVersion;
@@ -153,9 +154,24 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 	 *
 	 */
 	@Test
+	public void testCleanupVersion()
+	{
+		final PrintTalk pt = new PrintTalk();
+		final Credential to = pt.setCredential(EnumHeaderType.To, "abc", "efg");
+		final Credential from = pt.setCredential(EnumHeaderType.From, "abc0", "efg0");
+		pt.cleanUp();
+		assertEquals("2.2", pt.getAttribute(AttributeName.VERSION));
+
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
 	public void testTypeSafe()
 	{
-		KElement e = KElement.createRoot(PrintTalk.PRINT_TALK, null);
+		final KElement e = KElement.createRoot(PrintTalk.PRINT_TALK, null);
 		final PrintTalk pt = new PrintTalk(e);
 		assertTrue(pt.getRoot() instanceof JDFElement);
 

@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2021 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2024 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -110,7 +110,7 @@ public abstract class PrintTalkTestCase
 	@After
 	public void tearDown() throws Exception
 	{
-		PrintTalk.setDefaultVersion(20);
+		PrintTalk.setDefaultVersion(-1);
 	}
 
 	/**
@@ -263,11 +263,10 @@ public abstract class PrintTalkTestCase
 	@Before
 	public void setUp() throws Exception
 	{
-		//		LogConfigurator.configureLog(null, null);
 		JDFElement.setLongID(false);
 		JDFAudit.setStaticAgentName("MIS");
-		JDFAudit.setStaticAgentVersion("2.1");
-		PrintTalk.setDefaultVersion(21);
+		PrintTalk.setDefaultVersion(-1);
+		JDFAudit.setStaticAgentVersion("Agent " + PrintTalk.getDefaultVersion());
 		PrintTalkBuilderFactory.getTheFactory().setVersion(PrintTalk.getDefaultVersion());
 	}
 
