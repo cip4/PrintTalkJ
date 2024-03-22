@@ -57,7 +57,7 @@ public class ExampleAppIcs extends PrintTalkTestCase
 		for (final File f : files)
 		{
 			log.info(f.getName());
-			schemaParse(f, 20);
+			schemaParse(f, 22);
 		}
 	}
 
@@ -72,10 +72,11 @@ public class ExampleAppIcs extends PrintTalkTestCase
 		{
 			log.info(f.getName());
 			final PrintTalk ptk = PrintTalk.parseFile(f.getAbsolutePath());
-			ptk.setAttribute(AttributeName.ICSVERSIONS, "Cus-APP_L1-2.1");
+			ptk.setAttribute(AttributeName.ICSVERSIONS, "Cus-APP_L1-2.2");
+			ptk.setAttribute(AttributeName.VERSION, "2.2");
 			ptk.init();
 			ptk.write2File(sm_dirTestDataTemp + f.getName());
-			schemaParse(new File(sm_dirTestDataTemp + f.getName()), 21);
+			schemaParse(new File(sm_dirTestDataTemp + f.getName()), 22);
 		}
 	}
 
