@@ -139,7 +139,7 @@ public class PrintTalk extends AbstractPrintTalk
 	 */
 	public static void setDefaultVersion(final int defaultVersion)
 	{
-		PrintTalk.defaultVersion = defaultVersion < 20 ? libVersion : defaultVersion;
+		PrintTalk.defaultVersion = defaultVersion < 10 ? libVersion : defaultVersion;
 	}
 
 	/**
