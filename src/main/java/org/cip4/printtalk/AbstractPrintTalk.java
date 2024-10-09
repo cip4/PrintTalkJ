@@ -341,7 +341,7 @@ public abstract class AbstractPrintTalk
 	 *
 	 *
 	 */
-	public AuditPoolHelper getAuditPool()
+	AuditPoolHelper getAuditPool()
 	{
 		final KElement ap = theElement == null ? null : theElement.getElement(ElementName.AUDITPOOL);
 		return ap == null ? null : new AuditPoolHelper(ap);

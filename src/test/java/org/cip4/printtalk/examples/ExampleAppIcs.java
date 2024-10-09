@@ -39,6 +39,7 @@ package org.cip4.printtalk.examples;
 import java.io.File;
 
 import org.cip4.jdflib.core.AttributeName;
+import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.util.FileUtil;
@@ -175,6 +176,7 @@ public class ExampleAppIcs extends PrintTalkTestCase
 		final PrintTalkBuilder ptb = PrintTalkBuilderFactory.getTheFactory().getBuilder();
 		ptb.resetInstance();
 		ptb.setVersion(PrintTalk.getDefaultVersion());
+		ptb.setIcsVersions(new VString("Cus-APP_L1-2.2"));
 		if (isWorker)
 		{
 			ptb.setFromURL("https://worker.example.org/XJDF");

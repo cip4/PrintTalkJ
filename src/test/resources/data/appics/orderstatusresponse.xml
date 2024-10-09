@@ -1,27 +1,29 @@
-<PrintTalk timestamp="2019-10-23T09:28:00.000+02:00" xmlns="http://www.printtalk.org/schema_20" 
-    xmlns:xjdf="http://www.CIP4.org/JDFSchema_2_0" ICSVersions="CusEP_L1-2.0">
-	<Header>
-		<From>
-			<Credential domain="URL">
-                <Identity>https://worker.example.org/XJDF</Identity>
-			</Credential>
-		</From>
-		<To>
-			<Credential domain="URL">
-				<Identity>https://manager.example.org/XJDF</Identity>
-			</Credential>
-		</To>
-	</Header>
-	<Request BusinessID="B-49" BusinessRefID="B-42">
-		<OrderStatusResponse JobIDRef="JOB-22">
-		    <xjdf:AuditPool>
-			    <xjdf:AuditNotification>
-				    <xjdf:Header DeviceID="Example-Worker-1" Time="2019-10-23T09:28:00.000+02:00"/>
-				    <xjdf:Notification Class="Event" JobID="B-52">
-					    <xjdf:Milestone MilestoneType="PrePressCompleted"/>
-				    </xjdf:Notification>
-			    </xjdf:AuditNotification>
-		    </xjdf:AuditPool>
-		</OrderStatusResponse>
-	</Request>
+<?xml version="1.0" encoding="UTF-8"?>
+<PrintTalk ICSVersions="Cus-APP_L1-2.2" Version="2.2"
+  payloadID="P_000012" timestamp="2024-06-26T19:46:29+02:00"
+  xmlns="http://www.printtalk.org/schema_20" xmlns:xjdf="http://www.CIP4.org/JDFSchema_2_0">
+  <Header>
+    <From>
+      <Credential domain="URL">
+        <Identity>https://worker.example.org/XJDF</Identity>
+      </Credential>
+    </From>
+    <To>
+      <Credential domain="URL">
+        <Identity>https://manager.example.org/XJDF</Identity>
+      </Credential>
+    </To>
+  </Header>
+  <Request BusinessID="B-49" BusinessRefID="B-42">
+    <OrderStatusResponse JobIDRef="JOB-22">
+      <xjdf:AuditPool>
+        <xjdf:AuditNotification>
+          <xjdf:Header DeviceID="Example-Worker-1" Time="2019-10-23T09:28:00.000+02:00"/>
+          <xjdf:Notification Class="Event" JobID="B-52">
+            <xjdf:Milestone MilestoneType="PrePressCompleted"/>
+          </xjdf:Notification>
+        </xjdf:AuditNotification>
+      </xjdf:AuditPool>
+    </OrderStatusResponse>
+  </Request>
 </PrintTalk>

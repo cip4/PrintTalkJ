@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2022 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2024 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -36,6 +36,7 @@
  */
 package org.cip4.printtalk.builder;
 
+import org.cip4.jdflib.core.VString;
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.printtalk.BusinessObject;
 import org.cip4.printtalk.Credential;
@@ -56,7 +57,7 @@ public class PrintTalkBuilder
 		return userAgent;
 	}
 
-	public void setUserAgent(String userAgent)
+	public void setUserAgent(final String userAgent)
 	{
 		this.userAgent = userAgent;
 	}
@@ -69,6 +70,17 @@ public class PrintTalkBuilder
 	EnumBusinessObject businessObject;
 	XJDFHelper xjdf;
 	boolean wantSender;
+	VString icsVersions;
+
+	public VString getIcsVersions()
+	{
+		return icsVersions;
+	}
+
+	public void setIcsVersions(final VString icsVersions)
+	{
+		this.icsVersions = icsVersions;
+	}
 
 	/**
 	 * @return the version
@@ -103,6 +115,7 @@ public class PrintTalkBuilder
 		businessObject = factory.businessObject;
 		xjdf = factory.xjdf;
 		wantSender = factory.wantSender;
+		icsVersions = factory.icsVersions;
 		userAgent = factory.getUserAgent();
 	}
 
@@ -147,6 +160,7 @@ public class PrintTalkBuilder
 	public PrintTalk getPrintTalk()
 	{
 		final PrintTalk pt = new PrintTalk(version);
+		pt.setICSVersions(icsVersions);
 		setCredentials(pt);
 		setRequest(pt);
 		return pt;
@@ -198,9 +212,9 @@ public class PrintTalkBuilder
 		}
 		if (userAgent != null)
 		{
-			for (EnumHeaderType ht : EnumHeaderType.values())
+			for (final EnumHeaderType ht : EnumHeaderType.values())
 			{
-				HeaderBase h = EnumHeaderType.To.equals(ht) ? null : pt.getHeader(ht);
+				final HeaderBase h = EnumHeaderType.To.equals(ht) ? null : pt.getHeader(ht);
 				if (h != null)
 				{
 					h.setUserAgent(userAgent);

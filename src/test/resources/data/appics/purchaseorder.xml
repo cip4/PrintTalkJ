@@ -1,80 +1,93 @@
-<PrintTalk timestamp="2019-10-23T09:28:00.000+02:00" xmlns="http://www.printtalk.org/schema_20" 
-    xmlns:xjdf="http://www.CIP4.org/JDFSchema_2_0" ICSVersions="CusEP_L1-2.0">
-	<Header>
-		<From>
-            <Credential domain="CustomerID">
-                <Identity>CID-123</Identity>
-			</Credential>
-			<Credential domain="URL">
-                <Identity>https://worker.example.org/XJDF</Identity>
-			</Credential>
-		</From>
-		<To>
-			<Credential domain="URL">
-				<Identity>https://worker.example.org/XJDF</Identity>
-			</Credential>
-		</To>
-	</Header>
-	<Request BusinessID="B-42">
-		<PurchaseOrder Expires="2019-10-24T10:00:00.000+02:00">
-			<Pricing Currency="EUR">
-				<Price DescriptiveName="1000 Flyer DIN A6" PriceType="Product" TaxType="Net" LineID="L-1" Price="100.00" />
-				<Price DescriptiveName="Tax 19 %" PriceType="Product" TaxType="Tax" LineID="L-2" Price="19.00" />
-				<Price DescriptiveName="Total Price" PriceType="Total" TaxType="Gross" LineID="L-3" LineIDRefs="L-1 L-2" Price="119.00" />
-			</Pricing>
-			<xjdf:XJDF JobID="JOB-22" Types="Product">
-				<xjdf:ProductList>
-					<xjdf:Product Amount="1000">
-						<xjdf:GeneralID IDUsage="LineID" IDValue="L-1"/>
-						<xjdf:Intent Name="ColorIntent">
-							<xjdf:ColorIntent>
-								<xjdf:SurfaceColor ColorsUsed="Cyan Magenta Yellow Black" Surface="Front" PrintStandard="FOGRA51" />
-								<xjdf:SurfaceColor ColorsUsed="Cyan Magenta Yellow Black" Surface="Back" PrintStandard="FOGRA51" />
-							</xjdf:ColorIntent>
-						</xjdf:Intent>
-						<xjdf:Intent Name="LayoutIntent">
-							<xjdf:LayoutIntent FinishedDimensions="297.64 419.53 0" Pages="2" Sides="TwoSidedHeadToHead" SpreadType="SinglePage" />
-						</xjdf:Intent>
-						<xjdf:Intent Name="MediaIntent">
-							<xjdf:MediaIntent MediaType="Paper" Coating="None" Weight="90"/>
-						</xjdf:Intent>
-					</xjdf:Product>
-				</xjdf:ProductList>
-				<xjdf:ResourceSet Name="Contact" Usage="Input">
-					<xjdf:Resource>
-						<xjdf:Part ContactType="Delivery"/>
-						<xjdf:Contact>
-							<xjdf:Address Country="Germany" CountryCode="DE" Region="North Rhine-Westphalia"
-							PostalCode="12345" City="ExampleCity" Street="ExampleStreet 1"/>
-							<xjdf:Company OrganizationName="Example Company Ltd." />
-						</xjdf:Contact>
-					</xjdf:Resource>
-					<xjdf:Resource>
-						<xjdf:Part ContactType="SenderAlias" />
-						<xjdf:Contact>
-							<xjdf:Address Country="Germany" CountryCode="DE" Region="North Rhine-Westphalia" PostalCode="12345" City="ExampleCity" Street="ExampleStreet 1"/>
-							<xjdf:Person FamilyName="Mustermann" FirstName="Max"/>
-						</xjdf:Contact>
-					</xjdf:Resource>
-				</xjdf:ResourceSet>
-				<xjdf:ResourceSet Name="DeliveryParams" Usage="Input">
-					<xjdf:Resource>
-						<xjdf:DeliveryParams Method="StandardShipping" Required="2019-10-28T16:00:00.000+02:00" />
-					</xjdf:Resource>
-				</xjdf:ResourceSet>
-                <xjdf:ResourceSet Name="NodeInfo" Usage="Input">
-                    <xjdf:Resource>
-                        <xjdf:NodeInfo NaturalLang="German"/>
-                    </xjdf:Resource>
-                </xjdf:ResourceSet>
-				<xjdf:ResourceSet Name="RunList" Usage="Input">
-					<xjdf:Resource>
-						<xjdf:RunList>
-							<xjdf:FileSpec MimeType="application/pdf" URL="http://example.org/artwork.pdf" />
-						</xjdf:RunList>
-					</xjdf:Resource>
-				</xjdf:ResourceSet>
-			</xjdf:XJDF>
-		</PurchaseOrder>
-	</Request>
+<?xml version="1.0" encoding="UTF-8"?>
+<PrintTalk ICSVersions="Cus-APP_L1-2.2" Version="2.2"
+  payloadID="P_000013" timestamp="2024-06-26T19:46:29+02:00"
+  xmlns="http://www.printtalk.org/schema_20" xmlns:xjdf="http://www.CIP4.org/JDFSchema_2_0">
+  <Header>
+    <From>
+      <Credential domain="CustomerID">
+        <Identity>CID-123</Identity>
+      </Credential>
+      <Credential domain="URL">
+        <Identity>https://worker.example.org/XJDF</Identity>
+      </Credential>
+    </From>
+    <To>
+      <Credential domain="URL">
+        <Identity>https://worker.example.org/XJDF</Identity>
+      </Credential>
+    </To>
+  </Header>
+  <Request BusinessID="B-42">
+    <PurchaseOrder Expires="2019-10-24T10:00:00.000+02:00">
+      <Pricing Currency="EUR">
+        <Price DescriptiveName="1000 Flyer DIN A6" LineID="L-1"
+          Price="100.00" PriceType="Product" TaxType="Net"/>
+        <Price DescriptiveName="Tax 19 %" LineID="L-2" Price="19.00"
+          PriceType="Product" TaxType="Tax"/>
+        <Price DescriptiveName="Total Price" LineID="L-3"
+          LineIDRefs="L-1 L-2" Price="119.00" PriceType="Total" TaxType="Gross"/>
+      </Pricing>
+      <xjdf:XJDF JobID="JOB-22" Types="Product">
+        <xjdf:ProductList>
+          <xjdf:Product Amount="1000">
+            <xjdf:GeneralID IDUsage="LineID" IDValue="L-1"/>
+            <xjdf:Intent Name="ColorIntent">
+              <xjdf:ColorIntent>
+                <xjdf:SurfaceColor
+                  ColorsUsed="Cyan Magenta Yellow Black"
+                  PrintStandard="FOGRA51" Surface="Front"/>
+                <xjdf:SurfaceColor
+                  ColorsUsed="Cyan Magenta Yellow Black"
+                  PrintStandard="FOGRA51" Surface="Back"/>
+              </xjdf:ColorIntent>
+            </xjdf:Intent>
+            <xjdf:Intent Name="LayoutIntent">
+              <xjdf:LayoutIntent FinishedDimensions="297.64 419.53 0"
+                Pages="2" Sides="TwoSidedHeadToHead" SpreadType="SinglePage"/>
+            </xjdf:Intent>
+            <xjdf:Intent Name="MediaIntent">
+              <xjdf:MediaIntent Coating="None" MediaType="Paper" Weight="90"/>
+            </xjdf:Intent>
+          </xjdf:Product>
+        </xjdf:ProductList>
+        <xjdf:ResourceSet Name="Contact" Usage="Input">
+          <xjdf:Resource>
+            <xjdf:Part ContactType="Delivery"/>
+            <xjdf:Contact>
+              <xjdf:Address City="ExampleCity" Country="Germany"
+                CountryCode="DE" PostalCode="12345"
+                Region="North Rhine-Westphalia" Street="ExampleStreet 1"/>
+              <xjdf:Company OrganizationName="Example Company Ltd."/>
+            </xjdf:Contact>
+          </xjdf:Resource>
+          <xjdf:Resource>
+            <xjdf:Part ContactType="SenderAlias"/>
+            <xjdf:Contact>
+              <xjdf:Address City="ExampleCity" Country="Germany"
+                CountryCode="DE" PostalCode="12345"
+                Region="North Rhine-Westphalia" Street="ExampleStreet 1"/>
+              <xjdf:Person FamilyName="Mustermann" FirstName="Max"/>
+            </xjdf:Contact>
+          </xjdf:Resource>
+        </xjdf:ResourceSet>
+        <xjdf:ResourceSet Name="DeliveryParams" Usage="Input">
+          <xjdf:Resource>
+            <xjdf:DeliveryParams Method="StandardShipping" Required="2019-10-28T16:00:00.000+02:00"/>
+          </xjdf:Resource>
+        </xjdf:ResourceSet>
+        <xjdf:ResourceSet Name="NodeInfo" Usage="Input">
+          <xjdf:Resource>
+            <xjdf:NodeInfo NaturalLang="German"/>
+          </xjdf:Resource>
+        </xjdf:ResourceSet>
+        <xjdf:ResourceSet Name="RunList" Usage="Input">
+          <xjdf:Resource>
+            <xjdf:RunList>
+              <xjdf:FileSpec MimeType="application/pdf" URL="http://example.org/artwork.pdf"/>
+            </xjdf:RunList>
+          </xjdf:Resource>
+        </xjdf:ResourceSet>
+      </xjdf:XJDF>
+    </PurchaseOrder>
+  </Request>
 </PrintTalk>
