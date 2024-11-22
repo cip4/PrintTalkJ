@@ -2,11 +2,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.cip4.lib.ptk</groupId>
     <artifactId>PrintTalkJ</artifactId>
-    <version>2.1.7.x-SNAPSHOT</version>
+    <version>2.1.8.x-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>PrintTalkJ</name>
     <url>http://www.cip4.org</url>
-    <description>CIP4 PrintTalk Library for PrintTalk 1.x</description>
+    <description>CIP4 PrintTalk Library for PrintTalk 2.x</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp>
@@ -23,7 +23,7 @@
         <url>https://github.com/cip4/PrintTalkJ</url>
         <developerConnection>scm:git:https://github.com/cip4/PrintTalkJ.git</developerConnection>
         <connection>scm:git:https://github.com/cip4/PrintTalkJ.git</connection>
-        <tag>PrintTalkJ-2.1.7.0</tag>
+        <tag>PrintTalkJ-2.1.8.0</tag>
     </scm>
     <issueManagement>
         <system>JIRA</system>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.cip4.lib.jdf</groupId>
             <artifactId>JDFLibJ</artifactId>
-            <version>2.1.7.33</version>
+            <version>2.1.8.10</version>
         </dependency>
 
         <!-- Test Environment -->
@@ -79,8 +79,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -94,22 +94,6 @@
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
-            <!-- TBD is this needed?
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>

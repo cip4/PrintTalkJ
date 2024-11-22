@@ -49,6 +49,7 @@ import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.JDFElement;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.core.VString;
+import org.cip4.jdflib.elementwalker.RemovePrivate;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
@@ -100,6 +101,19 @@ public class PrintTalkTest extends PrintTalkTestCase
 	{
 		final PrintTalk pt = new PrintTalk();
 		assertTrue(PrintTalk.isInPTKNameSpace(pt.getRoot().getNamespaceURI()));
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void testRemovePrivate()
+	{
+		final PrintTalk pt = new PrintTalk();
+		pt.getRoot().setAttribute("foo:bar", "abc", "www.foo.com");
+		final RemovePrivate rp = new RemovePrivate();
+		rp.walkTree(pt.getRoot(), null);
+		assertNull(pt.getAttribute("foo:bar"));
 	}
 
 	/**
@@ -260,7 +274,7 @@ public class PrintTalkTest extends PrintTalkTestCase
 	@Test
 	public void testGetPrintTalkXML()
 	{
-		KElement e = KElement.createRoot(PrintTalk.PRINT_TALK, null);
+		final KElement e = KElement.createRoot(PrintTalk.PRINT_TALK, null);
 		final PrintTalk pt = new PrintTalk(e);
 		assertEquals(pt.getPrintTalk(), pt);
 		assertTrue(pt.getRoot() instanceof JDFElement);
