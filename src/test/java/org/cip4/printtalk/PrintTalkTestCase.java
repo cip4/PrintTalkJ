@@ -36,10 +36,10 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
@@ -59,8 +59,8 @@ import org.cip4.jdflib.util.StringUtil;
 import org.cip4.jdflib.util.UrlUtil;
 import org.cip4.printtalk.builder.PrintTalkBuilder;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Node;
 
@@ -107,7 +107,7 @@ public abstract class PrintTalkTestCase
 	/**
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		PrintTalk.setDefaultVersion(-1);
@@ -260,7 +260,7 @@ public abstract class PrintTalkTestCase
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		JDFElement.setLongID(false);

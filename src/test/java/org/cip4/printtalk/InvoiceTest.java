@@ -36,13 +36,13 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.Price.EnumPriceType;
 import org.cip4.printtalk.Price.EnumTaxType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -84,6 +84,7 @@ public class InvoiceTest extends PrintTalkTestCase
 		invoice.setDueDate(3);
 		final Pricing p = invoice.getCreatePricing();
 		p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Our best price", 100);
+		p.setCurrency("XBT");
 		log.info("invoice: " + invoice);
 		invoice.cleanUp();
 		reparse(invoice, false);
@@ -100,13 +101,14 @@ public class InvoiceTest extends PrintTalkTestCase
 		invoice.setDueDate(3);
 		final Pricing p = invoice.getCreatePricing();
 		p.addPrice(EnumPriceType.Product, EnumTaxType.Gross, "Our best price", 100);
+		p.setCurrency("XBT");
 		invoice.getCreateMasterContract("C2");
 		invoice.cleanUp();
 		reparse(invoice, false);
 	}
 
 	/**
-	 * @see org.cip4.printtalk.PrintTalkTestCase#setUp()
+	 * @see PrintTalkTestCase#setUp()
 	 */
 	@Override
 	public void setUp() throws Exception

@@ -238,7 +238,7 @@ public class StockLevelRequest extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.BusinessObject#getMasterContractID()
+	 * @see BusinessObject#getMasterContractID()
 	 */
 	@Override
 	public String getMasterContractID()

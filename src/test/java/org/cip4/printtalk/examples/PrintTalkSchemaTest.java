@@ -45,7 +45,7 @@ import org.cip4.jdflib.datatypes.JDFAttributeMap;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.jdflib.util.StringUtil;
 import org.cip4.printtalk.PrintTalkTestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PrintTalkSchemaTest extends PrintTalkTestCase
 {

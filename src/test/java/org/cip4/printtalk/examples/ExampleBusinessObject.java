@@ -36,7 +36,7 @@
  */
 package org.cip4.printtalk.examples;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
@@ -78,7 +78,7 @@ import org.cip4.printtalk.RFQ;
 import org.cip4.printtalk.Refusal;
 import org.cip4.printtalk.Refusal.EnumReason;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ExampleBusinessObject extends PrintTalkTestCase
 {
@@ -178,7 +178,7 @@ public class ExampleBusinessObject extends PrintTalkTestCase
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
 		final PrintTalk pt = theFactory.getBuilder().getPrintTalk();
 		final OrderStatusResponse po = (OrderStatusResponse) pt.appendRequest(EnumBusinessObject.OrderStatusResponse, null);
-		po.setBusinessID("Staus_1");
+				po.setBusinessID("Status_1");
 		po.setBusinessRefID("PO_1");
 		final AuditPoolHelper aph = po.getCreateAuditPool();
 		po.setMilestone("j1", "ShippingInProgress");

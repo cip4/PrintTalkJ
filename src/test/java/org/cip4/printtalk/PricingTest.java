@@ -36,15 +36,15 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.cip4.jdflib.core.XMLDoc;
 import org.cip4.printtalk.Price.EnumPriceType;
 import org.cip4.printtalk.Price.EnumTaxType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *

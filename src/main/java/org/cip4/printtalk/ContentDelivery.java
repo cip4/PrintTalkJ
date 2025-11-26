@@ -58,7 +58,7 @@ public class ContentDelivery extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#setXJDF(org.cip4.jdflib.extensions.XJDFHelper)
+	 * @see AbstractPrintTalk#setXJDF(XJDFHelper)
 	 */
 	@Override
 	public void setXJDF(final XJDFHelper xjdf)
@@ -67,7 +67,7 @@ public class ContentDelivery extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDF(int)
+	 * @see AbstractPrintTalk#getXJDF(int)
 	 */
 	@Override
 	public XJDFHelper getXJDF(final int i)

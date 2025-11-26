@@ -1,26 +1,24 @@
-name: PrintTalkJ Snapshot
+name: Snapshot
+
+# This build process is triggered in case changes are being pushed to the master branch.
+# This process takes the latest master changes, build and test the new version and finally publish the artifacts
+# to the Central Maven SNAPSHOT Repository.
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out sources...
-        uses: actions/checkout@v2
-
-      - name: Set up JDK 8
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt'
-          java-version: 8
-          cache: 'maven'
-
-      - name: Maven Deploy
-        env:
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: mvn --settings maven-settings.xml -Dgpg.passphrase=$SIGNING_PASSWORD -Dossrh.username=$OSSRH_USERNAME -Dossrh.password=$OSSRH_PASSWORD -Dmaven.javadoc.failOnError=false clean deploy
+  call-snapshot:
+    name: 🏭
+    uses: cip4/.github/.github/workflows/library-snapshot.yml@master
+    with:
+      java-version: 21
+      codecov-enabled: true
+    secrets:
+      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+      SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+      OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+      OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

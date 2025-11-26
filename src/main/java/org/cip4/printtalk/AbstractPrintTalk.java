@@ -162,7 +162,7 @@ public abstract class AbstractPrintTalk
 
 	/**
 	 *
-	 * @see java.lang.Object#toString()
+	 * @see Object#toString()
 	 */
 	@Override
 	public String toString()
@@ -605,7 +605,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 * we are equal if the underlying element is equal
 	 *
-	 * @see java.lang.Object#equals(java.lang.Object)
+	 * @see Object#equals(Object)
 	 */
 	@Override
 	public boolean equals(final Object arg0)
@@ -618,7 +618,7 @@ public abstract class AbstractPrintTalk
 	/**
 	 * we are equal if the underlying element is equal
 	 *
-	 * @see java.lang.Object#hashCode()
+	 * @see Object#hashCode()
 	 */
 	@Override
 	public int hashCode()

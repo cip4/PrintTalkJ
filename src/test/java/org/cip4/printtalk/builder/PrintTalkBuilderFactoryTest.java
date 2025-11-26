@@ -36,13 +36,13 @@
  */
 package org.cip4.printtalk.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkTestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PrintTalkBuilderFactoryTest extends PrintTalkTestCase
 {
@@ -122,7 +122,7 @@ public class PrintTalkBuilderFactoryTest extends PrintTalkTestCase
 	}
 
 	/**
-	 * @see org.cip4.printtalk.PrintTalkTestCase#tearDown()
+	 * @see PrintTalkTestCase#tearDown()
 	 */
 	@Override
 	public void tearDown() throws Exception

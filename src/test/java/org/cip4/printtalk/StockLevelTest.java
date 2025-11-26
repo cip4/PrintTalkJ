@@ -36,13 +36,13 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.cip4.jdflib.extensions.XJDFHelper;
 import org.cip4.jdflib.resource.JDFLocation;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.StockLevelRequest.EnumAvailability;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *

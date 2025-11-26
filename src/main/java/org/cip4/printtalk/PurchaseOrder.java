@@ -87,7 +87,7 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.BusinessObject#getMasterContractID()
+	 * @see BusinessObject#getMasterContractID()
 	 */
 	@Override
 	public String getMasterContractID()
@@ -266,7 +266,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 *
-	 * @see org.cip4.printtalk.AbstractPrintTalk#setXJDF(org.cip4.jdflib.extensions.XJDFHelper)
+	 * @see AbstractPrintTalk#setXJDF(XJDFHelper)
 	 */
 	@Override
 	public void setXJDF(final XJDFHelper xjdf)
@@ -276,7 +276,7 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDF(int)
+	 * @see AbstractPrintTalk#getXJDF(int)
 	 */
 	@Override
 	public XJDFHelper getXJDF(final int i)
@@ -286,7 +286,7 @@ public class PurchaseOrder extends BusinessObject
 
 	/**
 	 *
-	 * @see org.cip4.printtalk.AbstractPrintTalk#appendXJDF(org.cip4.jdflib.extensions.XJDFHelper)
+	 * @see AbstractPrintTalk#appendXJDF(XJDFHelper)
 	 */
 	@Override
 	public void appendXJDF(final XJDFHelper xjdf)
@@ -295,7 +295,7 @@ public class PurchaseOrder extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getXJDFs()
+	 * @see AbstractPrintTalk#getXJDFs()
 	 */
 	@Override
 	public Vector<XJDFHelper> getXJDFs()
