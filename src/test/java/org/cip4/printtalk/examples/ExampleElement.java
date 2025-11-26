@@ -58,7 +58,6 @@ public class ExampleElement extends PrintTalkTestCase
 	 *
 	 */
 	@Test
-	@Disabled("test fails on linux build server")
 	public synchronized void testPricing()
 	{
 		final PrintTalkBuilderFactory theFactory = PrintTalkBuilderFactory.getTheFactory();
