@@ -36,12 +36,12 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 
@@ -53,7 +53,7 @@ import org.cip4.jdflib.elementwalker.RemovePrivate;
 import org.cip4.jdflib.util.JDFDate;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -336,6 +336,6 @@ public class PrintTalkTest extends PrintTalkTestCase
 		assertEquals(pt.getPrintTalk(), pt);
 		assertEquals(pt.getPrintTalk().hashCode(), pt.hashCode());
 		assertNotSame(pt, new PrintTalk(pt.getRoot().clone()));
-		assertNotSame("there is a on in 4 billion chance that this may fail ;-)", pt.hashCode(), new PrintTalk(pt.getRoot().clone()).hashCode());
+		assertNotSame(pt.hashCode(), new PrintTalk(pt.getRoot().clone()).hashCode(), "there is a on in 4 billion chance that this may fail ;-)");
 	}
 }

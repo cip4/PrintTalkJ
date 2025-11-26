@@ -78,7 +78,7 @@ public class Invoice extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.BusinessObject#getMasterContractID()
+	 * @see BusinessObject#getMasterContractID()
 	 */
 	@Override
 	public String getMasterContractID()
@@ -117,7 +117,7 @@ public class Invoice extends BusinessObject
 
 	/**
 	 *
-	 * @see org.cip4.printtalk.AbstractPrintTalk#appendXJDF(org.cip4.jdflib.extensions.XJDFHelper)
+	 * @see AbstractPrintTalk#appendXJDF(XJDFHelper)
 	 */
 	@Override
 	public void appendXJDF(final XJDFHelper xjdf)
@@ -202,7 +202,7 @@ public class Invoice extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 * @see AbstractPrintTalk#cleanUp()
 	 */
 	@Override
 	public void cleanUp()

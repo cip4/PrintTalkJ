@@ -48,7 +48,7 @@ import org.cip4.printtalk.PrintTalk;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkTestCase;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ExampleElement extends PrintTalkTestCase
 {

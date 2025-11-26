@@ -125,7 +125,7 @@ public abstract class BusinessObject extends AbstractPrintTalk
 
 	/**
 	 *
-	 * @see org.cip4.printtalk.AbstractPrintTalk#init()
+	 * @see AbstractPrintTalk#init()
 	 */
 	@Override
 	public void init()

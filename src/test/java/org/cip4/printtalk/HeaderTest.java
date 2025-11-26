@@ -36,12 +36,12 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *

@@ -148,7 +148,7 @@ public class OrderStatusResponse extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getCreateAuditPool()
+	 * @see AbstractPrintTalk#getCreateAuditPool()
 	 */
 	@Override
 	public AuditPoolHelper getCreateAuditPool()
@@ -157,7 +157,7 @@ public class OrderStatusResponse extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 * @see AbstractPrintTalk#cleanUp()
 	 */
 	@Override
 	public void cleanUp()

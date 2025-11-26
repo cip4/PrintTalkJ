@@ -502,7 +502,7 @@ public class PrintTalk extends AbstractPrintTalk
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getPrintTalk()
+	 * @see AbstractPrintTalk#getPrintTalk()
 	 */
 	@Override
 	public PrintTalk getPrintTalk()
@@ -531,7 +531,7 @@ public class PrintTalk extends AbstractPrintTalk
 	/**
 	 * @param filename
 	 * @return
-	 * @see org.cip4.jdflib.core.KElement#write2File(java.lang.String)
+	 * @see KElement#write2File(String)
 	 */
 	public boolean write2File(final String filename)
 	{

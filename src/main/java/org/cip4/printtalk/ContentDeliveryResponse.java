@@ -77,7 +77,7 @@ public class ContentDeliveryResponse extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getAuditPool()
+	 * @see AbstractPrintTalk#getAuditPool()
 	 */
 	@Override
 	public AuditPoolHelper getAuditPool()
@@ -86,7 +86,7 @@ public class ContentDeliveryResponse extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#getCreateAuditPool()
+	 * @see AbstractPrintTalk#getCreateAuditPool()
 	 */
 	@Override
 	public AuditPoolHelper getCreateAuditPool()

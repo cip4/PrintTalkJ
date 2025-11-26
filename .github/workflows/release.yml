@@ -1,0 +1,23 @@
+name: Release
+
+# This build process is triggered in case a new annotated tag has been created, which name starts with "JDFLibJ-2.1.".
+# This process takes the latest master changes, build and test the new version and finally releases the artifacts
+# on the Central Maven Repository as well as on projects Release page on github.
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  call-release:
+    name: 🏭
+    uses: cip4/.github/.github/workflows/library-release.yml@master
+    with:
+      java-version: 21
+    secrets:
+      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+      SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+      OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+      OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

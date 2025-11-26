@@ -71,7 +71,7 @@ public class StockLevel extends AbstractPrintTalk implements IMatches
 	}
 
 	/**
-	 * @see org.cip4.jdflib.ifaces.IMatches#matches(java.lang.Object)
+	 * @see IMatches#matches(Object)
 	 */
 	@Override
 	public boolean matches(final Object stockLevelRequest)

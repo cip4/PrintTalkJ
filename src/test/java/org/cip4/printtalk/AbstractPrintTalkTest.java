@@ -36,10 +36,10 @@
  */
 package org.cip4.printtalk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.ElementName;
@@ -48,7 +48,7 @@ import org.cip4.jdflib.core.JDFElement.EnumVersion;
 import org.cip4.jdflib.core.KElement;
 import org.cip4.jdflib.extensions.AuditPoolHelper;
 import org.cip4.printtalk.HeaderBase.EnumHeaderType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -145,7 +145,7 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 		final Credential to = pt.setCredential(EnumHeaderType.To, "abc", "efg");
 		final Credential from = pt.setCredential(EnumHeaderType.From, "abc0", "efg0");
 		pt.cleanUp();
-		assertEquals("not sorted", to.theElement.getParentNode_KElement(), from.theElement.getParentNode_KElement().getNextSiblingElement());
+		assertEquals(to.theElement.getParentNode_KElement(), from.theElement.getParentNode_KElement().getNextSiblingElement(), "not sorted");
 
 	}
 
@@ -178,7 +178,7 @@ public class AbstractPrintTalkTest extends PrintTalkTestCase
 	}
 
 	/**
-	 * @see org.cip4.printtalk.PrintTalkTestCase#tearDown()
+	 * @see PrintTalkTestCase#tearDown()
 	 */
 	@Override
 	public void tearDown() throws Exception

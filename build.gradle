@@ -1,0 +1,189 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
+    id 'jacoco'
+}
+
+group = 'org.cip4.lib.ptk'
+description = 'CIP4 PrintTalk Library for PrintTalk 2.x'
+version = project.hasProperty('projectVersion') ? project.projectVersion : '2.1.8.x-SNAPSHOT'
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = project.name
+
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = project.description
+                description = 'CIP4 PrintTalkJ Library'
+                url = 'https://github.com/cip4/PrintTalkJ'
+
+                organization {
+                    name = "CIP4 Organization"
+                    url = "https://www.cip4.org"
+                }
+                developers {
+                    developer {
+                        id = "cip4-development"
+                        name = "CIP4 Development"
+                    }
+                }
+                licenses {
+                    license {
+                        name = 'CIP4 Software License'
+                        url = 'https://github.com/cip4/PrintTalkJ/blob/master/LICENSE.md'
+                    }
+                }
+                scm {
+                    connection = 'https://github.com/cip4/PrintTalkJ.git'
+                    developerConnection = 'scm:git:https://github.com/cip4/PrintTalkJ.git'
+                    url = 'https://github.com/cip4/PrintTalkJ'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "sonatype"
+            def releasesRepoUrl = "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://central.sonatype.com/repository/maven-snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+            username = ossrhUsername
+            password = ossrhPassword
+            stagingProfileId = '105e2b532689c6' // This can often be omitted if your packageGroup is unique
+            packageGroup = 'org.cip4'
+        }
+    }
+}
+
+configurations {
+    xjc
+}
+
+repositories {
+    mavenCentral()
+}
+
+signing {
+    if (!version.endsWith("SNAPSHOT")) {
+        sign publishing.publications.mavenJava
+    }
+}
+
+javadoc {
+    failOnError = false
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+processResources {
+    filesMatching(['**/*.properties']) {
+        filter(ReplaceTokens, tokens: [
+                'name': project.properties['description'],
+                'version': project.properties['version'],
+                'artifactId': project.properties['name'],
+                'timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", TimeZone.getTimeZone("GMT"))
+        ])
+    }
+}
+
+dependencies {
+    implementation 'org.cip4.lib.jdf:JDFLibJ:2.1.8.10'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
+}
+
+tasks.named('sourcesJar') {
+    dependsOn(':xjc')
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = false
+    }
+}
+
+test {
+    useJUnitPlatform()
+    maxParallelForks = Runtime.runtime.availableProcessors()
+}
+
+jar {
+    manifest {
+        attributes(
+                "Implementation-Build-Date": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "Implementation-Title": project.description,
+                "Implementation-Version": project.version,
+                "Implementation-Vendor-Id": project.group,
+                "Specification-Title": project.description,
+                "Specification-Version": project.version,
+                "Build-Jdk": JavaVersion.current(),
+        )
+    }
+}
+
+tasks.register('zipTestPackage', Zip) {
+    from 'src/test/resources/org/cip4/lib/xjdf/testPackage'
+    include '*'
+    include '*/*'
+    archiveFileName = 'testPackage.zip'
+    destinationDirectory = file("$buildDir/resources/test/org/cip4/lib/xjdf/")
+}
+
+processTestResources.dependsOn(zipTestPackage)
+
+tasks.withType(Test).configureEach {
+    testLogging {
+        events TestLogEvent.FAILED,
+                TestLogEvent.SKIPPED
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+}

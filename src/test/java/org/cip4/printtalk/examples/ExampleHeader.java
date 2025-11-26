@@ -36,7 +36,7 @@
  */
 package org.cip4.printtalk.examples;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.cip4.jdflib.core.AttributeName;
 import org.cip4.jdflib.core.KElement;
@@ -49,7 +49,7 @@ import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkConstants;
 import org.cip4.printtalk.PrintTalkTestCase;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ExampleHeader extends PrintTalkTestCase
 {

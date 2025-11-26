@@ -2,6 +2,8 @@
 /.settings/
 /bin/
 /schema-1.5/
+/build
+/.gradle
 .classpath
 .project
 .idea

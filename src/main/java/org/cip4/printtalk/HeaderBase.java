@@ -245,7 +245,7 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 * @see AbstractPrintTalk#cleanUp()
 	 */
 	@Override
 	public void cleanUp()

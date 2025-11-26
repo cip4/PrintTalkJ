@@ -36,9 +36,9 @@
  */
 package org.cip4.printtalk.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.cip4.jdflib.extensions.XJDFConstants;
 import org.cip4.jdflib.extensions.XJDFHelper;
@@ -48,7 +48,7 @@ import org.cip4.printtalk.PrintTalk;
 import org.cip4.printtalk.PrintTalk.EnumBusinessObject;
 import org.cip4.printtalk.PrintTalkTestCase;
 import org.cip4.printtalk.Quotation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PrintTalkBuilderTest extends PrintTalkTestCase
 {

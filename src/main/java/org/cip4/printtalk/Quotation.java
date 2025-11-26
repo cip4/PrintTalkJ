@@ -97,7 +97,7 @@ public class Quotation extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.BusinessObject#getMasterContractID()
+	 * @see BusinessObject#getMasterContractID()
 	 */
 	@Override
 	public String getMasterContractID()
@@ -285,7 +285,7 @@ public class Quotation extends BusinessObject
 	}
 
 	/**
-	 * @see org.cip4.printtalk.AbstractPrintTalk#cleanUp()
+	 * @see AbstractPrintTalk#cleanUp()
 	 */
 	@Override
 	public void cleanUp()

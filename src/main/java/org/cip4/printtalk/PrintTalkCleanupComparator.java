@@ -52,7 +52,7 @@ class PrintTalkCleanupComparator extends KElement.SimpleElementNameComparator
 	}
 
 	/**
-	 * @see org.cip4.jdflib.core.KElement.SimpleElementNameComparator#compare(org.cip4.jdflib.core.KElement, org.cip4.jdflib.core.KElement)
+	 * @see KElement.SimpleElementNameComparator#compare(KElement, KElement)
 	 */
 	@Override
 	public int compare(final KElement o1, final KElement o2)

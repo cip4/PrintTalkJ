@@ -53,7 +53,7 @@ import org.cip4.printtalk.Refusal;
 import org.cip4.printtalk.Refusal.EnumReason;
 import org.cip4.printtalk.builder.PrintTalkBuilder;
 import org.cip4.printtalk.builder.PrintTalkBuilderFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ExampleAppIcs extends PrintTalkTestCase
 {

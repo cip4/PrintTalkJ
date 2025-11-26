@@ -1,8 +1,15 @@
 version: 2
 updates:
-  - package-ecosystem: "maven"
-    directory: "/"
+  - directory: /
+    package-ecosystem: gradle
     schedule:
-      interval: "daily"
+      interval: weekly
     assignees:
+      - rainer-prosi
+  - directory: /
+    package-ecosystem: github-actions
+    schedule:
+      interval: weekly
+    assignees:
+      - MichelHartmann
       - rainer-prosi
