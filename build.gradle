@@ -125,7 +125,7 @@ processResources {
 }
 
 dependencies {
-    implementation 'org.cip4.lib.jdf:JDFLibJ:2.1.8.10'
+    implementation 'org.cip4.lib.jdf:JDFLibJ:2.2.8.3'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.3'
