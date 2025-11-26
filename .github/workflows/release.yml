@@ -14,7 +14,7 @@ jobs:
     name: 🏭
     uses: cip4/.github/.github/workflows/library-release.yml@master
     with:
-      java-version: 21
+      java-version: 17
     secrets:
       SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
       SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
