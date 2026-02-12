@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2026 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -81,6 +81,21 @@ public class HeaderBaseTest extends PrintTalkTestCase
 		pt.setCredential(EnumHeaderType.From, "a", "a1");
 		pt.setCredential(EnumHeaderType.From, "a", "a2");
 		assertEquals("a2", pt.getCredential(EnumHeaderType.From, "a").getIdentity());
+		assertNotNull(pt.getHeader(EnumHeaderType.From));
+	}
+
+	/**
+	 *
+	 *
+	 */
+	@Test
+	public void testGetCredential2()
+	{
+		final PrintTalk pt = new PrintTalk();
+		pt.setCredential(EnumHeaderType.From, "a:b", "a1");
+		assertEquals("a1", pt.getCredential(EnumHeaderType.From, "a:b").getIdentity());
+		assertEquals("a1", pt.getCredential(EnumHeaderType.From, "b").getIdentity());
+		assertNull(pt.getCredential(EnumHeaderType.From, "a"));
 		assertNotNull(pt.getHeader(EnumHeaderType.From));
 	}
 

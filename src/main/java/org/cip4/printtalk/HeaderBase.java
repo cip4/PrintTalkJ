@@ -1,7 +1,7 @@
 /**
  * The CIP4 Software License, Version 1.0
  *
- * Copyright (c) 2001-2019 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
+ * Copyright (c) 2001-2026 The International Cooperation for the Integration of Processes in Prepress, Press and Postpress (CIP4). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
@@ -64,7 +64,6 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 *
 	 * @param iskip
 	 * @return
 	 */
@@ -75,7 +74,6 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public String getUserAgent()
@@ -84,7 +82,6 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 *
 	 * @param agent
 	 */
 	public void setUserAgent(final String agent)
@@ -93,13 +90,10 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 *
 	 * set the Identity value of a credential
 	 *
-	 * @param domain of the credential
+	 * @param domain   of the credential
 	 * @param identity
-	 *
-	 *
 	 */
 	public Credential setCredential(final String domain, final String identity)
 	{
@@ -123,38 +117,62 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 *
 	 * @param domain
 	 * @return
 	 */
 	public Credential getCredential(final String domain)
 	{
-		final KElement e = theElement == null ? null : theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
+		final KElement e = getCredentialElement(domain);
 		return e == null ? null : new Credential(e);
 	}
 
+	KElement getCredentialElement(final String domain)
+	{
+		if (theElement == null)
+		{
+			return null;
+		}
+		final KElement kElement = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, Credential.DOMAIN, null, domain, 0, true);
+		if (kElement == null)
+		{
+			final VElement vce = getCredentialElements();
+			if (vce != null)
+			{
+				for (final KElement e : vce)
+				{
+					final String dom = e.getNonEmpty(Credential.DOMAIN);
+					if (StringUtil.equals(domain, StringUtil.token(dom, -1, JDFConstants.COLON)))
+					{
+						return e;
+					}
+				}
+			}
+		}
+		return kElement;
+	}
+
 	/**
-	 *
 	 * @param domain
 	 * @return
 	 */
 	public Credential removeCredential(final String domain)
 	{
-		final KElement e = theElement == null ? null : theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
+		final KElement e = getCredentialElement(domain);
 		return e == null ? null : new Credential(e.deleteNode());
 	}
 
 	/**
-	 *
 	 * @param domain
 	 * @return
 	 */
 	public Credential getCreateCredential(final String domain)
 	{
 		if (theElement == null)
+		{
 			return null;
+		}
 
-		final KElement e = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, "domain", null, domain, 0, true);
+		final KElement e = theElement.getChildWithAttribute(Credential.ELEMENT_CREDENTIAL, Credential.DOMAIN, null, domain, 0, true);
 		if (e == null)
 		{
 			final Credential c = new Credential(theElement.appendElement(Credential.ELEMENT_CREDENTIAL));
@@ -164,7 +182,6 @@ public class HeaderBase extends AbstractPrintTalk
 	}
 
 	/**
-	 *
 	 * @author rainer prosi
 	 * @date Oct 28, 2013
 	 */
@@ -214,7 +231,7 @@ public class HeaderBase extends AbstractPrintTalk
 
 	public List<Credential> getCredentials()
 	{
-		final VElement v0 = theElement == null ? null : theElement.getChildElementVector(Credential.ELEMENT_CREDENTIAL, null);
+		final VElement v0 = getCredentialElements();
 		if (!ContainerUtil.isEmpty(v0))
 		{
 			final List<Credential> v = new ArrayList<>();
@@ -227,8 +244,13 @@ public class HeaderBase extends AbstractPrintTalk
 		return null;
 	}
 
+	VElement getCredentialElements()
+	{
+		final VElement v0 = theElement == null ? null : theElement.getChildElementVector(Credential.ELEMENT_CREDENTIAL, null);
+		return v0;
+	}
+
 	/**
-	 *
 	 * @return
 	 */
 	public EnumHeaderType getHeaderType()
