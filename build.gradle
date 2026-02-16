@@ -127,9 +127,9 @@ processResources {
 dependencies {
     implementation 'org.cip4.lib.jdf:JDFLibJ:2.2.8.3'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.13.4'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.13.4'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.13.4'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.14.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.14.3'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.3'
     testImplementation 'org.mockito:mockito-core:4.11.0'
 }
 
