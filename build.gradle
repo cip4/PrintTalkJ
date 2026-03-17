@@ -130,7 +130,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.14.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.14.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.3'
-    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'org.mockito:mockito-core:5.23.0'
 }
 
 jacocoTestReport {
